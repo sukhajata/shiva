@@ -1,0 +1,35 @@
+﻿<TreeView x:Class="GnosisControls.GnosisGallery"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GnosisControls"
+             mc:Ignorable="d" BorderThickness="0"
+             >
+    <TreeView.Template>
+        <ControlTemplate TargetType="{x:Type TreeView}">
+            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    SnapsToDevicePixels="true">
+                <ScrollViewer x:Name="_tv_scrollviewer_" 
+                              Background="{TemplateBinding Background}" 
+                              CanContentScroll="false" 
+                              Focusable="false" 
+                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" 
+                              Padding="{TemplateBinding Padding}" 
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                    <ItemsPresenter/>
+                </ScrollViewer>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
+                    <Setter Property="CanContentScroll" TargetName="_tv_scrollviewer_" Value="true"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </TreeView.Template>
+</TreeView>

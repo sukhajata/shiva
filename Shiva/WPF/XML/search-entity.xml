@@ -1,0 +1,134 @@
+<GnosisEntity EntityID="2247" Entity="Search Type" EntityType="Search" SystemURL="www.gnosis.co.nz" SystemID="57" VersionNo="1" AllowRead="1" AllowCreate="0" AllowUpdate="0" AllowDelete="0">
+  <GnosisDataDefinition>
+    <GnosisDataKey KeyOrder="1" Name="Key1" Dataset="Search Type" DatasetItem="Search ID" />
+    <GnosisDataType Name="audit_datetime" SqlDataType="datetime" Precision="17" MinDisplayChars="13" MaxDisplayChars="30" UnitOfMeasure="@" />
+    <GnosisDataType Name="audit_user_id" SqlDataType="int" MaxChars="11" />
+    <GnosisDataType Name="gnosis_entity_id" SqlDataType="int" MaxChars="11" />
+    <GnosisDataType Name="gnosis_sysname" SqlDataType="sysname" MaxChars="128" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" />
+    <GnosisDataType Name="gnosis_longname" SqlDataType="nvarchar" MaxChars="512" MinDisplayChars="32" MaxDisplayChars="96" />
+    <GnosisDataType Name="search_ntext" SqlDataType="nvarchar" MaxChars="255" MinDisplayChars="72" MaxDisplayChars="96" UnitOfMeasure="¶" ErrorMessage="The length may not exceed 255 characters" />
+    <GnosisDataType Name="label_ntext" SqlDataType="nvarchar" MaxChars="255" MinDisplayChars="30" MaxDisplayChars="50" UnitOfMeasure="?" ErrorMessage="The length may not exceed 255 characters" />
+    <GnosisDataType Name="search_max_rows" SqlDataType="smallint" MaxChars="6" MinDisplayChars="5" MaxDisplayChars="6" UnitOfMeasure="row(s)" MeasureRelativePosition="Right" Default="500" ErrorMessage="The maximum number of output rows must be between 1 and 30,000" />
+    <GnosisDataType Name="type_kind" IsItemList="1" SqlDataType="smallint" MaxChars="6" Default="2" ErrorMessage="Please choose a kind from the list available">
+      <GnosisDataItem Code="0" Name="gnosis" Order="1" Tooltip="The Type is setup by Gnosis Solutions" />
+      <GnosisDataItem Code="1" Name="sql" Order="2" Tooltip="The Type is a SQL Server base type" />
+      <GnosisDataItem Code="2" Name="user" Order="3" Tooltip="The Type is a User defined type" />
+    </GnosisDataType>
+    <GnosisDataCache Element="SearchSystem" Object="System" Schema="Application">
+      <SearchSystem system_id="0" system_full_name="Global" />
+      <SearchSystem system_id="57" system_full_name="Gnosis" />
+      <SearchSystem system_id="2248" system_full_name="ManAlive" />
+    </GnosisDataCache>
+  </GnosisDataDefinition>
+  <GnosisDatasetDefinition Name="Search Type" Element="SearchType" Path="SearchType">
+    <GnosisDatasetItem Name="Entity ID" Attribute="entity_id" Order="1" Column="Entity ID" Object="Header" Schema="Search" DataType="gnosis_entity_id">
+      <GnosisControlReference Name="entity_id" ID="5" ElementItem="GnosisTextField" Path="SearchType" />
+    </GnosisDatasetItem>
+    <GnosisDatasetItem Name="Search ID" Attribute="search_id" Order="2" Column="Search ID" Object="Header" Schema="Search" SqlDataType="uniqueidentifier" Default="newid()">
+      <GnosisControlReference Name="search_id" ID="6" ElementItem="GnosisTextField" Path="SearchType" />
+    </GnosisDatasetItem>
+    <GnosisDatasetItem Name="Search System ID" Attribute="search_system_id" Order="3" Column="Search System ID" Object="Header" Schema="Search" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#" Optional="1" IsSearchInput="1">
+      <GnosisDataCache Element="SearchSystem" Attribute="system_id" />
+      <GnosisControlReference Name="Input_SystemID" ID="33" ElementItem="GnosisSearchParameter" Path="SearchType" />
+      <GnosisControlReference Name="New_SystemID" ID="36" ElementItem="GnosisDocumentParameter" Path="SearchType" />
+      <GnosisControlReference Name="search_system_full_name_system_id" ID="38" ElementItem="GnosisComboAttribute" Path="SearchType" />
+      <GnosisControlReference Name="search_system_id" ID="7" ElementItem="GnosisTextField" Path="SearchType" />
+    </GnosisDatasetItem>
+    <GnosisDatasetItem Name="Label" Attribute="label" Order="4" Column="Label" Object="Header" Schema="Search" DataType="label_ntext" MinDisplayChars="30" MaxDisplayChars="50" UnitOfMeasure="?" MaxChars="255" IsInstanceName="1">
+      <GnosisControlReference Name="label" ID="8" ElementItem="GnosisTextField" Path="SearchType" />
+    </GnosisDatasetItem>
+    <GnosisDatasetItem Name="Input" Attribute="input" Order="5" Column="Input" Object="Header" Schema="Search" DataType="search_ntext" MinDisplayChars="72" MaxDisplayChars="96" UnitOfMeasure="¶" MaxChars="255" Optional="1" IsSearchInput="1">
+      <GnosisControlReference Name="input" ID="9" ElementItem="GnosisTextField" Path="SearchType" />
+    </GnosisDatasetItem>
+    <GnosisDatasetItem Name="Max Rows" Attribute="max_rows" Order="6" Column="Max Rows" Object="Header" Schema="Search" DataType="search_max_rows" MinDisplayChars="5" MaxDisplayChars="6" UnitOfMeasure="row(s)" MeasureRelativePosition="Right" Optional="1" Default="500">
+      <GnosisControlReference Name="max_rows" ID="10" ElementItem="GnosisTextField" Path="SearchType" />
+      <GnosisControlReference Name="search_max_rows" ID="14" ElementItem="GnosisNumberField" Path="SearchType" />
+    </GnosisDatasetItem>
+    <GnosisDatasetItem Name="When Changed" Attribute="when_changed" Order="7" Column="When Changed" Object="Header" Schema="Search" DataType="audit_datetime" MinDisplayChars="13" MaxDisplayChars="30" UnitOfMeasure="@">
+      <GnosisControlReference Name="when_changed" ID="12" ElementItem="GnosisDateTimeField" Path="SearchType" />
+    </GnosisDatasetItem>
+    <GnosisDatasetItem Name="Brm User ID" Attribute="brm_user_id" Order="8" Column="Brm User ID" Object="Header" Schema="Search" DataType="audit_user_id" />
+    <GnosisDatasetItem Name="User Name" Attribute="brm_user_name" Order="9" Column="User Name" Object="User" Schema="Application" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128" Optional="1">
+      <GnosisControlReference Name="brm_user_name" ID="11" ElementItem="GnosisTextField" Path="SearchType" />
+    </GnosisDatasetItem>
+    <GnosisDatasetItem Name="System Full Name" Attribute="system_full_name" Order="10" Column="System Full Name" Object="System" Schema="Application" DataType="gnosis_longname" MinDisplayChars="32" MaxDisplayChars="96" MaxChars="512" Optional="1">
+      <GnosisDataCache Element="SearchSystem" Attribute="system_full_name" />
+      <GnosisControlReference Name="Input_SystemFullName" ID="34" ElementItem="GnosisSearchParameter" Path="SearchType" />
+      <GnosisControlReference Name="New_SystemFullName" ID="37" ElementItem="GnosisDocumentParameter" Path="SearchType" />
+      <GnosisControlReference Name="search_system_full_name" ID="13" ElementItem="GnosisComboField" Path="SearchType" />
+    </GnosisDatasetItem>
+    <GnosisDatasetDefinition Name="Result" Element="Result" Path="SearchType/Result">
+      <GnosisDatasetItem Name="Search ID" Attribute="search_id" Order="1" Column="Search ID" Object="Result" Schema="Search" SqlDataType="uniqueidentifier" />
+      <GnosisDatasetItem Name="Result Order" Attribute="result_order" Order="2" Column="Result Order" Object="Result" Schema="Search" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#">
+        <GnosisControlReference Name="result_order" ID="15" ElementItem="GnosisTextResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Type Id" Attribute="type_id" Order="3" Column="Type Id" Object="Type" Schema="Model" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#">
+        <GnosisControlReference Name="open_type_id" ID="39" ElementItem="GnosisSearchResultsAttribute" Path="SearchType/Result" />
+        <GnosisControlReference Name="type_id" ID="16" ElementItem="GnosisTextResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Kind Id" Attribute="kind_id" Order="4" Column="Kind Id" Object="Type" Schema="Model" DataType="type_kind" IsItemList="1" />
+      <GnosisDatasetItem Name="Type Name" Attribute="type_name" Order="5" Column="Type Name" Object="Type" Schema="Model" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128">
+        <GnosisControlReference Name="open_type_name" ID="40" ElementItem="GnosisSearchResultsAttribute" Path="SearchType/Result" />
+        <GnosisControlReference Name="type_name" ID="17" ElementItem="GnosisTextResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Sql Type Name" Attribute="sql_type_name" Order="6" Column="Sql Type Name" Object="Type" Schema="Model" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128">
+        <GnosisControlReference Name="sql_type_name" ID="18" ElementItem="GnosisTextResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Prec" Attribute="prec" Order="7" Column="Prec" Object="Type" Schema="Model" SqlDataType="smallint" ContentHorizontalAlignment="Right" MinDisplayChars="6" MaxDisplayChars="8" UnitOfMeasure="#" Optional="1">
+        <GnosisControlReference Name="prec" ID="19" ElementItem="GnosisTextResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Scale" Attribute="scale" Order="8" Column="Scale" Object="Type" Schema="Model" SqlDataType="smallint" ContentHorizontalAlignment="Right" MinDisplayChars="6" MaxDisplayChars="8" UnitOfMeasure="#" Optional="1">
+        <GnosisControlReference Name="scale" ID="20" ElementItem="GnosisTextResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Is Nullable" Attribute="is_nullable" Order="9" Column="Is Nullable" Object="Type" Schema="Model" SqlDataType="bit" UnitOfMeasure="?" Optional="1">
+        <GnosisControlReference Name="is_nullable" ID="22" ElementItem="GnosisCheckResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Is Item List" Attribute="is_item_list" Order="10" Column="Is Item List" Object="Type" Schema="Model" SqlDataType="bit" UnitOfMeasure="?" Default="0">
+        <GnosisControlReference Name="is_item_list" ID="23" ElementItem="GnosisCheckResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Auto Allocate" Attribute="auto_allocate" Order="11" Column="Auto Allocate" Object="Type" Schema="Model" SqlDataType="bit" UnitOfMeasure="?" Default="0">
+        <GnosisControlReference Name="auto_allocate" ID="24" ElementItem="GnosisCheckResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="System Full Name" Attribute="system_full_name" Order="12" Column="System Full Name" Object="System" Schema="Application" DataType="gnosis_longname" MinDisplayChars="32" MaxDisplayChars="96" MaxChars="512">
+        <GnosisControlReference Name="system_full_name" ID="21" ElementItem="GnosisTextResults" Path="SearchType/Result" />
+      </GnosisDatasetItem>
+    </GnosisDatasetDefinition>
+  </GnosisDatasetDefinition>
+  <GnosisSearchFrame Name="SearchType" ID="1" ControlType="Search Frame" IsEditing="0" IsEmpty="0" AllowedSectionList="1, 2, 3" OptimalSectionWidthCharacters="40" MinWidthCharacters="24" MaxWidthCharacters="150" Caption="Search Type">
+    <GnosisMessageGrid Name="SearchTypeMessageGrid" ID="2" ControlType="Message Grid" Caption="Search Type Messages" Tooltip="Please observe the displayed messages for the Search Type" Order="1" MinDisplayRows="1" MaxWrapLines="2" />
+    <GnosisPanel Name="SearchTypePanel" ID="3" ControlType="Panel" Caption="Search Type Header" Tooltip="Header attributes for Search Type" Order="2">
+      <GnosisTextField Name="entity_id" ID="5" ControlType="Text Field" Caption="Entity ID" Order="1" Hidden="1" Dataset="Search Type" DatasetItem="Entity ID" />
+      <GnosisTextField Name="search_id" ID="6" ControlType="Text Field" Caption="Search ID" Order="2" Hidden="1" Dataset="Search Type" DatasetItem="Search ID" />
+      <GnosisTextField Name="search_system_id" ID="7" ControlType="Text Field" Caption="Search System ID" Order="3" Hidden="1" Dataset="Search Type" DatasetItem="Search System ID" />
+      <GnosisTextField Name="label" ID="8" ControlType="Text Field" Caption="Label" Order="4" Dataset="Search Type" DatasetItem="Label" />
+      <GnosisTextField Name="input" ID="9" ControlType="Text Field" Caption="Input" Order="5" Dataset="Search Type" DatasetItem="Input" />
+      <GnosisTextField Name="max_rows" ID="10" ControlType="Text Field" Caption="Max Rows" Order="6" Dataset="Search Type" DatasetItem="Max Rows" />
+      <GnosisTextField Name="brm_user_name" ID="11" ControlType="Text Field" Caption="User Name" Order="7" ReadOnly="1" Dataset="Search Type" DatasetItem="User Name" />
+      <GnosisDateTimeField Name="when_changed" ID="12" ControlType="Date Time Field" Caption="When Changed" Order="8" ReadOnly="1" Dataset="Search Type" DatasetItem="When Changed" />
+      <GnosisComboField Name="search_system_full_name" ID="13" ControlType="Combo Field" Caption="System Full Name" Order="9" Dataset="Search Type" DatasetItem="System Full Name">
+        <GnosisComboAttribute Name="search_system_full_name_system_id" ID="38" ControlType="Combo Attribute" Order="1" ComboRole="Key" Dataset="Search Type" DatasetItem="Search System ID" />
+      </GnosisComboField>
+      <GnosisNumberField Name="search_max_rows" ID="14" ControlType="Number Field" Caption="Max Rows" Order="10" Dataset="Search Type" DatasetItem="Max Rows" />
+    </GnosisPanel>
+    <GnosisSearchResultsGrid Name="SearchTypeResults" ID="4" ControlType="Search Results Grid" Caption="Search Type Results" Tooltip="Results for Search Type" Order="3" MinDisplayRows="1" MaxWrapLines="2" DocumentSystemID="57" DocumentEntityID="91" Dataset="Result">
+      <GnosisTextResults Name="result_order" ID="15" ControlType="Text Results" Caption="Result Order" Order="1" Hidden="1" Dataset="Result" DatasetItem="Result Order" />
+      <GnosisTextResults Name="type_id" ID="16" ControlType="Text Results" Caption="Type Id" Order="2" Hidden="1" Dataset="Result" DatasetItem="Type Id" />
+      <GnosisTextResults Name="type_name" ID="17" ControlType="Text Results" Caption="Type Name" Order="3" Dataset="Result" DatasetItem="Type Name" />
+      <GnosisTextResults Name="sql_type_name" ID="18" ControlType="Text Results" Caption="Sql Type Name" Order="4" Dataset="Result" DatasetItem="Sql Type Name" />
+      <GnosisTextResults Name="prec" ID="19" ControlType="Text Results" Caption="Prec" Order="5" Dataset="Result" DatasetItem="Prec" />
+      <GnosisTextResults Name="scale" ID="20" ControlType="Text Results" Caption="Scale" Order="6" Dataset="Result" DatasetItem="Scale" />
+      <GnosisTextResults Name="system_full_name" ID="21" ControlType="Text Results" Caption="System Full Name" Order="7" MinTextDisplayWidthChars="20" Dataset="Result" DatasetItem="System Full Name" />
+      <GnosisCheckResults Name="is_nullable" ID="22" ControlType="Check Results" Caption="Is Nullable" Order="8" ReadOnly="1" Dataset="Result" DatasetItem="Is Nullable" />
+      <GnosisCheckResults Name="is_item_list" ID="23" ControlType="Check Results" Caption="Is Item List" Order="9" ReadOnly="1" Dataset="Result" DatasetItem="Is Item List" />
+      <GnosisCheckResults Name="auto_allocate" ID="24" ControlType="Check Results" Caption="Auto Allocate" Order="10" ReadOnly="1" Dataset="Result" DatasetItem="Auto Allocate" />
+      <GnosisSearchResultsAttribute Name="open_type_id" ID="39" ControlType="Search Results Attribute" Order="11" LinkRole="Key" LinkKeyOrder="1" Dataset="Result" DatasetItem="Type Id" />
+      <GnosisSearchResultsAttribute Name="open_type_name" ID="40" ControlType="Search Results Attribute" Order="12" Parameter="TypeName" LinkRole="Name" Dataset="Result" DatasetItem="Type Name" />
+    </GnosisSearchResultsGrid>
+    <GnosisSearchParameter Name="Input_SystemID" ID="33" ControlType="Search Parameter" Order="4" Parameter="SystemID" IsInput="1" Dataset="Search Type" DatasetItem="Search System ID" />
+    <GnosisSearchParameter Name="Input_SystemFullName" ID="34" ControlType="Search Parameter" Order="5" Parameter="SystemFullName" IsInput="1" Dataset="Search Type" DatasetItem="System Full Name" />
+    <GnosisNewMenuItem Name="New_Type" ID="35" ControlType="New Menu Item" Caption="New Type" Tooltip="Create a New Type" Order="6" DocumentSystemID="57" DocumentEntityID="91">
+      <GnosisDocumentParameter Name="New_SystemID" ID="36" ControlType="Document Parameter" Order="1" Parameter="SystemID" IsOutput="1" Dataset="Search Type" DatasetItem="Search System ID" />
+      <GnosisDocumentParameter Name="New_SystemFullName" ID="37" ControlType="Document Parameter" Order="2" Parameter="SystemFullName" IsOutput="1" Dataset="Search Type" DatasetItem="System Full Name" />
+    </GnosisNewMenuItem>
+  </GnosisSearchFrame>
+</GnosisEntity>

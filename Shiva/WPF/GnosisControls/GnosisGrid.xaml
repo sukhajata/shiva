@@ -1,0 +1,36 @@
+﻿<Border x:Class="GnosisControls.GnosisGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GnosisControls"
+             mc:Ignorable="d" 
+            VerticalAlignment="Stretch" >
+    <Grid  Name="gridOuter" VerticalAlignment="Stretch" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Name="lblCaption" Grid.Row="0" Visibility="Collapsed"/>
+        <Grid  Grid.Row="1" Name="scrlHeaders" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid Name="gridHeaders" Grid.Column="0" >
+
+            </Grid>
+            <!-- dummy to allow alignment with grid below -->
+            <Grid Grid.Column="1" Width="{x:Static SystemParameters.VerticalScrollBarWidth}"/>
+        </Grid>
+
+        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="2" Name="scrlContent" >
+            <Grid Name="gridContent"   />
+        </ScrollViewer>
+    </Grid>
+
+</Border>

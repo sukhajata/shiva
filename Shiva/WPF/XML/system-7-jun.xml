@@ -1,0 +1,495 @@
+<GnosisSystem SystemName="Gnosis" UserName="Sukhajata" SystemURL="www.gnosis.co.nz" DeviceType="Desktop" HostName="BHEEMA" UserID="2" SystemID="57" VersionNo="1" ProtectionStatus="1" ShowTooltips="0" ScalePercentage="100">
+  <GnosisStyleSet>
+    <GnosisStyle Name="Caption" Font="Calibri" FontSize="9" ControlColour="000000" ContentColour="000000" BackgroundColour="DCC864" CaptionSpacing="2" RelativePosition="Above" />
+    <GnosisStyle Name="Field" Font="Calibri" FontSize="10" ControlColour="000000" ContentColour="000000" BackgroundColour="FFFFFF" VerticalPadding="10" HorizontalPadding="8" VerticalSpacing="4" HorizontalSpacing="6">
+      <GnosisStyleCondition Property="Disabled" Value="1" Name="Generic Disabled" Order="1" ControlColour="5F5F5F" ContentColour="5F5F5F" />
+      <GnosisStyleCondition Property="Disabled" Value="0" Name="Generic Enabled" Order="2">
+        <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Generic Mouse Focus" Order="1" BackgroundColour="FFFFB3">
+          <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Generic Mouse Down" Order="1" BackgroundColour="FFFF9A" />
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="ControlType" Value="Text Field" Order="3">
+        <GnosisStyleCondition Property="HasFocus" Value="1" Name="Generic Has Focus" Order="1" IsOutlined="1" OutlineColour="91FF72" />
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="Locked" Value="1" Name="Generic Locked" Order="4" BackgroundColour="FFFFFF" />
+      <GnosisStyleCondition Property="Locked" Value="0" Name="Generic Unlocked" Order="5" BackgroundColour="FFFFE0" />
+      <GnosisStyleCondition Property="DatasetDeleted" Value="1" Name="Generic Deleted" Order="6" IsStrikethrough="1" />
+      <GnosisStyleCondition Property="Active" Value="1" Name="Control Selected" Order="7" BackgroundColour="FFFF80">
+        <GnosisStyleCondition Property="Disabled" Value="0" Name="Control Selected Enabled" Order="1">
+          <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Control Selected Mouse Focus" Order="1" BackgroundColour="FFFFCC">
+            <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Control Selected Mouse Down" Order="1" BackgroundColour="FFFFE5" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="Active" Value="0" Name="Control Unselected" Order="8" BackgroundColour="FFFFFF">
+        <GnosisStyleCondition Property="Disabled" Value="0" Name="Control Unselected Enabled" Order="1">
+          <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Control Unselected Mouse Focus" Order="1" BackgroundColour="FFFFB3">
+            <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Control Unselected Mouse Down" Order="1" BackgroundColour="FFFF9A" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="RowSelected" Value="1" Name="Grid Selected Row" Order="9" BackgroundColour="00FFFF" />
+      <GnosisStyleCondition Property="RowSelected" Value="0" Name="Grid Unselected Row" Order="10">
+        <GnosisStyleCondition Property="IsEvenRow" Value="1" Name="Grid Even Row" Order="1" BackgroundColour="FFD0FF">
+          <GnosisStyleCondition Property="HasRowMouseFocus" Value="1" Name="Results Even Row Mouse Focus" Order="1" BackgroundColour="7FE8FF">
+            <GnosisStyleCondition Property="HasRowMouseDown" Value="1" Name="Results Even Row Mouse Down" Order="1" BackgroundColour="3FF4FF" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+        <GnosisStyleCondition Property="IsEvenRow" Value="0" Name="Grid Odd Row" Order="2" BackgroundColour="FFFFFF">
+          <GnosisStyleCondition Property="HasRowMouseFocus" Value="1" Name="Results Odd Row Mouse Focus" Order="1" BackgroundColour="7FFFFF">
+            <GnosisStyleCondition Property="HasRowMouseDown" Value="1" Name="Results Odd Row Mouse Down" Order="1" BackgroundColour="3FFFFF" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="ControlType" Value="Link Field" Name="Link" Order="11" IsUnderline="1">
+        <GnosisStyleCondition Property="Disabled" Value="0" Name="Link Enabled" Order="1">
+          <GnosisStyleCondition Property="PreviouslySelected" Value="0" Name="Link Unselected" Order="1" ContentColour="0000A0">
+            <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Link Unselected Mouse Focus" Order="1" ContentColour="300080">
+              <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Link Unselected Mouse Down" Order="1" ContentColour="600060" />
+            </GnosisStyleCondition>
+          </GnosisStyleCondition>
+          <GnosisStyleCondition Property="PreviouslySelected" Value="1" Name="Link Previously Selected" Order="2" ContentColour="7F2020">
+            <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Link Previously Selected Mouse Focus" Order="1" ContentColour="701040">
+              <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Link Previously Selected Mouse Down" Order="1" ContentColour="600060" />
+            </GnosisStyleCondition>
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="ControlType" Value="Search Frame" Name="Search Frame" Order ="12">
+        <GnosisStyleCondition Property="HasFocus" Value="1" HighlightThickness="5" OutlineColour="3AADFF"/>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="ControlType" Value="Document Frame" Name="Doc Frame" Order ="14">
+        <GnosisStyleCondition Property="HasFocus" Value="1" HighlightThickness="5" OutlineColour="91FF72"/>
+      </GnosisStyleCondition>
+    </GnosisStyle>
+    <GnosisStyle Name="Alternate Caption" Font="Calibri" FontSize="9" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="665814" CaptionSpacing="2" RelativePosition="Above" />
+    <GnosisStyle Name="Alternate Field" Font="Calibri" FontSize="10" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="800080" VerticalPadding="10" HorizontalPadding="8" VerticalSpacing="4" HorizontalSpacing="6">
+      <GnosisStyleCondition Property="Disabled" Value="1" Name="Generic Disabled" Order="1" ControlColour="E7E7E7" ContentColour="E7E7E7" />
+      <GnosisStyleCondition Property="ControlType" Value="Button" Name="Button" Order="2">
+        <GnosisStyleCondition Property="Disabled" Value="0" Name="Generic Enabled" Order="1">
+          <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Generic Mouse Focus" Order="1" BackgroundColour="CC00CC">
+            <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Generic Mouse Down" Order="1" BackgroundColour="E500E5" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="ControlType" Value="Text Field" Name="Text Field" Order="3">
+        <GnosisStyleCondition Property="HasFocus" Value="1" Name="Generic Has Focus" Order="1" IsOutlined="1" OutlineColour="FFFF80" />
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="Locked" Value="1" Name="Generic Locked" Order="4" BackgroundColour="8C008C" />
+      <GnosisStyleCondition Property="Locked" Value="0" Name="Generic Unlocked" Order="5" BackgroundColour="C000C0" />
+      <GnosisStyleCondition Property="DatasetDeleted" Value="1" Name="Generic Deleted" Order="6" IsStrikethrough="1" />
+      <GnosisStyleCondition Property="Active" Value="1" Name="Control Selected" Order="7" BackgroundColour="FF00FF">
+        <GnosisStyleCondition Property="Disabled" Value="0" Name="Control Selected Enabled" Order="1">
+          <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Control Selected Mouse Focus" Order="1" OutlineColour="B300B3">
+            <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Control Selected Mouse Down" Order="1" BackgroundColour="9A009A" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="Active" Value="0" Name="Control Unselected" Order="8" BackgroundColour="800080">
+        <GnosisStyleCondition Property="Disabled" Value="0" Name="Control Unselected Enabled" Order="1">
+          <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Control Unselected Mouse Focus" Order="1" OutlineColour="FFFF80" BackgroundColour="CC00CC">
+            <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Control Unselected Mouse Down" Order="1" BackgroundColour="E500E5" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="RowSelected" Value="1" Name="Grid Selected Row" Order="9" BackgroundColour="004080" />
+      <GnosisStyleCondition Property="RowSelected" Value="0" Name="Grid Unselected Row" Order="10">
+        <GnosisStyleCondition Property="IsEvenRow" Value="1" Name="Grid Even Row" Order="1" BackgroundColour="B000B0">
+          <GnosisStyleCondition Property="HasRowMouseFocus" Value="1" Name="Results Even Row Mouse Focus" Order="1" BackgroundColour="582098">
+            <GnosisStyleCondition Property="HasRowMouseDown" Value="1" Name="Results Even Row Mouse Down" Order="1" BackgroundColour="2C308C" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+        <GnosisStyleCondition Property="IsEvenRow" Value="0" Name="Grid Odd Row" Order="2" BackgroundColour="800080">
+          <GnosisStyleCondition Property="HasRowMouseFocus" Value="1" Name="Results Odd Row Mouse Focus" Order="1" BackgroundColour="402080">
+            <GnosisStyleCondition Property="HasRowMouseDown" Value="1" Name="Results Odd Row Mouse Down" Order="1" BackgroundColour="203080" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="ControlType" Value="Link Field" Name="Link" Order="11" IsUnderline="1">
+        <GnosisStyleCondition Property="Disabled" Value="0" Name="Link Enabled" Order="1">
+          <GnosisStyleCondition Property="PreviouslySelected" Value="0" Name="Link Unselected" Order="1" ContentColour="D0D0FF">
+            <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Link Unselected Mouse Focus" Order="1" ContentColour="E7C0FF">
+              <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Link Unselected Mouse Down" Order="1" ContentColour="FFB0FF" />
+            </GnosisStyleCondition>
+          </GnosisStyleCondition>
+          <GnosisStyleCondition Property="PreviouslySelected" Value="1" Name="Link Previously Selected" Order="2" ContentColour="7F2020">
+            <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Link Previously Selected Mouse Focus" Order="1" ContentColour="BF688F">
+              <GnosisStyleCondition Property="HasMouseDown" Value="1" Name="Link Previously Selected Mouse Down" Order="1" ContentColour="FFB0FF" />
+            </GnosisStyleCondition>
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+      </GnosisStyleCondition>
+      <GnosisStyleCondition Property="ControlType" Value="Navigator Frame" Name="Navigator Frame" Order ="12">
+        <GnosisStyleCondition Property="HasFocus" Value="1" HighlightThickness="5"  OutlineColour="FFFF80"/>
+      </GnosisStyleCondition>
+    </GnosisStyle>
+    <EntityType Name="Layout" ControlType="Parent Window" ControlTypeTag="GnosisParentWindow" NormalStyle="Alternate Field" CaptionStyle="Alternate Caption" />
+    <EntityType Name="Navigator" ControlType="Navigator Frame" ControlTypeTag="GnosisNavigatorFrame" NormalStyle="Alternate Field" CaptionStyle="Alternate Caption" />
+    <EntityType Name="Document" ControlType="Document Frame" ControlTypeTag="GnosisDocumentFrame" NormalStyle="Field" CaptionStyle="Caption" />
+    <EntityType Name="Search" ControlType="Search Frame" ControlTypeTag="GnosisSearchFrame" NormalStyle="Field" CaptionStyle="Caption" />
+    <EntityType Name="Connection" ControlType="Connection Frame" ControlTypeTag="GnosisConnectionFrame" NormalStyle="Field" CaptionStyle="Caption" />
+  </GnosisStyleSet>
+  <GnosisDataDefinition>
+    <GnosisDataSystemReference SystemID="2248" SystemName="ManAlive" SystemURL="www.manalive.co.nz" VersionNo="1" />
+    <GnosisDataType Name="bit" SqlDataType="bit" MaxChars="1" UnitOfMeasure="?" />
+    <GnosisDataType Name="smallint" SqlDataType="smallint" MaxChars="6" ContentHorizontalAlignment="Right" MinDisplayChars="6" MaxDisplayChars="8" UnitOfMeasure="#" />
+    <GnosisDataType Name="int" SqlDataType="int" MaxChars="11" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#" />
+    <GnosisDataType Name="varchar" SqlDataType="varchar" MinDisplayChars="32" />
+    <GnosisDataType Name="nvarchar" SqlDataType="nvarchar" MinDisplayChars="32" />
+    <GnosisDataType Name="sysname" SqlDataType="sysname" MaxChars="128" MinDisplayChars="32" MaxDisplayChars="96" MinTextDisplayWidthChars="24" />
+    <GnosisDataType Name="numeric" SqlDataType="numeric" ContentHorizontalAlignment="Right" UnitOfMeasure="#" />
+    <GnosisDataType Name="uniqueidentifier" SqlDataType="uniqueidentifier" MaxChars="36" />
+    <GnosisDataType Name="xml" SqlDataType="xml" />
+    <GnosisDataType Name="audit_datetime" SqlDataType="datetime" Precision="14" MinDisplayChars="13" MaxDisplayChars="30" UnitOfMeasure="@" />
+    <GnosisDataType Name="audit_user_id" SqlDataType="int" MaxChars="11" />
+    <GnosisDataType Name="gnosis_system_id" SqlDataType="int" MaxChars="11" />
+    <GnosisDataType Name="gnosis_entity_id" SqlDataType="int" MaxChars="11" />
+    <GnosisDataType Name="gnosis_longname" SqlDataType="nvarchar" MaxChars="512" MinDisplayChars="32" MaxDisplayChars="96" MinTextDisplayWidthChars="24" />
+    <GnosisDataType Name="valid_begin_date" SqlDataType="date" Precision="8" MinDisplayChars="8" MaxDisplayChars="20" ErrorMessage="The value stored in %c may not define time" />
+    <GnosisDataType Name="valid_end_date" SqlDataType="date" Precision="8" MinDisplayChars="8" MaxDisplayChars="20" ErrorMessage="The value stored in %c may not define time" />
+    <GnosisDataType Name="system_protection_status" IsItemList="1" SqlDataType="tinyint" MaxChars="11" ErrorMessage="Please choose a valid Protection Status">
+      <GnosisDataItem Code="0" Name="Unprotected" Order="1" Tooltip="There is no protection set" Icon="Unprotected" />
+      <GnosisDataItem Code="1" Name="Protected" Order="2" Tooltip="Changing requires the Edit button to be explicitly Selected" Icon="Protected" />
+      <GnosisDataItem Code="2" Name="Locked" Order="3" Tooltip="No Changes to data is allowed" Icon="Locked" />
+    </GnosisDataType>
+    <GnosisDataType Name="boolean" IsItemList="1" SqlDataType="bit" MaxChars="5" MinDisplayChars="6" MaxDisplayChars="10" UnitOfMeasure="?" ErrorMessage="Please choose either True or False">
+      <GnosisDataItem Code="0" Name="False" Order="0" Tooltip="False" />
+      <GnosisDataItem Code="1" Name="True" Order="1" Tooltip="True" />
+    </GnosisDataType>
+    <GnosisDataType Name="gnosis_layout_xml" SqlDataType="xml" ErrorMessage="The layout must be a valid xml definition" />
+    <GnosisDataType Name="device_type_name" SqlDataType="sysname" MaxChars="128" MinDisplayChars="10" MaxDisplayChars="20" UnitOfMeasure="?" ErrorMessage="The device types are listed in the device type table" />
+  </GnosisDataDefinition>
+  <GnosisSystemDefinition Name="Gnosis" ID="1" ControlType="System Definition" Caption="Gnosis">
+    <GnosisEnvironmentVariable Name="UserName" ID="2" ControlType="Environment Variable" SourceType="Login" SqlParameterName="@UserName" SqlDataType="sysname" IsInstanceInput="1" IsEntityInput="1" Order="1" />
+    <GnosisEnvironmentVariable Name="SystemURL" ID="3" ControlType="Environment Variable" SourceType="Login" SqlParameterName="@SystemURL" SqlDataType="sysname" IsInstanceInput="1" IsEntityInput="1" Order="2" />
+    <GnosisEnvironmentVariable Name="DeviceType" ID="4" ControlType="Environment Variable" SourceType="Device" SqlParameterName="@DeviceType" DataType="device_type_name" Default="Desktop" Order="3" />
+    <GnosisEnvironmentVariable Name="MachineID" ID="5" ControlType="Environment Variable" SourceType="Device" SqlParameterName="@MachineID" SqlDataType="sysname" IsInstanceInput="1" IsEntityInput="1" Order="4" />
+    <GnosisEnvironmentVariable Name="HostName" ID="6" ControlType="Environment Variable" SourceType="Device" SqlParameterName="@HostName" SqlDataType="sysname" Order="5" />
+    <GnosisEnvironmentVariable Name="Location" ID="7" ControlType="Environment Variable" SourceType="Device" SqlParameterName="@Location" SqlDataType="sysname" Order="6" />
+    <GnosisEnvironmentVariable Name="LocalDateTime" ID="8" ControlType="Environment Variable" SourceType="Device" SqlParameterName="@LocalDateTime" DataType="audit_datetime" Order="7" />
+    <GnosisEnvironmentVariable Name="Timezone" ID="9" ControlType="Environment Variable" SourceType="Device" SqlParameterName="@Timezone" SqlDataType="sysname" Order="8" />
+    <GnosisEnvironmentVariable Name="Language" ID="10" ControlType="Environment Variable" SourceType="Device" SqlParameterName="@Language" SqlDataType="sysname" Default="English" Order="9" />
+    <GnosisEnvironmentVariable Name="UserID" ID="11" ControlType="Environment Variable" SourceType="Connection" SqlParameterName="@UserID" DataType="audit_user_id" IsInstanceInput="1" IsEntityInput="1" Order="10" />
+    <GnosisEnvironmentVariable Name="SystemID" ID="12" ControlType="Environment Variable" SourceType="Connection" SqlParameterName="@SystemID" DataType="gnosis_system_id" SqlDataType="int" Order="11" />
+    <GnosisEnvironmentVariable Name="VersionNo" ID="13" ControlType="Environment Variable" SourceType="Connection" SqlParameterName="@VersionNo" SqlDataType="smallint" Order="12" />
+    <GnosisEnvironmentVariable Name="ValidStartDate" ID="14" ControlType="Environment Variable" SourceType="Connection" SqlParameterName="@ValidStartDate" DataType="valid_begin_date" Order="13" />
+    <GnosisEnvironmentVariable Name="ValidFinishDate" ID="15" ControlType="Environment Variable" SourceType="Connection" SqlParameterName="@ValidFinishDate" DataType="valid_end_date" Order="14" />
+    <GnosisEnvironmentVariable Name="ShowNavigator" ID="16" ControlType="Environment Variable" SqlParameterName="@ShowNavigator" SqlDataType="bit" Default="1" Order="15" />
+    <GnosisEnvironmentVariable Name="ProtectionStatus" ID="17" ControlType="Environment Variable" SourceType="Connection" SqlParameterName="@ProtectionStatus" DataType="system_protection_status" Default="1" Order="16" />
+    <GnosisEnvironmentVariable Name="ShowTooltips" ID="18" ControlType="Environment Variable" SourceType="Connection" SqlParameterName="@ShowTooltips" SqlDataType="bit" Default="1" Order="17" />
+    <GnosisEnvironmentVariable Name="ScalePercentage" ID="19" ControlType="Environment Variable" SourceType="Connection" SqlParameterName="@ScalePercentage" SqlDataType="numeric" Default="100" Order="18" />
+    <GnosisEnvironmentVariable Name="DefaultLayout" ID="20" ControlType="Environment Variable" SourceType="Connection" SqlParameterName="@DefaultLayout" DataType="gnosis_layout_xml" Order="19" />
+    <GnosisPermissionVariable Name="AllowRead" ID="29" ControlType="Permission Variable" SqlParameterName="@AllowRead" DataType="boolean" Default="1" VariableCode="R" Order="20" />
+    <GnosisPermissionVariable Name="AllowCreate" ID="30" ControlType="Permission Variable" SqlParameterName="@AllowCreate" DataType="boolean" Default="0" VariableCode="C" Order="21" />
+    <GnosisPermissionVariable Name="AllowUpdate" ID="31" ControlType="Permission Variable" SqlParameterName="@AllowUpdate" DataType="boolean" Default="0" VariableCode="U" Order="22" />
+    <GnosisPermissionVariable Name="AllowDelete" ID="32" ControlType="Permission Variable" SqlParameterName="@AllowDelete" DataType="boolean" Default="0" VariableCode="D" Order="23" />
+    <GnosisInstanceVariable Name="InstanceName" ID="21" ControlType="Instance Variable" SqlParameterName="@InstanceName" DataType="gnosis_longname" IsInstanceInput="1" Order="24" />
+    <GnosisInstanceVariable Name="EntityID" ID="22" ControlType="Instance Variable" SqlParameterName="@EntityID" DataType="gnosis_entity_id" IsInstanceInput="1" IsEntityInput="1" Order="25" />
+    <GnosisInstanceVariable Name="IsEditing" ID="23" ControlType="Instance Variable" SqlParameterName="@IsEditing" DataType="boolean" Default="0" IsInstanceOutput="1" Order="26" />
+    <GnosisInstanceVariable Name="IsEmpty" ID="24" ControlType="Instance Variable" SqlParameterName="@IsEmpty" DataType="boolean" Default="0" IsInstanceOutput="1" Order="27" />
+    <GnosisInstanceVariable Name="SQLSuccessful" ID="25" ControlType="Instance Variable" SqlParameterName="@SQLSuccessful" DataType="boolean" Default="1" IsInstanceOutput="1" Order="28" />
+    <GnosisInstanceVariable Name="Created" ID="26" ControlType="Instance Variable" SqlParameterName="@Created" DataType="boolean" Default="0" IsInstanceInput="1" IsInstanceOutput="1" Order="29" />
+    <GnosisInstanceVariable Name="Updated" ID="27" ControlType="Instance Variable" SqlParameterName="@Updated" DataType="boolean" Default="0" IsInstanceInput="1" IsInstanceOutput="1" Order="30" />
+    <GnosisInstanceVariable Name="Deleted" ID="28" ControlType="Instance Variable" SqlParameterName="@Deleted" DataType="boolean" Default="0" IsInstanceInput="1" IsInstanceOutput="1" Order="31" />
+    <GnosisGenericMenu Name="BackForwardGroup" ID="48" ControlType="Generic Menu" Order="32">
+      <GnosisGenericMenuItem Name="BackwardMenu" ID="49" ControlType="Generic Menu Item" Icon="Backward" Caption="Backward" Tooltip="Go Backward one document" Order="1" MenuTag="Backward" Disabled="1" />
+      <GnosisGenericMenuItem Name="ForwardMenu" ID="50" ControlType="Generic Menu Item" Icon="Forward" Caption="Forward" Tooltip="Go Forward one document" Order="2" MenuTag="Forward" Disabled="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericMenu Name="CutCopyPasteGroup" ID="51" ControlType="Generic Menu" Caption="Cut, Copy and Paste" Tooltip="Cut and Copy Text to the Clipboard and Paste from the Clipboard" Order="33">
+      <GnosisGenericMenuItem Name="CutMenu" ID="52" ControlType="Generic Menu Item" Icon="Cut" Shortcut="Ctrl-X" Caption="Cut" Tooltip="Cut the highlighted text and place on the Clipboard" Order="1" MenuTag="Cut" Disabled="1" />
+      <GnosisGenericMenuItem Name="CopyMenu" ID="53" ControlType="Generic Menu Item" Icon="Copy" Shortcut="Ctrl-C" Caption="Copy" Tooltip="Copy the highlighted text and place on the Clipboard" Order="2" MenuTag="Copy" Disabled="1" />
+      <GnosisGenericMenuItem Name="PasteMenu" ID="54" ControlType="Generic Menu Item" Icon="Paste" Shortcut="Ctrl-V" Caption="Paste" Tooltip="Paste the contents of the Clipboard to the selected control at the position of the cursor" Order="3" MenuTag="Paste" Disabled="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericMenu Name="UndoRedoGroup" ID="55" ControlType="Generic Menu" Order="34">
+      <GnosisGenericMenuItem Name="UndoMenu" ID="56" ControlType="Generic Menu Item" Icon="Undo" Shortcut="Ctrl-Z" Caption="Undo" Tooltip="Undo the last change made for the selected Tile" Order="1" MenuTag="Undo" Disabled="1" />
+      <GnosisGenericMenuItem Name="RedoMenu" ID="57" ControlType="Generic Menu Item" Icon="Redo" Shortcut="Ctrl-Y" Caption="Redo" Tooltip="Redo the last undone change for the selected Tile" Order="2" MenuTag="Redo" Disabled="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericMenu Name="EditingGroup" ID="58" ControlType="Generic Menu" Caption="Editing commands" Tooltip="Options used to Edit, Delete, Update and Save documents" Order="35">
+      <GnosisGenericToggleMenuItem Name="EditMenu" ID="59" ControlType="Generic Toggle Menu Item" Icon="Edit" Shortcut="Ctrl-E" VariableSystemID="57" VariableControlID="23" Caption="Edit" Tooltip="Edit the Document in the selected Tile" Order="1" SelectedFactor="1" MenuTag="Edit" Disabled="1" />
+      <GnosisGenericToggleMenuItem Name="DeleteMenu" ID="60" ControlType="Generic Toggle Menu Item" Icon="Delete" Shortcut="Ctrl-D" VariableSystemID="57" VariableControlID="28" Caption="Delete" Tooltip="Delete the Document in the selected Tile" Order="2" SelectedFactor="1" MenuTag="Delete" Disabled="1" />
+      <GnosisGenericMenuItem Name="SaveNewMenu" ID="61" ControlType="Generic Menu Item" Icon="Insert" Shortcut="Ctrl-S" Caption="Save New" Tooltip="Save the New Document in the selected Tile" Order="3" MenuTag="Insert" Disabled="1" />
+      <GnosisGenericMenuItem Name="SaveExistingMenu" ID="62" ControlType="Generic Menu Item" Icon="Save" Shortcut="Ctrl-S" Caption="Save" Tooltip="Save the Document in the selected Tile" Order="4" MenuTag="Save" Disabled="1" />
+      <GnosisGenericMenuItem Name="SaveDeleteMenu" ID="63" ControlType="Generic Menu Item" Icon="Remove" Shortcut="Ctrl-S" Caption="Remove" Tooltip="Remove the Document in the selected Tile" Order="5" MenuTag="Remove" Disabled="1" />
+      <GnosisGenericMenuItem Name="RefreshMenu" ID="64" ControlType="Generic Menu Item" Icon="Refresh" Caption="Refresh" Tooltip="Refresh the Document in the selected Tile" Order="6" MenuTag="Refresh" Disabled="1" />
+      <GnosisGenericMenuItem Name="CancelMenu" ID="65" ControlType="Generic Menu Item" Icon="Cancel" Caption="Cancel" Tooltip="Cancel changes to the Document in the selected Tile" Order="7" MenuTag="Cancel" Disabled="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericMenu Name="SearchingGroup" ID="66" ControlType="Generic Menu" Order="36">
+      <GnosisGenericMenuItem Name="SearchMenu" ID="67" ControlType="Generic Menu Item" Icon="Search" Shortcut="Ctrl-F" Caption="Search" Tooltip="Search for documents of a particular kind or kinds" Order="1" MenuTag="Search" Disabled="1" />
+      <GnosisGenericMenuItem Name="SearchResetMenu" ID="68" ControlType="Generic Menu Item" Icon="Reset" Shortcut="Ctrl-R" Caption="Reset" Tooltip="Reset the inputs to the Current Search" Order="2" MenuTag="Reset" Disabled="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericMenu Name="PrintingGroup" ID="69" ControlType="Generic Menu" Order="37">
+      <GnosisGenericMenuItem Name="PrintMenu" ID="70" ControlType="Generic Menu Item" Icon="Print" Shortcut="Ctrl-P" Caption="Print" Tooltip="Output the Document in the selected Tile to the Printer" Order="1" MenuTag="Print" Disabled="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericMenu Name="NavigatorGroup" ID="71" ControlType="Generic Menu" Order="38">
+      <GnosisGenericToggleMenuItem Name="ShowNavigatorMenu" ID="72" ControlType="Generic Toggle Menu Item" Icon="Navigator" VariableSystemID="57" VariableControlID="16" Caption="Navigator" Tooltip="Show or Hide the Navigator Tile to Search for Documents" Order="1" Active="1" SelectedFactor="1" MenuTag="Navigator" Disabled="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericMenu Name="NewGroup" ID="73" ControlType="Generic Menu" Order="39">
+      <GnosisGenericMenuItem Name="NewMenu" ID="74" ControlType="Generic Menu Item" Icon="New" Shortcut="Ctrl-N" Caption="New Document" Tooltip="New Document of kind related to the selected Tile" Order="1" MenuTag="New" Disabled="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericMenu Name="SystemGroup" ID="75" ControlType="Generic Menu" Order="40">
+      <GnosisSystemAddressField Name="SystemNameAddress" ID="76" ControlType="System Address Field" Tooltip="The System currently connected to" Order="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericMenu Name="MiscGroup" ID="77" ControlType="Generic Menu" Order="41">
+      <GnosisGenericToggleMenuItem Name="TooltipStatusMenu" ID="78" ControlType="Generic Toggle Menu Item" Icon="Help" VariableSystemID="57" VariableControlID="18" Caption="Show or Not Show Tooltips" Tooltip="Toggle Show Tooltips Mode for controls of this system" Order="1" Active="1" SelectedFactor="1" MenuTag="Tooltip" Disabled="1" />
+      <GnosisGenericMenuGroup Name="ProtectionStatusMenu" ID="79" ControlType="Generic Menu Group" VariableSystemID="57" VariableControlID="17" Caption="Protection Status" Order="2" MenuTag="ProtectionStatus" Disabled="1" />
+      <GnosisGenericMenuItem Name="PropertiesMenu" ID="80" ControlType="Generic Menu Item" Icon="Properties" Caption="Properties" Tooltip="Show Connection and Layout Properties for the System" Order="3" MenuTag="Properties" Disabled="1" />
+    </GnosisGenericMenu>
+    <GnosisGenericControl Name="GnosisConnectionFrame" ID="33" ControlType="Generic Control" Order="42" GenericControlType="Connection Frame">
+      <GnosisGenericInput Name="connection_input_SystemID" ID="34" ControlType="Generic Input" VariableSystemID="57" VariableControlID="12" Order="1" />
+    </GnosisGenericControl>
+    <GnosisGenericControl Name="GnosisNavigatorFrame" ID="35" ControlType="Generic Control" Order="43" GenericControlType="Navigator Frame">
+      <GnosisGenericInput Name="navigator_input_UserID" ID="36" ControlType="Generic Input" VariableSystemID="57" VariableControlID="11" Order="1" />
+      <GnosisGenericInput Name="navigator_input_SystemID" ID="37" ControlType="Generic Input" VariableSystemID="57" VariableControlID="12" Order="2" />
+    </GnosisGenericControl>
+    <GnosisGenericControl Name="GnosisDocumentFrame" ID="38" ControlType="Generic Control" Order="44" GenericControlType="Document Frame">
+      <GnosisGenericInput Name="document_input_InstanceName" ID="39" ControlType="Generic Input" VariableSystemID="57" VariableControlID="21" Order="1" />
+      <GnosisGenericInput Name="document_input_UserID" ID="40" ControlType="Generic Input" VariableSystemID="57" VariableControlID="11" Order="2" />
+      <GnosisGenericInput Name="document_input_EntityID" ID="41" ControlType="Generic Input" VariableSystemID="57" VariableControlID="22" Order="3" />
+      <GnosisGenericOutput Name="document_output_InstanceName" ID="42" ControlType="Generic Output" VariableSystemID="57" VariableControlID="21" Order="4" />
+    </GnosisGenericControl>
+    <GnosisGenericControl Name="GnosisSearchFrame" ID="43" ControlType="Generic Control" Order="45" GenericControlType="Search Frame">
+      <GnosisGenericInput Name="search_input_InstanceName" ID="44" ControlType="Generic Input" VariableSystemID="57" VariableControlID="21" Order="1" />
+      <GnosisGenericInput Name="search_input_UserID" ID="45" ControlType="Generic Input" VariableSystemID="57" VariableControlID="11" Order="2" />
+      <GnosisGenericInput Name="search_input_EntityID" ID="46" ControlType="Generic Input" VariableSystemID="57" VariableControlID="22" Order="3" />
+    </GnosisGenericControl>
+    <GnosisGenericControl Name="GnosisToolbar" ID="47" ControlType="Generic Control" Order="46" GenericControlType="Toolbar" />
+    <GnosisConnectionDocument Name="ConnectionUser" ID="82" ControlType="Connection Document" Order="47" ConnectionSystemID="57" ConnectionEntityID="2216" />
+    <GnosisConnectionDocument Name="ConnectionUserHost" ID="83" ControlType="Connection Document" Order="48" ConnectionSystemID="57" ConnectionEntityID="2217" />
+    <GnosisNavigatorDocument Name="Navigator" ID="81" ControlType="Navigator Document" Order="49" NavigatorSystemID="57" NavigatorEntityID="2215" />
+  </GnosisSystemDefinition>
+  <GnosisEntity EntityID="58" DeviceType="Desktop" EntityType="Layout" System="Gnosis" SystemURL="www.gnosis.co.nz" SystemID="57" VersionNo="1">
+    <GnosisParentWindow Name="Desktop" ID="1" ControlType="Parent Window" Caption="Desktop" Orientation="Landscape">
+      <GnosisToolbarTray Name="LeftToolbarTray" ID="2" ControlType="Toolbar Tray" Order="1" TrayHorizontalAlignment="Left" Orientation="Landscape" >
+        <GnosisToolbar Name="NavigatorGroup" ID="3" ControlType="Toolbar" Order="1" MenuSystemID="57" MenuControlID="71"  />
+        <GnosisToolbar Name="BackForwardGroup" ID="4" ControlType="Toolbar" Order="2" MenuSystemID="57" MenuControlID="48"  />
+        <GnosisToolbar Name="CutCopyPasteGroup" ID="5" ControlType="Toolbar" Order="3" MenuSystemID="57" MenuControlID="51"  />
+        <GnosisToolbar Name="UndoRedoGroup" ID="6" ControlType="Toolbar" Order="4" MenuSystemID="57" MenuControlID="55"  />
+        <GnosisToolbar Name="NewGroup" ID="7" ControlType="Toolbar" Order="5" MenuSystemID="57" MenuControlID="73" />
+        <GnosisToolbar Name="EditingGroup" ID="8" ControlType="Toolbar" Order="6" MenuSystemID="57" MenuControlID="58"  />
+        <GnosisToolbar Name="SearchingGroup" ID="9" ControlType="Toolbar" Order="7" MenuSystemID="57" MenuControlID="66"  />
+      </GnosisToolbarTray>
+      <GnosisToolbarTray Name="CentreToolbarTray" ID="10" ControlType="Toolbar Tray" Order="2" TrayHorizontalAlignment="Centre" Orientation="Landscape">
+        <GnosisToolbar Name="SystemGroup" ID="11" ControlType="Toolbar" Order="1" MenuSystemID="57" MenuControlID="75"  />
+      </GnosisToolbarTray>
+      <GnosisToolbarTray Name="RightToolbarTray" ID="12" ControlType="Toolbar Tray" Order="3" TrayHorizontalAlignment="Right" Orientation="Landscape" >
+        <GnosisToolbar Name="PrintingGroup" ID="13" ControlType="Toolbar" Order="1" MenuSystemID="57" MenuControlID="69"  />
+        <GnosisToolbar Name="MiscGroup" ID="14" ControlType="Toolbar" Order="2" MenuSystemID="57" MenuControlID="77"  />
+      </GnosisToolbarTray>
+      <GnosisPrimarySplit Name="PrimarySplit" ID="15" ControlType="Primary Split" Order="10">
+        <GnosisSplitDetail Name="PrimarySplitDetail" ID="16" ControlType="Split Detail" Order="0" Orientation="Landscape" SplitDirection="Vertical" SplitPercentage="20" SplitUnits="200" UsingUnits="1" />
+        <GnosisNavigatorTile Name="NavigatorTile" ID="17" ControlType="Navigator Tile" Order="1" HasTabs="0" />
+        <GnosisSplit Name="SecondarySplit" ID="18" ControlType="Split" Order="2">
+          <GnosisSplitDetail Name="SecondarySplitDetail" ID="19" ControlType="Split Detail" Order="0" Orientation="Landscape" SplitDirection="Vertical" SplitPercentage="50" UsingUnits="0" />
+          <GnosisTile Name="SecondarySplitLeftTile" ID="20" ControlType="Tile" Order="1" HasTabs="1" AcceptsSearchFrames="1" />
+          <GnosisTile Name="SecondarySplitRightTile" ID="21" ControlType="Tile" Order="2" HasTabs="1" AcceptsDocumentFrames="1" />
+        </GnosisSplit>
+      </GnosisPrimarySplit>
+    </GnosisParentWindow>
+  </GnosisEntity>
+  <GnosisInstance Key1="2" InstanceName="Sukhajata" SystemURL="www.gnosis.co.nz" VersionNo="1" SystemID="57" EntityID="2216" UserID="2" AllowUpdate="0" AllowDelete="0" IsEditing="0" IsEmpty="0" SQLSuccessful="1" Created="0" Updated="0" Deleted="0">
+    <ConnectionUser brm_user_id="2" brm_user_name="Sukhajata" when_begin="2001-01-01T00:00:00" when_end="9999-09-09T00:00:00" is_admin_user="1" is_user="1" is_admin="1" protection_status="1" show_tooltips="0" when_changed="2016-05-18T12:42:20.047" who_changed_id="0" version_no="1" who_changed_name="0" _Created="0" _Updated="0" _Deleted="0" _RowNumber="1" _Timestamp="0000A60A00D1619E" />
+  </GnosisInstance>
+  <GnosisInstance Key1="2" Key2="BHEEMA" InstanceName="BHEEMA" SystemURL="www.gnosis.co.nz" VersionNo="1" SystemID="57" EntityID="2217" UserID="2" AllowUpdate="0" AllowDelete="0" IsEditing="0" IsEmpty="0" SQLSuccessful="1" Created="1" Updated="0" Deleted="0">
+    <ConnectionUserHost brm_user_id="2" host_name="BHEEMA" scale_percentage="100" when_changed="2016-06-07T19:14:35.990" _Created="1" _Updated="0" _Deleted="0" _RowNumber="1" _Timestamp="0000A61E013D1ECD" />
+  </GnosisInstance>
+  <GnosisInstance Key1="57" InstanceName="Gnosis" SystemURL="www.gnosis.co.nz" VersionNo="1" SystemID="57" EntityID="2215" UserID="2" AllowUpdate="1" AllowDelete="1" IsEditing="0" IsEmpty="0" SQLSuccessful="1" Created="0" Updated="0" Deleted="0">
+    <Navigator system_id="57" system_name="Gnosis" system_full_name="Gnosis" system_URL="www.gnosis.co.nz" textual_note="The Gnosis Business Rule Manager" released_version_no="1" brm_user_id="2" brm_user_name="Sukhajata" _Created="0" _Updated="0" _Deleted="0" _RowNumber="1">
+      <System system_id="57" system_full_name="Gnosis" parent_system_id="0" system_URL="www.gnosis.co.nz" _Created="0" _Updated="0" _Deleted="0" _RowNumber="1" />
+      <System system_id="2248" system_full_name="ManAlive" parent_system_id="0" system_URL="www.manalive.co.nz" _Created="0" _Updated="0" _Deleted="0" _RowNumber="2" />
+    </Navigator>
+  </GnosisInstance>
+  <GnosisEntity EntityID="2216" Entity="Connection User" EntityType="Connection" SystemURL="www.gnosis.co.nz" SystemID="57" VersionNo="1" AllowRead="1" AllowCreate="0" AllowUpdate="0" AllowDelete="0">
+    <GnosisDataDefinition>
+      <GnosisDataKey KeyOrder="1" Name="Key1" Dataset="Connection User" DatasetItem="User Id" />
+      <GnosisDataType Name="audit_datetime" SqlDataType="datetime" Precision="14" MinDisplayChars="13" MaxDisplayChars="30" UnitOfMeasure="@" />
+      <GnosisDataType Name="audit_user_id" SqlDataType="int" MaxChars="11" />
+      <GnosisDataType Name="gnosis_sysname" SqlDataType="sysname" MaxChars="128" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" />
+      <GnosisDataType Name="valid_begin_datetime" SqlDataType="datetime" Precision="14" MinDisplayChars="13" MaxDisplayChars="30" />
+      <GnosisDataType Name="valid_end_datetime" SqlDataType="datetime" Precision="14" MinDisplayChars="13" MaxDisplayChars="30" />
+      <GnosisDataType Name="system_protection_status" IsItemList="1" SqlDataType="tinyint" MaxChars="11" ErrorMessage="Please choose a valid Protection Status">
+        <GnosisDataItem Code="0" Name="Unprotected" Order="1" Tooltip="There is no protection set" Icon="Unprotected" />
+        <GnosisDataItem Code="1" Name="Protected" Order="2" Tooltip="Changing requires the Edit button to be explicitly Selected" Icon="Protected" />
+        <GnosisDataItem Code="2" Name="Locked" Order="3" Tooltip="No Changes to data is allowed" Icon="Locked" />
+      </GnosisDataType>
+    </GnosisDataDefinition>
+    <GnosisDatasetDefinition Name="Connection User" Element="ConnectionUser" Path="ConnectionUser">
+      <GnosisDatasetItem Name="User Id" Attribute="brm_user_id" Order="1" Column="User Id" Object="User" Schema="Application" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#">
+        <GnosisControlReference Name="brm_user_id" ID="4" ElementItem="GnosisTextField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="User Name" Attribute="brm_user_name" Order="2" Column="User Name" Object="User" Schema="Application" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128" IsInstanceName="1">
+        <GnosisControlReference Name="brm_user_name" ID="5" ElementItem="GnosisTextField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="When Begin" Attribute="when_begin" Order="3" Column="When Begin" Object="User" Schema="Application" DataType="valid_begin_datetime" MinDisplayChars="13" MaxDisplayChars="30" MaxChars="14" Optional="1" Default="'01-01-01'">
+        <GnosisControlReference Name="when_begin" ID="6" ElementItem="GnosisDateField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="When End" Attribute="when_end" Order="4" Column="When End" Object="User" Schema="Application" DataType="valid_end_datetime" MinDisplayChars="13" MaxDisplayChars="30" MaxChars="14" Optional="1" Default="'9999-9-9'">
+        <GnosisControlReference Name="when_end" ID="7" ElementItem="GnosisDateField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Is Admin User" Attribute="is_admin_user" Order="5" Column="Is Admin User" Object="User" Schema="Application" SqlDataType="bit" UnitOfMeasure="?" Default="0" />
+      <GnosisDatasetItem Name="Is User" Attribute="is_user" Order="6" Column="Is User" Object="User" Schema="Application" SqlDataType="bit" UnitOfMeasure="?" Optional="1" />
+      <GnosisDatasetItem Name="Is Admin" Attribute="is_admin" Order="7" Column="Is Admin" Object="User" Schema="Application" SqlDataType="bit" UnitOfMeasure="?" Optional="1" />
+      <GnosisDatasetItem Name="Protection Status" Attribute="protection_status" Order="8" Column="Protection Status" Object="User" Schema="Application" DataType="system_protection_status" IsItemList="1" Default="1">
+        <GnosisControlReference Name="protection_status" ID="8" ElementItem="GnosisComboField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Show Tooltips" Attribute="show_tooltips" Order="9" Column="Show Tooltips" Object="User" Schema="Application" SqlDataType="bit" UnitOfMeasure="?" Default="0">
+        <GnosisControlReference Name="show_tooltips" ID="9" ElementItem="GnosisCheckField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Use Version No" Attribute="use_version_no" Order="10" Column="Use Version No" Object="User" Schema="Application" SqlDataType="smallint" ContentHorizontalAlignment="Right" MinDisplayChars="6" MaxDisplayChars="8" UnitOfMeasure="#" Optional="1">
+        <GnosisControlReference Name="use_version_no" ID="10" ElementItem="GnosisTextField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="When Changed" Attribute="when_changed" Order="11" Column="When Changed" Object="User" Schema="Application" DataType="audit_datetime" MinDisplayChars="13" MaxDisplayChars="30" UnitOfMeasure="@" MaxChars="14" Default="getdate()">
+        <GnosisControlReference Name="when_changed" ID="12" ElementItem="GnosisDateTimeField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Who Changed Id" Attribute="who_changed_id" Order="12" Column="Who Changed Id" Object="User" Schema="Application" DataType="audit_user_id" />
+      <GnosisDatasetItem Name="Version No" Attribute="version_no" Order="13" Column="Version No" Object="User" Schema="Application" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#" Optional="1">
+        <GnosisControlReference Name="version_no" ID="11" ElementItem="GnosisTextField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Who Changed" Attribute="who_changed_name" Order="14" Column="User Name" Object="User" Schema="Application" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128" Optional="1">
+        <GnosisControlReference Name="who_changed_id" ID="13" ElementItem="GnosisTextField" Path="ConnectionUser" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Attribute="_RowNumber" SqlDataType="int" Optional="0" />
+      <GnosisDatasetItem Attribute="_Created" SqlDataType="bit" Optional="1" />
+      <GnosisDatasetItem Attribute="_Updated" SqlDataType="bit" Optional="1" />
+      <GnosisDatasetItem Attribute="_Deleted" SqlDataType="bit" Optional="1" />
+      <GnosisDatasetItem Attribute="_Timestamp" SqlDataType="binary" MaxChars="16" />
+    </GnosisDatasetDefinition>
+    <GnosisConnectionFrame Name="ConnectionUser" ID="1" ControlType="Connection Frame" IsEditing="0" IsEmpty="0" _Created="0" _Updated="0" _Deleted="0" AllowedSectionList="1, 2" OptimalSectionWidthCharacters="32" MinWidthCharacters="24" MaxWidthCharacters="96" Caption="Connection User">
+      <GnosisMessageGrid Name="ConnectionUserMessageGrid" ID="2" ControlType="Message Grid" Caption="Connection User Messages" Tooltip="Please observe the displayed messages for the Connection User" Order="1" MinDisplayRows="1" MaxWrapRows="2" MaxLines="2" />
+      <GnosisPanel Name="ConnectionUserPanel" ID="3" ControlType="Panel" Caption="Connection User Header" Tooltip="Header attributes for Connection User" Order="2">
+        <GnosisTextField Name="brm_user_id" ID="4" ControlType="Text Field" VariableSystemID="57" VariableControlID="11" VariableIsOutput="1" Order="1" Hidden="1" ReadOnly="1" Dataset="Connection User" DatasetItem="User Id" />
+        <GnosisTextField Name="brm_user_name" ID="5" ControlType="Text Field" VariableSystemID="57" VariableControlID="2" VariableIsInput="1" Order="2" ReadOnly="1" Dataset="Connection User" DatasetItem="User Name" />
+        <GnosisDateField Name="when_begin" ID="6" ControlType="Date Field" Order="3" ReadOnly="1" Dataset="Connection User" DatasetItem="When Begin" />
+        <GnosisDateField Name="when_end" ID="7" ControlType="Date Field" Order="4" ReadOnly="1" Dataset="Connection User" DatasetItem="When End" />
+        <GnosisComboField Name="protection_status" ID="8" ControlType="Combo Field" VariableSystemID="57" VariableControlID="17" VariableIsOutput="1" Order="5" Dataset="Connection User" DatasetItem="Protection Status" />
+        <GnosisCheckField Name="show_tooltips" ID="9" ControlType="Check Field" VariableSystemID="57" VariableControlID="18" VariableIsOutput="1" Order="6" CheckedFactor="1" Dataset="Connection User" DatasetItem="Show Tooltips" />
+        <GnosisTextField Name="use_version_no" ID="10" ControlType="Text Field" Order="7" Dataset="Connection User" DatasetItem="Use Version No" />
+        <GnosisTextField Name="version_no" ID="11" ControlType="Text Field" VariableSystemID="57" VariableControlID="13" VariableIsOutput="1" Order="8" ReadOnly="1" Dataset="Connection User" DatasetItem="Version No" />
+        <GnosisDateTimeField Name="when_changed" ID="12" ControlType="Date Time Field" Order="9" ReadOnly="1" Dataset="Connection User" DatasetItem="When Changed" />
+        <GnosisTextField Name="who_changed_id" ID="13" ControlType="Text Field" Order="10" ReadOnly="1" Dataset="Connection User" DatasetItem="Who Changed" />
+        <GnosisButton Name="SaveUser" ID="14" ControlType="Button" Caption="Save User Settings" Order="11" MenuTag="Save" Disabled="1" />
+      </GnosisPanel>
+    </GnosisConnectionFrame>
+  </GnosisEntity>
+  <GnosisEntity EntityID="2217" Entity="Connection User Host" EntityType="Connection" SystemURL="www.gnosis.co.nz" SystemID="57" VersionNo="1" AllowRead="1" AllowCreate="0" AllowUpdate="0" AllowDelete="0">
+    <GnosisDataDefinition>
+      <GnosisDataKey KeyOrder="1" Name="Key1" Dataset="Connection User Host" DatasetItem="User Id" />
+      <GnosisDataKey KeyOrder="2" Name="Key2" Dataset="Connection User Host" DatasetItem="Host Name" />
+      <GnosisDataType Name="audit_datetime" SqlDataType="datetime" Precision="14" MinDisplayChars="13" MaxDisplayChars="30" UnitOfMeasure="@" />
+      <GnosisDataType Name="audit_user_id" SqlDataType="int" MaxChars="11" />
+      <GnosisDataType Name="gnosis_sysname" SqlDataType="sysname" MaxChars="128" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" />
+    </GnosisDataDefinition>
+    <GnosisDatasetDefinition Name="Connection User Host" Element="ConnectionUserHost" Path="ConnectionUserHost">
+      <GnosisDatasetItem Name="User Id" Attribute="brm_user_id" Order="1" Column="User Id" Object="User Host" Schema="Application" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#">
+        <GnosisControlReference Name="brm_user_id" ID="4" ElementItem="GnosisTextField" Path="ConnectionUserHost" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Host Name" Attribute="host_name" Order="2" Column="Host Name" Object="User Host" Schema="Application" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128" IsInstanceName="1">
+        <GnosisControlReference Name="host_name" ID="5" ElementItem="GnosisTextField" Path="ConnectionUserHost" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Scale Percentage" Attribute="scale_percentage" Order="3" Column="Scale Percentage" Object="User Host" Schema="Application" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#" Default="100">
+        <GnosisControlReference Name="scale_percentage" ID="6" ElementItem="GnosisTextField" Path="ConnectionUserHost" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Default Layout" Attribute="default_layout" Order="4" Column="Default Layout" Object="User Host" Schema="Application" SqlDataType="xml" Optional="1">
+        <GnosisControlReference Name="default_layout" ID="7" ElementItem="GnosisSystemLayoutArea" Path="ConnectionUserHost" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="When Changed" Attribute="when_changed" Order="5" Column="When Changed" Object="User Host" Schema="Application" DataType="audit_datetime" MinDisplayChars="13" MaxDisplayChars="30" UnitOfMeasure="@" MaxChars="14" Default="getdate()">
+        <GnosisControlReference Name="host_when_changed" ID="10" ElementItem="GnosisDateTimeField" Path="ConnectionUserHost" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="Who Changed Id" Attribute="who_changed_id" Order="6" Column="Who Changed Id" Object="User Host" Schema="Application" DataType="audit_user_id" />
+      <GnosisDatasetItem Name="Who Changed" Attribute="change_user_name" Order="7" Column="User Name" Object="User" Schema="Application" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128" Optional="1">
+        <GnosisControlReference Name="change_user_name" ID="11" ElementItem="GnosisTextField" Path="ConnectionUserHost" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Attribute="_RowNumber" SqlDataType="int" Optional="0" />
+      <GnosisDatasetItem Attribute="_Created" SqlDataType="bit" Optional="1" />
+      <GnosisDatasetItem Attribute="_Updated" SqlDataType="bit" Optional="1" />
+      <GnosisDatasetItem Attribute="_Deleted" SqlDataType="bit" Optional="1" />
+      <GnosisDatasetItem Attribute="_Timestamp" SqlDataType="binary" MaxChars="16" />
+    </GnosisDatasetDefinition>
+    <GnosisConnectionFrame Name="ConnectionUserHost" ID="1" ControlType="Connection Frame" IsEditing="0" IsEmpty="0" _Created="0" _Updated="0" _Deleted="0" AllowedSectionList="1, 2" OptimalSectionWidthCharacters="32" MinWidthCharacters="24" MaxWidthCharacters="96" Caption="Connection User Host" AutoCreate="1">
+      <GnosisMessageGrid Name="ConnectionUserHostMessageGrid" ID="2" ControlType="Message Grid" Caption="Connection User Host Messages" Tooltip="Please observe the displayed messages for the Connection User Host" Order="1" MinDisplayRows="1" MaxWrapRows="2" MaxLines="2" />
+      <GnosisPanel Name="ConnectionUserHostPanel" ID="3" ControlType="Panel" Caption="Connection User Host Header" Tooltip="Header attributes for Connection User Host" Order="2">
+        <GnosisTextField Name="brm_user_id" ID="4" ControlType="Text Field" VariableSystemID="57" VariableControlID="11" VariableIsInput="1" Order="1" Hidden="1" ReadOnly="1" Dataset="Connection User Host" DatasetItem="User Id" />
+        <GnosisTextField Name="host_name" ID="5" ControlType="Text Field" VariableSystemID="57" VariableControlID="6" VariableIsInput="1" Order="2" ReadOnly="1" Dataset="Connection User Host" DatasetItem="Host Name" />
+        <GnosisTextField Name="scale_percentage" ID="6" ControlType="Text Field" VariableSystemID="57" VariableControlID="19" VariableIsOutput="1" Order="3" Dataset="Connection User Host" DatasetItem="Scale Percentage" />
+        <GnosisButton Name="AssignLayout" ID="8" ControlType="Button" Caption="Assign Layout" Order="4" Disabled="1" />
+        <GnosisButton Name="UnsetLayout" ID="9" ControlType="Button" Caption="Unset Layout" Order="5" Disabled="1" />
+        <GnosisDateTimeField Name="host_when_changed" ID="10" ControlType="Date Time Field" Order="6" ReadOnly="1" Dataset="Connection User Host" DatasetItem="When Changed" />
+        <GnosisTextField Name="change_user_name" ID="11" ControlType="Text Field" Order="7" ReadOnly="1" Dataset="Connection User Host" DatasetItem="Who Changed" />
+      </GnosisPanel>
+      <GnosisSystemLayoutArea Name="default_layout" ID="7" ControlType="System Layout Area" VariableSystemID="57" VariableControlID="20" VariableIsOutput="1" Order="3" Dataset="Connection User Host" DatasetItem="Default Layout" />
+    </GnosisConnectionFrame>
+  </GnosisEntity>
+  <GnosisEntity EntityID="2215" Entity="Navigator" EntityType="Navigator" SystemURL="www.gnosis.co.nz" SystemID="57" VersionNo="1" AllowRead="1" AllowCreate="1" AllowUpdate="1" AllowDelete="1">
+    <GnosisDataDefinition>
+      <GnosisDataKey KeyOrder="1" Name="Key1" Dataset="Navigator" DatasetItem="System Id" />
+      <GnosisDataType Name="gnosis_sysname" SqlDataType="sysname" MaxChars="128" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" />
+      <GnosisDataType Name="gnosis_longname" SqlDataType="nvarchar" MaxChars="512" MinDisplayChars="32" MaxDisplayChars="96" MinTextDisplayWidthChars="24" />
+      <GnosisDataType Name="textual_note" SqlDataType="nvarchar" MaxChars="-1" MinDisplayChars="240" MaxDisplayChars="1024" MinTextDisplayWidthChars="24" MaxTextDisplayWidthChars="80" UnitOfMeasure="¶" />
+      <GnosisDataCache Element="system" Object="System" Schema="Application">
+        <system system_id="57" system_full_name="Gnosis" parent_system_id="0" system_URL="www.gnosis.co.nz" />
+        <system system_id="2248" system_full_name="ManAlive" parent_system_id="0" system_URL="www.manalive.co.nz" />
+      </GnosisDataCache>
+    </GnosisDataDefinition>
+    <GnosisDatasetDefinition Name="Navigator" Element="Navigator" Path="Navigator" AllowRead="1" AllowCreate="1" AllowUpdate="1" AllowDelete="1">
+      <GnosisDatasetItem Name="System Id" Attribute="system_id" Order="1" Column="System Id" Object="System" Schema="Application" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#" />
+      <GnosisDatasetItem Name="System Name" Attribute="system_name" Order="2" Column="System Name" Object="System" Schema="Application" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128" />
+      <GnosisDatasetItem Name="System Full Name" Attribute="system_full_name" Order="3" Column="System Full Name" Object="System" Schema="Application" DataType="gnosis_longname" MinDisplayChars="32" MaxDisplayChars="96" MinTextDisplayWidthChars="24" MaxChars="512" IsInstanceName="1" />
+      <GnosisDatasetItem Name="System Url" Attribute="system_URL" Order="4" Column="System Url" Object="System" Schema="Application" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128" Optional="1" />
+      <GnosisDatasetItem Name="Textual Note" Attribute="textual_note" Order="5" Column="Textual Note" Object="System" Schema="Application" DataType="textual_note" MinDisplayChars="240" MaxDisplayChars="1024" MinTextDisplayWidthChars="24" MaxTextDisplayWidthChars="80" UnitOfMeasure="¶" Optional="1" />
+      <GnosisDatasetItem Name="Released Version No" Attribute="released_version_no" Order="6" Column="Released Version No" Object="System" Schema="Application" SqlDataType="smallint" ContentHorizontalAlignment="Right" MinDisplayChars="6" MaxDisplayChars="8" UnitOfMeasure="#" />
+      <GnosisDatasetItem Name="User Id" Attribute="brm_user_id" Order="7" Column="User Id" Object="User" Schema="Application" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#">
+        <GnosisControlReference Name="brm_user_id" ID="4" ElementItem="GnosisTextField" Path="Navigator" />
+      </GnosisDatasetItem>
+      <GnosisDatasetItem Name="User Name" Attribute="brm_user_name" Order="8" Column="User Name" Object="User" Schema="Application" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128">
+        <GnosisControlReference Name="brm_user_name" ID="5" ElementItem="GnosisTextField" Path="Navigator" />
+      </GnosisDatasetItem>
+      <GnosisDatasetDefinition Name="System" Element="System" Path="Navigator/System">
+        <GnosisDatasetItem Name="System Id" Attribute="system_id" Order="1" Column="System Id" Object="System" Schema="Application" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#">
+          <GnosisDataCache Element="system" Attribute="system_id" />
+          <GnosisControlReference Name="Properties_SystemID" ID="22" ElementItem="GnosisGalleryAttribute" Path="Navigator/System" />
+          <GnosisControlReference Name="SystemItem_ID" ID="9" ElementItem="GnosisGallerySearchAttribute" Path="Navigator/System" />
+          <GnosisControlReference Name="Types_SystemID" ID="20" ElementItem="GnosisSearchParameter" Path="Navigator/System" />
+        </GnosisDatasetItem>
+        <GnosisDatasetItem Name="System Full Name" Attribute="system_full_name" Order="2" Column="System Full Name" Object="System" Schema="Application" DataType="gnosis_longname" MinDisplayChars="32" MaxDisplayChars="96" MinTextDisplayWidthChars="24" MaxChars="512">
+          <GnosisDataCache Element="system" Attribute="system_full_name" />
+          <GnosisControlReference Name="SystemItem_FullName" ID="10" ElementItem="GnosisGallerySearchAttribute" Path="Navigator/System" />
+          <GnosisControlReference Name="Types_SystemFullName" ID="21" ElementItem="GnosisSearchParameter" Path="Navigator/System" />
+        </GnosisDatasetItem>
+        <GnosisDatasetItem Name="Parent System Id" Attribute="parent_system_id" Order="3" Column="Parent System Id" Object="System" Schema="Application" SqlDataType="int" ContentHorizontalAlignment="Right" MinDisplayChars="10" MaxDisplayChars="12" UnitOfMeasure="#">
+          <GnosisDataCache Element="system" Attribute="parent_system_id" />
+        </GnosisDatasetItem>
+        <GnosisDatasetItem Name="System Url" Attribute="system_URL" Order="4" Column="System Url" Object="System" Schema="Application" DataType="gnosis_sysname" MinDisplayChars="32" MaxDisplayChars="96" UnitOfMeasure="?" MaxChars="128" Optional="1">
+          <GnosisDataCache Element="system" Attribute="system_URL" />
+        </GnosisDatasetItem>
+      </GnosisDatasetDefinition>
+    </GnosisDatasetDefinition>
+    <GnosisNavigatorFrame Name="Navigator" ID="1" ControlType="Navigator Frame" IsEditing="0" IsEmpty="0" AllowedSectionList="1" OptimalSectionWidthCharacters="24" MinWidthCharacters="24" MaxWidthCharacters="96" Caption="Navigator">
+      <GnosisMessageGrid Name="NavigatorMessageGrid" ID="2" ControlType="Message Grid" Caption="Navigator Messages" Tooltip="Please observe the displayed messages for the Navigator" Order="1" MinDisplayRows="1" MaxWrapRows="2" MaxLines="2" />
+      <GnosisPanel Name="NavigatorPanel" ID="3" ControlType="Panel" Caption="Navigator Header" Tooltip="Header attributes for Navigator" Order="2">
+        <GnosisTextField Name="brm_user_id" ID="4" ControlType="Text Field" VariableIsInput="1" Caption="User ID" Order="1" Hidden="1" ReadOnly="1" Dataset="Navigator" DatasetItem="User Id" />
+        <GnosisTextField Name="brm_user_name" ID="5" ControlType="Text Field" VariableIsInput="1" Caption="User Name" Order="2" ReadOnly="1" Dataset="Navigator" DatasetItem="User Name" />
+      </GnosisPanel>
+      <GnosisGallery Name="NavigatorGallery" ID="6" ControlType="Gallery" Caption="Gnosis Navigator" Order="3">
+        <GnosisGalleryItem Name="Systems" ID="7" ControlType="Gallery Item" Caption="Systems" Order="1" Expanded="1" Disabled="0">
+          <GnosisGalleryDatasetItem Name="SystemItem" ID="8" ControlType="Gallery Dataset Item" Caption="System Name" Order="1" Dataset="System">
+            <GnosisGallerySearchAttribute Name="SystemItem_ID" ID="9" ControlType="Gallery Dataset Attribute" Order="1" GalleryRole="ID" Dataset="System" DatasetItem="System Id" />
+            <GnosisGallerySearchAttribute Name="SystemItem_FullName" ID="10" ControlType="Gallery Dataset Attribute" Order="2" GalleryRole="Caption" Dataset="System" DatasetItem="System Full Name" />
+            <GnosisGalleryDocumentItem Name="Properties" ID="11" ControlType="Gallery Document Item" Caption="Properties" Order="3" DocumentAction="Open" DocumentSystemID="57" DocumentEntityID="118">
+              <GnosisGalleryAttribute Name="Properties_SystemID" ID="22" ControlType="Gallery Document Attribute" Order="1" LinkRole="Key" LinkKeyOrder="1" Dataset="System" DatasetItem="System Id" />
+            </GnosisGalleryDocumentItem>
+            <GnosisGallerySearchItem Name="Types" ID="12" ControlType="Gallery Search Item" Caption="Types" Order="4" SearchSystemID="57" SearchEntityID="2247" SearchAction="New" AutoSearchAction="Search">
+              <GnosisSearchParameter Name="Types_SystemID" ID="20" ControlType="Search Parameter" Order="1" Parameter="SystemID" IsOutput="1" Dataset="System" DatasetItem="System Id" />
+              <GnosisSearchParameter Name="Types_SystemFullName" ID="21" ControlType="Search Parameter" Order="2" Parameter="SystemFullName" IsOutput="1" Dataset="System" DatasetItem="System Full Name" />
+            </GnosisGallerySearchItem>
+            <GnosisGallerySearchItem Name="Schemas" ID="13" ControlType="Gallery Search Item" Caption="Schemas" Order="5" SearchAction="New" />
+            <GnosisGallerySearchItem Name="Tables" ID="14" ControlType="Gallery Search Item" Caption="Tables" Order="6" SearchAction="New" />
+            <GnosisGallerySearchItem Name="Externals" ID="15" ControlType="Gallery Search Item" Caption="External Objects" Order="7" SearchAction="New" />
+            <GnosisGallerySearchItem Name="Views" ID="16" ControlType="Gallery Search Item" Caption="Views" Order="8" SearchAction="New" />
+            <GnosisGallerySearchItem Name="Keys" ID="17" ControlType="Gallery Search Item" Caption="Keys" Order="9" SearchAction="New" />
+            <GnosisGallerySearchItem Name="References" ID="18" ControlType="Gallery Search Item" Caption="Key References" Order="10" SearchAction="New" />
+            <GnosisGallerySearchItem Name="Checks" ID="19" ControlType="Gallery Search Item" Caption="Checks" Order="11" SearchAction="New" />
+          </GnosisGalleryDatasetItem>
+        </GnosisGalleryItem>
+      </GnosisGallery>
+    </GnosisNavigatorFrame>
+  </GnosisEntity>
+</GnosisSystem>

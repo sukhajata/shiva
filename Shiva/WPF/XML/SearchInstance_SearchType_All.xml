@@ -1,0 +1,60 @@
+﻿<GnosisInstance UserName="GEETHA\Mark" SystemURL="www.gnosis.co.nz" UserID="1" SystemID="56" EntityID="2331">
+  <SearchType entity_id="2331" when_changed="2016-04-26T09:17:44.857" brm_user_id="1">
+    <Result result_order="1" type_id="1" kind_id="1" type_name="bit" sql_type_name="bit" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="2" type_id="2" kind_id="1" type_name="tinyint" sql_type_name="tinyint" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="3" type_id="3" kind_id="1" type_name="smallint" sql_type_name="smallint" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="4" type_id="4" kind_id="1" type_name="int" sql_type_name="int" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="5" type_id="5" kind_id="1" type_name="bigint" sql_type_name="bigint" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="6" type_id="6" kind_id="1" type_name="char" sql_type_name="char" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="7" type_id="7" kind_id="1" type_name="nchar" sql_type_name="nchar" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="8" type_id="8" kind_id="1" type_name="varchar" sql_type_name="varchar" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="9" type_id="9" kind_id="1" type_name="nvarchar" sql_type_name="nvarchar" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="10" type_id="10" kind_id="1" type_name="text" sql_type_name="text" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="11" type_id="11" kind_id="1" type_name="ntext" sql_type_name="ntext" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="12" type_id="12" kind_id="1" type_name="sysname" sql_type_name="sysname" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="13" type_id="13" kind_id="1" type_name="money" sql_type_name="money" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="14" type_id="14" kind_id="1" type_name="smallmoney" sql_type_name="smallmoney" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="15" type_id="15" kind_id="1" type_name="numeric" sql_type_name="numeric" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="16" type_id="16" kind_id="1" type_name="decimal" sql_type_name="decimal" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="17" type_id="17" kind_id="1" type_name="float" sql_type_name="float" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="18" type_id="18" kind_id="1" type_name="real" sql_type_name="real" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="19" type_id="19" kind_id="1" type_name="date" sql_type_name="date" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="20" type_id="20" kind_id="1" type_name="smalldatetime" sql_type_name="smalldatetime" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="21" type_id="21" kind_id="1" type_name="datetime" sql_type_name="datetime" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="22" type_id="22" kind_id="1" type_name="datetime2" sql_type_name="datetime2" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="23" type_id="23" kind_id="1" type_name="binary" sql_type_name="binary" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="24" type_id="24" kind_id="1" type_name="varbinary" sql_type_name="varbinary" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="25" type_id="25" kind_id="1" type_name="image" sql_type_name="image" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="26" type_id="26" kind_id="1" type_name="uniqueidentifier" sql_type_name="uniqueidentifier" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="27" type_id="27" kind_id="1" type_name="xml" sql_type_name="xml" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="28" type_id="28" kind_id="1" type_name="geometry" sql_type_name="geometry" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="29" type_id="29" kind_id="1" type_name="geography" sql_type_name="geography" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="30" type_id="30" kind_id="0" type_name="save_point_identifier" sql_type_name="binary" prec="4" isnullable="0" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="31" type_id="31" kind_id="0" type_name="transaction_change_matrix" sql_type_name="binary" isnullable="0" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="32" type_id="32" kind_id="0" type_name="audit_datetime" sql_type_name="datetime" isnullable="0" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="33" type_id="33" kind_id="0" type_name="audit_user_id" sql_type_name="int" isnullable="0" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="34" type_id="34" kind_id="0" type_name="gnosis_system_id" sql_type_name="int" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="35" type_id="35" kind_id="0" type_name="gnosis_entity_id" sql_type_name="int" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="36" type_id="36" kind_id="0" type_name="gnosis_entity_name" sql_type_name="sysname" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="37" type_id="37" kind_id="0" type_name="gnosis_object_id" sql_type_name="int" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="38" type_id="38" kind_id="0" type_name="gnosis_sql_object_id" sql_type_name="int" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="39" type_id="39" kind_id="0" type_name="gnosis_attribute_id" sql_type_name="int" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="40" type_id="40" kind_id="0" type_name="gnosis_instance_name" sql_type_name="nvarchar" prec="1024" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="41" type_id="41" kind_id="0" type_name="gnosis_system_url" sql_type_name="sysname" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="42" type_id="42" kind_id="0" type_name="deleted_flag" sql_type_name="tinyint" isnullable="0" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="43" type_id="43" kind_id="0" type_name="valid_begin_datetime" sql_type_name="datetime" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="44" type_id="44" kind_id="0" type_name="valid_end_datetime" sql_type_name="datetime" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="45" type_id="45" kind_id="0" type_name="valid_begin_date" sql_type_name="date" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="46" type_id="46" kind_id="0" type_name="valid_end_date" sql_type_name="date" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="47" type_id="47" kind_id="0" type_name="system_protection_status" sql_type_name="tinyint" isnullable="0" is_item_list="1" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="48" type_id="48" kind_id="0" type_name="boolean" sql_type_name="bit" isnullable="0" is_item_list="1" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="49" type_id="49" kind_id="0" type_name="gnosis_layout_xml" sql_type_name="xml" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="50" type_id="50" kind_id="0" type_name="device_type_name" sql_type_name="sysname" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="51" type_id="51" kind_id="0" type_name="textual_data" sql_type_name="varchar" prec="-1" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="52" type_id="52" kind_id="0" type_name="search_ntext" sql_type_name="nvarchar" prec="255" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="53" type_id="53" kind_id="0" type_name="search_text" sql_type_name="varchar" prec="255" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="54" type_id="54" kind_id="0" type_name="label_ntext" sql_type_name="nvarchar" prec="255" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="55" type_id="55" kind_id="0" type_name="label_text" sql_type_name="nvarchar" prec="255" isnullable="1" is_item_list="0" auto_allocate="0" system_full_name="Global" />
+    <Result result_order="56" type_id="1858" kind_id="2" type_name="type_kind" sql_type_name="smallint" isnullable="0" is_item_list="1" auto_allocate="0" system_full_name="Gnosis" />
+  </SearchType>
+</GnosisInstance>

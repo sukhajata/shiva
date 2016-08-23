@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GnosisParentWindow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ControlType="Parent Window" Name="Desktop" ID="1" Order="0" Hidden="false" HasFocus="true" HasMouseDown="false" HasMouseFocus="false" Caption="Desktop" Orientation="Landscape">
+  <GnosisToolbarTray ControlType="Toolbar Tray" Name="LeftToolbarTray" ID="2" Order="1" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" Disabled="true" TrayHorizontalAlignment="LEFT" Orientation="Landscape" Menu="0">
+    <GnosisToolbar ControlType="Toolbar" Name="NavigatorGroup" ID="3" Order="1" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="71" />
+    <GnosisToolbar ControlType="Toolbar" Name="BackForwardGroup" ID="4" Order="2" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="48" />
+    <GnosisToolbar ControlType="Toolbar" Name="CutCopyPasteGroup" ID="5" Order="3" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="51" />
+    <GnosisToolbar ControlType="Toolbar" Name="UndoRedoGroup" ID="6" Order="4" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="55" />
+    <GnosisToolbar ControlType="Toolbar" Name="NewGroup" ID="7" Order="5" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="73" />
+    <GnosisToolbar ControlType="Toolbar" Name="EditingGroup" ID="8" Order="6" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="58" />
+    <GnosisToolbar ControlType="Toolbar" Name="SearchingGroup" ID="9" Order="7" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="66" />
+  </GnosisToolbarTray>
+  <GnosisToolbarTray ControlType="Toolbar Tray" Name="CentreToolbarTray" ID="10" Order="2" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" Disabled="true" TrayHorizontalAlignment="CENTRE" Orientation="Landscape" Menu="0">
+    <GnosisToolbar ControlType="Toolbar" Name="SystemGroup" ID="11" Order="1" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="75" />
+  </GnosisToolbarTray>
+  <GnosisToolbarTray ControlType="Toolbar Tray" Name="RightToolbarTray" ID="12" Order="3" Hidden="false" HasFocus="true" HasMouseDown="false" HasMouseFocus="false" Disabled="true" TrayHorizontalAlignment="RIGHT" Orientation="Landscape" Menu="0">
+    <GnosisToolbar ControlType="Toolbar" Name="PrintingGroup" ID="13" Order="1" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="69" />
+    <GnosisToolbar ControlType="Toolbar" Name="MiscGroup" ID="14" Order="2" Hidden="false" HasFocus="true" HasMouseDown="false" HasMouseFocus="false" MinWidth="0" MaxWidth="0" MaxPrintWidth="0" Disabled="true" ShowOnChildWindow="0" MenuEntityID="0" MenuControlID="77" />
+  </GnosisToolbarTray>
+  <GnosisPrimarySplit ControlType="Primary Split" Name="PrimarySplit" ID="15" Order="10" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false">
+    <GnosisTile ControlType="Tile" Name="SecondarySplit" ID="20" Order="2" Hidden="false" HasFocus="true" HasMouseDown="false" HasMouseFocus="false" HasTabs="true" AcceptsSearchFrames="true" AcceptsDocumentFrames="false" />
+    <GnosisSplitDetail ControlType="Split Detail" Name="PrimarySplitDetail" ID="16" Order="0" Orientation="Landscape" SplitDirection="Vertical" SplitPercentage="20" SplitUnits="200" UsingUnits="true" />
+    <GnosisNavigatorTile ControlType="Navigator Tile" Name="NavigatorTile" ID="17" Order="1" Hidden="false" HasFocus="false" HasMouseDown="false" HasMouseFocus="false" HasTabs="false" AcceptsSearchFrames="false" AcceptsDocumentFrames="false" />
+  </GnosisPrimarySplit>
+</GnosisParentWindow>

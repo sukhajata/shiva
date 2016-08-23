@@ -1,0 +1,821 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8F6E97DE-D18C-4A94-8D08-7BF1D6214231}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Shiva</RootNamespace>
+    <AssemblyName>Shiva</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="LoginDialog.xaml.cs">
+      <DependentUpon>LoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\BaseControllers\GnosisController.cs" />
+    <Compile Include="Shared\BaseControllers\GnosisVisibleController.cs" />
+    <Compile Include="Shared\ContainerControllers\GnosisContainerController.cs" />
+    <Compile Include="Shared\ContainerControllers\GnosisContainerTreeViewItemController.cs" />
+    <Compile Include="Shared\ContainerControllers\GnosisNavTileController.cs" />
+    <Compile Include="Shared\ContainerControllers\GnosisPrimarySplitController.cs" />
+    <Compile Include="Shared\ContainerControllers\GnosisSplitController.cs" />
+    <Compile Include="Shared\ContainerControllers\GnosisTileController.cs" />
+    <Compile Include="Shared\ContainerControllers\GnosisTileTabController.cs" />
+    <Compile Include="Shared\ContainerControllers\GnosisTileTabItemController.cs" />
+    <Compile Include="Shared\ContentControllers\GnosisContentController.cs" />
+    <Compile Include="Shared\ContentControllers\GnosisGalleryDatasetItemController.cs" />
+    <Compile Include="Shared\ContentControllers\GnosisGalleryDocumentItemController.cs" />
+    <Compile Include="Shared\ContentControllers\GnosisGalleryItemController.cs" />
+    <Compile Include="Shared\ContentControllers\GnosisGallerySearchItemController.cs" />
+    <Compile Include="Shared\DataControllers\ControlTypeMapping.cs" />
+    <Compile Include="Shared\DataControllers\EnvironmentVariableController.cs" />
+    <Compile Include="Shared\DataControllers\GnosisEntityController.cs" />
+    <Compile Include="Shared\DataControllers\GnosisInstanceController.cs" />
+    <Compile Include="Shared\DataControllers\GnosisSystemController.cs" />
+    <Compile Include="Shared\DataControllers\StyleController.cs" />
+    <Compile Include="Shared\Data\EntityType.cs" />
+    <Compile Include="Shared\Data\GlobalData.cs" />
+    <Compile Include="Shared\Data\GnosisConnectionDocument.cs" />
+    <Compile Include="Shared\Data\GnosisControlReference.cs" />
+    <Compile Include="Shared\Data\GnosisDataCache.cs" />
+    <Compile Include="Shared\Data\GnosisDataDefinition.cs" />
+    <Compile Include="Shared\Data\GnosisDataItem.cs" />
+    <Compile Include="Shared\Data\GnosisDataKey.cs" />
+    <Compile Include="Shared\Data\GnosisDatasetDefinition.cs" />
+    <Compile Include="Shared\Data\GnosisDatasetItem.cs" />
+    <Compile Include="Shared\Data\GnosisDataSystemReference.cs" />
+    <Compile Include="Shared\Data\GnosisDataType.cs" />
+    <Compile Include="Shared\Data\GnosisDocument.cs" />
+    <Compile Include="Shared\Data\GnosisEnvironmentVariable.cs" />
+    <Compile Include="Shared\Data\GnosisGalleryDatasetItem.cs" />
+    <Compile Include="Shared\Data\GnosisIcon.cs" />
+    <Compile Include="Shared\Data\GnosisInstance.cs" />
+    <Compile Include="Shared\Data\GnosisInstanceVariable.cs" />
+    <Compile Include="Shared\Data\GnosisInternalVariable.cs" />
+    <Compile Include="Shared\Data\GnosisItem.cs" />
+    <Compile Include="Shared\Data\GnosisKey.cs" />
+    <Compile Include="Shared\Data\GnosisNavigatorDocument.cs" />
+    <Compile Include="Shared\Data\GnosisPermissionVariable.cs" />
+    <Compile Include="Shared\Data\GnosisPhysicalType.cs" />
+    <Compile Include="Shared\Data\GnosisSearchRequest.cs" />
+    <Compile Include="Shared\Data\GnosisStyle.cs" />
+    <Compile Include="Shared\Data\GnosisStyleCondition.cs" />
+    <Compile Include="Shared\Data\GnosisStyleSet.cs" />
+    <Compile Include="Shared\Data\GnosisSystem.cs" />
+    <Compile Include="Shared\Data\GnosisSystemDefinition.cs" />
+    <Compile Include="Shared\Data\GnosisVariable.cs" />
+    <Compile Include="Shared\Errors\GnosisMessage.cs" />
+    <Compile Include="Shared\Errors\GnosisMessageList.cs" />
+    <Compile Include="Shared\Events\EventLogger.cs" />
+    <Compile Include="Shared\Events\GnosisApplicationCommands.cs" />
+    <Compile Include="Shared\Events\GnosisBooleanHelper.cs" />
+    <Compile Include="Shared\Events\GnosisDocChange.cs" />
+    <Compile Include="Shared\Events\GnosisDragEvent.cs" />
+    <Compile Include="Shared\Events\GnosisDropEvent.cs" />
+    <Compile Include="Shared\Events\GnosisEventHandler.cs" />
+    <Compile Include="Shared\Events\GnosisEventHandlerSource.cs" />
+    <Compile Include="Shared\Events\GnosisSystemCommands.cs" />
+    <Compile Include="Shared\Events\IconMapper.cs" />
+    <Compile Include="Shared\GenericControllers\GnosisGenericControlController.cs" />
+    <Compile Include="Shared\GenericControllers\GnosisGenericMenuController.cs" />
+    <Compile Include="Shared\GenericControllers\GnosisGenericMenuGroupController.cs" />
+    <Compile Include="Shared\GenericControllers\GnosisGenericMenuItemController.cs" />
+    <Compile Include="Shared\GenericControllers\GnosisGenericMenuItemController_Search.cs" />
+    <Compile Include="Shared\GenericControllers\GnosisGenericToggleMenuItemController.cs" />
+    <Compile Include="Shared\Generic\GnosisDocumentInput.cs" />
+    <Compile Include="Shared\Generic\GnosisDocumentOutput.cs" />
+    <Compile Include="Shared\Generic\GnosisGenericControl.cs" />
+    <Compile Include="Shared\Generic\GnosisGenericInput.cs" />
+    <Compile Include="Shared\Generic\GnosisGenericMenu.cs" />
+    <Compile Include="Shared\Generic\GnosisGenericMenuGroup.cs" />
+    <Compile Include="Shared\Generic\GnosisGenericMenuItem.cs" />
+    <Compile Include="Shared\Generic\GnosisGenericOutput.cs" />
+    <Compile Include="Shared\Generic\GnosisGenericToggleMenuItem.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisAttribute.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisButton.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisButtonGroup.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisCalendar.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisCheckColumn.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisCheckField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisCheckGroup.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisCheckResults.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisChildAttribute.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisChildWindow.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisCollectionAttribute.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisComboAttribute.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisComboColumn.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisComboField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisComboOption.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisConnection.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisConnectionFrame.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisContainer.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisContainerTreeViewItem.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisContentControl.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisControl.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisDateColumn.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisDateField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisDateResults.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisDateTimeColumn.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisDateTimeField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisDateTimeResults.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisDocumentFrame.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisDocumentParameter.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisEntity.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisFrame.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGallery.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGalleryAttribute.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGalleryDetail.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGalleryDocumentItem.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGalleryItem.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGallerySearchAttribute.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGallerySearchItem.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGrid.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGridCheckField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGridColumn.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGridComboField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGridDateField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGridDateTimeField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGridHeaderField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGridLinkField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGridNumberField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisGridTextField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisInnerLayoutControl.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisLabelField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisLinkAttribute.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisLinkButton.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisLinkButtonItem.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisLinkColumn.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisLinkEntity.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisLinkField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisLinkMenuButton.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisListField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisMenuButton.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisMenuItem.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisMessageGrid.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisNavigatorFrame.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisNavigatorTile.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisNewMenuItem.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisNumberColumn.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisNumberField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisNumberResults.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisOuterLayoutControl.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisPanel.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisPanelField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisParentWindow.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisPrimarySplit.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisPropertyAttribute.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisRadioField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisRadioGroup.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisResultsCheckField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisResultsColumn.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisResultsDateField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisResultsDateTimeField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisResultsNumberField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisResultsTextField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisSearchFrame.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisSearchParameter.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisSearchResultsAttribute.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisSearchResultsGrid.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisSplit.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisSplitDetail.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisSystemAddressField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisSystemLayoutArea.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTab.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTextArea.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTextColumn.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTextField.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTextResults.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTile.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTileDetail.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTileTab.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTileTabItem.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisToggleButton.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisToggleButtonGroup.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisToolbar.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisToolbarButton.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisToolbarControl.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisToolbarTray.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisTree.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisVisibleControl.cs" />
+    <Compile Include="Shared\GridColumnControllers\GnosisGridColumnController.cs" />
+    <Compile Include="Shared\GridColumnControllers\GnosisResultsColumnController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisCalendarController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisGalleryController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisGridController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisGridRowController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisInnerLayoutController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisMessageGridController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisPanelController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisResultsRowController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisSearchResultsGridController.cs" />
+    <Compile Include="Shared\InnerLayoutControllers\GnosisTextAreaController.cs" />
+    <Compile Include="Shared\Interfaces\IContainerPaddingPossessor.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisButtonImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisCalendarImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisCaptionLabelImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisCheckFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisCheckResultsFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisChildWindowImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisComboFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisComboOptionImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisConnectionFrameImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisContainerImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisContainerTreeViewItemImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisContentControlImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisControl.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisControlThicknessPossessor.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisDateFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisDateResultsFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisDateTimeFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisDateTimeResultsFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisDisplayCharsPossessor.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisDocFrameImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisErrorHandler.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisFrameContainer.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisFrameImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGalleryImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGalleryItemImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGallerySearchItemImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridCheckFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridColumnImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridComboFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridDateFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridDateTimeFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridHeaderFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridIndentFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridResultsFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisGridTextFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisImplementationCreator.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisInnerLayoutControlImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisIOHelper.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisLinkButtonImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisLinkFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisLinkMenuButtonItemImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisListFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisLoginDialog.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisMarginPossessor.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisMenuButtonImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisMenuItemImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisMessageGridImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisMouseVisibleControlImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisNavFrameImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisNavTileImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisNumberFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisObject.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisOuterLayoutControlImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisPaddingPossessor.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisPanelFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisPanelImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisParentWindowImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisPrimarySplitImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisPropertiesDialogImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisRadioFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisRadioGroupImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisSearchFrameImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisSpacingPossessor.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisSplitImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisStyleHelper.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisSystemAddressFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisSystemCommandsImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTabHeaderButtonImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTextAreaImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTextFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTextResultsFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTileImplemenation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTileTabImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTileTabItemImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisToggleButtonGroupImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisToggleButtonImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisToolbarButtonImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisToolbarImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisToolbarMenuButtonImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisToolbarMenuButtonItemImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisToolbarTrayImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisVisibleControlImplementation.cs" />
+    <Compile Include="Shared\OuterLayoutControllers\GnosisConnectionFrameController.cs" />
+    <Compile Include="Shared\OuterLayoutControllers\GnosisDocumentFrameController.cs" />
+    <Compile Include="Shared\OuterLayoutControllers\GnosisFrameController.cs" />
+    <Compile Include="Shared\OuterLayoutControllers\GnosisNavigatorFrameController.cs" />
+    <Compile Include="Shared\OuterLayoutControllers\GnosisOuterLayoutController.cs" />
+    <Compile Include="Shared\OuterLayoutControllers\GnosisSearchFrameController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisButtonController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisCheckFieldController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisComboFieldController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisDateFieldController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisDateTimeFieldController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisLinkFieldController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisNumberFieldController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisPanelFieldController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisRadioFieldController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisRadioGroupController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisTextFieldController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisToggleButtonController.cs" />
+    <Compile Include="Shared\PanelFieldControllers\GnosisToggleButtonGroupController.cs" />
+    <Compile Include="Shared\ServerCommunication\ServerConnection.cs" />
+    <Compile Include="Shared\ToolbarControllers\GnosisSystemAddressController.cs" />
+    <Compile Include="Shared\ToolbarControllers\GnosisToolbarButtonController.cs" />
+    <Compile Include="Shared\ToolbarControllers\GnosisToolbarButtonItemController.cs" />
+    <Compile Include="Shared\ToolbarControllers\GnosisToolbarController.cs" />
+    <Compile Include="Shared\ToolbarControllers\GnosisToolbarMenuButtonController.cs" />
+    <Compile Include="Shared\ToolbarControllers\GnosisToolbarToggleButtonController.cs" />
+    <Compile Include="Shared\ToolbarControllers\GnosisToolbarTrayController.cs" />
+    <Compile Include="Shared\Utility\GnosisApplicationManager.cs" />
+    <Compile Include="Shared\Utility\GnosisControlCreator.cs" />
+    <Compile Include="Shared\Utility\GnosisValidator.cs" />
+    <Compile Include="Shared\Utility\GnosisXMLHelper.cs" />
+    <Compile Include="Shared\Utility\IconNameMapper.cs" />
+    <Compile Include="Shared\Utility\LayoutManager.cs" />
+    <Compile Include="Shared\Utility\PropertyNameConverter.cs" />
+    <Compile Include="Shared\WindowControllers\GnosisChildWindowController.cs" />
+    <Compile Include="Shared\WindowControllers\GnosisParentWindowController.cs" />
+    <Compile Include="WPF\GnosisControls\ComboBoxItemTemplateSelector.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisButton.xaml.cs">
+      <DependentUpon>GnosisButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisCalendar.xaml.cs">
+      <DependentUpon>GnosisCalendar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisCaptionLabel.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisCheckField.xaml.cs">
+      <DependentUpon>GnosisCheckField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisComboField.xaml.cs">
+      <DependentUpon>GnosisComboField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisComboOption.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisConnectionFrame.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisContainer.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisContainerTreeViewItem.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisDateField.xaml.cs">
+      <DependentUpon>GnosisDateField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisDateTimeField.xaml.cs">
+      <DependentUpon>GnosisDateTimeField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisDocumentFrame.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisFrame.xaml.cs">
+      <DependentUpon>GnosisFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisGallery.xaml.cs">
+      <DependentUpon>GnosisGallery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisGalleryItem.xaml.cs">
+      <DependentUpon>GnosisGalleryItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisGrid.xaml.cs">
+      <DependentUpon>GnosisGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisLinkField.xaml.cs">
+      <DependentUpon>GnosisLinkField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisListField.xaml.cs">
+      <DependentUpon>GnosisListField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisMenuButton.xaml.cs">
+      <DependentUpon>GnosisMenuButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisMenuItem.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisMessageGrid.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisNavigatorFrame.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisNavigatorTile.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisNumberField.xaml.cs">
+      <DependentUpon>GnosisNumberField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisPanel.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisParentWindow.xaml.cs">
+      <DependentUpon>GnosisParentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisPrimarySplit.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisRadioField.xaml.cs">
+      <DependentUpon>GnosisRadioField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisSearchFrame.xaml.cs">
+      <DependentUpon>GnosisSearchFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisSplit.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisSystemAddressField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisTabHeaderButton.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisTextArea.xaml.cs">
+      <DependentUpon>GnosisTextArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisTextField.xaml.cs">
+      <DependentUpon>GnosisTextField.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisTile.xaml.cs">
+      <DependentUpon>GnosisTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisTileTab.xaml.cs">
+      <DependentUpon>GnosisTileTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisTileTabItem.xaml.cs">
+      <DependentUpon>GnosisTileTabItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisToggleButton.xaml.cs">
+      <DependentUpon>GnosisToggleButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisToolbar.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisToolbarButton.xaml.cs">
+      <DependentUpon>GnosisToolbarButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisToolbarMenuButton.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisToolbarTray.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisVisibleControl.cs" />
+    <Compile Include="WPF\GridControlsWPF\GnosisGridCheckField.cs" />
+    <Compile Include="WPF\GridControlsWPF\GnosisGridHeaderField.cs" />
+    <Compile Include="WPF\GridControlsWPF\GnosisGridIndentField.cs" />
+    <Compile Include="WPF\GridControlsWPF\GnosisGridTextField.cs" />
+    <Compile Include="WPF\LayoutFeatures\GnosisContainerTreeViewItemWPF.cs" />
+    <Compile Include="WPF\LayoutFeatures\HorizontalGridSplitter.cs" />
+    <Compile Include="WPF\LayoutFeatures\OverlayGrid.xaml.cs">
+      <DependentUpon>OverlayGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\LayoutFeatures\VerticalGridSplitter.cs" />
+    <Compile Include="WPF\UtilityWPF\CircularProgressBar.xaml.cs">
+      <DependentUpon>CircularProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\UtilityWPF\ExcelPropertyComparer.cs" />
+    <Compile Include="WPF\UtilityWPF\ExtensionMethodsWPF.cs" />
+    <Compile Include="WPF\UtilityWPF\GnosisErrorHandlerWPF.cs" />
+    <Compile Include="WPF\UtilityWPF\GnosisIOHelperWPF.cs" />
+    <Compile Include="WPF\UtilityWPF\GnosisSystemCommandsWPF.cs" />
+    <Compile Include="WPF\UtilityWPF\GnosisSystemPropertiesDialog.xaml.cs">
+      <DependentUpon>GnosisSystemPropertiesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\UtilityWPF\ShivaDesigner.xaml.cs">
+      <DependentUpon>ShivaDesigner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\UtilityWPF\StyleHelper.cs" />
+    <Compile Include="WPF\UtilityWPF\TriggerTracing.cs" />
+    <Compile Include="WPF\UtilityWPF\XMLViewer.xaml.cs">
+      <DependentUpon>XMLViewer.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LoginDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="WPF\GnosisControls\GnosisButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisCalendar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisCheckField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisComboField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisDateField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisDateTimeField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisGallery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisGalleryItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisLinkField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisListField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisMenuButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisNumberField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisParentWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisRadioField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisSearchFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisTextArea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisTextField.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisTile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisTileTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisTileTabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisToolbarButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\LayoutFeatures\OverlayGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\UtilityWPF\CircularProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\UtilityWPF\GnosisSystemPropertiesDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\UtilityWPF\ShivaDesigner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\UtilityWPF\XMLViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="WPF\XML\Control Definitions.ods" />
+    <None Include="WPF\XML\Control Definitions.xlsx" />
+    <None Include="WPF\XML\~%24Control Definitions.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="WPF\Icons\addressbook.png" />
+    <Resource Include="WPF\Icons\adduser.png" />
+    <Resource Include="WPF\Icons\back.png" />
+    <Resource Include="WPF\Icons\calendar.png" />
+    <Resource Include="WPF\Icons\cancel.png" />
+    <Resource Include="WPF\Icons\copy.png" />
+    <Resource Include="WPF\Icons\cut.png" />
+    <Resource Include="WPF\Icons\delete.png" />
+    <Resource Include="WPF\Icons\disabled\addressbook_24.png" />
+    <Resource Include="WPF\Icons\disabled\adduser_24.png" />
+    <Resource Include="WPF\Icons\disabled\back.png" />
+    <Resource Include="WPF\Icons\disabled\back_24.png" />
+    <Resource Include="WPF\Icons\disabled\calendar.png" />
+    <Resource Include="WPF\Icons\disabled\cancel.png" />
+    <Resource Include="WPF\Icons\disabled\cancel_24.png" />
+    <Resource Include="WPF\Icons\disabled\copy.png" />
+    <Resource Include="WPF\Icons\disabled\copy_24.png" />
+    <Resource Include="WPF\Icons\disabled\cut.png" />
+    <Resource Include="WPF\Icons\disabled\cut_24.png" />
+    <Resource Include="WPF\Icons\disabled\delete.png" />
+    <Resource Include="WPF\Icons\disabled\delete_24.png" />
+    <Resource Include="WPF\Icons\disabled\edit.png" />
+    <Resource Include="WPF\Icons\disabled\edit_24.png" />
+    <Resource Include="WPF\Icons\disabled\forward.png" />
+    <Resource Include="WPF\Icons\disabled\forward_24.png" />
+    <Resource Include="WPF\Icons\disabled\help.png" />
+    <Resource Include="WPF\Icons\disabled\help_24.png" />
+    <Resource Include="WPF\Icons\disabled\home.png" />
+    <Resource Include="WPF\Icons\disabled\insert.png" />
+    <Resource Include="WPF\Icons\disabled\locked.png" />
+    <Resource Include="WPF\Icons\disabled\locked_24.png" />
+    <Resource Include="WPF\Icons\disabled\navigator.png" />
+    <Resource Include="WPF\Icons\disabled\navigator_24.png" />
+    <Resource Include="WPF\Icons\disabled\new.png" />
+    <Resource Include="WPF\Icons\disabled\new_24.png" />
+    <Resource Include="WPF\Icons\disabled\paste.png" />
+    <Resource Include="WPF\Icons\disabled\paste_24.png" />
+    <Resource Include="WPF\Icons\disabled\print.png" />
+    <Resource Include="WPF\Icons\disabled\print_24.png" />
+    <Resource Include="WPF\Icons\disabled\properties.png" />
+    <Resource Include="WPF\Icons\disabled\properties_24.png" />
+    <Resource Include="WPF\Icons\disabled\protected.png" />
+    <Resource Include="WPF\Icons\disabled\protected_24.png" />
+    <Resource Include="WPF\Icons\disabled\redo.png" />
+    <Resource Include="WPF\Icons\disabled\redo_24.png" />
+    <Resource Include="WPF\Icons\disabled\refresh.png" />
+    <Resource Include="WPF\Icons\disabled\refresh_24.png" />
+    <Resource Include="WPF\Icons\disabled\remove.png" />
+    <Resource Include="WPF\Icons\disabled\remove_24.png" />
+    <Resource Include="WPF\Icons\disabled\reset.png" />
+    <Resource Include="WPF\Icons\disabled\save-new.png" />
+    <Resource Include="WPF\Icons\disabled\save.png" />
+    <Resource Include="WPF\Icons\disabled\save_24.png" />
+    <Resource Include="WPF\Icons\disabled\search.png" />
+    <Resource Include="WPF\Icons\disabled\search_24.png" />
+    <Resource Include="WPF\Icons\disabled\tooltip_24.png" />
+    <Resource Include="WPF\Icons\disabled\undo.png" />
+    <Resource Include="WPF\Icons\disabled\undo_24.png" />
+    <Resource Include="WPF\Icons\disabled\unprotected.png" />
+    <Resource Include="WPF\Icons\disabled\unprotected_24.png" />
+    <Resource Include="WPF\Icons\edit.png" />
+    <Resource Include="WPF\Icons\forward.png" />
+    <Resource Include="WPF\Icons\help.png" />
+    <Resource Include="WPF\Icons\home.png" />
+    <Resource Include="WPF\Icons\insert.png" />
+    <Resource Include="WPF\Icons\loading.gif" />
+    <Resource Include="WPF\Icons\locked.png" />
+    <Resource Include="WPF\Icons\nataraj-24.png" />
+    <Resource Include="WPF\Icons\nataraj.ico" />
+    <Resource Include="WPF\Icons\nav.png" />
+    <Resource Include="WPF\Icons\navigator.png" />
+    <Resource Include="WPF\Icons\new.png" />
+    <Resource Include="WPF\Icons\paste.png" />
+    <Resource Include="WPF\Icons\print.png" />
+    <Resource Include="WPF\Icons\properties.png" />
+    <Resource Include="WPF\Icons\protected.png" />
+    <Resource Include="WPF\Icons\redo.png" />
+    <Resource Include="WPF\Icons\refresh.png" />
+    <Resource Include="WPF\Icons\remove.png" />
+    <Resource Include="WPF\Icons\reset.png" />
+    <Resource Include="WPF\Icons\save-new.png" />
+    <Resource Include="WPF\Icons\save.png" />
+    <Resource Include="WPF\Icons\search.png" />
+    <Resource Include="WPF\Icons\th_icon-nav-window-25.png" />
+    <Resource Include="WPF\Icons\th_icon-navigator-25.png" />
+    <Resource Include="WPF\Icons\th_icon-parent-horizontal-25.png" />
+    <Resource Include="WPF\Icons\th_icon-parent-vertical-25.png" />
+    <Resource Include="WPF\Icons\th_icon-split-bottom-25.png" />
+    <Resource Include="WPF\Icons\th_icon-split-left-25.png" />
+    <Resource Include="WPF\Icons\th_icon-split-right-25.png" />
+    <Resource Include="WPF\Icons\th_icon-split-top-25.png" />
+    <Resource Include="WPF\Icons\th_icon-window-25.png" />
+    <Resource Include="WPF\Icons\th_icon-window-horizontal-split-25.png" />
+    <Resource Include="WPF\Icons\th_icon-window-vertical-split-25.png" />
+    <Resource Include="WPF\Icons\tick_24.png" />
+    <Resource Include="WPF\Icons\tooltip_24.png" />
+    <Resource Include="WPF\Icons\undo.png" />
+    <Resource Include="WPF\Icons\unprotected.png" />
+    <Resource Include="WPF\Logs\error-log.txt" />
+    <Resource Include="WPF\Logs\eventLogger.txt" />
+    <Resource Include="WPF\Logs\sourceExpressionLog.txt" />
+    <Resource Include="WPF\nataraj.ico" />
+    <Resource Include="WPF\XML\doc-entity.xml" />
+    <Resource Include="WPF\XML\doc-instance.xml" />
+    <Resource Include="WPF\XML\entity-2247.xml" />
+    <Resource Include="WPF\XML\entity-91.xml" />
+    <Resource Include="WPF\XML\Entity_Type.xml" />
+    <Resource Include="WPF\XML\instance-2247-global.xml" />
+    <Resource Include="WPF\XML\instance-2247.xml" />
+    <Resource Include="WPF\XML\instance-91.xml" />
+    <Resource Include="WPF\XML\Instance_Type_ID12.xml" />
+    <Resource Include="WPF\XML\layout.xml" />
+    <Resource Include="WPF\XML\search-entity.xml" />
+    <Resource Include="WPF\XML\search-instance.xml" />
+    <Resource Include="WPF\XML\SearchInstance_SearchType_All.xml" />
+    <Resource Include="WPF\XML\system-7-jun.xml" />
+    <Resource Include="WPF\XML\system-august.xml" />
+    <Resource Include="WPF\XML\system-new2.xml" />
+    <Resource Include="WPF\XML\Type.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

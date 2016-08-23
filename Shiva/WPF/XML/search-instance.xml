@@ -1,0 +1,6 @@
+<GnosisInstance UserName="Sukhajata" SystemURL="www.gnosis.co.nz" MachineID="" UserID="2" EntityID="2247" SQLSuccessful="1">
+  <SearchType entity_id="2247" search_id="B96503EB-081D-4714-89F5-777704B9E7CF" search_system_id="57" max_rows="30000" when_changed="2016-05-24T15:41:45.953" brm_user_id="2" system_full_name="Gnosis">
+    <Result result_order="1" type_id="1847" kind_id="0" type_name="textual_note" sql_type_name="nvarchar" prec="-1" is_nullable="1" is_item_list="0" auto_allocate="0" system_full_name="Gnosis" />
+    <Result result_order="2" type_id="1851" kind_id="2" type_name="type_kind" sql_type_name="smallint" is_nullable="0" is_item_list="1" auto_allocate="0" system_full_name="Gnosis" />
+  </SearchType>
+</GnosisInstance>

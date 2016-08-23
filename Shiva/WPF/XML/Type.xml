@@ -1,0 +1,286 @@
+﻿<GnosisEntity EntityID="83" Entity="Type" EntityType="Document" System="Gnosis" SystemURL="www.gnosis.co.nz" SystemVersion="1" AllowRead="1" AllowCreate="1" AllowUpdate="1" AllowDelete="1">
+  <Data>
+    <DataKey KeyOrder="1" Name="Key1" Dataset="Type" DatasetItem="Type Id" />
+    <DataType Name="audit_datetime" SqlDataType="datetime" />
+    <DataType Name="audit_user_id" SqlDataType="int" />
+    <DataType Name="gnosis_row_id" SqlDataType="varbinary" Prec="255" />
+    <DataType Name="gnosis_object_id" SqlDataType="int" />
+    <DataType Name="gnosis_system_url" SqlDataType="sysname" />
+    <DataType Name="type_kind" IsItemList="1" SqlDataType="smallint" ErrorMessage="Please choose a kind from the list available">
+      <Item Code="0" Name="gnosis" Order="1" Tooltip="The Type is setup by Gnosis Solutions" />
+      <Item Code="1" Name="sql" Order="2" Tooltip="The Type is a SQL Server base type" />
+      <Item Code="2" Name="user" Order="3" Tooltip="The Type is a User defined type" />
+    </DataType>
+    <DataCache Element="icon" Object="Icon" Schema="Application">
+      <icon icon_id="10" icon_name="Forward" />
+      <icon icon_id="12" icon_name="Backward" />
+      <icon icon_id="20" icon_name="Up" />
+      <icon icon_id="22" icon_name="Down" />
+      <icon icon_id="30" icon_name="Home" />
+      <icon icon_id="32" icon_name="Favourites" />
+      <icon icon_id="34" icon_name="Navigator" />
+      <icon icon_id="36" icon_name="Left Gallery" />
+      <icon icon_id="38" icon_name="Right Gallery" />
+      <icon icon_id="40" icon_name="Cut" />
+      <icon icon_id="42" icon_name="Copy" />
+      <icon icon_id="44" icon_name="Paste" />
+      <icon icon_id="50" icon_name="Undo" />
+      <icon icon_id="52" icon_name="Redo" />
+      <icon icon_id="60" icon_name="New" />
+      <icon icon_id="62" icon_name="Copy New" />
+      <icon icon_id="64" icon_name="Edit" />
+      <icon icon_id="66" icon_name="Open" />
+      <icon icon_id="68" icon_name="Search" />
+      <icon icon_id="69" icon_name="Reset" />
+      <icon icon_id="70" icon_name="Delete" />
+      <icon icon_id="71" icon_name="Insert" />
+      <icon icon_id="72" icon_name="Save" />
+      <icon icon_id="73" icon_name="Remove" />
+      <icon icon_id="74" icon_name="Cancel" />
+      <icon icon_id="76" icon_name="Refresh" />
+      <icon icon_id="80" icon_name="Check" />
+      <icon icon_id="82" icon_name="Help" />
+      <icon icon_id="85" icon_name="Print" />
+      <icon icon_id="90" icon_name="Create Split" />
+      <icon icon_id="92" icon_name="Split Horizontal" />
+      <icon icon_id="93" icon_name="Split Vertical" />
+      <icon icon_id="96" icon_name="Window" />
+      <icon icon_id="100" icon_name="Connect" />
+      <icon icon_id="102" icon_name="Disconnect" />
+      <icon icon_id="104" icon_name="Properties" />
+      <icon icon_id="110" icon_name="Hide" />
+      <icon icon_id="112" icon_name="View" />
+      <icon icon_id="114" icon_name="Close" />
+      <icon icon_id="120" icon_name="Protected" />
+      <icon icon_id="122" icon_name="Unprotected" />
+      <icon icon_id="124" icon_name="Locked" />
+      <icon icon_id="204" icon_name="Person" />
+      <icon icon_id="206" icon_name="Company" />
+      <icon icon_id="208" icon_name="Trust" />
+      <icon icon_id="210" icon_name="Employee" />
+      <icon icon_id="212" icon_name="Customer" />
+      <icon icon_id="214" icon_name="Supplier" />
+      <icon icon_id="220" icon_name="Address" />
+      <icon icon_id="222" icon_name="Mail" />
+      <icon icon_id="230" icon_name="Phone" />
+      <icon icon_id="242" icon_name="Meeting" />
+      <icon icon_id="244" icon_name="Task" />
+      <icon icon_id="246" icon_name="Calendar" />
+      <icon icon_id="250" icon_name="eMail" />
+      <icon icon_id="252" icon_name="Reply" />
+      <icon icon_id="254" icon_name="Reply All" />
+      <icon icon_id="256" icon_name="Forward eMail" />
+    </DataCache>
+    <DataCache Element="PhysicalType" Object="Physical Type" Schema="Model">
+      <PhysicalType physical_type_name="bigint" />
+      <PhysicalType physical_type_name="binary" />
+      <PhysicalType physical_type_name="bit" />
+      <PhysicalType physical_type_name="char" />
+      <PhysicalType physical_type_name="datetime" />
+      <PhysicalType physical_type_name="decimal" />
+      <PhysicalType physical_type_name="int" />
+      <PhysicalType physical_type_name="money" />
+      <PhysicalType physical_type_name="nchar" />
+      <PhysicalType physical_type_name="numeric" />
+      <PhysicalType physical_type_name="nvarchar" />
+      <PhysicalType physical_type_name="smallint" />
+      <PhysicalType physical_type_name="smallmoney" />
+      <PhysicalType physical_type_name="sysname" />
+      <PhysicalType physical_type_name="tinyint" />
+      <PhysicalType physical_type_name="uniqueidentifier" />
+      <PhysicalType physical_type_name="varbinary" />
+      <PhysicalType physical_type_name="varchar" />
+      <PhysicalType physical_type_name="xml" />
+    </DataCache>
+    <DataCache Element="System" Object="System" Schema="Application">
+      <System system_id="0" system_full_name="Global" />
+      <System system_id="28" system_full_name="Gnosis" />
+      <System system_id="149" system_full_name="ManAlive" />
+    </DataCache>
+  </Data>
+  <Dataset Name="Type" Element="Type" Path="Type">
+    <DatasetItem Name="System Id" Attribute="system_id" Order="1" Column="System Id" Object="Type" Schema="Model" SqlDataType="int">
+      <DataCache Element="System" Attribute="system_id" />
+      <Control Name="New_SystemID" ID="37" Element="GnosisDocumentParameter" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Type Id" Attribute="type_id" Order="2" Column="Type Id" Object="Type" Schema="Model" SqlDataType="int">
+      <Control Name="type_id" ID="6" Element="GnosisTextField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Kind Id" Attribute="kind_id" Order="3" Column="Kind Id" Object="Type" Schema="Model" DataType="type_kind" IsItemList="1">
+      <Control Name="kind" ID="9" Element="GnosisComboField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Type Name" Attribute="type_name" Order="4" OutputFieldOrder="1" OutputOrdering="asc" Column="Type Name" Object="Type" Schema="Model" SqlDataType="sysname">
+      <Control Name="type_name" ID="7" Element="GnosisTextField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Physical Type Name" Attribute="physical_type_name" Order="5" Column="Physical Type Name" Object="Physical Type" Schema="Model" SqlDataType="sysname" Optional="1">
+      <DataCache Element="PhysicalType" Attribute="physical_type_name" />
+      <Control Name="physical_type_name" ID="8" Element="GnosisComboField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="prec" Attribute="prec" Order="6" Column="prec" Object="Type" Schema="Model" SqlDataType="smallint" Optional="1">
+      <Control Name="precision" ID="10" Element="GnosisTextField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="scale" Attribute="scale" Order="7" Column="scale" Object="Type" Schema="Model" SqlDataType="smallint" Optional="1">
+      <Control Name="scale" ID="11" Element="GnosisTextField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="isnullable" Attribute="isnullable" Order="8" Column="isnullable" Object="Type" Schema="Model" SqlDataType="bit" Optional="1">
+      <Control Name="isnullable" ID="12" Element="GnosisCheckField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Null Value" Attribute="null_value" Order="9" Column="Null Value" Object="Type" Schema="Model" SqlDataType="nvarchar" Prec="255" Optional="1" />
+    <DatasetItem Name="format" Attribute="format" Order="10" Column="format" Object="Type" Schema="Model" SqlDataType="smallint" Optional="1">
+      <Control Name="format" ID="13" Element="GnosisComboField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Is Start Period" Attribute="is_start_period" Order="11" Column="Is Start Period" Object="Type" Schema="Model" SqlDataType="bit" Optional="1" />
+    <DatasetItem Name="Is End Period" Attribute="is_end_period" Order="12" Column="Is End Period" Object="Type" Schema="Model" SqlDataType="bit" Optional="1" />
+    <DatasetItem Name="Use 24 Hour Clock" Attribute="use_24_hour_clock" Order="13" Column="Use 24 Hour Clock" Object="Type" Schema="Model" SqlDataType="bit" Optional="1" />
+    <DatasetItem Name="Is Columnar Text" Attribute="is_columnar_text" Order="14" Column="Is Columnar Text" Object="Type" Schema="Model" SqlDataType="bit" Optional="1" />
+    <DatasetItem Name="Search Measure" Attribute="search_measure" Order="15" Column="Search Measure" Object="Type" Schema="Model" SqlDataType="nvarchar" Prec="128" Optional="1" />
+    <DatasetItem Name="Default Text" Attribute="default_text" Order="16" Column="Default Text" Object="Type" Schema="Model" SqlDataType="nvarchar" Prec="1024" Optional="1">
+      <Control Name="default_text" ID="14" Element="GnosisTextField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Business Use" Attribute="business_use" Order="17" Column="Business Use" Object="Type" Schema="Model" SqlDataType="bit" Optional="1">
+      <Control Name="business_use" ID="15" Element="GnosisCheckField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Auto Identity Table Name" Attribute="auto_identity_table_name" Order="18" Column="Auto Identity Table Name" Object="Type" Schema="Model" SqlDataType="nvarchar" Prec="256" Optional="1" />
+    <DatasetItem Name="Error Message" Attribute="error_message" Order="19" Column="Error Message" Object="Type" Schema="Model" SqlDataType="nvarchar" Prec="255" Optional="1">
+      <Control Name="error_message" ID="16" Element="GnosisTextField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Error Number" Attribute="error_number" Order="20" Column="Error Number" Object="Type" Schema="Model" SqlDataType="int" Optional="1" />
+    <DatasetItem Name="Tag Prefix" Attribute="tag_prefix" Order="21" Column="Tag Prefix" Object="Type" Schema="Model" SqlDataType="nvarchar" Prec="10" Optional="1" />
+    <DatasetItem Name="Tag Suffix" Attribute="tag_suffix" Order="22" Column="Tag Suffix" Object="Type" Schema="Model" SqlDataType="nvarchar" Prec="10" Optional="1" />
+    <DatasetItem Name="Textual Note" Attribute="textual_note" Order="23" Column="Textual Note" Object="Type" Schema="Model" SqlDataType="nvarchar" Prec="-1" Optional="1">
+      <Control Name="textual_note" ID="17" Element="GnosisTextField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="Who Changed Id" Attribute="who_changed_id" Order="24" Column="Who Changed Id" Object="Type" Schema="Model" DataType="audit_user_id" />
+    <DatasetItem Name="Is Search String" Attribute="is_search_string" Order="25" Column="Is Search String" Object="Type" Schema="Model" SqlDataType="bit" Default="0" />
+    <DatasetItem Name="Is Item List" Attribute="is_item_list" Order="26" Column="Is Item List" Object="Type" Schema="Model" SqlDataType="bit" Default="0" />
+    <DatasetItem Name="Auto Allocate" Attribute="auto_allocate" Order="27" Column="Auto Allocate" Object="Type" Schema="Model" SqlDataType="bit" Default="0" />
+    <DatasetItem Name="When Changed" Attribute="when_changed" Order="28" Column="When Changed" Object="Type" Schema="Model" DataType="audit_datetime">
+      <Control Name="when_changed" ID="18" Element="GnosisTextField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="When Affected" Attribute="when_affected" Order="29" Column="When Affected" Object="Type" Schema="Model" SqlDataType="datetime" Default="getdate()" />
+    <DatasetItem Name="System Full Name" Attribute="system_full_name" Order="30" Column="System Full Name" Object="System" Schema="Application" SqlDataType="nvarchar" Prec="512">
+      <DataCache Element="System" Attribute="system_full_name" />
+      <Control Name="New_SystemFullName" ID="38" Element="GnosisDocumentParameter" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="User Name" Attribute="brm_user_name" Order="31" Column="User Name" Object="User" Schema="Application" SqlDataType="sysname" Optional="1">
+      <Control Name="who_changed_id" ID="19" Element="GnosisTextField" Path="Type" />
+    </DatasetItem>
+    <DatasetItem Name="ObjID" Attribute="ObjID" Order="32" Column="ObjID" Object="Type" Schema="Model" DataType="gnosis_object_id" Optional="1" />
+    <DatasetItem Name="RowID" Attribute="RowID" Order="33" Column="RowID" Object="Type" Schema="Model" DataType="gnosis_row_id" Prec="255" Optional="1" />
+    <DatasetItem Name="SysURL" Attribute="SysURL" Order="34" Column="SysURL" Object="Type" Schema="Model" DataType="gnosis_system_url" Optional="1" />
+    <Dataset Name="Rule" Element="Rule" Path="Type/Rule">
+      <DatasetItem Name="Type Id" Attribute="type_id" Order="1" Column="Type Id" Object="Type Rule" Schema="Model" SqlDataType="int">
+        <Control Name="rule_type_id" ID="20" Element="GnosisTextField" Path="Type/Rule" />
+      </DatasetItem>
+      <DatasetItem Name="Rule No" Attribute="rule_no" Order="2" Column="Rule No" Object="Type Rule" Schema="Model" SqlDataType="smallint">
+        <Control Name="rule_no" ID="21" Element="GnosisTextField" Path="Type/Rule" />
+      </DatasetItem>
+      <DatasetItem Name="Rule Name" Attribute="rule_name" Order="3" OutputFieldOrder="1" OutputOrdering="asc" Column="Rule Name" Object="Type Rule" Schema="Model" SqlDataType="sysname">
+        <Control Name="rule_name" ID="22" Element="GnosisTextField" Path="Type/Rule" />
+      </DatasetItem>
+      <DatasetItem Name="Rule Text" Attribute="rule_text" Order="4" Column="Rule Text" Object="Type Rule" Schema="Model" SqlDataType="nvarchar" Prec="1024">
+        <Control Name="rule_text" ID="23" Element="GnosisTextField" Path="Type/Rule" />
+      </DatasetItem>
+      <DatasetItem Name="Rule Error Message" Attribute="rule_error_message" Order="5" Column="Rule Error Message" Object="Type Rule" Schema="Model" SqlDataType="nvarchar" Prec="255">
+        <Control Name="rule_error_message" ID="24" Element="GnosisTextField" Path="Type/Rule" />
+      </DatasetItem>
+      <DatasetItem Name="Rule Error Number" Attribute="rule_error_number" Order="6" Column="Rule Error Number" Object="Type Rule" Schema="Model" SqlDataType="int" Optional="1" />
+      <DatasetItem Name="Textual Note" Attribute="textual_note" Order="7" Column="Textual Note" Object="Type Rule" Schema="Model" SqlDataType="nvarchar" Prec="-1" Optional="1">
+        <Control Name="rule_textual_note" ID="25" Element="GnosisTextField" Path="Type/Rule" />
+      </DatasetItem>
+      <DatasetItem Name="Who Changed Id" Attribute="who_changed_id" Order="8" Column="Who Changed Id" Object="Type Rule" Schema="Model" DataType="audit_user_id" />
+      <DatasetItem Name="When Changed" Attribute="when_changed" Order="9" Column="When Changed" Object="Type Rule" Schema="Model" DataType="audit_datetime">
+        <Control Name="rule_when_changed" ID="26" Element="GnosisTextField" Path="Type/Rule" />
+      </DatasetItem>
+      <DatasetItem Name="User Name" Attribute="brm_user_name" Order="10" Column="User Name" Object="User" Schema="Application" SqlDataType="sysname" Optional="1">
+        <Control Name="rule_who_changed_id" ID="27" Element="GnosisTextField" Path="Type/Rule" />
+      </DatasetItem>
+      <DatasetItem Name="ObjID" Attribute="ObjID" Order="11" Column="ObjID" Object="Type Rule" Schema="Model" DataType="gnosis_object_id" Optional="1" />
+      <DatasetItem Name="RowID" Attribute="RowID" Order="12" Column="RowID" Object="Type Rule" Schema="Model" DataType="gnosis_row_id" Prec="255" Optional="1" />
+      <DatasetItem Name="SysURL" Attribute="SysURL" Order="13" Column="SysURL" Object="Type Rule" Schema="Model" DataType="gnosis_system_url" Optional="1" />
+    </Dataset>
+    <Dataset Name="Item" Element="Item" Path="Type/Item">
+      <DatasetItem Name="Type Id" Attribute="type_id" Order="1" Column="Type Id" Object="Type Item" Schema="Model" SqlDataType="int">
+        <Control Name="item_type_id" ID="28" Element="GnosisTextField" Path="Type/Item" />
+      </DatasetItem>
+      <DatasetItem Name="Item Id" Attribute="item_id" Order="2" Column="Item Id" Object="Type Item" Schema="Model" SqlDataType="nvarchar" Prec="10">
+        <Control Name="item_id" ID="29" Element="GnosisTextField" Path="Type/Item" />
+      </DatasetItem>
+      <DatasetItem Name="Item Name" Attribute="item_name" Order="3" Column="Item Name" Object="Type Item" Schema="Model" SqlDataType="sysname">
+        <Control Name="item_name" ID="30" Element="GnosisTextField" Path="Type/Item" />
+      </DatasetItem>
+      <DatasetItem Name="Item Order" Attribute="item_order" Order="4" OutputFieldOrder="1" OutputOrdering="asc" Column="Item Order" Object="Type Item" Schema="Model" SqlDataType="int" />
+      <DatasetItem Name="Tooltip Text" Attribute="tooltip_text" Order="5" Column="Tooltip Text" Object="Type Item" Schema="Model" SqlDataType="nvarchar" Prec="1024" Optional="1">
+        <Control Name="tooltip_text" ID="31" Element="GnosisTextField" Path="Type/Item" />
+      </DatasetItem>
+      <DatasetItem Name="Icon Id" Attribute="icon_id" Order="6" Column="Icon Id" Object="Type Item" Schema="Model" SqlDataType="smallint" Optional="1">
+        <DataCache Element="icon" Attribute="icon_id" />
+        <Control Name="icon_id" ID="32" Element="GnosisTextField" Path="Type/Item" />
+      </DatasetItem>
+      <DatasetItem Name="shortcut" Attribute="shortcut" Order="7" Column="shortcut" Object="Type Item" Schema="Model" SqlDataType="nvarchar" Prec="20" Optional="1" />
+      <DatasetItem Name="Textual Note" Attribute="textual_note" Order="8" Column="Textual Note" Object="Type Item" Schema="Model" SqlDataType="nvarchar" Prec="-1" Optional="1">
+        <Control Name="item_textual_note" ID="34" Element="GnosisTextField" Path="Type/Item" />
+      </DatasetItem>
+      <DatasetItem Name="Who Changed Id" Attribute="who_changed_id" Order="9" Column="Who Changed Id" Object="Type Item" Schema="Model" DataType="audit_user_id" />
+      <DatasetItem Name="When Changed" Attribute="when_changed" Order="10" Column="When Changed" Object="Type Item" Schema="Model" DataType="audit_datetime">
+        <Control Name="item_when_changed" ID="35" Element="GnosisTextField" Path="Type/Item" />
+      </DatasetItem>
+      <DatasetItem Name="Icon Name" Attribute="icon_name" Order="11" Column="Icon Name" Object="Icon" Schema="Application" SqlDataType="sysname" Optional="1">
+        <DataCache Element="icon" Attribute="icon_name" />
+        <Control Name="icon_name" ID="33" Element="GnosisComboField" Path="Type/Item" />
+      </DatasetItem>
+      <DatasetItem Name="User Name" Attribute="brm_user_name" Order="12" Column="User Name" Object="User" Schema="Application" SqlDataType="sysname" Optional="1">
+        <Control Name="item_who_changed_id" ID="36" Element="GnosisTextField" Path="Type/Item" />
+      </DatasetItem>
+      <DatasetItem Name="ObjID" Attribute="ObjID" Order="13" Column="ObjID" Object="Type Item" Schema="Model" DataType="gnosis_object_id" Optional="1" />
+      <DatasetItem Name="RowID" Attribute="RowID" Order="14" Column="RowID" Object="Type Item" Schema="Model" DataType="gnosis_row_id" Prec="255" Optional="1" />
+      <DatasetItem Name="SysURL" Attribute="SysURL" Order="15" Column="SysURL" Object="Type Item" Schema="Model" DataType="gnosis_system_url" Optional="1" />
+    </Dataset>
+  </Dataset>
+  <GnosisDocFrame Name="Type" ID="1" ControlType="Document Frame" IsEditing="0" IsEmpty="0" _Created="0" _Updated="0" _Deleted="0" Caption="Type">
+    <GnosisSection ID="34234" MinWidth="200" MaxWidth="300"/>
+    <GnosisSection ID="90343" MinWidth="200" MaxWidth="300"/>
+    <GnosisSection ID="903343" MinWidth="200" MaxWidth="300"/>
+    <GnosisSection ID="903433" MinWidth="200" MaxWidth="300"/>
+    <GnosisMessageGrid Name="TypeMessageGrid" ID="2" ControlType="Message Grid" Caption="Type Messages" Tooltip="Please observe the displayed messages for the Type" Order="1" />
+    <GnosisPanel SectionSpan="4" Name="TypePanel" ID="3" ControlType="Panel" Caption="Type Header" Tooltip="Header attributes for Type" Order="2" FrameRowFactor="1" ContainerCellSpan="1" ContainerPlacementPriorityDown="0" ContainerBeginNewRow="0" ContainerEndNewRow="0" ContainerExpandable="1">
+      <GnosisTextField Name="type_id" ID="6" ControlType="Text Field" Caption="Identifier" Tooltip="The Type Identifier" Order="1" Dataset="Type" DatasetItem="Type Id" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="1" />
+      <GnosisTextField Name="type_name" ID="7" ControlType="Text Field" Caption="Name" Tooltip="The Type Name" Order="2" Dataset="Type" DatasetItem="Type Name" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisComboField Name="physical_type_name" ID="8" ControlType="Combo Field" Caption="Sql Type" Tooltip="The Physical (SQL) Type Name" Order="3" Dataset="Type" DatasetItem="Physical Type Name" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisComboField Name="kind" ID="9" ControlType="Combo Field" Caption="Kind" Tooltip="One of Gnosis, Sql or User " Order="4" Dataset="Type" DatasetItem="Kind Id" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="precision" ID="10" ControlType="Text Field" Caption="Precision" Tooltip="The Length of the String or the Precision of the Numeric" Order="5" Dataset="Type" DatasetItem="prec" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="scale" ID="11" ControlType="Text Field" Caption="Scale" Tooltip="The Scale of the Numeric" Order="6" Dataset="Type" DatasetItem="scale" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisCheckField Name="isnullable" ID="12" ControlType="Check Field" Caption="Nullable?" Tooltip="Does the Type allow Nulls" Order="7" Dataset="Type" DatasetItem="isnullable" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisComboField Name="format" ID="13" ControlType="Combo Field" Caption="Format" Tooltip="The Format of the Date or Date Time" Order="8" Dataset="Type" DatasetItem="format" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="default_text" ID="14" ControlType="Text Field" Caption="Default" Tooltip="The Default value of the Type" Order="9" Dataset="Type" DatasetItem="Default Text" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisCheckField Name="business_use" ID="15" ControlType="Check Field" Caption="Business Use?" Tooltip="Is the Type used for real world data" Order="10" Dataset="Type" DatasetItem="Business Use" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="error_message" ID="16" ControlType="Text Field" Caption="Error Message" Tooltip="The Error Message used when the input does not equate to that required for the Type" Order="11" Dataset="Type" DatasetItem="Error Message" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="textual_note" ID="17" ControlType="Text Field" Caption="Notes" Tooltip="Enter any useful notes regarding the Type here" Order="12" Dataset="Type" DatasetItem="Textual Note" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="when_changed" ID="18" ControlType="Text Field" Caption="When Changed" Tooltip="When data relating to the Type was last changed" Order="13" Dataset="Type" DatasetItem="When Changed" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" Locked="1" />
+      <GnosisTextField Name="who_changed_id" ID="19" ControlType="Text Field" Caption="Who Changed" Tooltip="Who last changed data relating to the Type" Order="14" Dataset="Type" DatasetItem="User Name" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" Locked="1" />
+    </GnosisPanel>
+    <GnosisGrid Name="TypeRule" ID="4" ControlType="Grid" Caption="Type Rules" Order="3" FrameRowFactor="1" ContainerCellSpan="1" ContainerPlacementPriorityDown="0" ContainerBeginNewRow="0" ContainerEndNewRow="0" ContainerExpandable="1" Hidden="0">
+      <GnosisTextField Name="rule_type_id" ID="20" ControlType="Text Field" Caption="Type ID" Tooltip="The Type Identifier" Order="1" Dataset="Rule" DatasetItem="Type Id" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="1" />
+      <GnosisTextField Name="rule_no" ID="21" ControlType="Text Field" Caption="Rule No" Tooltip="The Rule Number" Order="2" Dataset="Rule" DatasetItem="Rule No" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="1" />
+      <GnosisTextField Name="rule_name" ID="22" ControlType="Text Field" Caption="Rule Name" Tooltip="The Rule Name" Order="3" Dataset="Rule" DatasetItem="Rule Name" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="rule_text" ID="23" ControlType="Text Field" Caption="Rule Logic" Tooltip="The Rule expressed as boolean logic" Order="4" Dataset="Rule" DatasetItem="Rule Text" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="rule_error_message" ID="24" ControlType="Text Field" Caption="Error Message" Tooltip="The Rule Error Message" Order="5" Dataset="Rule" DatasetItem="Rule Error Message" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="rule_textual_note" ID="25" ControlType="Text Field" Caption="Notes" Tooltip="Enter any useful notes regarding the Rule here" Order="6" Dataset="Rule" DatasetItem="Textual Note" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="rule_when_changed" ID="26" ControlType="Text Field" Caption="When Changed" Tooltip="When data relating to the Type was last changed" Order="7" Dataset="Rule" DatasetItem="When Changed" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" Locked="1" />
+      <GnosisTextField Name="rule_who_changed_id" ID="27" ControlType="Text Field" Caption="Who Changed" Tooltip="Who last changed data relating to the Type" Order="8" Dataset="Rule" DatasetItem="User Name" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" Locked="1" />
+    </GnosisGrid>
+    <GnosisGrid Name="TypeItem" ID="5" ControlType="Grid" Caption="Type Items" Order="4" FrameRowFactor="1" ContainerCellSpan="1" ContainerPlacementPriorityDown="0" ContainerBeginNewRow="0" ContainerEndNewRow="0" ContainerExpandable="1" Hidden="0">
+      <GnosisTextField Name="item_type_id" ID="28" ControlType="Text Field" Caption="Identifier" Tooltip="The Type Identifier" Order="1" Dataset="Item" DatasetItem="Type Id" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="1" />
+      <GnosisTextField Name="item_id" ID="29" ControlType="Text Field" Caption="Identifier" Tooltip="The Item Number" Order="2" Dataset="Item" DatasetItem="Item Id" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="1" />
+      <GnosisTextField Name="item_name" ID="30" ControlType="Text Field" Caption="Item Name" Tooltip="The Item Name" Order="3" Dataset="Item" DatasetItem="Item Name" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="tooltip_text" ID="31" ControlType="Text Field" Caption="Tooltip" Tooltip="The Item Tooltip" Order="4" Dataset="Item" DatasetItem="Tooltip Text" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="icon_id" ID="32" ControlType="Text Field" Caption="Icon ID" Tooltip="The Icon Identifier" Order="5" Dataset="Item" DatasetItem="Icon Id" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="1" />
+      <GnosisComboField Name="icon_name" ID="33" ControlType="Combo Field" Caption="Icon Name" Tooltip="The Icon Name" Order="6" Dataset="Item" DatasetItem="Icon Name" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" OutputControlID="32" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="item_textual_note" ID="34" ControlType="Text Field" Caption="Notes" Tooltip="Enter any useful notes regarding the Item here" Order="7" Dataset="Item" DatasetItem="Textual Note" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" />
+      <GnosisTextField Name="item_when_changed" ID="35" ControlType="Text Field" Caption="When Changed" Tooltip="When data relating to the Item was last changed" Order="8" Dataset="Item" DatasetItem="When Changed" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" Locked="1" />
+      <GnosisTextField Name="item_who_changed_id" ID="36" ControlType="Text Field" Caption="Who Changed" Tooltip="Who last changed data relating to the Item" Order="9" Dataset="Item" DatasetItem="User Name" CellSpan="1" MinRows="1" MinColumns="1" ContentHorizontalAlignment="Left" ContentVerticalAlignment="Top" RowFactor="1" PlacementPriorityDown="0" AlignToSection="1" BeginNewRow="0" EndNewRow="0" Hidden="0" Locked="1" />
+    </GnosisGrid>
+    <GnosisDocumentParameter Name="New_SystemID" ID="37" ControlType="Document Parameter" Order="5" Dataset="Type" DatasetItem="System Id" Parameter="SystemID" />
+    <GnosisDocumentParameter Name="New_SystemFullName" ID="38" ControlType="Document Parameter" Order="6" Dataset="Type" DatasetItem="System Full Name" Parameter="SystemFullName" />
+  </GnosisDocFrame>
+</GnosisEntity>

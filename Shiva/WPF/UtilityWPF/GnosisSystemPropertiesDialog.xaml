@@ -1,0 +1,229 @@
+﻿<Window x:Class="ShivaWPF3.UtilityWPF.GnosisSystemPropertiesDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShivaWPF3.UtilityWPF"
+        xmlns:wpfx="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d" Width="Auto" Height="Auto"
+        Title="System Properties" WindowStartupLocation="CenterScreen" 
+        Closing="Window_Closing">
+    <TabControl>
+        <TabItem Name="tabItem_Connection" Header="Connection">
+            <TabControl Name="tbConnection">
+                
+            </TabControl>
+        </TabItem>
+        <TabItem Name="tabItem_Layout" Header="Layout" 
+                 Loaded="tabItem_Layout_Loaded"
+                 Selector.IsSelected="True">
+            <Grid Name="gdRoot">
+                <Grid.Resources>
+                    <Style x:Key="textBoxNormalStyle" TargetType="{x:Type wpfx:IntegerUpDown}">
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontWeight" Value="Normal"/>
+                        <Setter Property="Width" Value="100"/>
+                        <Setter Property="Height" Value="25"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5,0"/>
+                    </Style>
+                    <Style x:Key="textBoxErrorStyle" TargetType="{x:Type wpfx:IntegerUpDown}">
+                        <Setter Property="ForceCursor" Value="False"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Background" Value="Pink"/>
+                        <Setter Property="Width" Value="100"/>
+                        <Setter Property="Height" Value="25"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="5,0"/>
+                        <!--<Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type wpfx:IntegerUpDown}">
+                                    <Grid>
+                                        <Border BorderBrush="Red"  BorderThickness="1">
+                                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                                        </Border>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>-->
+                    </Style>
+                    <Style x:Key="buttonEdit" TargetType="{x:Type Button}">
+                        <Setter Property="Height" Value="30" />
+                        <Setter Property="Margin" Value="5,5"/>
+                        <Setter Property="Padding" Value="5,0"/>
+                        <Setter Property="Background" Value="Gainsboro"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TreeView Name="treeSplits" Grid.Column="0" SelectedItemChanged="treeSplits_SelectedItemChanged"
+                  Padding="5" Margin="2">
+                    <TreeView.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                    </TreeView.Resources>
+                    <TreeView.ItemContainerStyle>
+                        <Style TargetType="{x:Type TreeViewItem}">
+                            <Setter Property="BorderThickness" Value="1.5"/>
+                        </Style>
+                    </TreeView.ItemContainerStyle>
+                </TreeView>
+                <Grid Name="gdNav" Grid.Column="1" Visibility="Collapsed" Margin="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Navigator" 
+                        FontSize="20" FontWeight="DemiBold" />
+                    <StackPanel Grid.Column="0" Grid.Row="1"  Orientation="Horizontal">
+                        <Label  Content="Panel number:"/>
+                        <Label Name="lblNavVisibleSplitOrder" Content="1"/>
+                    </StackPanel>
+                    <CheckBox Name="chkNavVisible" Grid.Column="0" Grid.Row="2" 
+                        Content="Visible" Checked="chkNavVisible_Checked" Unchecked="chkNavVisible_Unchecked"/>
+                    <CheckBox Name="chkEnforceFixedNavWidth" Grid.Column="0" Grid.Row="3" Content="Enforce fixed width"
+                      Checked="chkEnforceFixedNavWidth_Checked" Unchecked="chkEnforceFixedNavWidth_Unchecked"/>
+                    <CheckBox Name="chkNavTileHasTabs" Grid.Column="0" Grid.Row="4" Content="Has tabs"
+                              Checked="chkNavTileHasTabs_Checked" Unchecked="chkNavTileHasTabs_Unchecked"/>
+                    <StackPanel Grid.Column="0" Grid.Row="5" Orientation="Horizontal">
+                        <Label  Name="lblWidth">
+                            <TextBlock TextWrapping="Wrap" Text="Fixed width (pixels):"
+                               Width="75"/>
+                        </Label>
+                        <wpfx:IntegerUpDown  FormatString="G" Name="txtWidth" Style="{StaticResource textBoxNormalStyle}"
+                           VerticalAlignment="Center" ValueChanged="txtWidth_ValueChanged" KeyUp="txtWidth_KeyUp"    />
+                    </StackPanel>
+                </Grid>
+                <Grid Name="gdParent" Grid.Column="1" Visibility="Collapsed" Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Name="lblParentHeader" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
+                        FontSize="20" FontWeight="DemiBold" />
+                    <Label Grid.Column="0" Grid.Row="1" Content="Orientation:"/>
+                    <Label Name="lblParentOrientation" Grid.Row="1" Grid.Column="1" />
+                    <Label Grid.Column="0" Grid.Row="2" Content="Split Direction:" />
+                    <ComboBox Name="cboSplitDirection" Grid.Column="1" Grid.Row="2"
+                              SelectionChanged="cboSplitDirection_SelectionChanged">
+                        <ComboBoxItem Name="cboiVertical" Content="Vertical"/>
+                        <ComboBoxItem Name="cboiHorizontal" Content="Horizontal" />
+                    </ComboBox>
+                    <Label Grid.Column="0" Grid.Row="3" Width="85" Name="lblPercentage">
+                        <TextBlock TextWrapping="Wrap" Text="Splitter position (%):"/>
+                    </Label>
+                    <wpfx:IntegerUpDown Grid.Column="1" Grid.Row="3" Name="txtPercentage"   
+                        Style="{StaticResource textBoxNormalStyle}" ValueChanged="txtPercentage_ValueChanged"
+                                        KeyUp="txtPercentage_KeyUp"/>
+                    <StackPanel Name="pnlParentSplitDirectionVertical1" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" 
+                                Orientation="Horizontal" Visibility="Collapsed">
+                        <Label Content="Parent split: Vertical"/>
+                        <RadioButton  GroupName="positionVertical" Name="rdLeft1" Content="Left"
+                                      Margin="10,0,20,0" VerticalAlignment="Center"/>
+                        <RadioButton GroupName="positionVertical" Name="rdRight1" Content="Right"
+                                     VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="pnlParentSplitDirectionHorizontal1" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" 
+                                Orientation="Horizontal" Visibility="Collapsed">
+                        <Label Content="Parent split: Horizontal"/>
+                        <RadioButton  GroupName="positionHorizontal" Name="rdTop1" Content="Top"
+                                      Margin="10,0,20,0" VerticalAlignment="Center"/>
+                        <RadioButton GroupName="direction" Name="rdBottom1" Content="Bottom"
+                                     VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Name="gdMain" Grid.Column="1" Visibility="Collapsed" Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Name="lblRootHeader" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
+                        FontSize="20" FontWeight="DemiBold" />
+                    <Label Grid.Column="0" Grid.Row="1" Content="Split Direction:" />
+                    <Label Grid.Column="1" Grid.Row="1" Content="Vertical"/>
+                    <Label Grid.Column="0" Grid.Row="2" Width="85" Name="lblRootPercentage">
+                        <TextBlock TextWrapping="Wrap" Text="Splitter position (%):"/>
+                    </Label>
+                    <wpfx:IntegerUpDown Grid.Column="1" Grid.Row="2" Name="txtRootPercentage"   
+                     Style="{StaticResource textBoxNormalStyle}" ValueChanged="txtRootPercentage_ValueChanged" 
+                                        KeyUp="txtRootPercentage_KeyUp"/>
+
+                </Grid>
+                <Grid Name="gdLeaf" Grid.Column="1" Margin="2" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Name="lblLeafSplit" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Panel" 
+                        FontSize="20" FontWeight="DemiBold" />
+                    <CheckBox Name="chkTileHasTabs" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                              Content="Has tabs" Margin="6,5" Checked="chkTileHasTabs_Checked"
+                              Unchecked="chkTileHasTabs_Unchecked"/>
+                    <StackPanel Name="pnlParentSplitDirectionVertical" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
+                                Orientation="Horizontal" Visibility="Collapsed" Margin="2,0">
+                        <Label Content="Parent split: Vertical"/>
+                        <RadioButton  GroupName="positionVertical" Name="rdLeft" Content="Left"
+                                      Margin="10,0,15,0" VerticalAlignment="Center"/>
+                        <RadioButton GroupName="positionVertical" Name="rdRight" Content="Right"
+                                     VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Name="pnlParentSplitDirectionHorizontal" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" 
+                                Orientation="Horizontal" Visibility="Collapsed" Margin="2,0">
+                        <Label Content="Parent split: Horizontal"/>
+                        <RadioButton  GroupName="positionHorizontal" Name="rdTop" Content="Top"
+                                      Margin="10,0,15,0" VerticalAlignment="Center"/>
+                        <RadioButton GroupName="direction" Name="rdBottom" Content="Bottom"
+                                     VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Manage panels: "/>
+                    <ComboBox Name="cboManageTiles" Grid.Column="1" Grid.Row="4" SelectionChanged="cboManageTiles_SelectionChanged">
+                        <ComboBoxItem Name="cboiNewTileLeft" Content="New panel left"/>
+                        <ComboBoxItem Name="cboiNewTileRight" Content="New panel right"/>
+                        <ComboBoxItem Name="cboiNewTileAbove" Content="New panel above"/>
+                        <ComboBoxItem Name="cboiNewTileBelow" Content="New panel below"/>
+                        <ComboBoxItem Name="cboiDeleteTile" Content="DeleteTile"/>
+                        <ComboBoxItem Name="cboiMoveTileToNewWindow" Content="Move to new window"/>
+                    </ComboBox>
+
+                </Grid>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</Window>
