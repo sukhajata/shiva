@@ -1,17 +1,17 @@
 ﻿
 using GnosisControls;
-using ShivaShared3.ContentControllers;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Events;
-using ShivaShared3.GenericControllers;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.ContentControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Events;
+using Shiva.Shared.GenericControllers;
+using Shiva.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ShivaShared3.BaseControllers
+namespace Shiva.Shared.BaseControllers
 {
     public class GnosisVisibleController : GnosisController
     {

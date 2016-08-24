@@ -1,16 +1,16 @@
-﻿using ShivaShared3.BaseControllers;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.ContentControllers;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Interfaces;
+﻿using Shiva.Shared.BaseControllers;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.ContentControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Interfaces;
 using GnosisControls;
-using ShivaShared3.WindowControllers;
+using Shiva.Shared.WindowControllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShivaShared3.ToolbarControllers
+namespace Shiva.Shared.ToolbarControllers
 {
     public class GnosisToolbarTrayController : GnosisVisibleController
     {

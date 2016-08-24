@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.OuterLayoutControllers;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisFrameContainer
     {

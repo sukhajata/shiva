@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
-using ShivaShared3.Events;
-using ShivaShared3.Data;
+using Shiva.Shared.Events;
+using Shiva.Shared.Data;
 
 namespace GnosisControls
 {

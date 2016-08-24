@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using ShivaWPF3.UtilityWPF;
 using System.Threading;
 using System.Windows.Media.Animation;
 using System.Windows.Markup;
-using ShivaShared3.Data;
+using Shiva.Shared.Data;
 using System.Windows.Automation.Peers;
 
 namespace GnosisControls

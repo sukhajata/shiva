@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisGridFieldImplementation : IGnosisContentControlImplementation, 
         INotifyPropertyChanged, IGnosisDisplayCharsPossessor, IGnosisPaddingPossessor

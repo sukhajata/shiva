@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using ShivaWPF3.UtilityWPF;
 using System.ComponentModel;
 

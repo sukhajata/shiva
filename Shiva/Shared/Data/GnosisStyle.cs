@@ -1,10 +1,10 @@
-﻿using ShivaShared3.ContentControllers;
+﻿using Shiva.Shared.ContentControllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
 
 namespace GnosisControls
 {

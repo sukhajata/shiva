@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-using ShivaShared3.ContainerControllers;
+using Shiva.Shared.ContainerControllers;
 using GnosisControls;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisSplitImplementation : IGnosisContainerImplementation
     {

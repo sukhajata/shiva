@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-using ShivaShared3.ContainerControllers;
+using Shiva.Shared.ContainerControllers;
 using GnosisControls;
 
 namespace ShivaWPF3.LayoutFeatures

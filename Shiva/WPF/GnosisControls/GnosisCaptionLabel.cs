@@ -1,9 +1,9 @@
-﻿using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
+﻿using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 using System;
 using ShivaWPF3.UtilityWPF;
 

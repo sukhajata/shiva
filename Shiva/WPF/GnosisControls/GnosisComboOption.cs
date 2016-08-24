@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-using ShivaShared3.Interfaces;
-using ShivaShared3.ContentControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.ContentControllers;
 using System.Windows.Media;
 using System.Windows.Input;
 

@@ -1,7 +1,7 @@
 ﻿using GnosisControls;
 using System;
 using System.ComponentModel;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
 namespace GnosisControls
 {

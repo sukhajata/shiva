@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-using ShivaShared3.Interfaces;
-using ShivaShared3.Data;
-using ShivaShared3.Events;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Data;
+using Shiva.Shared.Events;
+using Shiva.Shared.BaseControllers;
 
-namespace ShivaShared3.Utility
+namespace Shiva.Shared.Utility
 {
     public class GnosisApplicationManager
     {

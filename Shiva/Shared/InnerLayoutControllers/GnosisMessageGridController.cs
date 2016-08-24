@@ -1,14 +1,14 @@
-﻿using ShivaShared3.DataControllers;
+﻿using Shiva.Shared.DataControllers;
 using GnosisControls;
-using ShivaShared3.Interfaces;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.OuterLayoutControllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 
 
-namespace ShivaShared3.InnerLayoutControllers
+namespace Shiva.Shared.InnerLayoutControllers
 {
     public class GnosisMessageGridController : GnosisInnerLayoutController
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 

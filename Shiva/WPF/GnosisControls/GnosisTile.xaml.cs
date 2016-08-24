@@ -1,5 +1,5 @@
-﻿using ShivaShared3.ContainerControllers;
-using ShivaShared3.Interfaces;
+﻿using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.Interfaces;
 using ShivaWPF3.LayoutFeatures;
 using ShivaWPF3.UtilityWPF;
 using System;

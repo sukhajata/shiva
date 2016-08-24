@@ -1,13 +1,13 @@
 ﻿using GnosisControls;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ShivaShared3.ContentControllers
+namespace Shiva.Shared.ContentControllers
 {
     public class GnosisGallerySearchItemController : GnosisGalleryItemController
     {

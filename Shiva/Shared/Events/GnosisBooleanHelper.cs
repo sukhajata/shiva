@@ -4,17 +4,17 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
 
-using ShivaShared3.Data;
-using ShivaShared3.GenericControllers;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.ContentControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.GenericControllers;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.ContentControllers;
 using GnosisControls;
 //using System.Data;
 
-namespace ShivaShared3.Events
+namespace Shiva.Shared.Events
 {
     public class GnosisBooleanHelper
     {

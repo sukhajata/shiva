@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
 namespace GnosisControls
 {

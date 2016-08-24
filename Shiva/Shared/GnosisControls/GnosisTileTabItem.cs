@@ -1,5 +1,5 @@
 ﻿using GnosisControls;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.Interfaces;
-using ShivaShared3.Data;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Data;
 
 namespace GnosisControls
 {

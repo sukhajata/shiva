@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 
-using ShivaShared3.Events;
-using ShivaShared3.Interfaces;
-using ShivaShared3.Utility;
-using ShivaShared3.ContainerControllers;
+using Shiva.Shared.Events;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Utility;
+using Shiva.Shared.ContainerControllers;
 using GnosisControls;
-using ShivaShared3.GenericControllers;
-using ShivaShared3.DataControllers;
-using ShivaShared3.WindowControllers;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.GenericControllers;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.WindowControllers;
+using Shiva.Shared.OuterLayoutControllers;
 using System.ComponentModel;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
-namespace ShivaShared3.Data
+namespace Shiva.Shared.Data
 {
     public class GlobalData : INotifyPropertyChanged
     {

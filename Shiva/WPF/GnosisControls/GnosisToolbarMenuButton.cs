@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Xceed.Wpf.Toolkit;
 
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using ShivaWPF3.UtilityWPF;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 using System.ComponentModel;
-using ShivaShared3.Data;
+using Shiva.Shared.Data;
 
 namespace GnosisControls
 {

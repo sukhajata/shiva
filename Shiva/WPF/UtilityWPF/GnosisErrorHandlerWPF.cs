@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using System.Windows;
 using System.IO;
-using ShivaShared3.Data;
+using Shiva.Shared.Data;
 
 namespace ShivaWPF3.UtilityWPF
 {

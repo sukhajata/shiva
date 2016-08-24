@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using GnosisControls;
-using ShivaShared3.DataControllers;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.OuterLayoutControllers;
 using System.Xml.Linq;
-using ShivaShared3.GridColumnControllers;
+using Shiva.Shared.GridColumnControllers;
 using System.Linq;
 using System.Diagnostics;
 
-namespace ShivaShared3.InnerLayoutControllers
+namespace Shiva.Shared.InnerLayoutControllers
 {
     public class GnosisSearchResultsGridController : GnosisGridController
     {

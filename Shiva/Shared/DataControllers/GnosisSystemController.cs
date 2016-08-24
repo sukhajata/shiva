@@ -1,25 +1,25 @@
-﻿using ShivaShared3.ContentControllers;
-using ShivaShared3.Data;
+﻿using Shiva.Shared.ContentControllers;
+using Shiva.Shared.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using ShivaShared3.GenericControllers;
+using Shiva.Shared.GenericControllers;
 using GnosisControls;
-using ShivaShared3.Utility;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.Utility;
+using Shiva.Shared.OuterLayoutControllers;
 using System.ComponentModel;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.BaseControllers;
 using System.Threading;
 using System.Diagnostics;
 using System.Windows.Threading;
 using System.Windows;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
-namespace ShivaShared3.DataControllers
+namespace Shiva.Shared.DataControllers
 {
     public class GnosisSystemController : INotifyPropertyChanged
     {

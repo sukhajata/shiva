@@ -1,6 +1,6 @@
-﻿using ShivaShared3.BaseControllers;
-using ShivaShared3.Interfaces;
-using ShivaShared3.OuterLayoutControllers;
+﻿using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.OuterLayoutControllers;
 using ShivaWPF3.UtilityWPF;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Windows.Markup;
-using ShivaShared3.Data;
+using Shiva.Shared.Data;
 
 namespace GnosisControls
 {
@@ -62,23 +62,23 @@ namespace GnosisControls
         }
 
 
-        public static readonly DependencyProperty HighlightThicknessProperty =
-            DependencyProperty.RegisterAttached("HighlightThickness",
-            typeof(int), typeof(GnosisFrame), new FrameworkPropertyMetadata(HighlightThicknessPropertyChanged));
+        public static readonly DependencyProperty GnosisBorderThicknessProperty =
+            DependencyProperty.RegisterAttached("GnosisBorderThickness",
+            typeof(int), typeof(GnosisFrame), new FrameworkPropertyMetadata(BorderThicknessPropertyChanged));
         //new FrameworkPropertyMetadata(0,
         //    FrameworkPropertyMetadataOptions.Inherits));
 
         public static void SetHighlightThickness(UIElement element, int value)
         {
-            element.SetValue(HighlightThicknessProperty, value);
+            element.SetValue(GnosisBorderThicknessProperty, value);
         }
 
         public static int GetHighlightThickness(UIElement element)
         {
-            return (int)element.GetValue(HighlightThicknessProperty);
+            return (int)element.GetValue(GnosisBorderThicknessProperty);
         }
 
-        public static void HighlightThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
+        public static void BorderThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
             GnosisFrame frame = source as GnosisFrame;
             int newThickness = (int)e.NewValue;
@@ -88,21 +88,35 @@ namespace GnosisControls
 
             if (newThickness > oldThickness)
             {
-                //increase border thickness, decrease padding
-                paddingHorizontal = frame.Padding.Left - newThickness;
-                if (paddingHorizontal < 0) { paddingHorizontal = 0; }
-                paddingVertical = frame.Padding.Top - newThickness;
-                if (paddingVertical < 0) { paddingVertical = 0; }
+                if (frame.ContainerHorizontalPadding > 0 && frame.ContainerVerticalPadding > 0)
+                {
+                    //increase border thickness, decrease padding
+                    paddingHorizontal = frame.ContainerHorizontalPadding - newThickness;
+                    paddingVertical = frame.ContainerVerticalPadding - newThickness;
+
+                    if (paddingHorizontal >= 0 && paddingVertical >= 0)
+                    {
+                        frame.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+                        frame.BorderThickness = new Thickness(newThickness);
+                    }
+                    else
+                    {
+                        frame.Padding = new Thickness(0);
+                        frame.BorderThickness = new Thickness(frame.ContainerVerticalPadding, frame.ContainerHorizontalPadding,
+                            frame.ContainerVerticalPadding, frame.ContainerHorizontalPadding);
+                    }
+                }
+
             }
             else
             {
                 //decrease border thickness, increase padding
                 paddingHorizontal = frame.Padding.Left + oldThickness;
                 paddingVertical = frame.Padding.Top + oldThickness;
-            }
 
-            frame.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
-            frame.BorderThickness = new Thickness(newThickness);
+                frame.Padding = new Thickness(paddingVertical, paddingHorizontal, paddingVertical, paddingHorizontal);
+                frame.BorderThickness = new Thickness(newThickness);
+            }
 
         }
 

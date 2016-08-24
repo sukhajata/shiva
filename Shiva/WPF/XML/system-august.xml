@@ -54,7 +54,7 @@
       </GnosisStyleCondition>
     </GnosisStyle>
     <GnosisStyle Name="Alternate Caption" Font="Calibri" FontSize="9" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="665814" VerticalPadding="1" HorizontalPadding="1" CaptionSpacing="2" CaptionRelativePosition="Above" ControlThickness="1" />
-    <GnosisStyle Name="Alternate Field" Font="Calibri" FontSize="10" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="800080" VerticalPadding="6" HorizontalPadding="8" VerticalSpacing="4" HorizontalSpacing="6" BorderThickness="1" ControlThickness="1" >
+    <GnosisStyle Name="Alternate Field" Font="Calibri" FontSize="10" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="800080" VerticalPadding="6" HorizontalPadding="8" VerticalSpacing="4" HorizontalSpacing="6" ContainerVerticalPadding="2" ContainerHorizontalPadding="2" BorderThickness="1" ControlThickness="1" >
       <GnosisStyleCondition Property="Disabled" Value="1" Name="Generic Disabled" Order="1" ControlColour="E7E7E7" ContentColour="E7E7E7" />
       <GnosisStyleCondition Property="Disabled" Value="0" Name="Generic Enabled" Order="2">
         <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Generic Mouse Focus" Order="1" BackgroundColour="CC00CC">
@@ -107,7 +107,7 @@
       </GnosisStyleCondition>
     </GnosisStyle>
     <GnosisStyle Name="Main Window Caption" Font="Calibri" FontSize="10" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="665814" VerticalPadding="1" HorizontalPadding="1" CaptionSpacing="2" CaptionRelativePosition="Left" ControlThickness="1" />
-    <GnosisStyle Name="Main Window Field" Font="Calibri" FontSize="12" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="800080" VerticalPadding="8" HorizontalPadding="8" VerticalSpacing="0" HorizontalSpacing="0" BorderThickness="2" ControlThickness="0" VerticalMargin="2" HorizontalMargin="2">
+    <GnosisStyle Name="Main Window Field" Font="Calibri" FontSize="12" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="800080" VerticalPadding="8" HorizontalPadding="8" VerticalSpacing="0" HorizontalSpacing="0" BorderThickness="2" ContainerHorizontalPadding="2" ContainerVerticalPadding="2" ControlThickness="0" VerticalMargin="2" HorizontalMargin="2">
       <GnosisStyleCondition Property="Disabled" Value="1" Name="Generic Disabled" Order="1" ControlColour="E7E7E7" ContentColour="E7E7E7" />
       <GnosisStyleCondition Property="Disabled" Value="0" Name="Generic Enabled" Order="2">
         <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Generic Mouse Focus" Order="1" BackgroundColour="CC00CC">

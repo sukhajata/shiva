@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
-using ShivaShared3.Interfaces;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.Data;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.Data;
 using ShivaWPF3.LayoutFeatures;
 
 namespace GnosisControls

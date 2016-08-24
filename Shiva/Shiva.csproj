@@ -321,6 +321,7 @@
     <Compile Include="Shared\Interfaces\IGnosisGridIndentFieldImplementation.cs" />
     <Compile Include="Shared\Interfaces\IGnosisGridResultsFieldImplementation.cs" />
     <Compile Include="Shared\Interfaces\IGnosisGridTextFieldImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisHighlightThicknessPossessor.cs" />
     <Compile Include="Shared\Interfaces\IGnosisImplementationCreator.cs" />
     <Compile Include="Shared\Interfaces\IGnosisInnerLayoutControlImplementation.cs" />
     <Compile Include="Shared\Interfaces\IGnosisIOHelper.cs" />
@@ -806,7 +807,9 @@
     <Resource Include="WPF\XML\search-instance.xml" />
     <Resource Include="WPF\XML\SearchInstance_SearchType_All.xml" />
     <Resource Include="WPF\XML\system-7-jun.xml" />
-    <Resource Include="WPF\XML\system-august.xml" />
+    <Resource Include="WPF\XML\system-august.xml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Resource Include="WPF\XML\system-new2.xml" />
     <Resource Include="WPF\XML\Type.xml" />
   </ItemGroup>

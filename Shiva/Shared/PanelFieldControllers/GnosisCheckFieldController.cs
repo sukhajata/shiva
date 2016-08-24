@@ -4,12 +4,12 @@ using System.Text;
 using System.IO;
 
 using GnosisControls;
-using ShivaShared3.Interfaces;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Utility;
-using ShivaShared3.InnerLayoutControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Utility;
+using Shiva.Shared.InnerLayoutControllers;
 
-namespace ShivaShared3.PanelFieldControllers
+namespace Shiva.Shared.PanelFieldControllers
 {
     public class GnosisCheckFieldController : GnosisPanelFieldController
     {

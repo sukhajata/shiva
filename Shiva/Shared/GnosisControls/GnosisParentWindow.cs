@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using GnosisControls;
-using ShivaShared3.Events;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.Events;
+using Shiva.Shared.OuterLayoutControllers;
 using System;
 using System.ComponentModel;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
 
 namespace GnosisControls
 {

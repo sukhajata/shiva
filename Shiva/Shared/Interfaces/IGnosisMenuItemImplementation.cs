@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisMenuItemImplementation : IGnosisMouseVisibleControlImplementation
     {

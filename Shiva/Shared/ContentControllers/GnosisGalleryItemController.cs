@@ -1,17 +1,17 @@
-﻿using ShivaShared3.BaseControllers;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.ContentControllers;
+﻿using Shiva.Shared.BaseControllers;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.ContentControllers;
 using GnosisControls;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.InnerLayoutControllers;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.InnerLayoutControllers;
+using Shiva.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ShivaShared3.ContentControllers
+namespace Shiva.Shared.ContentControllers
 {
     public class GnosisGalleryItemController : GnosisVisibleController
     {
@@ -156,7 +156,7 @@ namespace ShivaShared3.ContentControllers
         {
             foreach (GnosisGalleryItemController child in childControllers.OrderBy(c => c.ControlImplementation.Order))
             {
-                ((IGnosisGalleryItemImplementation)ControlImplementation).AddGalleryItem((IGnosisGalleryItemImplementation)child.ControlImplementation);
+                ((GnosisGalleryItem)ControlImplementation).AddGalleryItem((GnosisGalleryItem)child.ControlImplementation);
 
             }
         }

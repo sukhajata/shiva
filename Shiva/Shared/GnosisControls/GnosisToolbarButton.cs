@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
 
 namespace GnosisControls
 {

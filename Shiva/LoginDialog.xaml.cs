@@ -1,7 +1,7 @@
-﻿using ShivaShared3.BaseControllers;
-using ShivaShared3.Data;
-using ShivaShared3.ServerCommunication;
-using ShivaShared3.Utility;
+﻿using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.ServerCommunication;
+using Shiva.Shared.Utility;
 using GnosisControls;
 using ShivaWPF3.UtilityWPF;
 using System;
@@ -20,7 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
 namespace Shiva
 {

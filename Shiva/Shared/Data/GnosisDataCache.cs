@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
 namespace GnosisControls
 {

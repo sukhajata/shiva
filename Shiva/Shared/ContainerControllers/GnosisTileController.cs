@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using GnosisControls;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Data;
-using ShivaShared3.Utility;
-using ShivaShared3.OuterLayoutControllers;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.Utility;
+using Shiva.Shared.OuterLayoutControllers;
+using Shiva.Shared.BaseControllers;
 
 
 
-namespace ShivaShared3.ContainerControllers
+namespace Shiva.Shared.ContainerControllers
 {
     public class GnosisTileController : GnosisContainerController, IGnosisFrameContainer
     {

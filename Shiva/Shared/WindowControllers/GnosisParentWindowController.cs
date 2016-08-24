@@ -1,17 +1,17 @@
-﻿using ShivaShared3.ContainerControllers;
+﻿using Shiva.Shared.ContainerControllers;
 using GnosisControls;
-using ShivaShared3.ContentControllers;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Interfaces;
-using ShivaShared3.ToolbarControllers;
+using Shiva.Shared.ContentControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.ToolbarControllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.OuterLayoutControllers;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.OuterLayoutControllers;
+using Shiva.Shared.BaseControllers;
 
-namespace ShivaShared3.WindowControllers
+namespace Shiva.Shared.WindowControllers
 {
     public class GnosisParentWindowController : GnosisVisibleController
     {

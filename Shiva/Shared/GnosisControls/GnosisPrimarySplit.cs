@@ -1,8 +1,8 @@
 
 
 using System;
-using ShivaShared3.Interfaces;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.OuterLayoutControllers;
 
 namespace GnosisControls
 {

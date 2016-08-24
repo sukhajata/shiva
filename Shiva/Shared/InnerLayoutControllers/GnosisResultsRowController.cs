@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
-using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
 using GnosisControls;
 
-namespace ShivaShared3.InnerLayoutControllers
+namespace Shiva.Shared.InnerLayoutControllers
 {
     public class GnosisResultsRowController : GnosisGridRowController
     {

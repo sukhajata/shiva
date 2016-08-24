@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-using ShivaShared3.Events;
-using ShivaShared3.Data;
+using Shiva.Shared.Events;
+using Shiva.Shared.Data;
 using GnosisControls;
-using ShivaShared3.DataControllers;
+using Shiva.Shared.DataControllers;
 using System.Xml.Linq;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
-namespace ShivaShared3.Utility
+namespace Shiva.Shared.Utility
 {
     public class GnosisControlCreator
     {

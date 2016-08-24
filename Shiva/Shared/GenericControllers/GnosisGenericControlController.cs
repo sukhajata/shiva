@@ -4,14 +4,14 @@ using System.Text;
 using System.Linq;
 using System.ComponentModel;
 
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
 
-using ShivaShared3.Events;
-using ShivaShared3.Data;
+using Shiva.Shared.Events;
+using Shiva.Shared.Data;
 using GnosisControls;
 
-namespace ShivaShared3.GenericControllers
+namespace Shiva.Shared.GenericControllers
 {
     public class GnosisGenericControlController : GnosisController
     {

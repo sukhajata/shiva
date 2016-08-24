@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.ContentControllers;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Interfaces;
-using ShivaShared3.Data;
-using ShivaShared3.InnerLayoutControllers;
+using Shiva.Shared.ContentControllers;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Data;
+using Shiva.Shared.InnerLayoutControllers;
 using GnosisControls;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.BaseControllers;
 
-namespace ShivaShared3.OuterLayoutControllers
+namespace Shiva.Shared.OuterLayoutControllers
 {
     public class GnosisNavigatorFrameController : GnosisFrameController
     {

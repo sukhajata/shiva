@@ -3,8 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using ShivaShared3.Interfaces;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.BaseControllers;
 
 
 namespace GnosisControls

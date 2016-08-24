@@ -1,9 +1,9 @@
 ﻿using GnosisControls;
-using ShivaShared3.ContentControllers;
-using ShivaShared3.Data;
-using ShivaShared3.InnerLayoutControllers;
-using ShivaShared3.Interfaces;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.ContentControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.InnerLayoutControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.OuterLayoutControllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

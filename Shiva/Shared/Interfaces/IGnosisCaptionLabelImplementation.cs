@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Media;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisCaptionLabelImplementation : IGnosisControlThicknessPossessor
     {

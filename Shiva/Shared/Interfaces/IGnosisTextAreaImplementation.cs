@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisTextAreaImplementation : IGnosisInnerLayoutControlImplementation, IGnosisDisplayCharsPossessor
     {

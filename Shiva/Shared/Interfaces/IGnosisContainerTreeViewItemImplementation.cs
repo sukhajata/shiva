@@ -1,7 +1,7 @@
-﻿using ShivaShared3.BaseControllers;
-using ShivaShared3.ContainerControllers;
+﻿using Shiva.Shared.BaseControllers;
+using Shiva.Shared.ContainerControllers;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisContainerTreeViewItemImplementation
     {

@@ -1,5 +1,5 @@
 ﻿using GnosisControls;
-using ShivaShared3.Data;
+using Shiva.Shared.Data;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Xml.Linq;
 
-namespace ShivaShared3.DataControllers
+namespace Shiva.Shared.DataControllers
 {
     public class EnvironmentVariableController
     {

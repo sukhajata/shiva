@@ -1,20 +1,20 @@
-﻿using ShivaShared3.ContainerControllers;
-using ShivaShared3.Data;
-using ShivaShared3.Events;
-using ShivaShared3.Interfaces;
-using ShivaShared3.OuterLayoutControllers;
-using ShivaShared3.WindowControllers;
+﻿using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.Events;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.OuterLayoutControllers;
+using Shiva.Shared.WindowControllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
-using ShivaShared3.ContentControllers;
+using Shiva.Shared.ContentControllers;
 using System.ComponentModel;
-using ShivaShared3.PanelFieldControllers;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.PanelFieldControllers;
+using Shiva.Shared.BaseControllers;
 using GnosisControls;
 
-namespace ShivaShared3.DataControllers
+namespace Shiva.Shared.DataControllers
 {
     public class GnosisInstanceController 
     {

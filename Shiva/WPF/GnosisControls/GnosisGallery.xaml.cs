@@ -13,10 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using ShivaWPF3.UtilityWPF;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.Data;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Data;
 
 namespace GnosisControls
 {
@@ -91,6 +91,66 @@ namespace GnosisControls
                 //    item.Margin = new Thickness(item.Margin.Left, item.Margin.Top, item.Margin.Right + verticalSpacing, item.Margin.Bottom);
                 //}
             }
+        }
+
+        public static readonly DependencyProperty GnosisBorderThicknessProperty =
+          DependencyProperty.RegisterAttached("GnosisBorderThickness",
+          typeof(int), typeof(GnosisGallery), new FrameworkPropertyMetadata(GnosisBorderThicknessPropertyChanged));
+        //new FrameworkPropertyMetadata(0,
+        //    FrameworkPropertyMetadataOptions.Inherits));
+
+        public static void SetHighlightThickness(UIElement element, int value)
+        {
+            element.SetValue(GnosisBorderThicknessProperty, value);
+        }
+
+        public static int GetHighlightThickness(UIElement element)
+        {
+            return (int)element.GetValue(GnosisBorderThicknessProperty);
+        }
+
+        public static void GnosisBorderThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
+        {
+            GnosisGallery gallery = source as GnosisGallery;
+            int newThickness = (int)e.NewValue;
+            int oldThickness = (int)e.OldValue;
+            double paddingHorizontal;
+            double paddingVertical;
+
+            if (newThickness > oldThickness)
+            {
+                if (gallery.ContainerHorizontalPadding > 0 && gallery.ContainerVerticalPadding > 0)
+                {
+                    //increase border thickness, decrease padding
+                    paddingHorizontal = gallery.ContainerHorizontalPadding - newThickness;
+                    paddingVertical = gallery.ContainerVerticalPadding - newThickness;
+
+                    if (paddingHorizontal >= 0 && paddingVertical >= 0)
+                    {
+                        gallery.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+                        gallery.BorderThickness = new Thickness(newThickness);
+                    }
+                    else
+                    {
+                        gallery.Padding = new Thickness(0);
+                        gallery.BorderThickness = new Thickness(gallery.ContainerVerticalPadding, gallery.ContainerHorizontalPadding,
+                            gallery.ContainerVerticalPadding, gallery.ContainerHorizontalPadding);
+                    }
+                }
+
+            }
+            else
+            {
+                //decrease border thickness, increase padding
+                paddingHorizontal = gallery.Padding.Left + oldThickness;
+                paddingVertical = gallery.Padding.Top + oldThickness;
+
+                gallery.Padding = new Thickness(paddingVertical, paddingHorizontal, paddingVertical, paddingHorizontal);
+                gallery.BorderThickness = new Thickness(newThickness);
+            }
+
+
+
         }
 
         public GnosisGallery()

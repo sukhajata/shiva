@@ -1,6 +1,6 @@
-﻿using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
-using ShivaShared3.Utility;
+﻿using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -120,7 +120,7 @@ namespace ShivaWPF3.UtilityWPF
         {
             string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
             string projectPath = Directory.GetParent(exePath).Parent.Parent.FullName;
-            string errorLogPath = System.IO.Path.Combine(projectPath, "Logs", "error-log.txt");
+            string errorLogPath = System.IO.Path.Combine(projectPath, "WPF", "Logs", "error-log.txt");
 
             try
             {

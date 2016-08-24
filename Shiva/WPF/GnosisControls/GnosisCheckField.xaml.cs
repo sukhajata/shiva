@@ -1,13 +1,13 @@
-﻿using ShivaShared3.Interfaces;
-using ShivaShared3.PanelFieldControllers;
+﻿using Shiva.Shared.Interfaces;
+using Shiva.Shared.PanelFieldControllers;
 using ShivaWPF3.UtilityWPF;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 using System.ComponentModel;
-using ShivaShared3.Data;
+using Shiva.Shared.Data;
 using System.Windows.Data;
 
 namespace GnosisControls

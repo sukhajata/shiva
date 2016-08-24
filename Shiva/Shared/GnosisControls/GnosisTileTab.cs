@@ -1,5 +1,5 @@
-﻿using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
+﻿using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

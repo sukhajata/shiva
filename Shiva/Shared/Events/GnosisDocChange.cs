@@ -1,7 +1,7 @@
-﻿using ShivaShared3.BaseControllers;
+﻿using Shiva.Shared.BaseControllers;
 
 
-namespace ShivaShared3.Events
+namespace Shiva.Shared.Events
 {
     public class GnosisDocChange
     {

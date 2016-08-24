@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ShivaShared3.Interfaces;
-using ShivaShared3.Data;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Data;
 using System.ComponentModel;
 
 namespace GnosisControls

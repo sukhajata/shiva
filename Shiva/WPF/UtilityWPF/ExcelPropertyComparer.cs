@@ -1,5 +1,5 @@
-﻿using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
+﻿using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

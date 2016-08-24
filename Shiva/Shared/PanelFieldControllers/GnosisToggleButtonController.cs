@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using GnosisControls;
-using ShivaShared3.DataControllers;
-using ShivaShared3.InnerLayoutControllers;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.InnerLayoutControllers;
 
-namespace ShivaShared3.PanelFieldControllers
+namespace Shiva.Shared.PanelFieldControllers
 {
     public class GnosisToggleButtonController : GnosisPanelFieldController
     {

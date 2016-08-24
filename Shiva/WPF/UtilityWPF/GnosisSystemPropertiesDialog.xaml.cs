@@ -1,7 +1,7 @@
-﻿using ShivaShared3.Utility;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.ContentControllers;
-using ShivaShared3.Data;
+﻿using Shiva.Shared.Utility;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.ContentControllers;
+using Shiva.Shared.Data;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -9,10 +9,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using ShivaShared3.Interfaces;
-using ShivaShared3.WindowControllers;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.WindowControllers;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.OuterLayoutControllers;
 using GnosisControls;
 
 namespace ShivaWPF3.UtilityWPF

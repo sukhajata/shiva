@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using GnosisControls;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.DataControllers;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.OuterLayoutControllers;
 
-namespace ShivaShared3.InnerLayoutControllers
+namespace Shiva.Shared.InnerLayoutControllers
 {
     public class GnosisCalendarController : GnosisInnerLayoutController
     {

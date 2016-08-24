@@ -5,12 +5,12 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Linq;
 
-using ShivaShared3.Events;
-using ShivaShared3.Data;
+using Shiva.Shared.Events;
+using Shiva.Shared.Data;
 using GnosisControls;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
-namespace ShivaShared3.DataControllers
+namespace Shiva.Shared.DataControllers
 {
     public class GnosisEntityController 
     {

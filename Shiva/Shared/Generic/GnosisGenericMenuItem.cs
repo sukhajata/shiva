@@ -1,10 +1,10 @@
 
 
-using ShivaShared3.Data;
-using ShivaShared3.Events;
+using Shiva.Shared.Data;
+using Shiva.Shared.Events;
 using System;
 using System.Collections.Generic;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
 namespace GnosisControls
 {

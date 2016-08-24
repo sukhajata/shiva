@@ -1,4 +1,4 @@
-﻿using ShivaShared3.Interfaces;
+﻿using Shiva.Shared.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using ShivaWPF3.UtilityWPF;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 using System.Windows.Markup;
 using System.ComponentModel;
 

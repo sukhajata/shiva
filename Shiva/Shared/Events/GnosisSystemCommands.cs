@@ -1,9 +1,9 @@
-﻿using ShivaShared3.Data;
+﻿using Shiva.Shared.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShivaShared3.Events
+namespace Shiva.Shared.Events
 {
     public class GnosisSystemCommands
     {

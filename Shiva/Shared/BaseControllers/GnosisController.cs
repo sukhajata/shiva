@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Text;
 
 using GnosisControls;
-using ShivaShared3.Events;
-using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Events;
+using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
 
-namespace ShivaShared3.BaseControllers
+namespace Shiva.Shared.BaseControllers
 {
     public class GnosisController: INotifyPropertyChanged
     {

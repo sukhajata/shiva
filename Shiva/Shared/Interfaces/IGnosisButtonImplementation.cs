@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static ShivaShared3.BaseControllers.GnosisController;
+using static Shiva.Shared.BaseControllers.GnosisController;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisButtonImplementation : IGnosisPanelFieldImplementation
     {

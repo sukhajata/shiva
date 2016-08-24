@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-using ShivaShared3.ContentControllers;
+using Shiva.Shared.ContentControllers;
 using GnosisControls;
-using ShivaShared3.Interfaces;
-using ShivaShared3.DataControllers;
-using ShivaShared3.OuterLayoutControllers;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.OuterLayoutControllers;
+using Shiva.Shared.BaseControllers;
 
-namespace ShivaShared3.ContainerControllers
+namespace Shiva.Shared.ContainerControllers
 {
     //provides umbrella class for GnosisSplitController and GnosisTileController
     public class GnosisContainerController  : GnosisVisibleController

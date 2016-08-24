@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using ShivaShared3.Interfaces;
-using ShivaShared3.DataControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.DataControllers;
 using GnosisControls;
-using ShivaShared3.Data;
+using Shiva.Shared.Data;
 using System.Collections;
 using System.Xml.Linq;
-using ShivaShared3.Utility;
-using ShivaShared3.ContentControllers;
+using Shiva.Shared.Utility;
+using Shiva.Shared.ContentControllers;
 using System.Windows;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.OuterLayoutControllers;
 using System.Diagnostics;
-using ShivaShared3.GridColumnControllers;
+using Shiva.Shared.GridColumnControllers;
 using System.ComponentModel;
 
-namespace ShivaShared3.InnerLayoutControllers
+namespace Shiva.Shared.InnerLayoutControllers
 {
     public class GnosisGridController : GnosisInnerLayoutController
     {

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 
 using GnosisControls;
-using ShivaShared3.Interfaces;
-using ShivaShared3.DataControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.DataControllers;
 using System.IO;
-using ShivaShared3.Data;
-using ShivaShared3.InnerLayoutControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.InnerLayoutControllers;
 using System.Linq;
 using System.Xml.Linq;
-using ShivaShared3.Utility;
+using Shiva.Shared.Utility;
 
-namespace ShivaShared3.PanelFieldControllers
+namespace Shiva.Shared.PanelFieldControllers
 {
     public class GnosisComboFieldController : GnosisPanelFieldController
     {

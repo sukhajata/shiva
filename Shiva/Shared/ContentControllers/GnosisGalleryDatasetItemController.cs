@@ -1,16 +1,16 @@
-﻿using ShivaShared3.ContainerControllers;
+﻿using Shiva.Shared.ContainerControllers;
 using GnosisControls;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Interfaces;
-using ShivaShared3.Utility;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace ShivaShared3.ContentControllers
+namespace Shiva.Shared.ContentControllers
 {
     public class GnosisGalleryDatasetItemController
     {

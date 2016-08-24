@@ -10,7 +10,7 @@ namespace GnosisControls
 
         private string valueField;
 
-        private int highlightThickness;
+      //  private int highlightThickness;
 
         private int order;
 
@@ -38,12 +38,12 @@ namespace GnosisControls
             set { order = value; }
         }
 
-        [GnosisProperty]
-        public int HighlightThickness
-        {
-            get { return highlightThickness; }
-            set { highlightThickness = value; }
-        }
+        //[GnosisProperty]
+        //public int HighlightThickness
+        //{
+        //    get { return highlightThickness; }
+        //    set { highlightThickness = value; }
+        //}
 
     }
 }

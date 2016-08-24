@@ -1,11 +1,11 @@
 ﻿using System;
-using ShivaShared3.Interfaces;
-using ShivaShared3.DataControllers;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.BaseControllers;
 using GnosisControls;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.OuterLayoutControllers;
 
-namespace ShivaShared3.InnerLayoutControllers
+namespace Shiva.Shared.InnerLayoutControllers
 {
     public class GnosisInnerLayoutController : GnosisVisibleController
     {

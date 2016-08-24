@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 
 using GnosisControls;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Interfaces;
 
-namespace ShivaShared3.ContainerControllers
+namespace Shiva.Shared.ContainerControllers
 {
     public class GnosisNavTileController : GnosisTileController
     {

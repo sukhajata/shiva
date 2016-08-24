@@ -1,12 +1,12 @@
-﻿using ShivaShared3.DataControllers;
-using ShivaShared3.Interfaces;
+﻿using Shiva.Shared.DataControllers;
+using Shiva.Shared.Interfaces;
 using System;
-using ShivaShared3.ContainerControllers;
+using Shiva.Shared.ContainerControllers;
 using GnosisControls;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
 
-namespace ShivaShared3.OuterLayoutControllers
+namespace Shiva.Shared.OuterLayoutControllers
 {
     public class GnosisConnectionFrameController : GnosisFrameController
     {

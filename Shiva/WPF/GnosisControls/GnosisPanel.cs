@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using System.Windows;
 using ShivaWPF3.UtilityWPF;
 using System.ComponentModel;
@@ -134,8 +134,8 @@ namespace GnosisControls
         {
             //string xaml = XamlWriter.Save(captionLabel);
 
-            if (captionLabel.RelativePosition == ShivaShared3.BaseControllers.GnosisController.CaptionPosition.LEFT ||
-                captionLabel.RelativePosition == ShivaShared3.BaseControllers.GnosisController.CaptionPosition.RIGHT)
+            if (captionLabel.RelativePosition == Shiva.Shared.BaseControllers.GnosisController.CaptionPosition.LEFT ||
+                captionLabel.RelativePosition == Shiva.Shared.BaseControllers.GnosisController.CaptionPosition.RIGHT)
             {
                 captionLabel.VerticalAlignment = VerticalAlignment.Center;
 

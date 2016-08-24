@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
-using ShivaShared3.Utility;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Utility;
+using Shiva.Shared.BaseControllers;
 using GnosisControls;
 
-namespace ShivaShared3.GenericControllers
+namespace Shiva.Shared.GenericControllers
 {
     public class GnosisGenericMenuGroupController : GnosisGenericMenuItemController
     {

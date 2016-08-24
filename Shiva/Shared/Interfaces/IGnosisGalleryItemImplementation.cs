@@ -1,8 +1,9 @@
-﻿using System;
+﻿using GnosisControls;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisGalleryItemImplementation : IGnosisMouseVisibleControlImplementation, IGnosisControlThicknessPossessor,
         IGnosisPaddingPossessor, IGnosisSpacingPossessor
@@ -14,7 +15,7 @@ namespace ShivaShared3.Interfaces
         string GnosisIcon { get; set; }
 
         //methods
-        void AddGalleryItem(IGnosisGalleryItemImplementation childImplementation);
+        void AddGalleryItem(GnosisGalleryItem childImplementation);
         //void SetExpanded(bool expanded);
         //void SetCaption(string caption);
         void SetItemSelectedHandler(Action selectedHandler);

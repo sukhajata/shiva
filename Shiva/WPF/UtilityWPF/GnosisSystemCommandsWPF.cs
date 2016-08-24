@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
 
 namespace ShivaWPF3.UtilityWPF
 {

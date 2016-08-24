@@ -1,10 +1,10 @@
-﻿using ShivaShared3.BaseControllers;
+﻿using Shiva.Shared.BaseControllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisMouseVisibleControlImplementation : IGnosisVisibleControlImplementation
     {

@@ -13,10 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using ShivaWPF3.UtilityWPF;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.Data;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Data;
 using System.Windows.Markup;
 
 namespace GnosisControls
@@ -259,17 +259,19 @@ namespace GnosisControls
             Active = true;
         }
 
-        public void AddGalleryItem(IGnosisGalleryItemImplementation childImplementation)
+        public void AddGalleryItem(GnosisGalleryItem child)
         {
-            if (horizontalSpacing > 0)
-            {
-                Label lbl = new Label();
-                lbl.Height = horizontalSpacing;
-                lbl.Background = Brushes.Green;
-                this.Items.Add(lbl);
+            //if (horizontalSpacing > 0)
+            //{
+            //    if (Items.Count == 0)
+            //    {
+            //        child.Margin = new Thickness()
+            //    }
+            //    child.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin, horizontalMargin + horizontalSpacing);
 
-            }
-            this.Items.Add((GnosisGalleryItem)childImplementation);
+            //}
+
+            this.Items.Add(child);
         }
 
         //public void SetCaption(string caption)

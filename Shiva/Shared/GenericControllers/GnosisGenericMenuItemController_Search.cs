@@ -1,7 +1,7 @@
-﻿using ShivaShared3.BaseControllers;
+﻿using Shiva.Shared.BaseControllers;
 using GnosisControls;
 
-namespace ShivaShared3.GenericControllers
+namespace Shiva.Shared.GenericControllers
 {
     public class GnosisGenericMenuItemController_Search : GnosisGenericMenuItemController
     {

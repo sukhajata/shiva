@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Interfaces;
 using ShivaWPF3.UtilityWPF;
 using System.ComponentModel;
 

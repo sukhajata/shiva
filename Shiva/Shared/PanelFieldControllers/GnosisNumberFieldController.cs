@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 using GnosisControls;
-using ShivaShared3.DataControllers;
-using ShivaShared3.InnerLayoutControllers;
-using ShivaShared3.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.InnerLayoutControllers;
+using Shiva.Shared.Data;
 
-namespace ShivaShared3.PanelFieldControllers
+namespace Shiva.Shared.PanelFieldControllers
 {
     public class GnosisNumberFieldController : GnosisPanelFieldController
     {

@@ -7,12 +7,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-using ShivaShared3.Data;
-using ShivaShared3.Interfaces;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.ContentControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.ContentControllers;
 using ShivaWPF3.UtilityWPF;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
 namespace GnosisControls
 {

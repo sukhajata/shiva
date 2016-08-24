@@ -1,15 +1,15 @@
 ﻿using GnosisControls;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.ContentControllers;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.InnerLayoutControllers;
-using ShivaShared3.Interfaces;
-using ShivaShared3.OuterLayoutControllers;
-using ShivaShared3.PanelFieldControllers;
-using ShivaShared3.ToolbarControllers;
-using ShivaShared3.Utility;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.ContentControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.InnerLayoutControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.OuterLayoutControllers;
+using Shiva.Shared.PanelFieldControllers;
+using Shiva.Shared.ToolbarControllers;
+using Shiva.Shared.Utility;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -141,6 +141,8 @@ namespace ShivaWPF3.UtilityWPF
                 //Setter setter = GetControlThicknessSetter(captionLabel, captionStyle);
                 //windowsStyle.Setters.Add(setter);
             }
+
+            
             captionLabel.RelativePosition = captionStyle._CaptionRelativePosition;
             wpfControl.Style = windowsStyle;
           //  string xaml = XamlWriter.Save(windowsStyle);
@@ -198,9 +200,35 @@ namespace ShivaWPF3.UtilityWPF
                 ((IContainerPaddingPossessor)control).ContainerVerticalPadding = gnosisStyle.ContainerVerticalPadding;
             }
 
+
+            if (gnosisStyle.GnosisBorderThickness > 0 && control is IGnosisBorderThicknessPossessor)
+            {
+                if (control is GnosisSearchFrame)
+                {
+                    Setter setter = new Setter(GnosisSearchFrame.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
+                    windowsStyle.Setters.Add(setter);
+                }
+                else if (control is GnosisFrame)
+                {
+                    Setter setter = new Setter(GnosisFrame.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
+                    windowsStyle.Setters.Add(setter);
+                }
+                else if (control is GnosisGallery)
+                {
+                    Setter setter = new Setter(GnosisGallery.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
+                    windowsStyle.Setters.Add(setter);
+                }
+                else if (control is GnosisToolbarTray)
+                {
+                    Setter setter = new Setter(GnosisToolbarTray.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
+                    windowsStyle.Setters.Add(setter);
+                }
+
+            }
+
             if (gnosisStyle.ControlColour != null && gnosisStyle.ControlColour.Length > 0)
             {
-                if (control is IGnosisControlThicknessPossessor)
+                if (control is IGnosisControlThicknessPossessor || control is IGnosisBorderThicknessPossessor)
                 {
                     Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisStyle.ControlColour));
                     windowsStyle.Setters.Add(setter);
@@ -1026,18 +1054,30 @@ namespace ShivaWPF3.UtilityWPF
                 }
             }
 
-            if (gnosisFirstCondition.HighlightThickness > 0)
+            if (gnosisFirstCondition.GnosisBorderThickness > 0 && control is IGnosisBorderThicknessPossessor)
             {
                 if (control is GnosisSearchFrame)
                 {
-                    Setter setter = new Setter(GnosisSearchFrame.HighlightThicknessProperty, gnosisFirstCondition.HighlightThickness);
+                    Setter setter = new Setter(GnosisSearchFrame.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
                     multiDataTrigger.Setters.Add(setter);
                 }
                 else if (control is GnosisFrame)
                 {
-                    Setter setter = new Setter(GnosisFrame.HighlightThicknessProperty, gnosisFirstCondition.HighlightThickness);
+                    Setter setter = new Setter(GnosisFrame.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
                     multiDataTrigger.Setters.Add(setter);
                 }
+                else if (control is GnosisGallery)
+                {
+                    Setter setter = new Setter(GnosisGallery.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+                    multiDataTrigger.Setters.Add(setter);
+                }
+                else if (control is GnosisToolbarTray)
+                {
+                    Setter setter = new Setter(GnosisToolbarTray.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+                    multiDataTrigger.Setters.Add(setter);
+                }
+
+
             }
 
             if (gnosisFirstCondition.ControlColour != null && gnosisFirstCondition.ControlColour.Length > 0)
@@ -1129,26 +1169,43 @@ namespace ShivaWPF3.UtilityWPF
                 }
             }
 
-            if (gnosisFirstCondition.HighlightThickness > 0)
-            {
-                if (control is GnosisSearchFrame)
-                {
-                    Setter setter = new Setter(GnosisSearchFrame.HighlightThicknessProperty, gnosisFirstCondition.HighlightThickness);
-                    multiDataTrigger.Setters.Add(setter);
-                }
-            }
+          
 
             if (gnosisFirstCondition.ControlColour != null && gnosisFirstCondition.ControlColour.Length > 0)
             {
-                if (control is IGnosisContentControlImplementation)
-                {
+                //if (control is IGnosisContentControlImplementation)
+                //{
                     //controller.SetBorderColour(gnosisStyle.ControlColour);
                     Brush brush = GetBrushFromHex(gnosisFirstCondition.ControlColour);
                     Setter setter = new Setter(Control.BorderBrushProperty, brush);
                     multiDataTrigger.Setters.Add(setter);
-                }
+                //}
             }
 
+            if (gnosisFirstCondition.GnosisBorderThickness > 0)
+            {
+                if (control is GnosisSearchFrame)
+                {
+                    Setter setter = new Setter(GnosisSearchFrame.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+                    multiDataTrigger.Setters.Add(setter);
+                }
+                else if (control is GnosisFrame)
+                {
+                    Setter setter = new Setter(GnosisFrame.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+                    multiDataTrigger.Setters.Add(setter);
+                }
+                else if (control is GnosisGallery)
+                {
+                    Setter setter = new Setter(GnosisGallery.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+                    multiDataTrigger.Setters.Add(setter);
+                }
+                else if (control is GnosisToolbarTray)
+                {
+                    Setter setter = new Setter(GnosisToolbarTray.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+                    multiDataTrigger.Setters.Add(setter);
+                }
+
+            }
             //if (gnosisStyle.IsUnderline)
             //{
             //    ((GnosisLinkFieldController)controller).SetUnderline(true);

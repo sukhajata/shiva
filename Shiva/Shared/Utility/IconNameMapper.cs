@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShivaShared3.Utility
+namespace Shiva.Shared.Utility
 {
     public class IconNameMapper
     {

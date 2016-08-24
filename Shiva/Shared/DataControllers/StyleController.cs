@@ -1,7 +1,7 @@
 ﻿
-//using ShivaShared3.Data;
-//using ShivaShared3.GridFieldControllers;
-//using ShivaShared3.Interfaces;
+//using Shiva.Shared.Data;
+//using Shiva.Shared.GridFieldControllers;
+//using Shiva.Shared.Interfaces;
 //using System;
 //using System.Collections.Generic;
 //using System.Globalization;
@@ -9,10 +9,10 @@
 //using System.Text;
 //using System.Windows;
 //using System.Windows.Media;
-//using ShivaShared3.BaseControllers;
+//using Shiva.Shared.BaseControllers;
 
 
-//namespace ShivaShared3.DataControllers
+//namespace Shiva.Shared.DataControllers
 //{
 //    public class StyleController
 //    {

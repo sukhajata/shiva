@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-using ShivaShared3.Data;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.BaseControllers;
 using GnosisControls;
 
-namespace ShivaShared3.GenericControllers
+namespace Shiva.Shared.GenericControllers
 {
     public class GnosisGenericMenuItemController : GnosisController
     {

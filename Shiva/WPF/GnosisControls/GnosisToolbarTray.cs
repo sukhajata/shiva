@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-using ShivaShared3.Interfaces;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.ToolbarControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.ToolbarControllers;
 using ShivaWPF3.UtilityWPF;
 using System.ComponentModel;
-using ShivaShared3.Data;
+using Shiva.Shared.Data;
+using System.Windows.Markup;
 
 namespace GnosisControls
 {
-    public partial class GnosisToolbarTray : StackPanel, IGnosisToolbarTrayImplementation
+    public partial class GnosisToolbarTray : Border, IGnosisToolbarTrayImplementation
     {
         //protected Action GotMouseFocusHandler;
         //protected Action LostMouseFocusHandler;
@@ -36,7 +37,7 @@ namespace GnosisControls
             set
             {
                 containerHorizontalPadding = value;
-                innerPanel.SetHorizontalMarginExt(containerHorizontalPadding);
+                this.SetHorizontalPaddingExt(containerHorizontalPadding);
             }
         }
 
@@ -46,16 +47,77 @@ namespace GnosisControls
             set
             {
                 containerVerticalPadding = value;
-                innerPanel.SetVerticalMarginExt(containerVerticalPadding);
+                this.SetVerticalPaddingExt(containerVerticalPadding);
             }
         }
 
+        public static readonly DependencyProperty GnosisBorderThicknessProperty =
+         DependencyProperty.RegisterAttached("GnosisBorderThickness",
+         typeof(int), typeof(GnosisToolbarTray), new FrameworkPropertyMetadata(GnosisBorderThicknessPropertyChanged));
+        //new FrameworkPropertyMetadata(0,
+        //    FrameworkPropertyMetadataOptions.Inherits));
+
+        public static void SetHighlightThickness(UIElement element, int value)
+        {
+            element.SetValue(GnosisBorderThicknessProperty, value);
+        }
+
+        public static int GetHighlightThickness(UIElement element)
+        {
+            return (int)element.GetValue(GnosisBorderThicknessProperty);
+        }
+
+        public static void GnosisBorderThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
+        {
+            GnosisToolbarTray toolbarTray = source as GnosisToolbarTray;
+            int newThickness = (int)e.NewValue;
+            int oldThickness = (int)e.OldValue;
+            double paddingHorizontal;
+            double paddingVertical;
+
+            if (newThickness > oldThickness)
+            {
+                if (toolbarTray.ContainerHorizontalPadding > 0 && toolbarTray.ContainerVerticalPadding > 0)
+                {
+                    string xaml = XamlWriter.Save(toolbarTray.Style);
+                    //increase border thickness, decrease padding
+                    paddingHorizontal = toolbarTray.ContainerHorizontalPadding - newThickness;
+                    paddingVertical = toolbarTray.ContainerVerticalPadding - newThickness;
+
+                    if (paddingHorizontal >= 0 && paddingVertical >= 0)
+                    {
+                        toolbarTray.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+                        toolbarTray.BorderThickness = new Thickness(newThickness);
+                    }
+                    else
+                    {
+                        toolbarTray.Padding = new Thickness(0);
+                        toolbarTray.BorderThickness = new Thickness(toolbarTray.ContainerVerticalPadding, toolbarTray.ContainerHorizontalPadding,
+                            toolbarTray.ContainerVerticalPadding, toolbarTray.ContainerHorizontalPadding);
+                    }
+                }
+
+            }
+            else
+            {
+                //decrease border thickness, increase padding
+                paddingHorizontal = toolbarTray.Padding.Left + oldThickness;
+                paddingVertical = toolbarTray.Padding.Top + oldThickness;
+
+                toolbarTray.Padding = new Thickness(paddingVertical, paddingHorizontal, paddingVertical, paddingHorizontal);
+                toolbarTray.BorderThickness = new Thickness(newThickness);
+            }
+
+
+
+        }
+
+
         public GnosisToolbarTray()
         {
-            this.Orientation = Orientation.Horizontal;
             innerPanel = new StackPanel();
             innerPanel.Orientation = Orientation.Horizontal;
-            this.Children.Add(innerPanel);
+            this.Child = innerPanel;
 
 
             //this.MouseDown += GnosisToolbarTrayWPF_MouseDown;
@@ -67,7 +129,7 @@ namespace GnosisControls
 
         private void GnosisToolbarTray_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch(e.PropertyName)
+            switch (e.PropertyName)
             {
                 case "Caption":
                     break;
@@ -93,7 +155,7 @@ namespace GnosisControls
             grid.Width = 2;
             grid.Margin = new Thickness(3, 0, 3, 0);
             grid.Background = StyleHelper.GetBrushFromHex(splitterColour);
-            this.Children.Add(grid);
+            innerPanel.Children.Add(grid);
         }
 
         //public double GetPaddingHorizontal()
@@ -101,7 +163,7 @@ namespace GnosisControls
         //    throw new NotImplementedException();
         //}
 
-       
+
 
         public void SetTooltipVisible(bool visible)
         {
@@ -163,19 +225,19 @@ namespace GnosisControls
         //    HasMouseDown = false;
         //}
 
-            
+
 
         //public void SetPaddingHorizontal(double paddingHorizontal)
         //{
-            
+
         //}
 
         //public void SetPaddingVertical(double paddingVertical)
         //{
-            
+
         //}
 
-        
+
         public void SetGotFocusHandler(Action action)
         {
             GotFocusHandler = action;
@@ -209,7 +271,7 @@ namespace GnosisControls
                     toolbars = new List<GnosisToolbar>();
                 }
                 toolbars.Add((GnosisToolbar)child);
-                this.Children.Add((GnosisToolbar)child);
+                innerPanel.Children.Add((GnosisToolbar)child);
                 //splitter
                 //if (this.Children.Count > 1 && i < count)
                 //{

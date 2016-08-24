@@ -1,13 +1,13 @@
 ﻿using System;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 using GnosisControls;
 using System.ComponentModel;
 using System.Collections.Generic;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisFrameImplementation : IGnosisOuterLayoutControlImplementation, INotifyPropertyChanged,
-        IContainerPaddingPossessor
+        IContainerPaddingPossessor, IGnosisBorderThicknessPossessor
     {
         //collections
         [GnosisCollection]

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-using ShivaShared3.Events;
-using ShivaShared3.Data;
+using Shiva.Shared.Events;
+using Shiva.Shared.Data;
 using GnosisControls;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Interfaces;
 
-namespace ShivaShared3.Utility
+namespace Shiva.Shared.Utility
 {
     public class LayoutManager
     {

@@ -8,14 +8,14 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml.XPath;
 
-using ShivaShared3.Events;
-using ShivaShared3.Data;
+using Shiva.Shared.Events;
+using Shiva.Shared.Data;
 using GnosisControls;
 using System.Xml;
 using System.Reflection;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
-namespace ShivaShared3.Utility
+namespace Shiva.Shared.Utility
 {
     public class GnosisXMLHelper
     {

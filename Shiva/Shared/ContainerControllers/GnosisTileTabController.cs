@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Interfaces;
-using ShivaShared3.Utility;
-using ShivaShared3.ContainerControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Utility;
+using Shiva.Shared.ContainerControllers;
 using GnosisControls;
-using ShivaShared3.OuterLayoutControllers;
+using Shiva.Shared.OuterLayoutControllers;
 
-namespace ShivaShared3.ContainerControllers
+namespace Shiva.Shared.ContainerControllers
 {
     public class GnosisTileTabController : GnosisContainerController
     {

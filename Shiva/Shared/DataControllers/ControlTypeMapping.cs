@@ -1,11 +1,11 @@
 ﻿using GnosisControls;
-using ShivaShared3.Data;
-using ShivaShared3.Events;
+using Shiva.Shared.Data;
+using Shiva.Shared.Events;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShivaShared3.DataControllers
+namespace Shiva.Shared.DataControllers
 {
     public class ControlTypeMapping
     {

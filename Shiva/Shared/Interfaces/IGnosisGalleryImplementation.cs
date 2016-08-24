@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisGalleryImplementation : IGnosisInnerLayoutControlImplementation, IGnosisSpacingPossessor,
-        IContainerPaddingPossessor
+        IContainerPaddingPossessor, IGnosisBorderThicknessPossessor
     {
         //properties
         int ExpandToLevel { get; set; }

@@ -1,13 +1,13 @@
-﻿using ShivaShared3.InnerLayoutControllers;
-using ShivaShared3.Interfaces;
+﻿using Shiva.Shared.InnerLayoutControllers;
+using Shiva.Shared.Interfaces;
 using ShivaWPF3.UtilityWPF;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 using System.ComponentModel;
-using ShivaShared3.Data;
+using Shiva.Shared.Data;
 using System.Windows.Markup;
 
 namespace GnosisControls

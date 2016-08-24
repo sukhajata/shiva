@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ShivaShared3.Utility
+namespace Shiva.Shared.Utility
 {
 
     public class PropertyNameConverter

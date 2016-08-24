@@ -1,16 +1,16 @@
-﻿using ShivaShared3.ContainerControllers;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.InnerLayoutControllers;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.Interfaces;
+﻿using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.InnerLayoutControllers;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Interfaces;
 using GnosisControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ShivaShared3.OuterLayoutControllers
+namespace Shiva.Shared.OuterLayoutControllers
 {
     public class GnosisSearchFrameController : GnosisFrameController
     {

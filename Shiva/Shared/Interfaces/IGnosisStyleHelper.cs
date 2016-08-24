@@ -1,12 +1,12 @@
 ﻿using GnosisControls;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.ContainerControllers;
-using ShivaShared3.Data;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.ContainerControllers;
+using Shiva.Shared.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShivaShared3.Interfaces
+namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisStyleHelper
     {

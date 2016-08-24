@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using ShivaShared3.Interfaces;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Data;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Data;
 using System.Linq;
-using ShivaShared3.ContainerControllers;
+using Shiva.Shared.ContainerControllers;
 using GnosisControls;
-using ShivaShared3.InnerLayoutControllers;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.InnerLayoutControllers;
+using Shiva.Shared.BaseControllers;
 
 
-namespace ShivaShared3.OuterLayoutControllers
+namespace Shiva.Shared.OuterLayoutControllers
 {
     public class GnosisFrameController : GnosisOuterLayoutController
     {

@@ -1,12 +1,12 @@
 ﻿using GnosisControls;
-using ShivaShared3.BaseControllers;
-using ShivaShared3.DataControllers;
-using ShivaShared3.GenericControllers;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.GenericControllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ShivaShared3.ToolbarControllers
+namespace Shiva.Shared.ToolbarControllers
 {
     public class GnosisToolbarMenuButtonController : GnosisVisibleController
     {

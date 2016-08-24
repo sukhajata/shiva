@@ -12,14 +12,14 @@
         <ControlTemplate TargetType="{x:Type TreeViewItem}">
             <Grid Margin="0" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition MinWidth="19"
+                    <ColumnDefinition 
                       Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <ToggleButton x:Name="Expander"
                   IsChecked="{Binding Path=IsExpanded,
@@ -28,8 +28,8 @@
                     <ToggleButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
                             <Grid
-                              Width="15"
-                              Height="13">
+                              Width="Auto"
+                              Height="Auto">
                                 <Path x:Name="ExpandPath"
                                     HorizontalAlignment="Left" 
                                     VerticalAlignment="Center" 
@@ -56,34 +56,24 @@
                       ContentSource="Header"
                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
                 </Border>
-                <ItemsPresenter x:Name="ItemsHost"
+                <ItemsPresenter x:Name="ItemsHost" Margin="0"
                   Grid.Row="1"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"/>
             </Grid>
             <ControlTemplate.Triggers>
-                <Trigger Property="IsExpanded"
-               Value="false">
-                    <Setter TargetName="ItemsHost"
-                Property="Visibility"
-                Value="Collapsed"/>
+                <Trigger Property="IsExpanded" Value="false">
+                    <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed"/>
                 </Trigger>
-                <Trigger Property="HasItems"
-               Value="false">
-                    <Setter TargetName="Expander"
-                Property="Visibility"
-                Value="Hidden"/>
+                <Trigger Property="HasItems" Value="false">
+                    <Setter TargetName="Expander" Property="Visibility" Value="Hidden"/>
                 </Trigger>
-                <MultiTrigger>
+                <!--<MultiTrigger>
                     <MultiTrigger.Conditions>
-                        <Condition Property="HasHeader"
-                     Value="false"/>
-                        <Condition Property="Width"
-                     Value="Auto"/>
+                        <Condition Property="HasHeader" Value="false"/>
+                        <Condition Property="Width" Value="Auto"/>
                     </MultiTrigger.Conditions>
-                    <Setter TargetName="PART_Header"
-                Property="MinWidth"
-                Value="75"/>
+                    <Setter TargetName="PART_Header" Property="MinWidth" Value="75"/>
                 </MultiTrigger>
                 <MultiTrigger>
                     <MultiTrigger.Conditions>
@@ -95,7 +85,7 @@
                     <Setter TargetName="PART_Header"
                 Property="MinHeight"
                 Value="19"/>
-                </MultiTrigger>
+                </MultiTrigger>-->
             </ControlTemplate.Triggers>
 
         </ControlTemplate>

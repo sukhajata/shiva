@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ShivaShared3.Utility
+namespace Shiva.Shared.Utility
 {
     public class GnosisValidator
     {

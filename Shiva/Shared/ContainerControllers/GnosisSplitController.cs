@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using GnosisControls;
-using ShivaShared3.Data;
-using ShivaShared3.ContentControllers;
-using ShivaShared3.Interfaces;
-using ShivaShared3.DataControllers;
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.ContentControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.BaseControllers;
 
-namespace ShivaShared3.ContainerControllers
+namespace Shiva.Shared.ContainerControllers
 {
     public class GnosisSplitController : GnosisContainerController
     {

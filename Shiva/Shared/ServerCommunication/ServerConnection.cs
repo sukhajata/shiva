@@ -1,8 +1,8 @@
 ﻿using GnosisControls;
-using ShivaShared3.Data;
-using ShivaShared3.DataControllers;
-using ShivaShared3.Interfaces;
-using ShivaShared3.Utility;
+using Shiva.Shared.Data;
+using Shiva.Shared.DataControllers;
+using Shiva.Shared.Interfaces;
+using Shiva.Shared.Utility;
 using ShivaWPF3.UtilityWPF;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace ShivaShared3.ServerCommunication
+namespace Shiva.Shared.ServerCommunication
 {
     public class ServerConnection
     {

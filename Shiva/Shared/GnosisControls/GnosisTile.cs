@@ -1,4 +1,4 @@
-using ShivaShared3.Events;
+using Shiva.Shared.Events;
 using System.Collections.Generic;
 using System.ComponentModel;
 

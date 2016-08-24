@@ -1,12 +1,12 @@
-﻿using ShivaShared3.DataControllers;
+﻿using Shiva.Shared.DataControllers;
 using GnosisControls;
-using ShivaShared3.InnerLayoutControllers;
+using Shiva.Shared.InnerLayoutControllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
-namespace ShivaShared3.GridColumnControllers
+namespace Shiva.Shared.GridColumnControllers
 {
     public class GnosisResultsColumnController : GnosisGridColumnController
     {

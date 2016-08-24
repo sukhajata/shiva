@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 
-using ShivaShared3.ContentControllers;
+using Shiva.Shared.ContentControllers;
 using GnosisControls;
-using ShivaShared3.Data;
-using ShivaShared3.ContainerControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.ContainerControllers;
 
-using ShivaShared3.BaseControllers;
+using Shiva.Shared.BaseControllers;
 
 namespace GnosisControls
 {

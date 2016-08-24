@@ -1,5 +1,5 @@
 ﻿using System;
-using ShivaShared3.Interfaces;
+using Shiva.Shared.Interfaces;
 
 
 namespace GnosisControls
