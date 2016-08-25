@@ -96,10 +96,13 @@
                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                                   Margin="0"/>
+
                             </Border>
 
                             <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" 
                                             Margin="0"/>
+                            
+
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsExpanded" Value="false">
