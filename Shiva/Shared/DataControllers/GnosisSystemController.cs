@@ -786,7 +786,7 @@ namespace Shiva.Shared.DataControllers
 
 
                 //must use the Dispatcher of Parent Window to touch UI from a background thread. Calling Invoke blocks UI thread
-                ((GnosisParentWindow)GlobalData.Singleton.ParentWindowImplementation).Dispatcher.Invoke((Action)(() =>
+                ((GnosisParentWindow)GlobalData.Singleton.ParentWindowImplementation).Dispatcher.BeginInvoke((Action)(() =>
                 {
                     GnosisInstance instance = GetInstance(currentSearchRequest.EntityID, currentSearchRequest.SystemID, "Search", xContent);
                     GnosisInstanceController instanceController = new GnosisInstanceController(instance, entityController);
@@ -798,6 +798,10 @@ namespace Shiva.Shared.DataControllers
                     }
 
                     CurrentInstanceController = instanceController;
+
+                    GlobalData.Singleton.PrimarySplitController.LoadSearchFrame((GnosisSearchFrameController)currentInstanceController.VisibleController);
+                    currentInstanceController.Editable = true;
+
                 }));
 
                
@@ -836,58 +840,58 @@ namespace Shiva.Shared.DataControllers
         //    DataContext = result as /* what you want */;
         //}
 
-        public void LoadSearch()
-        {
+        //public void LoadSearch()
+        //{
 
-            GnosisEntityController entityController = GetEntityController(currentSearchRequest.EntityID, currentSearchRequest.SystemID);
-
-
-            if (entityController.EntityType != GnosisEntity.EntityTypeEnum.Search)
-            {
-                GlobalData.Singleton.ErrorHandler.HandleError("Can not load search in non search entity: " + entityController.EntityName, "GnosisSystemController.LoadSearch");
-
-            }
-            else
-            {
-                //build content of instance request
-                string datasetName = entityController.Entity.SearchFrame.SearchParameters.First().Dataset;
-                string elementName = entityController.GetElementName(datasetName);
-                XElement xContent = new XElement(elementName);
-
-                List<GnosisSearchParameter> localSearchParameters = entityController.Entity.SearchFrame.SearchParameters;
+        //    GnosisEntityController entityController = GetEntityController(currentSearchRequest.EntityID, currentSearchRequest.SystemID);
 
 
+        //    if (entityController.EntityType != GnosisEntity.EntityTypeEnum.Search)
+        //    {
+        //        GlobalData.Singleton.ErrorHandler.HandleError("Can not load search in non search entity: " + entityController.EntityName, "GnosisSystemController.LoadSearch");
 
-                for (int i = 0; i < localSearchParameters.Count; i++)
-                {
-                    string attributeName = entityController.GetTargetAttributeName(localSearchParameters[i].Dataset, localSearchParameters[i].DatasetItem);
-                    XAttribute attribute = new XAttribute(attributeName, currentSearchRequest.SearchParams[i].Content);
-                    xContent.Add(attribute);
-                }
+        //    }
+        //    else
+        //    {
+        //        //build content of instance request
+        //        string datasetName = entityController.Entity.SearchFrame.SearchParameters.First().Dataset;
+        //        string elementName = entityController.GetElementName(datasetName);
+        //        XElement xContent = new XElement(elementName);
 
-                ((GnosisParentWindow)GlobalData.Singleton.ParentWindowImplementation).Dispatcher.Invoke((Action)(() =>
-                {
+        //        List<GnosisSearchParameter> localSearchParameters = entityController.Entity.SearchFrame.SearchParameters;
 
-                    GnosisInstance instance = GetInstance(currentSearchRequest.EntityID, currentSearchRequest.SystemID, "Search", xContent);
-                    GnosisInstanceController instanceController = new GnosisInstanceController(instance, entityController);
 
-                    instanceController.Setup();
-                    if (currentSearchRequest.AutoSearchAction != null && currentSearchRequest.AutoSearchAction.Equals("Search"))
-                    {
-                        ((GnosisSearchFrameController)instanceController.VisibleController).SetAutoSearch(true);
-                    }
 
-                    CurrentInstanceController = instanceController;
+        //        for (int i = 0; i < localSearchParameters.Count; i++)
+        //        {
+        //            string attributeName = entityController.GetTargetAttributeName(localSearchParameters[i].Dataset, localSearchParameters[i].DatasetItem);
+        //            XAttribute attribute = new XAttribute(attributeName, currentSearchRequest.SearchParams[i].Content);
+        //            xContent.Add(attribute);
+        //        }
 
-                    GlobalData.Singleton.PrimarySplitController.LoadSearchFrame((GnosisSearchFrameController)currentInstanceController.VisibleController);
-                    currentInstanceController.Editable = true;
+        //        ((GnosisParentWindow)GlobalData.Singleton.ParentWindowImplementation).Dispatcher.Invoke((Action)(() =>
+        //        {
 
-                }));
+        //            GnosisInstance instance = GetInstance(currentSearchRequest.EntityID, currentSearchRequest.SystemID, "Search", xContent);
+        //            GnosisInstanceController instanceController = new GnosisInstanceController(instance, entityController);
 
-                Dispatcher.Run();
-            }
+        //            instanceController.Setup();
+        //            if (currentSearchRequest.AutoSearchAction != null && currentSearchRequest.AutoSearchAction.Equals("Search"))
+        //            {
+        //                ((GnosisSearchFrameController)instanceController.VisibleController).SetAutoSearch(true);
+        //            }
 
-        }
+        //            CurrentInstanceController = instanceController;
+
+        //            GlobalData.Singleton.PrimarySplitController.LoadSearchFrame((GnosisSearchFrameController)currentInstanceController.VisibleController);
+        //            currentInstanceController.Editable = true;
+
+        //        }));
+
+        //        Dispatcher.Run();
+        //    }
+
+        //}
 
         public void LoadSearch(int entityID, int systemID, List<GnosisSearchParameter> searchParameters, string searchAction, string autoSearchAction)
         {
@@ -903,7 +907,7 @@ namespace Shiva.Shared.DataControllers
 
             BackgroundWorker backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += LoadSearchBackground;
-            backgroundWorker.RunWorkerCompleted += LoadSearchResults;
+          //  backgroundWorker.RunWorkerCompleted += LoadSearchResults;
             backgroundWorker.RunWorkerAsync();
 
             //timer.Stop();
@@ -913,12 +917,12 @@ namespace Shiva.Shared.DataControllers
 
         }
 
-        private void LoadSearchResults(object sender, RunWorkerCompletedEventArgs e)
-        {
-            GlobalData.Singleton.PrimarySplitController.LoadSearchFrame((GnosisSearchFrameController)currentInstanceController.VisibleController);
-            currentInstanceController.Editable = true;
+        //private void LoadSearchResults(object sender, RunWorkerCompletedEventArgs e)
+        //{
+        //    GlobalData.Singleton.PrimarySplitController.LoadSearchFrame((GnosisSearchFrameController)currentInstanceController.VisibleController);
+        //    currentInstanceController.Editable = true;
 
-        }
+        //}
 
         private void LoadStyles(GnosisEntityController entityController)
         {

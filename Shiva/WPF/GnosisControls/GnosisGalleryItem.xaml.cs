@@ -40,50 +40,82 @@ namespace GnosisControls
         protected int verticalPadding;
         protected int horizontalMargin;
         protected int verticalMargin;
-        private int horizontalSpacing;
-        private int verticalSpacing;
-
-        public int HorizontalSpacing
+        //private int horizontalSpacing;
+        //private int verticalSpacing;
+        public bool HasFocus
         {
-            get
-            {
-                return horizontalSpacing;
-            }
-
+            get { return hasFocus; }
             set
             {
-                horizontalSpacing = value;
-                //this.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin, horizontalMargin + horizontalSpacing);
-                //this.Margin = new Thickness(0, 0, 0, 3);
-                //for (int i = 0; i < this.Items.Count; i++)
-                //{
-                //    ((GnosisGalleryItem)Items[i]).HorizontalSpacing = horizontalSpacing;
-                //    //GnosisGalleryItem item = (GnosisGalleryItem)Items[i];
-                //    //item.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin, horizontalMargin + horizontalSpacing);
-                //}
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+               // string xaml = XamlWriter.Save(this.Style);
+
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+                // this.Background = StyleHelper.GetBrushFromHex("CC00CC");
+                // string xaml = XamlWriter.Save(this.Style);
             }
         }
 
-        public int VerticalSpacing
+        public bool HasMouseDown
         {
-            get
-            {
-                return verticalSpacing;
-            }
-
+            get { return hasMouseDown; }
             set
             {
-                verticalSpacing = value;
-               // this.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin + verticalSpacing, horizontalMargin);
-
-                //for (int i = 0; i < Items.Count; i++)
-                //{
-                //    ((GnosisGalleryItem)Items[i]).VerticalSpacing = verticalSpacing;
-                //    //GnosisGalleryItem item = (GnosisGalleryItem)Items[i];
-                //    //item.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin + verticalSpacing, horizontalMargin);
-                //}
+                hasMouseDown = value;
+                OnPropertyChanged("HasMouseDown");
             }
         }
+
+        //public int HorizontalSpacing
+        //{
+        //    get
+        //    {
+        //        return horizontalSpacing;
+        //    }
+
+        //    set
+        //    {
+        //        horizontalSpacing = value;
+        //        //this.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin, horizontalMargin + horizontalSpacing);
+        //        //this.Margin = new Thickness(0, 0, 0, 3);
+        //        //for (int i = 0; i < this.Items.Count; i++)
+        //        //{
+        //        //    ((GnosisGalleryItem)Items[i]).HorizontalSpacing = horizontalSpacing;
+        //        //    //GnosisGalleryItem item = (GnosisGalleryItem)Items[i];
+        //        //    //item.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin, horizontalMargin + horizontalSpacing);
+        //        //}
+        //    }
+        //}
+
+        //public int VerticalSpacing
+        //{
+        //    get
+        //    {
+        //        return verticalSpacing;
+        //    }
+
+        //    set
+        //    {
+        //        verticalSpacing = value;
+        //       // this.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin + verticalSpacing, horizontalMargin);
+
+        //        //for (int i = 0; i < Items.Count; i++)
+        //        //{
+        //        //    ((GnosisGalleryItem)Items[i]).VerticalSpacing = verticalSpacing;
+        //        //    //GnosisGalleryItem item = (GnosisGalleryItem)Items[i];
+        //        //    //item.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin + verticalSpacing, horizontalMargin);
+        //        //}
+        //    }
+        //}
 
         [GnosisProperty]
         public string GnosisIcon
@@ -199,10 +231,10 @@ namespace GnosisControls
             //galleryItems = new List<GnosisGalleryItem>();
             //gallerySearchItems = new List<GnosisGallerySearchItem>();
 
-            Binding binding = new Binding("Active");
-            binding.Mode = BindingMode.TwoWay;
-            binding.Source = this;
-            this.SetBinding(TreeViewItem.IsSelectedProperty, binding);
+            //Binding binding = new Binding("Active");
+            //binding.Mode = BindingMode.TwoWay;
+            //binding.Source = this;
+            //this.SetBinding(TreeViewItem.IsSelectedProperty, binding);
 
             this.PreviewMouseDown += GnosisGalleryItemWPF_MouseDown;
             this.PreviewMouseUp += GnosisGalleryItemWPF_MouseUp;
@@ -272,6 +304,38 @@ namespace GnosisControls
             //}
 
             this.Items.Add(child);
+        }
+
+
+        //Because of the complex way that margins are applied in TreeViews, the following rules must be used to get the desired effect
+        //1.first child has top and bottom margin
+        //2.middle children have bottom margin only
+        //3.last child has no margin
+        public void ApplySpacing(int spacing)
+        {
+            for (int i = 0; i < Items.Count; i++)
+            {
+                GnosisGalleryItem galleryItem = ((GnosisGalleryItem)Items[i]);
+                if (i == 0)
+                {
+                    galleryItem.Margin = new Thickness(galleryItem.VerticalMargin, galleryItem.HorizontalMargin + spacing,
+                        galleryItem.VerticalMargin, galleryItem.HorizontalMargin + spacing);
+                }
+                if (i > 0)
+                {
+                    if (i < Items.Count - 1)
+                    {
+                        galleryItem.Margin = new Thickness(galleryItem.VerticalMargin, galleryItem.HorizontalMargin,
+                            galleryItem.VerticalMargin, galleryItem.HorizontalMargin + spacing);
+
+                    }
+                }
+
+                if (galleryItem.Items.Count > 0)
+                {
+                    galleryItem.ApplySpacing(spacing);
+                }
+            }
         }
 
         //public void SetCaption(string caption)

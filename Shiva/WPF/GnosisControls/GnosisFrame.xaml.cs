@@ -61,6 +61,8 @@ namespace GnosisControls
             }
         }
 
+        
+
 
         public static readonly DependencyProperty GnosisBorderThicknessProperty =
             DependencyProperty.RegisterAttached("GnosisBorderThickness",
@@ -163,6 +165,7 @@ namespace GnosisControls
         {
             LostFocusHandler.Invoke();
             HasFocus = false;
+            
         }
 
         private void GnosisFrameWPF_GotFocus(object sender, RoutedEventArgs e)

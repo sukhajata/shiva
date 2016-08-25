@@ -38,6 +38,10 @@ namespace Shiva.Shared.InnerLayoutControllers
                 galleryItemController.Setup();
                 items.Add(galleryItemController);
                 
+                if (((GnosisGallery)ControlImplementation).HorizontalSpacing > 0)
+                {
+                    ((GnosisGallery)ControlImplementation).ApplySpacing();
+                }
               //  ((IGnosisGalleryImplementation)ControlImplementation).AddGalleryItem(galleryItem);
              //   ((IGnosisGalleryImplementation)ControlImplementation).AddRootItem(galleryItem);
             }

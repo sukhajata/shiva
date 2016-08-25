@@ -36,37 +36,7 @@ namespace GnosisControls
         private int selectedFactor;
         private string tooltip;
 
-        public bool HasFocus
-        {
-            get { return hasFocus; }
-            set
-            {
-                hasFocus = value;
-                OnPropertyChanged("HasFocus");
-            }
-        }
-        public bool HasMouseFocus
-        {
-            get { return hasMouseFocus; }
-            set
-            {
-                hasMouseFocus = value;
-                OnPropertyChanged("HasMouseFocus");
-               // this.Background = StyleHelper.GetBrushFromHex("CC00CC");
-               //string xaml = XamlWriter.Save(this.Style);
-            }
-        }
-
-        public bool HasMouseDown
-        {
-            get { return hasMouseDown; }
-            set
-            {
-                hasMouseDown = value;
-                OnPropertyChanged("HasMouseDown");
-            }
-        }
-
+      
         [GnosisPropertyAttribute]
         public bool Active
         {

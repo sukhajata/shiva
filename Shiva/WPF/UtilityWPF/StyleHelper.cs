@@ -1005,16 +1005,17 @@ namespace ShivaWPF3.UtilityWPF
 
             }
 
-            //triggerName = triggerName.TrimEnd(' ').TrimEnd(',');
-            //TriggerTracing.SetTriggerName(multiDataTrigger, triggerName);
-            //TriggerTracing.SetTraceEnabled(multiDataTrigger, true);
+            triggerName = triggerName.TrimEnd(' ').TrimEnd(',');
+            TriggerTracing.SetTriggerName(multiDataTrigger, triggerName);
+            TriggerTracing.SetTraceEnabled(multiDataTrigger, true);
 
             GnosisStyleCondition gnosisFirstCondition = gnosisConditions.First();
             if (gnosisFirstCondition.BackgroundColour != null && gnosisFirstCondition.BackgroundColour.Length > 0)
             {
+                Brush brush = GetBrushFromHex(gnosisFirstCondition.BackgroundColour);
+
                 //if (!gnosisFirstCondition.Property.Equals("Selected"))
                 //{
-                    Brush brush = GetBrushFromHex(gnosisFirstCondition.BackgroundColour);
                     Setter setter = new Setter(Control.BackgroundProperty, brush);
                     multiDataTrigger.Setters.Add(setter);
                // }
@@ -1035,16 +1036,22 @@ namespace ShivaWPF3.UtilityWPF
                     multiDataTrigger.Setters.Add(setter);
                 }
             }
-            //if (gnosisFirstCondition.IsOutlined)
-            //{
-            //    if (controller is GnosisFrameController || controller is GnosisContentController)
-            //    {
-            //        Setter setter = new Setter(Control.BorderThicknessProperty, new Thickness(1));
-            //        multiDataTrigger.Setters.Add(setter);
-            //    }
-            //}
 
-            if (gnosisFirstCondition.OutlineColour != null && gnosisFirstCondition.OutlineColour.Length > 0)
+            if (gnosisFirstCondition.ControlColour != null && gnosisFirstCondition.ControlColour.Length > 0)
+            {
+                Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisFirstCondition.ControlColour));
+                multiDataTrigger.Setters.Add(setter);
+            }
+                //if (gnosisFirstCondition.IsOutlined)
+                //{
+                //    if (controller is GnosisFrameController || controller is GnosisContentController)
+                //    {
+                //        Setter setter = new Setter(Control.BorderThicknessProperty, new Thickness(1));
+                //        multiDataTrigger.Setters.Add(setter);
+                //    }
+                //}
+
+                if (gnosisFirstCondition.OutlineColour != null && gnosisFirstCondition.OutlineColour.Length > 0)
             {
                 if (control is GnosisFrame || control is IGnosisContentControlImplementation || control is GnosisToggleButton)
                 {

@@ -59,6 +59,8 @@ namespace GnosisControls
             }
         }
 
+       
+
         public static readonly DependencyProperty GnosisBorderThicknessProperty =
             DependencyProperty.RegisterAttached("GnosisBorderThickness",
             typeof(int), typeof(GnosisSearchFrame), new FrameworkPropertyMetadata(GnosisBorderThicknessPropertyChanged));

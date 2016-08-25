@@ -6,7 +6,7 @@ using System.Text;
 namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisGalleryItemImplementation : IGnosisMouseVisibleControlImplementation, IGnosisControlThicknessPossessor,
-        IGnosisPaddingPossessor, IGnosisSpacingPossessor
+        IGnosisPaddingPossessor
     {
         //properties
         bool Active { get; set; }
@@ -16,6 +16,7 @@ namespace Shiva.Shared.Interfaces
 
         //methods
         void AddGalleryItem(GnosisGalleryItem childImplementation);
+        void ApplySpacing(int spacing);
         //void SetExpanded(bool expanded);
         //void SetCaption(string caption);
         void SetItemSelectedHandler(Action selectedHandler);

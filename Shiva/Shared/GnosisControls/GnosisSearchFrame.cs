@@ -25,6 +25,7 @@ namespace GnosisControls
         private string controlType;
         private string gnosisName;
         private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hasBorder;
         private bool hidden;
         private string icon;
         private int id;
@@ -123,6 +124,12 @@ namespace GnosisControls
             set { gnosisParent = value; }
         }
 
+        [GnosisProperty]
+        public bool HasBorder
+        {
+            get { return hasBorder; }
+            set { hasBorder = value; }
+        }
 
         [GnosisPropertyAttribute]
         public bool Hidden

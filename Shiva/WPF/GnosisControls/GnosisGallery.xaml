@@ -6,10 +6,17 @@
              xmlns:local="clr-namespace:GnosisControls"
              mc:Ignorable="d" BorderThickness="0"
              >
+    <TreeView.Resources>
+        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                      Color="Transparent" />
+       
+        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                      Color="Transparent" />
+      
+    </TreeView.Resources>
     <TreeView.Template>
         <ControlTemplate TargetType="{x:Type TreeView}">
             <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" 
-                    BorderThickness="{TemplateBinding BorderThickness}" 
                     SnapsToDevicePixels="true">
                 <ScrollViewer x:Name="_tv_scrollviewer_" 
                               Background="{TemplateBinding Background}" 

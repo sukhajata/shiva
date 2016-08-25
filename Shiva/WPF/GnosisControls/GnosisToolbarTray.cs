@@ -79,7 +79,7 @@ namespace GnosisControls
             {
                 if (toolbarTray.ContainerHorizontalPadding > 0 && toolbarTray.ContainerVerticalPadding > 0)
                 {
-                    string xaml = XamlWriter.Save(toolbarTray.Style);
+                    //string xaml = XamlWriter.Save(toolbarTray.Style);
                     //increase border thickness, decrease padding
                     paddingHorizontal = toolbarTray.ContainerHorizontalPadding - newThickness;
                     paddingVertical = toolbarTray.ContainerVerticalPadding - newThickness;

@@ -10,9 +10,11 @@ namespace Shiva.Shared.Interfaces
         //properties
         int ExpandToLevel { get; set; }
         string Direction { get; set; }
-      //  int MaxSectionSpan { get; set; }
+
+        void ApplySpacing();
+        //  int MaxSectionSpan { get; set; }
 
 
-      //  void AddGalleryItem(IGnosisGalleryItemImplementation galleryItemImplementation);
+        //  void AddGalleryItem(IGnosisGalleryItemImplementation galleryItemImplementation);
     }
 }

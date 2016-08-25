@@ -321,7 +321,7 @@
     <Compile Include="Shared\Interfaces\IGnosisGridIndentFieldImplementation.cs" />
     <Compile Include="Shared\Interfaces\IGnosisGridResultsFieldImplementation.cs" />
     <Compile Include="Shared\Interfaces\IGnosisGridTextFieldImplementation.cs" />
-    <Compile Include="Shared\Interfaces\IGnosisHighlightThicknessPossessor.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisBorderThicknessPossessor.cs" />
     <Compile Include="Shared\Interfaces\IGnosisImplementationCreator.cs" />
     <Compile Include="Shared\Interfaces\IGnosisInnerLayoutControlImplementation.cs" />
     <Compile Include="Shared\Interfaces\IGnosisIOHelper.cs" />

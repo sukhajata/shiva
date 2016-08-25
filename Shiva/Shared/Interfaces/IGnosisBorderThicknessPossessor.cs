@@ -8,6 +8,6 @@ namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisBorderThicknessPossessor
     {
-        
+        bool HasBorder { get; }
     }
 }

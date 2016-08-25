@@ -189,6 +189,38 @@ namespace GnosisControls
 
         }
 
+
+        //Because of the complex way that margins are applied in TreeViews, the following rules must be used to get the desired effect
+        //1.first child has top and bottom margin unless it has no parent, in which case only bottom margin
+        //2.middle children have bottom margin only
+        //3.last child has no margin
+        public void ApplySpacing()
+        {
+            if (horizontalSpacing > 0)
+            {
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    GnosisGalleryItem galleryItem = ((GnosisGalleryItem)Items[i]);
+                    if (i > 0)
+                    {
+                        if (i < Items.Count - 1)
+                        {
+                            galleryItem.Margin = new Thickness(galleryItem.VerticalMargin, galleryItem.HorizontalMargin,
+                                galleryItem.VerticalMargin, galleryItem.HorizontalMargin + horizontalSpacing);
+
+                        }
+                    }
+
+                    if (galleryItem.Items.Count > 0)
+                    {
+                        galleryItem.ApplySpacing(horizontalSpacing);
+                    }
+                }
+            }
+        }
+
+       
+
         //private void AddChildren(TreeViewItem parent, TreeViewItem parentCopy)
         //{
         //    foreach (TreeViewItem child in parent.Items)
