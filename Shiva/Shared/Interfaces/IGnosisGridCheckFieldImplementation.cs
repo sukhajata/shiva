@@ -6,7 +6,7 @@ namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisGridCheckFieldImplementation : IGnosisGridFieldImplementation
     {
-        void SetChecked(bool selected);
-        bool GetIsChecked();
+        //void SetChecked(bool selected);
+        //bool GetIsChecked();
     }
 }

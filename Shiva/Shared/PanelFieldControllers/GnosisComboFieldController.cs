@@ -90,13 +90,17 @@ namespace Shiva.Shared.PanelFieldControllers
                     }
 
                     List<GnosisKey> keys = new List<GnosisKey>();
-                    foreach (GnosisComboAttribute comboAttribute in ((GnosisComboField)ControlImplementation).ComboAttributes.Where(a => a._ComboRole == GnosisComboAttribute.ComboRoleType.KEY))
+
+                    if (((GnosisComboField)ControlImplementation).ComboAttributes != null)
                     {
-                        string targetAttribute = InstanceController.GetTargetAttributeName(comboAttribute.Dataset, comboAttribute.DatasetItem);
-                        string sourceAttribute = InstanceController.GetKeyOptionSourceAttributeName(comboAttribute.Dataset, comboAttribute.DatasetItem);
-                        string keyString = row.Attribute(sourceAttribute).Value;
-                        GnosisKey key = new GnosisKey(comboAttribute.Dataset, comboAttribute.DatasetItem, sourceAttribute, targetAttribute, keyString);
-                        keys.Add(key);
+                        foreach (GnosisComboAttribute comboAttribute in ((GnosisComboField)ControlImplementation).ComboAttributes.Where(a => a._ComboRole == GnosisComboAttribute.ComboRoleType.KEY))
+                        {
+                            string targetAttribute = InstanceController.GetTargetAttributeName(comboAttribute.Dataset, comboAttribute.DatasetItem);
+                            string sourceAttribute = InstanceController.GetKeyOptionSourceAttributeName(comboAttribute.Dataset, comboAttribute.DatasetItem);
+                            string keyString = row.Attribute(sourceAttribute).Value;
+                            GnosisKey key = new GnosisKey(comboAttribute.Dataset, comboAttribute.DatasetItem, sourceAttribute, targetAttribute, keyString);
+                            keys.Add(key);
+                        }
                     }
 
                     comboOptionImplementations.Add(comboOptionImp, keys);

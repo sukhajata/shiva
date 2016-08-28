@@ -22,14 +22,15 @@ namespace Shiva.Shared.OuterLayoutControllers
         protected int numSections;
         protected int numRows;
         protected double optimalSectionWidth;
-        protected IGnosisTabHeaderButtonImplementation tabHeaderButton;
+        protected IGnosisToggleButtonImplementation tabHeaderButton;
+       // protected IGnosisButtonImplementation closeButton;
 
         public List<GnosisInnerLayoutController> ChildControllers
         {
             get { return childControllers; }
         }
 
-        public IGnosisTabHeaderButtonImplementation TabHeaderButton
+        public IGnosisToggleButtonImplementation TabHeaderButton
         {
             get { return tabHeaderButton; }
             set { tabHeaderButton = value; }
@@ -61,20 +62,20 @@ namespace Shiva.Shared.OuterLayoutControllers
             //layout will be carried out after loading since we need to know available width
             ((IGnosisFrameImplementation)ControlImplementation).SetLoadedHandler(new Action<double>(FrameLoaded));
 
-            frame.PropertyChanged += GnosisFrameController_PropertyChanged;
+            frame.PropertyChanged += GnosisFrame_PropertyChanged;
         }
 
-        private void GnosisFrameController_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void GnosisFrame_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("HasFocus"))
             {
                 if (((IGnosisFrameImplementation)ControlImplementation).HasFocus)
                 {
-                    GlobalData.Singleton.CurrentFrameController = this;
+                    GlobalData.Singleton.SystemController.CurrentInstanceController = InstanceController;
                 }
                 else
                 {
-                    GlobalData.Singleton.CurrentFrameController = null;
+                   // GlobalData.Singleton.SystemController.CurrentInstanceController = null;
                 }
             }
         }

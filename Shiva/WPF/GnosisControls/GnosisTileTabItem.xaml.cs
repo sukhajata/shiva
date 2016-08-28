@@ -38,7 +38,7 @@ namespace GnosisControls
         protected Action LostFocusHandler;
 
 
-        private GnosisTabHeaderButton headerButton;
+        private GnosisToggleButton headerButton;
         private GnosisSearchFrame searchFrame;
         private GnosisFrame frame;
 
@@ -110,23 +110,23 @@ namespace GnosisControls
 
         }
 
-        public void LoadFrame(IGnosisFrameImplementation frameImplementation, IGnosisTabHeaderButtonImplementation _headerButton)
+        public void LoadFrame(IGnosisFrameImplementation frameImplementation, IGnosisToggleButtonImplementation _headerButton)
         {
             gridContent.Children.Clear();
-            if (headerButton != null && pnlHeader.Children.Contains(headerButton))
-            {
-                pnlHeader.Children.Remove(headerButton);
-            }
-            headerButton = (GnosisTabHeaderButton)_headerButton;
-            headerButton.Click += headerButton_Click;
-            Binding binding = new Binding("IsSelected");
-            binding.Source = this;
-            headerButton.SetBinding(GnosisToggleButton.IsCheckedProperty, binding);
+            //if (headerButton != null && pnlHeader.Children.Contains(headerButton))
+            //{
+            //    pnlHeader.Children.Remove(headerButton);
+            //}
+            headerButton = (GnosisToggleButton)_headerButton;
+          //  headerButton.Click += headerButton_Click;
+            //Binding binding = new Binding("IsSelected");
+            //binding.Source = this;
+            //headerButton.SetBinding(GnosisToggleButton.IsCheckedProperty, binding);
             // headerButton.Margin = new Thickness(0);
             //headerButton.Padding = new Thickness(5);
             //headerButton.BorderThickness = new Thickness(0);
-            pnlHeader.Children.Add(headerButton);
-            btnClose.Visibility = Visibility.Visible;
+            this.Header = headerButton;
+           // btnClose.Visibility = Visibility.Visible;
           //  btnClose.CopyStyle(headerButton.Style);
             //string xaml = XamlWriter.Save(btnClose.Style);
 
@@ -387,23 +387,23 @@ namespace GnosisControls
             HasFocus = false;
         }
 
-        public void SetHeaderButton(IGnosisTabHeaderButtonImplementation _headerButton)
+        public void SetHeaderButton(IGnosisToggleButtonImplementation _headerButton)
         {
-            if (headerButton != null && pnlHeader.Children.Contains(headerButton))
-            {
-                pnlHeader.Children.Remove(headerButton);
-            }
-            headerButton = (GnosisTabHeaderButton)_headerButton;
-            headerButton.Click += headerButton_Click;
-            Binding binding = new Binding("IsSelected");
-            binding.Source = this;
-            binding.Mode = BindingMode.TwoWay;
-            headerButton.SetBinding(GnosisToggleButton.IsCheckedProperty, binding);
-           // headerButton.Padding = new Thickness(5);
+            //if (headerButton != null && pnlHeader.Children.Contains(headerButton))
+            //{
+            //    pnlHeader.Children.Remove(headerButton);
+            //}
+            headerButton = (GnosisToggleButton)_headerButton;
+            // headerButton.Click += headerButton_Click;
+            //Binding binding = new Binding("IsSelected");
+            //binding.Source = this;
+            //binding.Mode = BindingMode.TwoWay;
+            //headerButton.SetBinding(GnosisToggleButton.IsCheckedProperty, binding);
+            // headerButton.Padding = new Thickness(5);
             //headerButton.BorderThickness = new Thickness(0);
             //headerButton.Margin = new Thickness(0);
-            pnlHeader.Children.Add(headerButton);
-
+            //pnlHeader.Children.Add(headerButton);
+            this.Header = headerButton;
             //Canvas.SetZIndex(headerButton, 99);
             ////headerButton.IsHitTestVisible = true;
             ////headerButton.Background = Brushes.Blue;
@@ -446,7 +446,7 @@ namespace GnosisControls
             //create dummy content if needed
             if (gridContent.Children.Count == 0)
             {
-                headerButton.Content = "          ";
+                headerButton.Caption = "          ";
                 Grid grid = new Grid();
                 grid.CopyStyle(headerButton.Style);
                 gridContent.Children.Add(grid);

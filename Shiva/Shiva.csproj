@@ -190,7 +190,6 @@
     <Compile Include="Shared\GnosisControls\GnosisDateField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDateResults.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDateTimeColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisDateTimeField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDateTimeResults.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDocumentFrame.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDocumentParameter.cs" />
@@ -257,7 +256,6 @@
     <Compile Include="Shared\GnosisControls\GnosisTab.cs" />
     <Compile Include="Shared\GnosisControls\GnosisTextArea.cs" />
     <Compile Include="Shared\GnosisControls\GnosisTextColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisTextField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisTextResults.cs" />
     <Compile Include="Shared\GnosisControls\GnosisTile.cs" />
     <Compile Include="Shared\GnosisControls\GnosisTileDetail.cs" />
@@ -471,7 +469,10 @@
     </Compile>
     <Compile Include="WPF\GnosisControls\GnosisSplit.cs" />
     <Compile Include="WPF\GnosisControls\GnosisSystemAddressField.cs" />
-    <Compile Include="WPF\GnosisControls\GnosisTabHeaderButton.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisTabHeaderButton.xaml.cs">
+      <DependentUpon>GnosisTabHeaderButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\_OldGnosisTabHeaderButton.cs" />
     <Compile Include="WPF\GnosisControls\GnosisTextArea.xaml.cs">
       <DependentUpon>GnosisTextArea.xaml</DependentUpon>
     </Compile>
@@ -497,7 +498,9 @@
     <Compile Include="WPF\GnosisControls\GnosisToolbarMenuButton.cs" />
     <Compile Include="WPF\GnosisControls\GnosisToolbarTray.cs" />
     <Compile Include="WPF\GnosisControls\GnosisVisibleControl.cs" />
-    <Compile Include="WPF\GridControlsWPF\GnosisGridCheckField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGridCheckField.xaml.cs">
+      <DependentUpon>GnosisGridCheckField.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPF\GridControlsWPF\GnosisGridHeaderField.cs" />
     <Compile Include="WPF\GridControlsWPF\GnosisGridIndentField.cs" />
     <Compile Include="WPF\GridControlsWPF\GnosisGridTextField.cs" />
@@ -610,6 +613,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WPF\GnosisControls\GnosisTabHeaderButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WPF\GnosisControls\GnosisTextArea.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -635,6 +642,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="WPF\GnosisControls\GnosisToolbarButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisGridCheckField.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

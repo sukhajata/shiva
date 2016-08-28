@@ -9,9 +9,9 @@ using System.Windows.Controls.Primitives;
 
 namespace GnosisControls
 {
-    public  class GnosisTabHeaderButton : GnosisToggleButton, IGnosisTabHeaderButtonImplementation
+    public  class OldGnosisTabHeaderButton : GnosisToggleButton, IGnosisTabHeaderButtonImplementation
     {
-        public GnosisTabHeaderButton() :base()
+        public OldGnosisTabHeaderButton() :base()
         {
             Style style;
             if (this.Style == null)

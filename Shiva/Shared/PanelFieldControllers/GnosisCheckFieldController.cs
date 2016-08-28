@@ -31,12 +31,7 @@ namespace Shiva.Shared.PanelFieldControllers
             GnosisInnerLayoutController parent)
             :base(checkField, instanceController, parent)
         {
-            //checkFieldImplementation.SetCaption(checkField.Caption);
-
-            //if (checkField.ReadOnly)
-            //{
-            //    checkFieldImplementation.Locked = true;
-            //}
+            
         }
 
         public override void LoadData(int rowNo)
@@ -97,6 +92,17 @@ namespace Shiva.Shared.PanelFieldControllers
                     ((GnosisCheckField)ControlImplementation).Locked = !Editable;
                 }
 
+            }
+        }
+
+        protected override void SetDisplayDimensions()
+        {
+            base.SetDisplayDimensions();
+
+            if (((GnosisCheckField)ControlImplementation).Caption != null)
+            {
+                minFieldWidth += characterWidth * ((GnosisCheckField)ControlImplementation).Caption.Length;
+                maxFieldWidth = minFieldWidth;
             }
         }
     }

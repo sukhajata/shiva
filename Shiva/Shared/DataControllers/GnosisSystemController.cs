@@ -716,7 +716,7 @@ namespace Shiva.Shared.DataControllers
                 {
                     instanceController.Editable = false;
                 }
-                currentInstanceController = instanceController;
+                //CurrentInstanceController = instanceController;
 
             }
         }
@@ -733,7 +733,7 @@ namespace Shiva.Shared.DataControllers
             {
                 instanceController.Editable = false;
             }
-            currentInstanceController = instanceController;
+           // CurrentInstanceController = instanceController;
 
         }
 

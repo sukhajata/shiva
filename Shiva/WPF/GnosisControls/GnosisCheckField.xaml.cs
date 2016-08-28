@@ -449,6 +449,10 @@ namespace GnosisControls
         public void SetHeight(double fieldHeight)
         {
             this.Height = fieldHeight;
+            double textHeight = GlobalData.Singleton.StyleHelper.GetTextHeight(this, lblCaption.FontFamily.ToString(), (int)lblCaption.FontSize);
+            chkBox.Height = textHeight;
+            chkBox.Width = textHeight;
+
         }
 
         //public bool GetIsChecked()

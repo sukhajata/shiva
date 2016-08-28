@@ -1,0 +1,15 @@
+﻿<Border x:Class="GnosisControls.GnosisTabHeaderButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GnosisControls"
+             mc:Ignorable="d"
+            BorderThickness="0,0,3,0" Name="borderHeader" BorderBrush="Transparent" Margin="0">
+    <DockPanel Name="pnlHeader">
+        <local:GnosisButton DockPanel.Dock="Right" x:Name="btnClose" Content="X" VerticalContentAlignment="Center" Padding="5"
+                        BorderThickness="0" Margin="0"  Background="Transparent"/>
+        <local:GnosisToggleButton x:Name="headerButton" Background="Transparent" DockPanel.Dock="Right" Click="headerButton_Click"/>
+    </DockPanel>
+
+</Border>

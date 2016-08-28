@@ -725,257 +725,258 @@ namespace Shiva.Shared.InnerLayoutControllers
 
             //newWidth is compared to the stored value oldWidth to determine if the width has increased or decreased.
             //for text fields, we may be able to change the height without changing the layout
+            if (rowControllers.Count > 0)
+            {
+                GnosisGridRowController firstRow = rowControllers[0];
 
-            GnosisGridRowController firstRow = rowControllers[0];
-
-            if (!isColumnar)
-            {//1
-                if (newWidth < oldWidth)
-                {//2
-                    if (newWidth < totalMinWidth)
-                    {//3
-                        layoutNeeded = true;
-                    }//3
-                    else
-                    {//3
-                        //width is sufficient.
-                        //check if MinDisplayChars are still met
-                        int numLines = 1;
-                        foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
-                        {//4
-                            GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
-                            double fieldWidth = fieldImp.GetWidth();
-
-                            if (fieldImp is IGnosisResultsTextFieldImplementation)
-                            {//5
-                                int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
-                                int numChars = charsPerLine * ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines;
-
-                                if (numChars < columnController.MinDisplayChars)
-                                {//6
-                                    int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
-
-                                    if (numLinesNeeded > ((GnosisGrid)ControlImplementation).MaxLines)
-                                    {//7
-                                        layoutNeeded = true;
-                                        break;
-                                    }//7
-                                    else
-                                    {//7
-                                        if (numLinesNeeded > numLines)
-                                        {//8
-                                            numLines = numLinesNeeded;
-                                        }//8
-
-                                       
-                                    }//7
-                                }//6
-                            }//5
-                            else if (fieldImp is IGnosisGridTextFieldImplementation)
-                            {//5
-                                int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
-                                int numChars = charsPerLine * ((IGnosisGridTextFieldImplementation)fieldImp).NumLines;
-
-                                if (numChars < columnController.MinDisplayChars)
-                                {//6
-                                    int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
-
-                                    if (numLinesNeeded > ((GnosisGrid)ControlImplementation).MaxLines)
-                                    {//7
-                                        layoutNeeded = true;
-                                        break;
-                                    }//7
-                                    else
-                                    {//7
-
-                                        if (numLinesNeeded > numLines)
-                                        {//8
-                                            numLines = numLinesNeeded;
-                                        }//8
-
-                                       
-                                    }//7
-                                }//6
-                            }//5
-                        }//4
-
-
-                        foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
-                        {//4
-                            if (fieldImp is IGnosisResultsTextFieldImplementation)
-                            {//5
+                if (!isColumnar)
+                {//1
+                    if (newWidth < oldWidth)
+                    {//2
+                        if (newWidth < totalMinWidth)
+                        {//3
+                            layoutNeeded = true;
+                        }//3
+                        else
+                        {//3
+                         //width is sufficient.
+                         //check if MinDisplayChars are still met
+                            int numLines = 1;
+                            foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
+                            {//4
                                 GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
-                                if (numLines != ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines)
-                                {//6
-                                    columnController.NumLines = numLines;
+                                double fieldWidth = fieldImp.GetWidth();
 
-                                    //Use Dispatcher to touch UI since this is run in a background thread
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {//7
+                                if (fieldImp is IGnosisResultsTextFieldImplementation)
+                                {//5
+                                    int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
+                                    int numChars = charsPerLine * ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines;
+
+                                    if (numChars < columnController.MinDisplayChars)
+                                    {//6
+                                        int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
+
+                                        if (numLinesNeeded > ((GnosisGrid)ControlImplementation).MaxLines)
+                                        {//7
+                                            layoutNeeded = true;
+                                            break;
+                                        }//7
+                                        else
+                                        {//7
+                                            if (numLinesNeeded > numLines)
+                                            {//8
+                                                numLines = numLinesNeeded;
+                                            }//8
+
+
+                                        }//7
+                                    }//6
+                                }//5
+                                else if (fieldImp is IGnosisGridTextFieldImplementation)
+                                {//5
+                                    int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
+                                    int numChars = charsPerLine * ((IGnosisGridTextFieldImplementation)fieldImp).NumLines;
+
+                                    if (numChars < columnController.MinDisplayChars)
+                                    {//6
+                                        int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
+
+                                        if (numLinesNeeded > ((GnosisGrid)ControlImplementation).MaxLines)
+                                        {//7
+                                            layoutNeeded = true;
+                                            break;
+                                        }//7
+                                        else
+                                        {//7
+
+                                            if (numLinesNeeded > numLines)
+                                            {//8
+                                                numLines = numLinesNeeded;
+                                            }//8
+
+
+                                        }//7
+                                    }//6
+                                }//5
+                            }//4
+
+
+                            foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
+                            {//4
+                                if (fieldImp is IGnosisResultsTextFieldImplementation)
+                                {//5
+                                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                                    if (numLines != ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines)
+                                    {//6
+                                        columnController.NumLines = numLines;
+
+                                        //Use Dispatcher to touch UI since this is run in a background thread
+                                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                                        {//7
                                         foreach (IGnosisGridFieldImplementation gridFieldImp in columnController.Fields)
-                                        {//8
+                                            {//8
                                             if (numLines > 1)
-                                            {//9
+                                                {//9
                                                 ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
-                                            }//9
+                                                }//9
                                             else
-                                            {//9
+                                                {//9
                                                 ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
-                                            }//9
+                                                }//9
 
                                             double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
-                                            ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
-                                            ((IGnosisResultsTextFieldImplementation)gridFieldImp).NumLines = numLines;
-                                        }//8
+                                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
+                                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).NumLines = numLines;
+                                            }//8
                                     }));//7
-                                }//6
-                            }//5
-                            else if (fieldImp is IGnosisGridTextFieldImplementation)
-                            {//5
-                                GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
-                                if (numLines != ((IGnosisGridTextFieldImplementation)fieldImp).NumLines)
-                                {//8
-                                    columnController.NumLines = numLines;
+                                    }//6
+                                }//5
+                                else if (fieldImp is IGnosisGridTextFieldImplementation)
+                                {//5
+                                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                                    if (numLines != ((IGnosisGridTextFieldImplementation)fieldImp).NumLines)
+                                    {//8
+                                        columnController.NumLines = numLines;
 
-                                    //Use Dispatcher to touch UI since this is run in a background thread
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {//9
+                                        //Use Dispatcher to touch UI since this is run in a background thread
+                                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                                        {//9
                                         foreach (IGnosisGridTextFieldImplementation gridFieldImp in columnController.Fields)
-                                        {//10
+                                            {//10
                                             if (numLines > 1)
-                                            {//11
+                                                {//11
                                                 ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
-                                            }//11
+                                                }//11
                                             else
-                                            {//11
+                                                {//11
                                                 ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
-                                            }//11
+                                                }//11
 
                                             double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
-                                            ((IGnosisGridTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
-                                            ((IGnosisGridTextFieldImplementation)gridFieldImp).NumLines = numLines;
-                                        }//10
+                                                ((IGnosisGridTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
+                                                ((IGnosisGridTextFieldImplementation)gridFieldImp).NumLines = numLines;
+                                            }//10
                                     }));//9
-                                }//8
-                            }//5
-                        }//4
-                    }//3
-                  
-                }//2
-                else //width increased
-                {//2
-                    //if rows are currently wrapping, we might now be able to fit all the fields on one row
-                    if (headerRows != null && headerRows.Count > 1 && newWidth > totalMinWidth)
-                    {//3
-                        layoutNeeded = true;
-                    }//3
-                    else
-                    { //3
-                        //we can check if text fields can have their height reduced
-                        int numLines = 1;
-                        foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
-                        {//4
-                            if (fieldImp is IGnosisResultsTextFieldImplementation)
-                            {//5
-                                GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
-                                double fieldWidth = fieldImp.GetWidth();
+                                    }//8
+                                }//5
+                            }//4
+                        }//3
 
-                                if (((IGnosisResultsTextFieldImplementation)fieldImp).NumLines > 1)
-                                {//6
-                                    int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
-                                    int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
+                    }//2
+                    else //width increased
+                    {//2
+                     //if rows are currently wrapping, we might now be able to fit all the fields on one row
+                        if (headerRows != null && headerRows.Count > 1 && newWidth > totalMinWidth)
+                        {//3
+                            layoutNeeded = true;
+                        }//3
+                        else
+                        { //3
+                          //we can check if text fields can have their height reduced
+                            int numLines = 1;
+                            foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
+                            {//4
+                                if (fieldImp is IGnosisResultsTextFieldImplementation)
+                                {//5
+                                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                                    double fieldWidth = fieldImp.GetWidth();
 
-                                    if (numLinesNeeded > numLines)
-                                    {//7
-                                        numLines = numLinesNeeded;
-                                    }//7
+                                    if (((IGnosisResultsTextFieldImplementation)fieldImp).NumLines > 1)
+                                    {//6
+                                        int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
+                                        int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
 
-                                }//6
-                      
-                            }//5
-                            else if (fieldImp is IGnosisGridTextFieldImplementation)
-                            {//5
-                                GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
-                                double fieldWidth = fieldImp.GetWidth();
+                                        if (numLinesNeeded > numLines)
+                                        {//7
+                                            numLines = numLinesNeeded;
+                                        }//7
 
-                                if (((IGnosisGridTextFieldImplementation)fieldImp).NumLines > 1)
-                                {//6
-                                    int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
-                                    int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
+                                    }//6
 
-                                    if (numLinesNeeded > numLines)
-                                    {
-                                        numLines = numLinesNeeded;
-                                    }
+                                }//5
+                                else if (fieldImp is IGnosisGridTextFieldImplementation)
+                                {//5
+                                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                                    double fieldWidth = fieldImp.GetWidth();
 
-                                }//6
-                            }//5
+                                    if (((IGnosisGridTextFieldImplementation)fieldImp).NumLines > 1)
+                                    {//6
+                                        int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
+                                        int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
 
-                        }// 4
+                                        if (numLinesNeeded > numLines)
+                                        {
+                                            numLines = numLinesNeeded;
+                                        }
 
-                        foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
-                        {//4
-                            if (fieldImp is IGnosisResultsTextFieldImplementation)
-                            {//5 
-                                GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                                    }//6
+                                }//5
 
-                                if (numLines != ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines)
-                                {//6
-                                 //Use Dispatcher to touch UI since this is run in a background thread
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {//7
+                            }// 4
+
+                            foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
+                            {//4
+                                if (fieldImp is IGnosisResultsTextFieldImplementation)
+                                {//5 
+                                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+
+                                    if (numLines != ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines)
+                                    {//6
+                                     //Use Dispatcher to touch UI since this is run in a background thread
+                                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                                        {//7
                                         foreach (IGnosisResultsTextFieldImplementation resultsFieldImp in columnController.Fields)
-                                        { //8
+                                            { //8
                                             resultsFieldImp.NumLines = numLines;
-                                            if (numLines > 1)
-                                            {//9
+                                                if (numLines > 1)
+                                                {//9
                                                 resultsFieldImp.SetTextWrapping(true);
-                                            }//9
+                                                }//9
                                             else
-                                            {//9
+                                                {//9
                                                 resultsFieldImp.SetTextWrapping(false);
-                                            }//9
+                                                }//9
 
                                             double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
-                                            resultsFieldImp.SetHeight(newHeight);
-                                        }//8
+                                                resultsFieldImp.SetHeight(newHeight);
+                                            }//8
                                     }));//7
-                                }//6
-                            }//5
-                            else if (fieldImp is IGnosisGridTextFieldImplementation)
-                            {//5
-                                GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                                    }//6
+                                }//5
+                                else if (fieldImp is IGnosisGridTextFieldImplementation)
+                                {//5
+                                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
 
-                                if (numLines != ((IGnosisGridTextFieldImplementation)fieldImp).NumLines)
-                                {//6
-                                 //Use Dispatcher to touch UI since this is run in a background thread
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {//7
+                                    if (numLines != ((IGnosisGridTextFieldImplementation)fieldImp).NumLines)
+                                    {//6
+                                     //Use Dispatcher to touch UI since this is run in a background thread
+                                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                                        {//7
                                         foreach (IGnosisGridTextFieldImplementation gridTextField in columnController.Fields)
-                                        { //8
+                                            { //8
                                             gridTextField.NumLines = numLines;
-                                            if (numLines > 1)
-                                            {//9
+                                                if (numLines > 1)
+                                                {//9
                                                 gridTextField.SetTextWrapping(true);
-                                            }//9
+                                                }//9
                                             else
-                                            {//9
+                                                {//9
                                                 gridTextField.SetTextWrapping(false);
-                                            }//9
+                                                }//9
 
                                             double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
-                                            gridTextField.SetHeight(newHeight);
-                                        }//8
+                                                gridTextField.SetHeight(newHeight);
+                                            }//8
                                     }));//7
-                                }//6
-                            }//5
-                        }//4
+                                    }//6
+                                }//5
+                            }//4
 
-                    }//3
-                 }//2
-            }//1
+                        }//3
+                    }//2
+                }//1
 
-
+            }
             oldWidth = newWidth;
             stopWatch.Stop();
 

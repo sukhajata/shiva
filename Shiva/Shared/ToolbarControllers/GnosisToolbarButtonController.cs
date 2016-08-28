@@ -32,7 +32,7 @@ namespace Shiva.Shared.ToolbarControllers
             menuItem = (GnosisGenericMenuItem)genericMenuItemController.ControlImplementation;
             button = _button;
 
-           
+            button.SetClickHandler(new Action(genericMenuItemController.SelectMenuItem));
 
             menuItem.PropertyChanged += GenericMenuItem_PropertyChanged;
 

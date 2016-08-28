@@ -24,14 +24,7 @@
         </Style>
     </TabItem.Resources>-->
     <TabItem.Header>
-        <Border BorderThickness="0,0,3,0" Name="borderHeader" BorderBrush="Transparent" Margin="0">
-            <DockPanel Name="pnlHeader">
-                <local:GnosisButton DockPanel.Dock="Right" x:Name="btnClose" Content="X" VerticalContentAlignment="Center" Padding="5"
-                        BorderThickness="0" Margin="0" Click="btnClose_Click" Visibility="Collapsed"/>
-                <!--<control:GnosisToggleButtonWPF x:Name="headerButton" Background="Transparent" 
-                                                   Click="headerButton_Click"/>-->
-            </DockPanel>
-        </Border>
+        <StackPanel Orientation="Horizontal"/>
     </TabItem.Header>
     <TabItem.Template>
         <ControlTemplate TargetType="{x:Type TabItem}">

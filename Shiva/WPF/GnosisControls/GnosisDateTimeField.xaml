@@ -506,9 +506,9 @@
                     <TextBlock Text="{Binding Path=LongTime}"/>
                 </DataTemplate>
                 <local:ComboBoxItemTemplateSelector
-                    x:Key="itemTemplateSelector"
+                 x:Key="itemTemplateSelector"
                     SelectedTemplate="{StaticResource selectedTemplate}"
-                    DropDownTemplate="{StaticResource dropDownTemplate}"/>  
+                    DropDownTemplate="{StaticResource dropDownTemplate}"/>
             </ComboBox.Resources>
         </local:GnosisComboField>
         <TextBox Name="txtDateTime" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Visibility="Collapsed" Background="Transparent" BorderThickness="0"/>

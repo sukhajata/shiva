@@ -130,7 +130,7 @@ namespace Shiva.Shared.ContainerControllers
                 itemController.ControlImplementation.Order = tabItemControllers.Count + 1;
                 tabItemControllers.Add(itemController);
 
-                GnosisTabHeaderButton headerButton = GnosisControlCreator.CreateGnosisTabHeaderButton(1, "+");
+                GnosisToggleButton headerButton = GnosisControlCreator.CreateGnosisToggleButton(1, "+");
                 GlobalData.Singleton.StyleHelper.ApplyStyle(headerButton, frameController.EntityController.GetNormalStyle());
                // headerButton.SetCaption("+");
                 headerButton.Order = itemController.ControlImplementation.Order;

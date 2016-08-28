@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisTabHeaderButtonImplementation : IGnosisToggleButtonImplementation
+    public interface IGnosisTabHeaderButtonImplementation : IGnosisMouseVisibleControlImplementation
     {
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GnosisControls;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,8 @@ namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisTileTabItemImplementation : IGnosisContainerImplementation
     {
-        void LoadFrame(IGnosisFrameImplementation frameImplementation, IGnosisTabHeaderButtonImplementation headerButton);
+        void LoadFrame(IGnosisFrameImplementation frameImplementation, IGnosisToggleButtonImplementation headerButton);
+       // void LoadFrame(GnosisFrame frame, GnosisTabHeaderButton tabHeaderButton, GnosisButton closeButton);
         void RemoveFrame(IGnosisFrameImplementation ControlImplementation);
         void SetCaption(string caption);
         void SetLoadedHandler(Action<double> action);
@@ -15,6 +17,6 @@ namespace Shiva.Shared.Interfaces
         void HideLoadingAnimation();
        // void SetHeader(IGnosisToggleButtonImplementation headerButton);
         void SetCloseHandler(Action action);
-        void SetHeaderButton(IGnosisTabHeaderButtonImplementation headerButton);
+        void SetHeaderButton(IGnosisToggleButtonImplementation headerButton);
     }
 }

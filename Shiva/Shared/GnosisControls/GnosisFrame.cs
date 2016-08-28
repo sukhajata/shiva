@@ -42,7 +42,7 @@ namespace GnosisControls
         private bool sqlSuccessful;
         private string tooltip;
 
-
+        protected List<GnosisDocumentParameter> documentParameters;
 
         protected List<GnosisGrid> grids;
 
@@ -448,7 +448,15 @@ namespace GnosisControls
 
         public virtual void GnosisAddChild(IGnosisObject child)
         {
-            if (child is IGnosisGridImplementation)
+            if (child is GnosisDocumentParameter)
+            {
+                if (documentParameters == null)
+                {
+                    documentParameters = new List<GnosisDocumentParameter>();
+                }
+                documentParameters.Add((GnosisDocumentParameter)child);
+            }
+            else if (child is IGnosisGridImplementation)
             {
                 if (grids == null)
                 {

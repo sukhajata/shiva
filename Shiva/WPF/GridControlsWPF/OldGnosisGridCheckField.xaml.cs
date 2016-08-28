@@ -3,43 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using Shiva.Shared.Interfaces;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ShivaWPF3.UtilityWPF;
-using Shiva.Shared.PanelFieldControllers;
 using Shiva.Shared.BaseControllers;
 using System.ComponentModel;
-using Shiva.Shared.Interfaces;
+using System.Windows.Data;
+using System.Windows;
 using Shiva.Shared.Data;
 
 namespace GnosisControls
 {
-    /// <summary>
-    /// Interaction logic for GnosisTextFieldWPF.xaml
-    /// </summary>
-    public partial class GnosisTextField : TextBox, IGnosisTextFieldImplementation, INotifyPropertyChanged
+    public partial class GnosisGridCheckField : Border, IGnosisGridCheckFieldImplementation, INotifyPropertyChanged
     {
+        
+
         //protected Action GotMouseFocusHandler;
         //protected Action LostMouseFocusHandler;
         //protected Action MouseDownHandler;
         //protected Action MouseUpHandler;
         protected Action GotFocusHandler;
         protected Action LostFocusHandler;
-        protected Action<string> TextChangedHandler;
-
-        protected bool userInput = true;
 
         protected int horizontalPadding;
         protected int verticalPadding;
-        protected int horizontalMargin;
-        protected int verticalMargin;
 
         public int HorizontalPadding
         {
@@ -61,60 +48,41 @@ namespace GnosisControls
             }
         }
 
-        public int HorizontalMargin
-        {
-            get { return horizontalMargin; }
-            set
-            {
-                horizontalMargin = value;
-                this.SetHorizontalMarginExt(horizontalMargin);
-            }
-        }
-
-        public int VerticalMargin
-        {
-            get { return verticalMargin; }
-            set
-            {
-                verticalMargin = value;
-                this.SetVerticalMarginExt(verticalMargin);
-            }
-        }
-
         private bool hasFocus;
         private bool hasMouseFocus;
         private bool hasMouseDown;
-        private bool optional;
+        private bool isEvenRow;
+        private bool rowSelected;
 
         private string caption;
+        private bool disabled;
         private GnosisController.VerticalAlignmentType contentVerticalAlignment;
         private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
+        //  private int checkedFactor;
         private string controlType;
         private bool datasetCreated;
         private bool datasetUpdated;
         private bool datasetDeleted;
         private string dataset;
         private string datasetItem;
+        private bool gnosisChecked;
         private string gnosisName;
         private IGnosisVisibleControlImplementation gnosisParent;
+        // private string groupName;
         private bool hidden;
+        private string icon;
         private int id;
         private bool locked;
-        private int maxChars;
-        private int maxDisplayChars;
-        private int maxTextDisplayWidthChars;
-        private int maxSectionSpan;
         private int minDisplayChars;
-        private int minTextDisplayWidthChars;
+        private int maxDisplayChars;
         private int order;
         private bool readOnly;
+        //  private string shortcut;
         private string tooltip;
         private string valueField;
-        private int variableControlID;
-        private int variableSystemID;
-        private bool variableIsInput;
-        private bool variableIsOutput;
 
+
+        //Dynamic Properties
         public bool HasFocus
         {
             get { return hasFocus; }
@@ -145,6 +113,33 @@ namespace GnosisControls
             }
         }
 
+
+        public bool Locked
+        {
+            get
+            {
+                return locked;
+            }
+
+            set
+            {
+                locked = value;
+                chkBox.IsEnabled = !locked;
+                OnPropertyChanged("Locked");
+            }
+        }
+
+        public bool RowSelected
+        {
+            get { return rowSelected; }
+            set
+            {
+                rowSelected = value;
+                // OnPropertyChanged("RowSelected");
+            }
+        }
+
+        //Static Properties
         [GnosisPropertyAttribute]
         public string ContentVerticalAlignment
         {
@@ -156,23 +151,14 @@ namespace GnosisControls
             {
                 try
                 {
-                    _ContentVerticalAlignment = (GnosisController.VerticalAlignmentType)Enum.Parse(typeof(GnosisController.VerticalAlignmentType), value.ToUpper());
-                  //  OnPropertyChanged("ContentVerticalAlignment");
+                    contentVerticalAlignment = (GnosisController.VerticalAlignmentType)Enum.Parse(typeof(GnosisController.VerticalAlignmentType), value.ToUpper());
+                    //this.SetVerticalContentAlignmentExt(contentVerticalAlignment);
+                    OnPropertyChanged("ContentVerticalAlignment");
                 }
                 catch (Exception ex)
                 {
                     GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
                 }
-            }
-        }
-
-        public GnosisController.VerticalAlignmentType _ContentVerticalAlignment
-        {
-            get { return contentVerticalAlignment; }
-            set
-            {
-                contentVerticalAlignment = value;
-                this.SetVerticalContentAlignmentExt(contentVerticalAlignment);
             }
         }
 
@@ -187,8 +173,9 @@ namespace GnosisControls
             {
                 try
                 {
-                    _ContentHorizontalAlignment = (GnosisController.HorizontalAlignmentType)Enum.Parse(typeof(GnosisController.HorizontalAlignmentType), value.ToUpper());
-                   // OnPropertyChanged("ContentHorizontalAlignment");
+                    contentHorizontalAlignment = (GnosisController.HorizontalAlignmentType)Enum.Parse(typeof(GnosisController.HorizontalAlignmentType), value.ToUpper());
+                    //this.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
+                    OnPropertyChanged("ContentHorizontalAlignment");
                 }
                 catch (Exception ex)
                 {
@@ -197,14 +184,16 @@ namespace GnosisControls
             }
         }
 
+        public GnosisController.VerticalAlignmentType _ContentVerticalAlignment
+        {
+            get { return contentVerticalAlignment; }
+            set { contentVerticalAlignment = value; }
+        }
+
         public GnosisController.HorizontalAlignmentType _ContentHorizontalAlignment
         {
             get { return contentHorizontalAlignment; }
-            set
-            {
-                contentHorizontalAlignment = value;
-                this.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
-            }
+            set { contentHorizontalAlignment = value; }
         }
 
 
@@ -267,21 +256,6 @@ namespace GnosisControls
             }
         }
 
-        [GnosisPropertyAttribute]
-        public int MaxChars
-        {
-            get
-            {
-                return maxChars;
-            }
-
-            set
-            {
-                maxChars = value;
-                this.MaxLength = maxChars;
-                //OnPropertyChanged("MaxChars");
-            }
-        }
 
         [GnosisPropertyAttribute]
         public string Dataset
@@ -324,8 +298,15 @@ namespace GnosisControls
             set
             {
                 caption = value;
-               // OnPropertyChanged("Caption");
+                OnPropertyChanged("Caption");
             }
+        }
+
+        [GnosisProperty]
+        public string GnosisName
+        {
+            get { return gnosisName; }
+            set { gnosisName = value; }
         }
 
         public IGnosisVisibleControlImplementation GnosisParent
@@ -346,8 +327,7 @@ namespace GnosisControls
             set
             {
                 hidden = value;
-                this.SetVisibleExt(!hidden);
-                //OnPropertyChanged("Hidden");
+                OnPropertyChanged("Hidden");
             }
         }
 
@@ -366,8 +346,12 @@ namespace GnosisControls
             }
         }
 
-
-
+        [GnosisProperty]
+        public bool IsEvenRow
+        {
+            get { return isEvenRow; }
+            set { isEvenRow = value; }
+        }
 
         [GnosisPropertyAttribute]
         public int MinDisplayChars
@@ -412,6 +396,7 @@ namespace GnosisControls
             }
         }
 
+
         [GnosisPropertyAttribute]
         public string Tooltip
         {
@@ -423,50 +408,51 @@ namespace GnosisControls
             set
             {
                 tooltip = value;
-                this.ToolTip = tooltip;
-               // OnPropertyChanged("Tooltip");
+                OnPropertyChanged("Tooltip");
             }
         }
 
+
+        //[GnosisPropertyAttribute]
+        //public int CheckedFactor
+        //{
+        //    get
+        //    {
+        //        return checkedFactor;
+        //    }
+
+        //    set
+        //    {
+        //        checkedFactor = value;
+        //    }
+        //}
+
+        //[GnosisPropertyAttribute]
+        //public string GnosisGroupName
+        //{
+        //    get
+        //    {
+        //        return groupName;
+        //    }
+
+        //    set
+        //    {
+        //        groupName = value;
+        //    }
+        //}
+
         [GnosisPropertyAttribute]
-        public int MaxSectionSpan
+        public bool GnosisChecked
         {
             get
             {
-                return maxSectionSpan;
+                return gnosisChecked;
             }
 
             set
             {
-                maxSectionSpan = value;
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public int MaxTextDisplayWidthChars
-        {
-            get
-            {
-                return maxTextDisplayWidthChars;
-            }
-
-            set
-            {
-                maxTextDisplayWidthChars = value;
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public int MinTextDisplayWidthChars
-        {
-            get
-            {
-                return minTextDisplayWidthChars;
-            }
-
-            set
-            {
-                minTextDisplayWidthChars = value;
+                gnosisChecked = value;
+                OnPropertyChanged("GnosisChecked");
             }
         }
 
@@ -481,36 +467,7 @@ namespace GnosisControls
             set
             {
                 readOnly = value;
-                this.IsEnabled = !readOnly;
-                locked = readOnly;
                 OnPropertyChanged("ReadOnly");
-                OnPropertyChanged("Locked");
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public bool Locked
-        {
-            get { return locked; }
-            set
-            {
-                if (!readOnly)
-                {
-                    locked = value;
-                    this.IsEnabled = !locked;
-                }
-                OnPropertyChanged("Locked");
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public bool Optional
-        {
-            get { return optional; }
-            set
-            {
-                optional = value;
-                OnPropertyChanged("Optional");
             }
         }
 
@@ -528,75 +485,7 @@ namespace GnosisControls
             }
         }
 
-        [GnosisPropertyAttribute]
-        public int VariableControlID
-        {
-            get
-            {
-                return variableControlID;
-            }
 
-            set
-            {
-                variableControlID = value;
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public int VariableSystemID
-        {
-            get
-            {
-                return variableSystemID;
-            }
-
-            set
-            {
-                variableSystemID = value;
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public bool VariableIsInput
-        {
-            get
-            {
-                return variableIsInput;
-            }
-
-            set
-            {
-                variableIsInput = value;
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public bool VariableIsOutput
-        {
-            get
-            {
-                return variableIsOutput;
-            }
-
-            set
-            {
-                variableIsOutput = value;
-            }
-        }
-
-        [GnosisProperty]
-        public string GnosisName
-        {
-            get
-            {
-                return gnosisName;
-            }
-
-            set
-            {
-                gnosisName = value;
-            }
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -605,15 +494,15 @@ namespace GnosisControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-
         public void GnosisAddChild(IGnosisObject child)
         {
             throw new NotImplementedException();
         }
 
+
         public static readonly DependencyProperty ControlThicknessProperty =
             DependencyProperty.RegisterAttached("ControlThickness",
-            typeof(int), typeof(GnosisTextField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
+            typeof(int), typeof(GnosisGridCheckField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
         //new FrameworkPropertyMetadata(0,
         //    FrameworkPropertyMetadataOptions.Inherits));
 
@@ -629,7 +518,7 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisTextField panelField = source as GnosisTextField;
+            GnosisGridCheckField panelField = source as GnosisGridCheckField;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
             double marginHorizontal;
@@ -640,108 +529,76 @@ namespace GnosisControls
                 //increase border thickness, decrease margin
                 marginHorizontal = panelField.Margin.Left - newThickness;
                 marginVertical = panelField.Margin.Top - newThickness;
-
-                if (marginHorizontal >= 0 && marginVertical >= 0)
-                {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height + (newThickness - oldThickness);
-                }
-
             }
             else
             {
                 //decrease border thickness, increase margin
                 marginHorizontal = panelField.Margin.Left + oldThickness;
                 marginVertical = panelField.Margin.Top + oldThickness;
-
-                if (marginHorizontal >= 0 && marginVertical >= 0)
-                {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height - (oldThickness - newThickness);
-                }
             }
 
-           
+            panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+            panelField.BorderThickness = new Thickness(newThickness);
+
         }
 
-        public GnosisTextField()
+        public GnosisGridCheckField()
         {
-            InitializeComponent();
-
+            
             this.MouseEnter += GnosisTextFieldWPF_MouseEnter;
             this.MouseLeave += GnosisTextFieldWPF_MouseLeave;
             this.PreviewMouseDown += GnosisTextFieldWPF_MouseDown;
             this.PreviewMouseUp += GnosisTextFieldWPF_MouseUp;
 
-           // this.PropertyChanged += GnosisTextField_PropertyChanged;
+            //Binding binding = new Binding("GnosisChecked");
+            //binding.Source = this;
+            //binding.Mode = BindingMode.OneWay;
+            //checkBox.SetBinding(CheckBox.IsCheckedProperty, binding);
+
+            //this.Child = checkBox;
+
+            this.PropertyChanged += GnosisGridCheckField_PropertyChanged;
         }
 
-        //private void GnosisTextField_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void GnosisGridCheckField_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Caption":
+                    break;
+                case "Hidden":
+                    this.SetVisibleExt(!hidden);
+                    break;
+                case "Locked":
+                    if (!readOnly)
+                    {
+                        chkBox.IsEnabled = !locked;
+                    }
+                    break;
+                case "Tooltip":
+                    this.ToolTip = tooltip;
+                    break;
+                case "ReadOnly":
+                    chkBox.IsEnabled = !readOnly;
+                    break;
+            }
+        }
+
+        //public void SetController(GnosisVisibleController _controller)
         //{
-        //    switch (e.PropertyName)
-        //    {
-        //        case "Caption":
-        //            break;
-        //        case "ContentVerticalAlignment":
-        //            this.SetVerticalContentAlignmentExt(contentVerticalAlignment);
-        //            break;
-        //        case "ContentHorizontalAlignment":
-        //            this.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
-        //            break;
-        //        case "Hidden":
-        //            this.SetVisibleExt(!hidden);
-        //            break;
-        //        case "Locked":
-        //            if (!readOnly)
-        //            {
-        //                this.IsReadOnly = locked;
-        //            }
-        //            break;
-        //        case "MaxChars":
-        //            this.MaxLength = maxChars;
-        //            break;
-        //        case "ReadOnly":
-        //            this.IsReadOnly = readOnly;
-        //            break;
-        //        case "Tooltip":
-        //            this.ToolTip = tooltip;
-        //            break;
-        //    }
+        //    controller = (GnosisGridFieldController)_controller;
         //}
 
-        public string GetText()
-        {
-            return this.Text;
-        }
 
-        public double GetAvailableWidth()
+        public double GetWidth()
         {
             return this.ActualWidth;
         }
 
 
-        public void SetText(string text)
-        {
-            userInput = false;
-            this.Text = text;
-            userInput = true;
-        }
-
-        public void SetMaxLines(int maxLines)
-        {
-            this.MaxLines = maxLines;
-        }
-
-        public int GetLineCount()
-        {
-            return this.LineCount;
-        }
-
         //public void SetLocked(bool locked)
         //{
-        //    this.IsReadOnly = locked;
+        //    this.IsEnabled = !locked;
         //}
 
         //public void SetBackgroundColour(string backgroundColour)
@@ -755,30 +612,30 @@ namespace GnosisControls
         //    this.BorderThickness = new System.Windows.Thickness(1);
         //}
 
-        //public void SetCaption(string caption)
-        //{
+        public void SetCaption(string caption)
+        {
 
-        //}
+        }
 
         public void SetTooltipVisible(bool visible)
         {
             ToolTipService.SetIsEnabled(this, visible);
         }
 
-        //public void SetFont(string font)
-        //{
-        //    this.FontFamily = new System.Windows.Media.FontFamily(font);
-        //}
+        public void SetFont(string font)
+        {
+            //  this.FontFamily = new System.Windows.Media.FontFamily(font);
+        }
 
-        //public void SetFontSize(int fontSize)
-        //{
-        //    this.FontSize = fontSize;
-        //}
+        public void SetFontSize(int fontSize)
+        {
+            //  this.FontSize = FontSize;
+        }
 
-        //public void SetForegroundColour(string contentColour)
-        //{
-        //    this.Foreground = StyleHelper.GetBrushFromHex(contentColour);
-        //}
+        public void SetForegroundColour(string contentColour)
+        {
+            //  this.Foreground = StyleHelper.GetBrushFromHex(contentColour);
+        }
 
         //public void SetGotMouseFocusHandler(Action action)
         //{
@@ -792,24 +649,29 @@ namespace GnosisControls
             HasMouseFocus = true;
         }
 
+        public void SetHeight(double fieldHeight)
+        {
+            this.Height = fieldHeight;
+        }
+
+
+
         public void SetHorizontalAlignment(GnosisController.HorizontalAlignmentType horizontalAlignment)
         {
+            //breaks textbox filling available space
             this.SetHorizontalAlignmentExt(horizontalAlignment);
 
         }
-
-            
-
         public void SetVerticalAlignment(GnosisController.VerticalAlignmentType verticalAlignment)
         {
             this.SetVerticalAlignmentExt(verticalAlignment);
         }
 
-        //public void SetHorizontalContentAlignment(GnosisController.HorizontalAlignmentType horizontalAlignment)
-        //{
-        //    this.SetHorizontalContentAlignmentExt(horizontalAlignment);
+        public void SetHorizontalContentAlignment(GnosisController.HorizontalAlignmentType horizontalAlignment)
+        {
+            // this.SetHorizontalContentAlignmentExt(horizontalAlignment);
 
-        //}
+        }
 
         //public void SetIsEnabled(bool isEnabled)
         //{
@@ -824,22 +686,8 @@ namespace GnosisControls
 
         private void GnosisTextFieldWPF_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            //LostMouseFocusHandler.Invoke();
+            // LostMouseFocusHandler.Invoke();
             HasMouseFocus = false;
-        }
-
-        public void SetTextChangedHandler(Action<string> handler)
-        {
-            TextChangedHandler = handler;
-            this.TextChanged += GnosisTextFieldWPF_TextChanged;
-        }
-
-        private void GnosisTextFieldWPF_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (userInput)
-            {
-                TextChangedHandler.Invoke(this.Text);
-            }
         }
 
         public void SetMaxPrintWidth(int maxPrintWidth)
@@ -860,7 +708,7 @@ namespace GnosisControls
 
         private void GnosisTextFieldWPF_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           // MouseDownHandler.Invoke();
+            //MouseDownHandler.Invoke();
             HasMouseDown = true;
         }
 
@@ -876,95 +724,59 @@ namespace GnosisControls
             HasMouseDown = false;
         }
 
-        //public void SetOutlineColour(string outlineColour)
-        //{
-        //    this.BorderBrush = StyleHelper.GetBrushFromHex(outlineColour);
-        //    this.BorderThickness = new System.Windows.Thickness(2);
-        //}
+        public void SetOutlineColour(string outlineColour)
+        {
+            this.BorderBrush = StyleHelper.GetBrushFromHex(outlineColour);
+            this.BorderThickness = new System.Windows.Thickness(2);
+        }
 
         //public void RemoveOutlineColour()
         //{
         //    this.BorderThickness = new System.Windows.Thickness(0);
         //}
 
-        public void SetStrikethrough(bool strikethrough)
+        //public void SetStrikethrough()
+        //{
+
+        //}
+
+        public void SetTooltip(string tooltip)
         {
-            if (strikethrough)
-            {
-                this.TextDecorations = System.Windows.TextDecorations.Strikethrough;
-            }
-            else
-            {
-                this.TextDecorations = null;
-            }
+            this.ToolTip = tooltip;
         }
 
-        //public void SetTooltip(string tooltip)
-        //{
-        //    this.ToolTip = tooltip;
-        //}
+        public void SetVerticalContentAlignment(GnosisController.VerticalAlignmentType verticalAlignment)
+        {
+            //  this.SetVerticalContentAlignmentExt(verticalAlignment);
 
-        //public void SetVerticalContentAlignment(GnosisController.VerticalAlignmentType verticalAlignment)
-        //{
-        //    this.SetVerticalContentAlignmentExt(verticalAlignment);
+        }
 
-        //}
+        public void SetVisible(bool visible)
+        {
+            this.SetVisibleExt(visible);
 
-        //public void SetVisible(bool visible)
-        //{
-        //    this.SetVisibleExt(visible);
-
-        //}
-
-        //public virtual void SetController(GnosisVisibleController gnosisLayoutController)
-        //{
-        //    controller = (GnosisTextFieldController)gnosisLayoutController;
-        //}
+        }
 
         //public GnosisVisibleController GetController()
         //{
         //    return controller;
         //}
 
-        //public void SetTextLength(int numCharacters)
-        //{
-        //    this.Width = numCharacters * StyleController.GetCharacterWidth(this.FontFamily, this.FontSize, this.FontStyle, this.FontWeight, this.FontStretch);
-        //}
+        public void SetWidth(double width)
+        {
+            this.Width = width;
+        }
+
 
         public void SetPaddingHorizontal(double paddingHorizontal)
         {
-            this.SetHorizontalPaddingExt(paddingHorizontal);
+            // this.SetPaddingHorizontalExt(paddingHorizontal);
         }
 
         public void SetPaddingVertical(double paddingVertical)
         {
-            this.SetVerticalPaddingExt(paddingVertical);
+            //  this.SetPaddingVerticalExt(paddingVertical);
         }
-
-        //public FontFamily GetFontFamily()
-        //{
-        //    return this.FontFamily;
-        //}
-
-        //public double GetFontSize()
-        //{
-        //    return this.FontSize;
-        //}
-
-        //public FontStyle GetFontStyle()
-        //{
-        //    return this.FontStyle;
-        //}
-
-        //public FontWeight GetFontWeight()
-        //{
-        //    return this.FontWeight;
-        //}
-
-        //public FontStretch GetFontStretch()
-        //{
-        //    return this.FontStretch;
-        //}
 
         public double GetPaddingHorizontal()
         {
@@ -981,24 +793,50 @@ namespace GnosisControls
             this.MaxWidth = maxWidth;
         }
 
-        //public void SetMaxChars(int maxChars)
+        public void SetGotFocusHandler(Action action)
+        {
+            GotFocusHandler = action;
+            this.GotFocus += GnosisGridCheckFieldWPF_GotFocus;
+        }
+
+        private void GnosisGridCheckFieldWPF_GotFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            GotFocusHandler.Invoke();
+            HasFocus = true;
+        }
+
+
+        public void SetLostFocusHandler(Action action)
+        {
+            LostFocusHandler = action;
+            this.LostFocus += GnosisGridCheckFieldWPF_LostFocus;
+        }
+
+        private void GnosisGridCheckFieldWPF_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            LostFocusHandler.Invoke();
+            HasFocus = false;
+        }
+
+
+        //public void SetReadOnly(bool isReadOnly)
         //{
-        //    this.MaxLength = maxChars;
+        //    this.IsEnabled = !isReadOnly;
         //}
 
-        public void SetHeight(double height)
-        {
-            this.Height = height;
-        }
+        //public void SetChecked(bool selected)
+        //{
+        //    chkBox.IsChecked = selected;
+        //}
 
-        public int GetRowNumber()
-        {
-            return Grid.GetRow(this);
-        }
+        //public bool GetIsChecked()
+        //{
+        //    return (bool)chkBox.IsChecked;
+        //}
 
-        public void SetWidth(double width)
+        public void SetStrikethrough(bool strikethrough)
         {
-            this.Width = width;
+
         }
 
         public double GetHeight()
@@ -1006,47 +844,5 @@ namespace GnosisControls
             return this.ActualHeight;
         }
 
-        public double GetWidth()
-        {
-            return this.ActualWidth;
-        }
-
-        public void SetGotFocusHandler(Action action)
-        {
-            GotFocusHandler = action;
-            this.GotFocus += GnosisTextFieldWPF_GotFocus;
-        }
-
-        private void GnosisTextFieldWPF_GotFocus(object sender, RoutedEventArgs e)
-        {
-            GotFocusHandler.Invoke();
-            HasFocus = true;
-        }
-
-        public void SetLostFocusHandler(Action action)
-        {
-            LostFocusHandler = action;
-            this.LostFocus += GnosisTextFieldWPF_LostFocus;
-        }
-
-        private void GnosisTextFieldWPF_LostFocus(object sender, RoutedEventArgs e)
-        {
-            LostFocusHandler.Invoke();
-            HasFocus = false;
-        }
-
-        public void SetTextWrapping(bool wrap)
-        {
-            if (wrap)
-            {
-                this.TextWrapping = TextWrapping.Wrap;
-            }
-            else
-            {
-                this.TextWrapping = TextWrapping.NoWrap;
-            }
-        }
-
-        
     }
 }

@@ -89,18 +89,19 @@ namespace Shiva.Shared.ContainerControllers
 
             //Create a toggle button for the tab item header. Apply the style of the frame to it
             //Use the tile tab item as the binding source for the toggle button so that it changes with mouse over of tab item etc
-            IGnosisTabHeaderButtonImplementation headerButton = GnosisControlCreator.CreateGnosisTabHeaderButton(
+            GnosisToggleButton headerButton = GnosisControlCreator.CreateGnosisToggleButton(
                 this.ControlImplementation.Order,
                 caption);
             GlobalData.Singleton.StyleHelper.ApplyStyle(headerButton, frameController.EntityController.GetNormalStyle());
             frameController.TabHeaderButton = headerButton;
-            //((IGnosisTileTabItemImplementation)ControlImplementation).SetCaption(caption);
+         
             frameControllers.Add(frameController);
             currentFrameController = frameController;
 
             if (loaded)
             {
-                ((IGnosisTileTabItemImplementation)ControlImplementation).LoadFrame((IGnosisFrameImplementation)currentFrameController.ControlImplementation, headerButton);
+                ((IGnosisTileTabItemImplementation)ControlImplementation)
+                    .LoadFrame((IGnosisFrameImplementation)currentFrameController.ControlImplementation, headerButton);
             }
         }
 

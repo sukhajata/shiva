@@ -99,6 +99,17 @@ namespace Shiva.Shared.Utility
             return split;
         }
 
+        internal static GnosisToggleButton CreateGnosisToggleButton(int order, string caption)
+        {
+            GnosisToggleButton toggleButton = new GnosisToggleButton();
+            toggleButton.ID = GlobalData.Singleton.GetNewControlID();
+            toggleButton.GnosisName = "Toggle button" + toggleButton.ID;
+            toggleButton.Order = order;
+            toggleButton.Caption = caption;
+
+            return toggleButton;
+        }
+
         internal static GnosisGalleryDocumentItem CreateGnosisGalleryDocumentItem(GnosisGalleryDocumentItem docItem)
         {
             GnosisGalleryDocumentItem galleryItem = new GnosisGalleryDocumentItem();
