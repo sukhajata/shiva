@@ -87,7 +87,12 @@ namespace Shiva.Shared.DataControllers
         public bool Deleted
         {
             get { return instance.Deleted; }
-            set { instance.Deleted = value; }
+            set
+            {
+                instance.Deleted = value;
+                OnPropertyChanged("Deleted");
+                //visibleController.DatasetDeleted = value;
+            }
         }
 
         public bool SQLSuccessful

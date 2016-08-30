@@ -27,8 +27,222 @@ namespace GnosisControls
         
         protected Action GotFocusHandler;
         protected Action LostFocusHandler;
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
 
-       
+        private string caption;
+        private string controlType;
+        private string dataset;
+        private string datasetItem;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hidden;
+        private int id;
+        private int maxSectionSpan;
+        private int order;
+        private bool readOnly;
+        private string shortcut;
+        private string tooltip;
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+            }
+        }
+        public bool HasMouseDown
+        {
+            get { return hasMouseDown; }
+            set
+            {
+                hasMouseDown = value;
+                OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                OnPropertyChanged("Caption");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisProperty]
+        public string GnosisName
+        {
+            get
+            {
+                return gnosisName;
+            }
+
+            set
+            {
+                gnosisName = value;
+            }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.Tooltip = tooltip;
+                //OnPropertyChanged("Tooltip");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Dataset
+        {
+            get
+            {
+                return dataset;
+            }
+
+            set
+            {
+                dataset = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string DatasetItem
+        {
+            get
+            {
+                return datasetItem;
+            }
+
+            set
+            {
+                datasetItem = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool ReadOnly
+        {
+            get
+            {
+                return readOnly;
+            }
+
+            set
+            {
+                readOnly = value;
+                this.IsEnabled = !readOnly;
+              //  OnPropertyChanged("ReadOnly");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxSectionSpan
+        {
+            get
+            {
+                return maxSectionSpan;
+            }
+
+            set
+            {
+                maxSectionSpan = value;
+            }
+        }
+
+
+
 
         public GnosisCalendar()
         {
@@ -39,36 +253,48 @@ namespace GnosisControls
             this.MouseDown += GnosisCalendarWPF_MouseDown;
             this.MouseUp += GnosisCalendarWPF_MouseUp;
 
-            this.PropertyChanged += GnosisCalendar_PropertyChanged;
+           // this.PropertyChanged += GnosisCalendar_PropertyChanged;
         }
 
-        private void GnosisCalendar_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
         {
-            switch (e.PropertyName)
-            {
-                case "Caption":
-                    break;
-                case "Hidden":
-                    this.SetVisibleExt(!hidden);
-                    break;
-                case "Tooltip":
-                    this.ToolTip = tooltip;
-                    break;
-                case "ReadOnly":
-                    this.IsEnabled = !readOnly;
-                    break;
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        public void GnosisAddChild(IGnosisObject child)
+        {
+            throw new NotImplementedException();
+        }
+
+        //private void GnosisCalendar_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    switch (e.PropertyName)
+        //    {
+        //        case "Caption":
+        //            break;
+        //        case "Hidden":
+        //            this.SetVisibleExt(!hidden);
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = tooltip;
+        //            break;
+        //        case "ReadOnly":
+        //            this.IsEnabled = !readOnly;
+        //            break;
+        //    }
+        //}
 
         public double GetAvailableWidth()
         {
             return this.ActualWidth;
         }
 
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return this.Padding.Left;
+        //}
 
         //public void RemoveOutlineColour()
         //{
@@ -165,15 +391,15 @@ namespace GnosisControls
             
         //}
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            this.SetHorizontalPaddingExt(paddingHorizontal);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    this.SetHorizontalPaddingExt(paddingHorizontal);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            this.SetVerticalPaddingExt(paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    this.SetVerticalPaddingExt(paddingVertical);
+        //}
 
         //public void SetTooltip(string toolTip)
         //{

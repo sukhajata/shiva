@@ -268,7 +268,7 @@ namespace Shiva.Shared.DataControllers
             currentInstanceController.Editable = false;
 
             UpdateDocumentPermissions();
-            ((GnosisDocumentFrameController)currentInstanceController.VisibleController).SetStrikethrough(true);
+           // ((GnosisDocumentFrameController)currentInstanceController.VisibleController).SetStrikethrough(true);
         }
 
         internal void Remove()
@@ -344,7 +344,7 @@ namespace Shiva.Shared.DataControllers
             if (currentInstanceController.Deleted)
             {
                 currentInstanceController.Deleted = false;
-                ((GnosisDocumentFrameController)currentInstanceController.VisibleController).SetStrikethrough(false);
+               // ((GnosisDocumentFrameController)currentInstanceController.VisibleController).SetStrikethrough(false);
                 ((GnosisGenericToggleMenuItem)documentMenuItemDictionary[GnosisGenericMenuItem.MenuTagEnum.DELETE].ControlImplementation).Active = false;
             }
             else if (currentInstanceController.Updated)

@@ -40,6 +40,17 @@ namespace Shiva.Shared.InnerLayoutControllers
         //private GnosisGridTextFieldController indentController; //dummy controller to get styles of textbox for indenting rows
         protected bool fieldsCreated;
 
+        internal void RowSelected(GnosisGridRowController selectedRow)
+        {
+            foreach (GnosisGridRowController rowController in rowControllers.Values)
+            {
+                if (rowController != selectedRow)
+                {
+                    rowController.UnSelectRow();
+                }
+            }
+        }
+
         //public int MaxWrapRows
         //{
         //    get { return ((GnosisGrid)ControlImplementation).MaxWrapRows; }

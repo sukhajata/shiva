@@ -108,8 +108,10 @@
     </ComboBox.Style>
     <ComboBox.Template>
         <ControlTemplate TargetType="{x:Type ComboBox}">
-            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                <Grid Background="{TemplateBinding Background}">
+            <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}">
+                <Grid>
                     <ToggleButton Name="ToggleButton" Grid.Column="2"
                                 ClickMode="Press" Focusable="False"
                                 IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
@@ -122,10 +124,10 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="20" />
                                     </Grid.ColumnDefinitions>
-                                    <!--<Border Grid.ColumnSpan="2" Name="Border"
-              BorderBrush="{TemplateBinding BorderBrush}" 
-              CornerRadius="0" BorderThickness="1, 1, 1, 1" 
-              Background="Transparent" />-->
+                                    <Border Grid.ColumnSpan="2" Name="Border"
+                             
+                              CornerRadius="0" BorderThickness="0" 
+                              Background="Transparent" />
                                     <Border Grid.Column="1" Margin="0" Name="ButtonBorder"
                                       CornerRadius="0, 0, 0, 0" BorderThickness="1" 
                                       Background="#e3e9ef" />
@@ -170,11 +172,11 @@
                     </Popup>
                 </Grid>
             </Border>
-            <!--<ControlTemplate.Triggers>
+            <ControlTemplate.Triggers>
                 <Trigger Property="IsEditable" Value="True">
                     <Setter Property="Visibility" TargetName="PART_EditableTextBox" Value="Visible"/>
                 </Trigger>
-            </ControlTemplate.Triggers>-->
+            </ControlTemplate.Triggers>
         </ControlTemplate>
     </ComboBox.Template>
 </ComboBox>

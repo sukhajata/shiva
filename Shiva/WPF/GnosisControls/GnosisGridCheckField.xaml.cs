@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows;
 using Shiva.Shared.Data;
+using System.Windows.Markup;
 
 namespace GnosisControls
 {
@@ -55,7 +56,6 @@ namespace GnosisControls
         private bool rowSelected;
 
         private string caption;
-        private bool disabled;
         private GnosisController.VerticalAlignmentType contentVerticalAlignment;
         private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
         //  private int checkedFactor;
@@ -99,7 +99,7 @@ namespace GnosisControls
             {
                 hasMouseFocus = value;
                 OnPropertyChanged("HasMouseFocus");
-                // string xaml = XamlWriter.Save(this);
+               // string xaml = XamlWriter.Save(this.Style);
             }
         }
 
@@ -138,7 +138,7 @@ namespace GnosisControls
             set
             {
                 rowSelected = value;
-                // OnPropertyChanged("RowSelected");
+                OnPropertyChanged("RowSelected");
             }
         }
 
@@ -354,7 +354,11 @@ namespace GnosisControls
         public bool IsEvenRow
         {
             get { return isEvenRow; }
-            set { isEvenRow = value; }
+            set
+            {
+                isEvenRow = value;
+                OnPropertyChanged("IsEvenRow");
+            }
         }
 
         [GnosisPropertyAttribute]

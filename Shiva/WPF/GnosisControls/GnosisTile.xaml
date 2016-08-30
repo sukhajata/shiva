@@ -9,7 +9,7 @@
         <Viewbox Width="200" Height="200" Name="viewLoading"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Center" Visibility="Collapsed">
-            <utility:CircularProgressBar/>
-        </Viewbox>
+        <Label Content="Loading..." FontSize="20"/>
+    </Viewbox>
 
 </local:GnosisContainer>

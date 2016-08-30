@@ -275,7 +275,8 @@
       <GnosisTextField Name="when_changed" ID="17" ControlType="Text Field" Caption="When Changed" Tooltip="When data relating to the Type was last changed" Order="12" ReadOnly="1" Dataset="Type" DatasetItem="When Changed" />
       <GnosisTextField Name="who_changed_id" ID="18" ControlType="Text Field" Caption="Who Changed" Tooltip="Who last changed data relating to the Type" Order="13" ReadOnly="1" Dataset="Type" DatasetItem="User Name" />
     </GnosisPanel>
-    <GnosisGrid Name="TypeRule" ID="4" ControlType="Grid" Caption="Type Rules" Order="3" MinDisplayRows="1" MaxWrapRows="2" MaxLines="2" Dataset="Rule">
+    <GnosisCalendar Name="calendar" ID="2001" Order="3" ControlType="Calendar" Caption="Calendar"/>
+    <GnosisGrid Name="TypeRule" ID="4" ControlType="Grid" Caption="Type Rules" Order="4" MinDisplayRows="1" MaxWrapRows="2" MaxLines="2" Dataset="Rule">
       <GnosisTextColumn Name="rule_type_id" ID="19" ControlType="Text Column" Caption="Type ID" Tooltip="The Type Identifier" Order="1" Hidden="1" Dataset="Rule" DatasetItem="Type Id" />
       <GnosisTextColumn Name="rule_no" ID="20" ControlType="Text Column" Caption="Rule No" Tooltip="The Rule Number" Order="2" Hidden="1" Dataset="Rule" DatasetItem="Rule No" />
       <GnosisTextColumn Name="rule_name" ID="21" ControlType="Text Column" Caption="Rule Name" Tooltip="The Rule Name" Order="3" Dataset="Rule" DatasetItem="Rule Name" />
@@ -285,7 +286,7 @@
       <GnosisTextColumn Name="rule_when_changed" ID="25" ControlType="Text Column" Caption="When Changed" Tooltip="When data relating to the Type was last changed" Order="7" ReadOnly="1" Dataset="Rule" DatasetItem="When Changed" />
       <GnosisTextColumn Name="rule_who_changed_id" ID="26" ControlType="Text Column" Caption="Who Changed" Tooltip="Who last changed data relating to the Type" Order="8" ReadOnly="1" Dataset="Rule" DatasetItem="User Name" />
     </GnosisGrid>
-    <GnosisGrid Name="TypeItem" ID="5" ControlType="Grid" Caption="Type Items" Order="4" MinDisplayRows="1" MaxWrapRows="2" MaxLines="2" Dataset="Item">
+    <GnosisGrid Name="TypeItem" ID="5" ControlType="Grid" Caption="Type Items" Order="5" MinDisplayRows="1" MaxWrapRows="2" MaxLines="2" Dataset="Item">
       <GnosisTextColumn Name="item_type_id" ID="27" ControlType="Text Column" Caption="Identifier" Tooltip="The Type Identifier" Order="1" Hidden="1" Dataset="Item" DatasetItem="Type Id" />
       <GnosisTextColumn Name="item_id" ID="28" ControlType="Text Column" Caption="Identifier" Tooltip="The Item Number" Order="2" Hidden="1" Dataset="Item" DatasetItem="Item Id" />
       <GnosisTextColumn Name="item_name" ID="29" ControlType="Text Column" Caption="Item Name" Tooltip="The Item Name" Order="3" Dataset="Item" DatasetItem="Item Name" />

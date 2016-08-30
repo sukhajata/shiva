@@ -18,6 +18,7 @@ using Shiva.Shared.BaseControllers;
 using System.ComponentModel;
 using Shiva.Shared.Interfaces;
 using Shiva.Shared.Data;
+using System.Windows.Markup;
 
 namespace GnosisControls
 {
@@ -122,6 +123,8 @@ namespace GnosisControls
             {
                 hasFocus = value;
                 OnPropertyChanged("HasFocus");
+               //string xaml = XamlWriter.Save(this.Style);
+
             }
         }
         public bool HasMouseFocus
@@ -131,7 +134,6 @@ namespace GnosisControls
             {
                 hasMouseFocus = value;
                 OnPropertyChanged("HasMouseFocus");
-                // string xaml = XamlWriter.Save(this);
             }
         }
 
@@ -264,6 +266,7 @@ namespace GnosisControls
             {
                 datasetDeleted = value;
                 OnPropertyChanged("DatasetDeleted");
+               // string xaml = XamlWriter.Save(this.Style);
             }
         }
 
@@ -482,9 +485,13 @@ namespace GnosisControls
             {
                 readOnly = value;
                 this.IsEnabled = !readOnly;
-                locked = readOnly;
                 OnPropertyChanged("ReadOnly");
-                OnPropertyChanged("Locked");
+
+                if (readOnly)
+                {
+                    locked = true;
+                    OnPropertyChanged("Locked");
+                }
             }
         }
 
@@ -498,8 +505,10 @@ namespace GnosisControls
                 {
                     locked = value;
                     this.IsEnabled = !locked;
+                    OnPropertyChanged("Locked");
+
                 }
-                OnPropertyChanged("Locked");
+                // string xaml = XamlWriter.Save(this.Style);
             }
         }
 

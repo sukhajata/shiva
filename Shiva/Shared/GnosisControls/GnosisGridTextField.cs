@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using Shiva.Shared.BaseControllers;
 using Shiva.Shared.Data;
+using System.Windows.Markup;
 
 namespace GnosisControls
 {
@@ -28,7 +29,6 @@ namespace GnosisControls
         private string gnosisName;
         private IGnosisVisibleControlImplementation gnosisParent;
         private bool hidden;
-        private string icon;
         private int id;
         private bool locked;
         private int maxChars;
@@ -82,6 +82,7 @@ namespace GnosisControls
             {
                 rowSelected = value;
                 OnPropertyChanged("RowSelected");
+               // string xaml = XamlWriter.Save(this.Style);
             }
         }
 

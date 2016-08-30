@@ -46,28 +46,56 @@ namespace Shiva.Shared.InnerLayoutControllers
         public virtual void AddCell(IGnosisGridFieldImplementation gridFieldImp)
         {
             gridFieldImp.IsEvenRow = isEvenRow;
-            gridFieldImp.SetGotFocusHandler(new Action(OnGotFocus));
-            gridFieldImp.SetLostFocusHandler(new Action(OnLostFocus));
+          //  gridFieldImp.SetGotFocusHandler(new Action(OnGotFocus));
+           // gridFieldImp.SetLostFocusHandler(new Action(OnLostFocus));
 
 
             Fields.Add(gridFieldImp);
 
+            gridFieldImp.PropertyChanged += GridFieldImp_PropertyChanged;
+
         }
 
-        public virtual void OnGotFocus()
+        protected virtual void GridFieldImp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            foreach (IGnosisGridFieldImplementation gridField in Fields)
+            switch (e.PropertyName)
             {
-                gridField.RowSelected = true;
+                case "HasMouseDown":
+                    foreach (IGnosisGridFieldImplementation gridField in Fields)
+                    {
+                        gridField.RowSelected = true;
+                    }
+
+                    parent.RowSelected(this);
+                    break;
             }
         }
 
-        public virtual void OnLostFocus()
+        //public virtual void OnGotFocus()
+        //{
+        //    foreach (IGnosisGridFieldImplementation gridField in Fields)
+        //    {
+        //        gridField.RowSelected = true;
+        //    }
+
+        //    parent.RowSelected(this);
+        //}
+
+        //public virtual void OnLostFocus()
+        //{
+        //    //foreach (IGnosisGridFieldImplementation gridField in Fields)
+        //    //{
+        //    //    gridField.RowSelected = false;
+        //    //}
+       // }
+
+        internal void UnSelectRow()
         {
             foreach (IGnosisGridFieldImplementation gridField in Fields)
             {
                 gridField.RowSelected = false;
             }
+
         }
 
 

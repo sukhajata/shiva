@@ -8,6 +8,7 @@
     <TextBox.Style>
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="TextDecorations" Value="None"/>
         </Style>
     </TextBox.Style>
     <TextBox.Template>

@@ -166,11 +166,8 @@
     <Compile Include="Shared\Generic\GnosisGenericOutput.cs" />
     <Compile Include="Shared\Generic\GnosisGenericToggleMenuItem.cs" />
     <Compile Include="Shared\GnosisControls\GnosisAttribute.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisButton.cs" />
     <Compile Include="Shared\GnosisControls\GnosisButtonGroup.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisCalendar.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisCheckColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisCheckField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisCheckColumn.cs" />
     <Compile Include="Shared\GnosisControls\GnosisCheckGroup.cs" />
     <Compile Include="Shared\GnosisControls\GnosisCheckResults.cs" />
     <Compile Include="Shared\GnosisControls\GnosisChildAttribute.cs" />
@@ -178,7 +175,6 @@
     <Compile Include="Shared\GnosisControls\GnosisCollectionAttribute.cs" />
     <Compile Include="Shared\GnosisControls\GnosisComboAttribute.cs" />
     <Compile Include="Shared\GnosisControls\GnosisComboColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisComboField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisComboOption.cs" />
     <Compile Include="Shared\GnosisControls\GnosisConnection.cs" />
     <Compile Include="Shared\GnosisControls\GnosisConnectionFrame.cs" />
@@ -203,7 +199,6 @@
     <Compile Include="Shared\GnosisControls\GnosisGallerySearchAttribute.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGallerySearchItem.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGrid.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGridCheckField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGridColumn.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGridComboField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGridDateField.cs" />
@@ -211,7 +206,6 @@
     <Compile Include="Shared\GnosisControls\GnosisGridHeaderField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGridLinkField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGridNumberField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGridTextField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisInnerLayoutControl.cs" />
     <Compile Include="Shared\GnosisControls\GnosisLabelField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisLinkAttribute.cs" />
@@ -239,12 +233,12 @@
     <Compile Include="Shared\GnosisControls\GnosisPropertyAttribute.cs" />
     <Compile Include="Shared\GnosisControls\GnosisRadioField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisRadioGroup.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisResultsCheckField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisResultsColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisResultsDateField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisResultsDateTimeField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisResultsNumberField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisResultsTextField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisResultsCheckField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisResultsColumn.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisResultsDateField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisResultsDateTimeField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisResultsNumberField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisResultsTextField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisSearchFrame.cs" />
     <Compile Include="Shared\GnosisControls\GnosisSearchParameter.cs" />
     <Compile Include="Shared\GnosisControls\GnosisSearchResultsAttribute.cs" />
@@ -501,9 +495,9 @@
     <Compile Include="WPF\GnosisControls\GnosisGridCheckField.xaml.cs">
       <DependentUpon>GnosisGridCheckField.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WPF\GridControlsWPF\GnosisGridHeaderField.cs" />
-    <Compile Include="WPF\GridControlsWPF\GnosisGridIndentField.cs" />
-    <Compile Include="WPF\GridControlsWPF\GnosisGridTextField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGridHeaderField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGridIndentField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGridTextField.cs" />
     <Compile Include="WPF\LayoutFeatures\GnosisContainerTreeViewItemWPF.cs" />
     <Compile Include="WPF\LayoutFeatures\HorizontalGridSplitter.cs" />
     <Compile Include="WPF\LayoutFeatures\OverlayGrid.xaml.cs">
@@ -823,6 +817,9 @@
     </Resource>
     <Resource Include="WPF\XML\system-new2.xml" />
     <Resource Include="WPF\XML\Type.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WPF\GridControlsWPF\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

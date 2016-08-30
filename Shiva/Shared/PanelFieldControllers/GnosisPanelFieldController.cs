@@ -23,7 +23,11 @@ namespace Shiva.Shared.PanelFieldControllers
 
             ((IGnosisPanelFieldImplementation)ControlImplementation).SetHorizontalAlignment(HorizontalAlignmentType.LEFT);
 
+            instanceController.PropertyChanged += InstanceController_PropertyChanged;
+
         }
+
+
 
         public GnosisPanelFieldController(
             IGnosisPanelFieldImplementation panelField,
@@ -36,6 +40,18 @@ namespace Shiva.Shared.PanelFieldControllers
 
             ((IGnosisPanelFieldImplementation)ControlImplementation).SetHorizontalAlignment(HorizontalAlignmentType.LEFT);
 
+            instanceController.PropertyChanged += InstanceController_PropertyChanged;
+
+        }
+
+        private void InstanceController_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch(e.PropertyName)
+            {
+                case "Deleted":
+                    ((IGnosisPanelFieldImplementation)ControlImplementation).DatasetDeleted = InstanceController.Deleted;
+                    break;
+            }
         }
 
         //protected override void Initialize()
@@ -62,11 +78,11 @@ namespace Shiva.Shared.PanelFieldControllers
 
         //    fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight((IGnosisPanelFieldImplementation)ControlImplementation, font, fontSize);
 
-            
+
         //}
 
 
-     
+
 
     }
 }

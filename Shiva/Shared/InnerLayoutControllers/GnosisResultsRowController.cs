@@ -33,19 +33,21 @@ namespace Shiva.Shared.InnerLayoutControllers
         //    base.Cell_PropertyChanged(sender, e);
         //}
 
-        public override void AddCell(IGnosisGridFieldImplementation resultsFieldImp)
-        {
-            base.AddCell(resultsFieldImp);
+        //public override void AddCell(IGnosisGridFieldImplementation resultsFieldImp)
+        //{
+        //    base.AddCell(resultsFieldImp);
 
-            //((IGnosisResultsFieldImplementation)gridFieldImp).SetGotMouseFocusHandler(new Action(OnGotMouseFocus));
-            //((IGnosisResultsFieldImplementation)gridFieldImp).SetLostMouseFocusHandler(new Action(OnLostMouseFocus));
-            //((IGnosisResultsFieldImplementation)gridFieldImp).SetMouseDownHandler(new Action(OnMouseDown));
-            //((IGnosisResultsFieldImplementation)gridFieldImp).SetMouseUpHandler(new Action(OnMouseUp));
-            resultsFieldImp.PropertyChanged += ResultsFieldImp_PropertyChanged;
-        }
+        //    //((IGnosisResultsFieldImplementation)gridFieldImp).SetGotMouseFocusHandler(new Action(OnGotMouseFocus));
+        //    //((IGnosisResultsFieldImplementation)gridFieldImp).SetLostMouseFocusHandler(new Action(OnLostMouseFocus));
+        //    //((IGnosisResultsFieldImplementation)gridFieldImp).SetMouseDownHandler(new Action(OnMouseDown));
+        //    //((IGnosisResultsFieldImplementation)gridFieldImp).SetMouseUpHandler(new Action(OnMouseUp));
+        //    resultsFieldImp.PropertyChanged += ResultsFieldImp_PropertyChanged;
+        //}
 
-        private void ResultsFieldImp_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected override void GridFieldImp_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            base.GridFieldImp_PropertyChanged(sender, e);
+
             IGnosisResultsFieldImplementation resultsField = sender as IGnosisResultsFieldImplementation;
             switch (e.PropertyName)
             {

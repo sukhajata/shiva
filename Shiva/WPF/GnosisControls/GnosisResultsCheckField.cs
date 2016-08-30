@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using Shiva.Shared.Interfaces;
+using System.Windows.Markup;
 
 namespace GnosisControls
 {
@@ -18,6 +19,7 @@ namespace GnosisControls
             {
                 hasRowMouseFocus = value;
                 OnPropertyChanged("HasRowMouseFocus");
+               // string xaml = XamlWriter.Save(this.Style);
             }
         }
         public bool HasRowMouseDown

@@ -1022,6 +1022,13 @@ namespace ShivaWPF3.UtilityWPF
                 
             }
 
+            if (gnosisFirstCondition.IsStrikethrough)
+            {
+                Setter setter = new Setter(TextBlock.TextDecorationsProperty, TextDecorations.Strikethrough);
+                multiDataTrigger.Setters.Add(setter);
+
+            }
+
             if (gnosisFirstCondition.ContentColour != null && gnosisFirstCondition.ContentColour.Length > 0)
             {
                 Setter setter = new Setter(Control.ForegroundProperty, GetBrushFromHex(gnosisFirstCondition.ContentColour));
@@ -1040,11 +1047,11 @@ namespace ShivaWPF3.UtilityWPF
                 multiDataTrigger.Setters.Add(setter); 
             }
 
-            if (gnosisFirstCondition.ControlColour != null && gnosisFirstCondition.ControlColour.Length > 0)
-            {
-                Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisFirstCondition.ControlColour));
-                multiDataTrigger.Setters.Add(setter);
-            }
+            //if (gnosisFirstCondition.ControlColour != null && gnosisFirstCondition.ControlColour.Length > 0)
+            //{
+            //    Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisFirstCondition.ControlColour));
+            //    multiDataTrigger.Setters.Add(setter);
+            //}
                 //if (gnosisFirstCondition.IsOutlined)
                 //{
                 //    if (controller is GnosisFrameController || controller is GnosisContentController)

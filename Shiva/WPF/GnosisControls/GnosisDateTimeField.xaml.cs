@@ -62,6 +62,8 @@ namespace GnosisControls
             {
                 hasFocus = value;
                 OnPropertyChanged("HasFocus");
+               // string xaml = XamlWriter.Save(this.Style);
+
             }
         }
         public bool HasMouseFocus
@@ -71,7 +73,6 @@ namespace GnosisControls
             {
                 hasMouseFocus = value;
                 OnPropertyChanged("HasMouseFocus");
-                // string xaml = XamlWriter.Save(this);
             }
         }
 

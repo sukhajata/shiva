@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:GnosisControls"
              xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             mc:Ignorable="d" Name="border" BorderThickness="0">
+             mc:Ignorable="d" Name="border" >
     <StackPanel Orientation="Horizontal">
         <StackPanel.Resources>
             <Style x:Key="DatePickerStyle1" TargetType="{x:Type DatePicker}">

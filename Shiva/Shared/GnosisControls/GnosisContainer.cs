@@ -4,6 +4,7 @@ using System.Text;
 using System.ComponentModel;
 using GnosisControls;
 using Shiva.Shared.Interfaces;
+using System.Windows.Markup;
 
 namespace GnosisControls
 {
@@ -29,6 +30,7 @@ namespace GnosisControls
             {
                 hasFocus = value;
                 OnPropertyChanged("HasFocus");
+                //string xaml = XamlWriter.Save(this.Style);
             }
         }
         public bool HasMouseFocus
