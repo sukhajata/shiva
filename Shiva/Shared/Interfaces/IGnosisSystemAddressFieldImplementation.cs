@@ -6,6 +6,6 @@ namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisSystemAddressFieldImplementation : IGnosisMouseVisibleControlImplementation
     {
-        void SetAddress(string address);
+        string Address { get; set; }
     }
 }

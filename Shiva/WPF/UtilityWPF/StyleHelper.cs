@@ -1317,6 +1317,10 @@ namespace ShivaWPF3.UtilityWPF
             {
                 setter = new Setter(GnosisToggleButton.ControlThicknessProperty, gnosisStyle.ControlThickness);
             }
+            else if (control is GnosisToolbarButton)
+            {
+                setter = new Setter(GnosisToolbarButton.ControlThicknessProperty, gnosisStyle.ControlThickness);
+            }
             else if (control is GnosisGridCheckField)
             {
                 setter = new Setter(GnosisGridCheckField.ControlThicknessProperty, gnosisStyle.ControlThickness);
@@ -1324,6 +1328,11 @@ namespace ShivaWPF3.UtilityWPF
             else if (control is GnosisGridTextField)
             {
                 setter = new Setter(GnosisGridTextField.ControlThicknessProperty, gnosisStyle.ControlThickness);
+            }
+            else
+            {
+                GlobalData.Singleton.ErrorHandler.HandleError("Control thickness not applied to unknown control: " +
+                    control.GetType().Name, "StyleHelper.GetControlThicknessSetter");
             }
 
             return setter;

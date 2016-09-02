@@ -25,6 +25,464 @@ namespace GnosisControls
     /// </summary>
     public partial class GnosisTextArea : Border, IGnosisTextAreaImplementation, INotifyPropertyChanged
     {
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
+
+        private string caption;
+        private GnosisController.VerticalAlignmentType contentVerticalAlignment;
+        private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
+        private string controlType;
+        private bool datasetCreated;
+        private bool datasetUpdated;
+        private bool datasetDeleted;
+        private string dataset;
+        private string datasetItem;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hasScrollBar;
+        private bool hidden;
+        private int id;
+        private bool locked;
+        private int maxChars;
+        private int maxDisplayChars;
+        private int maxTextDisplayWidthChars;
+        private int maxSectionSpan;
+        private int minDisplayChars;
+        private int minTextDisplayWidthChars;
+        private int order;
+        private bool readOnly;
+        private string tooltip;
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+                // string xaml = XamlWriter.Save(this);
+            }
+        }
+
+        public bool HasMouseDown
+        {
+            get { return hasMouseDown; }
+            set
+            {
+                hasMouseDown = value;
+                OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ContentVerticalAlignment
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.VerticalAlignmentType), contentVerticalAlignment);
+            }
+            set
+            {
+                try
+                {
+                    _ContentVerticalAlignment = (GnosisController.VerticalAlignmentType)Enum.Parse(typeof(GnosisController.VerticalAlignmentType), value.ToUpper());
+                    //OnPropertyChanged("ContentVerticalAlignment");
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        public GnosisController.VerticalAlignmentType _ContentVerticalAlignment
+        {
+            get { return contentVerticalAlignment; }
+            set
+            {
+                contentVerticalAlignment = value;
+                txt.SetVerticalContentAlignmentExt(contentVerticalAlignment);
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ContentHorizontalAlignment
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.HorizontalAlignmentType), contentHorizontalAlignment);
+            }
+            set
+            {
+                try
+                {
+                    _ContentHorizontalAlignment = (GnosisController.HorizontalAlignmentType)Enum.Parse(typeof(GnosisController.HorizontalAlignmentType), value.ToUpper());
+                    OnPropertyChanged("ContentHorizontalAlignment");
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        public GnosisController.HorizontalAlignmentType _ContentHorizontalAlignment
+        {
+            get { return contentHorizontalAlignment; }
+            set
+            {
+                contentHorizontalAlignment = value;
+                txt.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool DatasetCreated
+        {
+            get
+            {
+                return datasetCreated;
+            }
+
+            set
+            {
+                datasetCreated = value;
+                OnPropertyChanged("DatasetCreated");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool DatasetUpdated
+        {
+            get
+            {
+                return datasetUpdated;
+            }
+
+            set
+            {
+                datasetUpdated = value;
+                OnPropertyChanged("DatasetUpdated");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool DatasetDeleted
+        {
+            get
+            {
+                return datasetDeleted;
+            }
+
+            set
+            {
+                datasetDeleted = value;
+                OnPropertyChanged("DatasetDeleted");
+            }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public int MaxChars
+        {
+            get
+            {
+                return maxChars;
+            }
+
+            set
+            {
+                maxChars = value;
+                txt.MaxLength = maxChars;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Dataset
+        {
+            get
+            {
+                return dataset;
+            }
+
+            set
+            {
+                dataset = value;
+                //OnPropertyChanged("Dataset");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string DatasetItem
+        {
+            get
+            {
+                return datasetItem;
+            }
+
+            set
+            {
+                datasetItem = value;
+                // OnPropertyChanged("DatasetItem");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                OnPropertyChanged("Caption");
+            }
+        }
+
+        [GnosisProperty]
+        public string GnosisName
+        {
+            get { return gnosisName; }
+            set { gnosisName = value; }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+                // OnPropertyChanged("ID");
+            }
+        }
+
+
+
+
+        [GnosisPropertyAttribute]
+        public int MinDisplayChars
+        {
+            get
+            {
+                return minDisplayChars;
+            }
+            set
+            {
+                minDisplayChars = value;
+                OnPropertyChanged("MinDisplayChars");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxDisplayChars
+        {
+            get
+            {
+                return maxDisplayChars;
+            }
+            set
+            {
+                maxDisplayChars = value;
+                OnPropertyChanged("MaxDisplayChars");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+                //OnPropertyChanged("Order");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.ToolTip = tooltip;
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Locked
+        {
+            get { return locked; }
+            set
+            {
+                if (!readOnly)
+                {
+                    locked = value;
+                    txt.IsReadOnly = locked;
+                    OnPropertyChanged("Locked");
+                }
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool HasScrollBar
+        {
+            get
+            {
+                return hasScrollBar;
+            }
+
+            set
+            {
+                hasScrollBar = value;
+                if (hasScrollBar)
+                {
+                    txt.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+                }
+                else
+                {
+                    txt.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+                }
+                //OnPropertyChanged("HasScrollBar");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxSectionSpan
+        {
+            get
+            {
+                return maxSectionSpan;
+            }
+
+            set
+            {
+                maxSectionSpan = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxTextDisplayWidthChars
+        {
+            get
+            {
+                return maxTextDisplayWidthChars;
+            }
+
+            set
+            {
+                maxTextDisplayWidthChars = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MinTextDisplayWidthChars
+        {
+            get
+            {
+                return minTextDisplayWidthChars;
+            }
+
+            set
+            {
+                minTextDisplayWidthChars = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool ReadOnly
+        {
+            get
+            {
+                return readOnly;
+            }
+
+            set
+            {
+                readOnly = value;
+                if (readOnly)
+                {
+                    locked = true;
+                    txt.IsReadOnly = true;
+                    OnPropertyChanged("Locked");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public void GnosisAddChild(IGnosisObject child)
+        {
+            throw new NotImplementedException();
+        }
         //protected Action GotMouseFocusHandler;
         //protected Action LostMouseFocusHandler;
         //protected Action MouseDownHandler;
@@ -88,52 +546,52 @@ namespace GnosisControls
             this.PreviewMouseDown += GnosisTextAreaWPF_MouseDown;
             this.PreviewMouseUp += GnosisTextAreaWPF_MouseUp;
 
-            this.PropertyChanged += GnosisTextArea_PropertyChanged;
+          //  this.PropertyChanged += GnosisTextArea_PropertyChanged;
 
         }
 
-        private void GnosisTextArea_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch(e.PropertyName)
-            {
-                case "Caption":
-                    break;
-                case "ContentVerticalAlignment":
-                    txt.SetVerticalContentAlignmentExt(contentVerticalAlignment);
-                    break;
-                case "ContentHorizontalAlignment":
-                    txt.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
-                    break;
-                case "MaxChars":
-                    txt.MaxLength = maxChars;
-                    break;
-                case "HasScrollBar":
-                    if (hasScrollBar)
-                    {
-                        scrollviewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-                    }
-                    else
-                    {
-                        scrollviewer.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
-                    }
-                    break;
-                case "Hidden":
-                    this.SetVisibleExt(!hidden);
-                    break;
-                case "Locked":
-                    if (!readOnly)
-                    {
-                        txt.IsReadOnly = locked;
-                    }
-                    break;
-                case "ReadOnly":
-                    txt.IsReadOnly = readOnly;
-                    break;
-                case "Tooltip":
-                    this.ToolTip = tooltip;
-                    break;
-            }
-        }
+        //private void GnosisTextArea_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    switch(e.PropertyName)
+        //    {
+        //        case "Caption":
+        //            break;
+        //        case "ContentVerticalAlignment":
+        //            txt.SetVerticalContentAlignmentExt(contentVerticalAlignment);
+        //            break;
+        //        case "ContentHorizontalAlignment":
+        //            txt.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
+        //            break;
+        //        case "MaxChars":
+        //            txt.MaxLength = maxChars;
+        //            break;
+        //        case "HasScrollBar":
+        //            if (hasScrollBar)
+        //            {
+        //                scrollviewer.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
+        //            }
+        //            else
+        //            {
+        //                scrollviewer.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+        //            }
+        //            break;
+        //        case "Hidden":
+        //            this.SetVisibleExt(!hidden);
+        //            break;
+        //        case "Locked":
+        //            if (!readOnly)
+        //            {
+        //                txt.IsReadOnly = locked;
+        //            }
+        //            break;
+        //        case "ReadOnly":
+        //            txt.IsReadOnly = readOnly;
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = tooltip;
+        //            break;
+        //    }
+        //}
 
         public string GetText()
         {
@@ -346,15 +804,15 @@ namespace GnosisControls
         //}
 
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            txt.SetHorizontalPaddingExt(paddingHorizontal);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    txt.SetHorizontalPaddingExt(paddingHorizontal);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            txt.SetVerticalPaddingExt(paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    txt.SetVerticalPaddingExt(paddingVertical);
+        //}
 
         //public FontFamily GetFontFamily()
         //{
@@ -381,10 +839,10 @@ namespace GnosisControls
         //    return this.FontStretch;
         //}
 
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return this.Padding.Left;
+        //}
 
         public void SetMinWidth(double minWidth)
         {
@@ -457,9 +915,9 @@ namespace GnosisControls
             }
         }
 
-        public void SetMarginLeft(int horizontalSpacing)
+        public void SetMarginLeft(int marginLeft)
         {
-            this.Margin = new Thickness(horizontalSpacing, 0, 0, 0);
+            this.Margin = new Thickness(marginLeft, 0, 0, 0);
         }
     }
 }

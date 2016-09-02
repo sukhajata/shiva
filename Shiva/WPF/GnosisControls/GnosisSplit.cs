@@ -10,11 +10,88 @@ using System.Windows;
 using Shiva.Shared.Interfaces;
 using Shiva.Shared.ContainerControllers;
 using ShivaWPF3.LayoutFeatures;
+using Shiva.Shared.Data;
 
 namespace GnosisControls
 {
     public partial class GnosisSplit : GnosisContainer, IGnosisSplitImplementation
     {
+        protected List<GnosisSplitDetail> gnosisSplitDetails;
+
+        protected List<GnosisSplit> gnosisSplits;
+
+        protected List<GnosisTile> gnosisTiles;
+
+
+        [GnosisCollection]
+        public List<GnosisSplit> Splits
+        {
+            get { return gnosisSplits; }
+            set { gnosisSplits = value; }
+        }
+
+        [GnosisCollection]
+        public List<GnosisTile> Tiles
+        {
+            get
+            {
+                return gnosisTiles;
+            }
+            set
+            {
+                gnosisTiles = value;
+            }
+        }
+
+
+        [GnosisCollection]
+        public List<GnosisSplitDetail> SplitDetails
+        {
+            get
+            {
+                return this.gnosisSplitDetails;
+            }
+            set { this.gnosisSplitDetails = value; }
+        }
+
+
+
+        public override void GnosisAddChild(IGnosisObject child)
+        {
+            if (child is GnosisSplit)
+            {
+                if (gnosisSplits == null)
+                {
+                    gnosisSplits = new List<GnosisSplit>();
+                }
+
+                gnosisSplits.Add((GnosisSplit)child);
+
+            }
+            else if (child is GnosisTile)
+            {
+                if (gnosisTiles == null)
+                {
+                    gnosisTiles = new List<GnosisTile>();
+                }
+
+                gnosisTiles.Add((GnosisTile)child);
+            }
+            else if (child is GnosisSplitDetail)
+            {
+                if (gnosisSplitDetails == null)
+                {
+                    gnosisSplitDetails = new List<GnosisSplitDetail>();
+                }
+
+                gnosisSplitDetails.Add((GnosisSplitDetail)child);
+            }
+            else
+            {
+                GlobalData.Singleton.ErrorHandler.HandleError("Unknown type added to GnosisSplit: " + child.GetType().Name,
+                    "GnosisSplit.GnosisAddChild");
+            }
+        }
 
         public GridSplitter splitter;
 

@@ -10,7 +10,7 @@ namespace Shiva.Shared.Interfaces
         void LoadFrame(IGnosisFrameImplementation frameImplementation, IGnosisToggleButtonImplementation headerButton);
        // void LoadFrame(GnosisFrame frame, GnosisTabHeaderButton tabHeaderButton, GnosisButton closeButton);
         void RemoveFrame(IGnosisFrameImplementation ControlImplementation);
-        void SetCaption(string caption);
+       // void SetCaption(string caption);
         void SetLoadedHandler(Action<double> action);
        // void SetHeader(IGnosisToggleButtonImplementation headerButton);
         void DisplayLoadingAnimation(string barColour);

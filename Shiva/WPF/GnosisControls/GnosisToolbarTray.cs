@@ -17,8 +17,248 @@ using System.Windows.Markup;
 
 namespace GnosisControls
 {
-    public partial class GnosisToolbarTray : Border, IGnosisToolbarTrayImplementation
+    public partial class GnosisToolbarTray : Border, IGnosisToolbarTrayImplementation, INotifyPropertyChanged
     {
+        private List<GnosisToolbar> toolbars;
+
+        private string caption;
+        private string controlType;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hasBorder;
+        private bool hasFocus;
+        private bool hidden;
+        private int id;
+        private int menuSystemID;
+        private int menuControlID;
+        private int order;
+        private GnosisController.OrientationType orientation;
+        private string tooltip;
+        private GnosisController.HorizontalAlignmentType trayHorizontalAlignment;
+
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+            }
+        }
+
+        [GnosisProperty]
+        public bool HasBorder
+        {
+            get { return hasBorder; }
+            set { hasBorder = value; }
+        }
+
+        [GnosisProperty]
+        public string TrayHorizontalAlignment
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.HorizontalAlignmentType), trayHorizontalAlignment);
+            }
+
+            set
+            {
+                try
+                {
+                    trayHorizontalAlignment = (GnosisController.HorizontalAlignmentType)Enum.Parse(typeof(GnosisController.HorizontalAlignmentType), value.ToUpper());
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        public GnosisController.HorizontalAlignmentType _TrayHorizontalAlignment
+        {
+            get { return trayHorizontalAlignment; }
+            set { trayHorizontalAlignment = value; }
+        }
+
+        [GnosisProperty]
+        public string GnosisOrientation
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.OrientationType), orientation);
+            }
+            set
+            {
+                try
+                {
+                    orientation = (GnosisController.OrientationType)Enum.Parse(typeof(GnosisController.OrientationType), value.ToUpper());
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        public GnosisController.OrientationType _GnosisOrientation
+        {
+            get { return orientation; }
+            set { orientation = value; }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisProperty]
+        public int MenuSystemID
+        {
+            get
+            {
+                return menuSystemID;
+            }
+
+            set
+            {
+                menuSystemID = value;
+            }
+        }
+
+        [GnosisProperty]
+        public int MenuControlID
+        {
+            get
+            {
+                return menuControlID;
+            }
+
+            set
+            {
+                menuControlID = value;
+            }
+        }
+
+        [GnosisProperty]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                OnPropertyChanged("Caption");
+            }
+        }
+
+        [GnosisProperty]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisProperty]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.ToolTip = tooltip;
+            }
+        }
+
+        [GnosisProperty]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisProperty]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
+        }
+
+        [GnosisProperty]
+        public string GnosisName
+        {
+            get
+            {
+                return gnosisName;
+            }
+
+            set
+            {
+                gnosisName = value;
+            }
+        }
+
+        [GnosisProperty]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+
+
+        [GnosisCollection]
+        public List<GnosisToolbar> Toolbars
+        {
+            get { return toolbars; }
+            set { toolbars = value; }
+        }
         //protected Action GotMouseFocusHandler;
         //protected Action LostMouseFocusHandler;
         //protected Action MouseDownHandler;
@@ -92,8 +332,8 @@ namespace GnosisControls
                     else
                     {
                         toolbarTray.Padding = new Thickness(0);
-                        toolbarTray.BorderThickness = new Thickness(toolbarTray.ContainerVerticalPadding, toolbarTray.ContainerHorizontalPadding,
-                            toolbarTray.ContainerVerticalPadding, toolbarTray.ContainerHorizontalPadding);
+                        toolbarTray.BorderThickness = new Thickness(toolbarTray.ContainerHorizontalPadding, toolbarTray.ContainerVerticalPadding,
+                            toolbarTray.ContainerHorizontalPadding, toolbarTray.ContainerVerticalPadding);
                     }
                 }
 
@@ -104,7 +344,7 @@ namespace GnosisControls
                 paddingHorizontal = toolbarTray.Padding.Left + oldThickness;
                 paddingVertical = toolbarTray.Padding.Top + oldThickness;
 
-                toolbarTray.Padding = new Thickness(paddingVertical, paddingHorizontal, paddingVertical, paddingHorizontal);
+                toolbarTray.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
                 toolbarTray.BorderThickness = new Thickness(newThickness);
             }
 
@@ -124,24 +364,24 @@ namespace GnosisControls
             //this.MouseUp += GnosisToolbarTrayWPF_MouseUp;
             //this.MouseLeave += GnosisToolbarTrayWPF_MouseLeave;
             //this.MouseEnter += GnosisToolbarTrayWPF_MouseEnter;
-            this.PropertyChanged += GnosisToolbarTray_PropertyChanged;
+          //  this.PropertyChanged += GnosisToolbarTray_PropertyChanged;
         }
 
-        private void GnosisToolbarTray_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Caption":
-                    break;
-                case "Tooltip":
-                    this.ToolTip = tooltip;
-                    break;
-                case "Hidden":
-                    this.SetVisibleExt(!hidden);
-                    break;
+        //private void GnosisToolbarTray_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    switch (e.PropertyName)
+        //    {
+        //        case "Caption":
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = tooltip;
+        //            break;
+        //        case "Hidden":
+        //            this.SetVisibleExt(!hidden);
+        //            break;
 
-            }
-        }
+        //    }
+        //}
 
         //public void AddToolbar(IGnosisToolbarImplementation toolbar)
         //{

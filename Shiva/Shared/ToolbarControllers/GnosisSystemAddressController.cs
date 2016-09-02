@@ -20,7 +20,7 @@ namespace Shiva.Shared.ToolbarControllers
             GnosisToolbarController parent)
             :base (systemAddressField,  entityController, parent)
         {
-            systemAddressField.SetAddress(GlobalData.Singleton.SystemController.SystemURL);
+            systemAddressField.Address = GlobalData.Singleton.SystemController.SystemURL;
            
         }
 

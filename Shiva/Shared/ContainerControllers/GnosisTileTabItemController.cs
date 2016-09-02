@@ -163,10 +163,10 @@ namespace Shiva.Shared.ContainerControllers
             return currentFrameController;
         }
 
-        public void SetCaption(string caption)
-        {
-            ((IGnosisTileTabItemImplementation)ControlImplementation).SetCaption(caption);
-        }
+        //public void SetCaption(string caption)
+        //{
+        //    ((IGnosisTileTabItemImplementation)ControlImplementation).Caption = caption;
+        //}
 
         internal override void SizeChanged()
         {

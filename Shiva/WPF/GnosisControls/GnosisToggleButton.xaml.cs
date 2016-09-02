@@ -25,8 +25,465 @@ namespace GnosisControls
     /// <summary>
     /// Interaction logic for GnosisToggleButtonWPF.xaml
     /// </summary>
-    public partial class GnosisToggleButton : ToggleButton, IGnosisToggleButtonImplementation
+    public partial class GnosisToggleButton : ToggleButton, IGnosisToggleButtonImplementation, INotifyPropertyChanged
     {
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
+
+        private bool active;
+        private string caption;
+        private GnosisController.VerticalAlignmentType contentVerticalAlignment;
+        private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
+        private string controlType;
+        private bool datasetCreated;
+        private bool datasetUpdated;
+        private bool datasetDeleted;
+        private string dataset;
+        private string datasetItem;
+        private bool disabled;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private string groupName;
+        private bool hidden;
+        private string icon;
+        private int id;
+        private int minDisplayChars;
+        private int maxDisplayChars;
+        private int order;
+        private int selectedFactor;
+        private string shortcut;
+        private string tooltip;
+        private bool tooltipSelected;
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+                // string xaml = XamlWriter.Save(this.Style);
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+                //  string xaml = XamlWriter.Save(this.Style);
+            }
+        }
+        public bool HasMouseDown
+        {
+            get { return hasMouseDown; }
+            set
+            {
+                hasMouseDown = value;
+                // string xaml = XamlWriter.Save(this.Style);
+                OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool Active
+        {
+            get { return active; }
+            set
+            {
+                active = value;
+                // toggleButton.IsChecked = selected;
+                OnPropertyChanged("Active");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ContentVerticalAlignment
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.VerticalAlignmentType), contentVerticalAlignment);
+            }
+            set
+            {
+                try
+                {
+                    _ContentVerticalAlignment = (GnosisController.VerticalAlignmentType)Enum.Parse(typeof(GnosisController.VerticalAlignmentType), value.ToUpper());
+                    //this.SetVerticalContentAlignmentExt(contentVerticalAlignment);
+                    //OnPropertyChanged("ContentVerticalAlignment");
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        public GnosisController.VerticalAlignmentType _ContentVerticalAlignment
+        {
+            get { return contentVerticalAlignment; }
+            set
+            {
+                contentVerticalAlignment = value;
+                this.SetVerticalContentAlignmentExt(contentVerticalAlignment);
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ContentHorizontalAlignment
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.HorizontalAlignmentType), contentHorizontalAlignment);
+            }
+            set
+            {
+                try
+                {
+                    _ContentHorizontalAlignment = (GnosisController.HorizontalAlignmentType)Enum.Parse(typeof(GnosisController.HorizontalAlignmentType), value.ToUpper());
+                    //this.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
+                    //OnPropertyChanged("ContentHorizontalAlignment");
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        public GnosisController.HorizontalAlignmentType _ContentHorizontalAlignment
+        {
+            get { return contentHorizontalAlignment; ; }
+            set
+            {
+                contentHorizontalAlignment = value;
+                this.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool Disabled
+        {
+            get { return disabled; }
+            set
+            {
+                disabled = value;
+                toggleButton.IsEnabled = !disabled;
+                if (GnosisIcon != null)
+                {
+                    this.Content = new Image
+                    {
+                        Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, toggleButton.IsEnabled)))
+                    };
+                }
+                OnPropertyChanged("Disabled");
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool DatasetCreated
+        {
+            get
+            {
+                return datasetCreated;
+            }
+
+            set
+            {
+                datasetCreated = value;
+                OnPropertyChanged("DatasetCreated");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool DatasetUpdated
+        {
+            get
+            {
+                return datasetUpdated;
+            }
+
+            set
+            {
+                datasetUpdated = value;
+                OnPropertyChanged("DatasetUpdated");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool DatasetDeleted
+        {
+            get
+            {
+                return datasetDeleted;
+            }
+
+            set
+            {
+                datasetDeleted = value;
+                OnPropertyChanged("DatasetDeleted");
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public string Dataset
+        {
+            get
+            {
+                return dataset;
+            }
+
+            set
+            {
+                dataset = value;
+                //OnPropertyChanged("Dataset");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string DatasetItem
+        {
+            get
+            {
+                return datasetItem;
+            }
+
+            set
+            {
+                datasetItem = value;
+                // OnPropertyChanged("DatasetItem");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                if (this.Content == null)
+                {
+                    this.Content = caption;
+                }
+            }
+        }
+
+        [GnosisProperty]
+        public string GnosisName
+        {
+            get
+            {
+                return gnosisName;
+            }
+
+            set
+            {
+                gnosisName = value;
+            }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string GnosisIcon
+        {
+            get { return icon; }
+            set
+            {
+                icon = value;
+                this.Content = new Image
+                {
+                    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, toggleButton.IsEnabled)))
+                };
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+                // OnPropertyChanged("ID");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MinDisplayChars
+        {
+            get
+            {
+                return minDisplayChars;
+            }
+            set
+            {
+                minDisplayChars = value;
+                OnPropertyChanged("MinDisplayChars");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxDisplayChars
+        {
+            get
+            {
+                return maxDisplayChars;
+            }
+            set
+            {
+                maxDisplayChars = value;
+                OnPropertyChanged("MaxDisplayChars");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+                //OnPropertyChanged("Order");
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.ToolTip = tooltip;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int SelectedFactor
+        {
+            get
+            {
+                return selectedFactor;
+            }
+
+            set
+            {
+                selectedFactor = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string GnosisGroupName
+        {
+            get
+            {
+                return groupName;
+            }
+
+            set
+            {
+                groupName = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Shortcut
+        {
+            get
+            {
+                return shortcut;
+            }
+
+            set
+            {
+                shortcut = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool TooltipSelected
+        {
+            get
+            {
+                return tooltipSelected;
+            }
+
+            set
+            {
+                tooltipSelected = value;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public void GnosisAddChild(IGnosisObject child)
+        {
+            throw new NotImplementedException();
+        }
+
         private Action<bool> selectedChangedHandler;
         private Action ClickHandler;
         //private Action GotMouseFocusHandler;
@@ -157,64 +614,64 @@ namespace GnosisControls
             //binding.Mode = BindingMode.TwoWay;
             //this.SetBinding(ToggleButton.IsCheckedProperty, binding);
 
-            this.PropertyChanged += GnosisToggleButton_PropertyChanged;
+          //  this.PropertyChanged += GnosisToggleButton_PropertyChanged;
         }
 
-        private void GnosisToggleButton_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch(e.PropertyName)
-            {
-                case "Active":
-                    //string xaml = XamlWriter.Save(this.Style);
-                    //break;
-                    //this.IsChecked = active;
-                    //break;
-                case "Caption":
-                    if (this.Content == null)
-                    {
-                        this.Content = caption;
-                    }
-                    break;
-                case "ContentVerticalAlignment":
-                    this.SetVerticalContentAlignmentExt(contentVerticalAlignment);
-                    break;
-                case "ContentHorizontalAlignment":
-                    this.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
-                    break;
-                case "Disabled":
-                    toggleButton.IsEnabled = !disabled;
-                    if (GnosisIcon != null)
-                    {
-                        this.Content = new Image
-                        {
-                            Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, toggleButton.IsEnabled)))
-                        };
-                    }
-                    break;
-                case "Hidden":
-                    this.SetVisibleExt(!hidden);
-                    break;
-                case "GnosisIcon":
-                    //if (icon.Equals("Help"))
-                    //{
-                    //    int i = 1;
-                    //}
-                    this.Content = new Image
-                    {
-                        Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, toggleButton.IsEnabled)))
-                    };
-                    break;
-                case "Tooltip":
-                    this.ToolTip = tooltip;
-                    break;
+        //private void GnosisToggleButton_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    switch(e.PropertyName)
+        //    {
+        //        case "Active":
+        //            //string xaml = XamlWriter.Save(this.Style);
+        //            //break;
+        //            //this.IsChecked = active;
+        //            //break;
+        //        case "Caption":
+        //            if (this.Content == null)
+        //            {
+        //                this.Content = caption;
+        //            }
+        //            break;
+        //        case "ContentVerticalAlignment":
+        //            this.SetVerticalContentAlignmentExt(contentVerticalAlignment);
+        //            break;
+        //        case "ContentHorizontalAlignment":
+        //            this.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
+        //            break;
+        //        case "Disabled":
+        //            toggleButton.IsEnabled = !disabled;
+        //            if (GnosisIcon != null)
+        //            {
+        //                this.Content = new Image
+        //                {
+        //                    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, toggleButton.IsEnabled)))
+        //                };
+        //            }
+        //            break;
+        //        case "Hidden":
+        //            this.SetVisibleExt(!hidden);
+        //            break;
+        //        case "GnosisIcon":
+        //            //if (icon.Equals("Help"))
+        //            //{
+        //            //    int i = 1;
+        //            //}
+        //            this.Content = new Image
+        //            {
+        //                Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, toggleButton.IsEnabled)))
+        //            };
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = tooltip;
+        //            break;
 
-            }
-        }
+        //    }
+        //}
 
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return this.Padding.Left;
+        //}
 
         //public void RemoveOutlineColour()
         //{
@@ -348,15 +805,15 @@ namespace GnosisControls
         ////    throw new NotImplementedException();
         ////}
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            this.SetHorizontalPaddingExt(paddingHorizontal);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    this.SetHorizontalPaddingExt(paddingHorizontal);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            this.SetVerticalPaddingExt(paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    this.SetVerticalPaddingExt(paddingVertical);
+        //}
 
         //public void SetTooltip(string toolTip)
         //{

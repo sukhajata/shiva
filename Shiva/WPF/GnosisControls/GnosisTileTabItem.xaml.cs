@@ -26,8 +26,168 @@ namespace GnosisControls
     /// <summary>
     /// Interaction logic for GnosisTileTabItemWPF.xaml
     /// </summary>
-    public partial class GnosisTileTabItem : TabItem, IGnosisTileTabItemImplementation
+    public partial class GnosisTileTabItem : TabItem, IGnosisTileTabItemImplementation, INotifyPropertyChanged
     {
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
+
+        private string caption;
+        private string controlType;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hidden;
+        private int id;
+        private int order;
+        private string tooltip;
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+            }
+        }
+        public bool HasMouseDown
+        {
+            get { return hasMouseDown; }
+            set
+            {
+                hasMouseDown = value;
+                OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+
+
+        [GnosisProperty]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                this.Header = caption;
+                OnPropertyChanged("Caption");
+            }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisProperty]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisProperty]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.ToolTip = tooltip;
+            }
+        }
+
+        [GnosisProperty]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisProperty]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
+        }
+
+        [GnosisProperty]
+        public string GnosisName
+        {
+            get
+            {
+                return gnosisName;
+            }
+
+            set
+            {
+                gnosisName = value;
+            }
+        }
+
+        [GnosisProperty]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         //protected Action GotMouseFocusHandler;
         //protected Action LostMouseFocusHandler;
         //protected Action MouseDownHandler;
@@ -155,11 +315,11 @@ namespace GnosisControls
         }
 
 
-        public void SetCaption(string caption)
-        {
-            //headerButton.Content = caption;
-            this.Header = caption;
-        }
+        //public void SetCaption(string caption)
+        //{
+        //    //headerButton.Content = caption;
+        //    this.Header = caption;
+        //}
 
         public void SetMaxPrintWidth(int maxPrintWidth)
         {
@@ -246,15 +406,15 @@ namespace GnosisControls
         //    this.BorderBrush = StyleHelper.GetBrushFromHex(borderColour);
         //}
 
-        public void SetFont(string font)
-        {
-            this.FontFamily = new FontFamily(font);
-        }
+        //public void SetFont(string font)
+        //{
+        //    this.FontFamily = new FontFamily(font);
+        //}
 
-        public void SetFontSize(int fontSize)
-        {
-            this.FontSize = fontSize;
-        }
+        //public void SetFontSize(int fontSize)
+        //{
+        //    this.FontSize = fontSize;
+        //}
 
         //public void SetBackgroundColour(string backgroundColour)
         //{
@@ -294,42 +454,42 @@ namespace GnosisControls
         //    this.BorderThickness = new Thickness(0);
         //}
 
-        public void SetMargin(int left, int top, int right, int bottom)
-        {
-            this.Margin = new System.Windows.Thickness(left, top, right, bottom);
-        }
+        //public void SetMargin(int left, int top, int right, int bottom)
+        //{
+        //    this.Margin = new System.Windows.Thickness(left, top, right, bottom);
+        //}
 
-        public void SetMargin(int margin)
-        {
-            this.Margin = new System.Windows.Thickness(margin);
-        }
+        //public void SetMargin(int margin)
+        //{
+        //    this.Margin = new System.Windows.Thickness(margin);
+        //}
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            ExtensionMethodsWPF.SetHorizontalPaddingExt(this, paddingHorizontal);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    ExtensionMethodsWPF.SetHorizontalPaddingExt(this, paddingHorizontal);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            ExtensionMethodsWPF.SetVerticalPaddingExt(this, paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    ExtensionMethodsWPF.SetVerticalPaddingExt(this, paddingVertical);
+        //}
 
 
 
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return this.Padding.Left;
+        //}
 
-        public int GetOrder()
-        {
-            return order;
-        }
+        //public int GetOrder()
+        //{
+        //    return order;
+        //}
 
-        public void SetOrder(int _order)
-        {
-            order = _order;
-        }
+        //public void SetOrder(int _order)
+        //{
+        //    order = _order;
+        //}
 
         public void Highlight()
         {

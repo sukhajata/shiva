@@ -21,6 +21,80 @@ namespace GnosisControls
 {
     public partial class GnosisTile : GnosisContainer, IGnosisTileImplemenation
     {
+        private List<GnosisTileDetail> tileDetails;
+        private List<GnosisEventHandler> eventHandlers;
+
+
+        private bool hasTabs;
+        private bool acceptsSearchFrames;
+        private bool acceptsDocumentFrames;
+
+
+
+        [GnosisPropertyAttribute]
+        public bool HasTabs
+        {
+            get
+            {
+                return hasTabs;
+            }
+
+            set
+            {
+                hasTabs = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool AcceptsSearchFrames
+        {
+            get
+            {
+                return acceptsSearchFrames;
+            }
+
+            set
+            {
+                acceptsSearchFrames = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool AcceptsDocumentFrames
+        {
+            get
+            {
+                return acceptsDocumentFrames;
+            }
+
+            set
+            {
+                acceptsDocumentFrames = value;
+            }
+        }
+
+
+        //public event PropertyChangedEventHandler PropertyChanged;
+
+        //public void OnPropertyChanged(string name)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        //}
+
+        [GnosisCollection]
+        public List<GnosisTileDetail> TileDetails
+        {
+            get { return tileDetails; }
+            set { tileDetails = value; }
+        }
+
+        [GnosisCollection]
+        public List<GnosisEventHandler> EventHandlers
+        {
+            get { return eventHandlers; }
+            set { eventHandlers = value; }
+        }
+
         protected bool layoutMode;
         protected Action<double> loadedHandler;
         protected OverlayGrid gdOverlay;
@@ -147,101 +221,6 @@ namespace GnosisControls
         {
             viewLoading.Visibility = Visibility.Collapsed;
         }
-
-        //public void Clear()
-        //{
-        //    contentGrid.Children.Clear();
-        //}
-
-        //public virtual void Highlight()
-        //{
-        //    this.BorderBrush = (Brush)Application.Current.FindResource("BorderHighlightColor");
-        //    this.BorderThickness = GnosisContainer.HighlightThickness;
-        //}
-
-        //public virtual void UnHighlight()
-        //{
-        //    this.BorderBrush = (Brush)Application.Current.FindResource("BorderColor");
-        //    this.BorderThickness = GnosisContainer.NormalThickness;
-        //}
-
-
-
-        //public double GetPaddingHorizontal()
-        //{
-        //    return this.Padding.Left;
-        //}
-
-        //public void SetPaddingHorizontal(double paddingHorizontal)
-        //{
-        //    this.Padding = new Thickness(paddingHorizontal, this.Padding.Top, paddingHorizontal, this.Padding.Bottom);
-        //}
-
-        //public void SetPaddingVertical(double paddingVertical)
-        //{
-        //    this.Padding = new Thickness(this.Padding.Left, paddingVertical, this.Padding.Right, paddingVertical);
-        //}
-
-       
-
-        //private void GnosisContainerWPF_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        //{
-        //    //MouseDownHandler.Invoke();
-        //    HasMouseDown = true;
-        //}
-        
-        //private void GnosisContainerWPF_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        //{
-        //    //MouseUpHandler.Invoke();
-        //    HasMouseDown = false;
-        //}
-        
-        //private void GnosisContainerWPF_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        //{
-        //    // GotMouseFocusHandler.Invoke();
-        //    HasMouseFocus = true;
-        //}
-        
-        //private void GnosisContainerWPF_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        //{
-        //    //LostMouseFocusHandler.Invoke();
-        //    HasMouseFocus = false;
-        //}
-        
-        //public void SetGotFocusHandler(Action action)
-        //{
-        //    GotFocusHandler = action;
-        //    this.GotFocus += GnosisContainerWPF_GotFocus;
-        //}
-
-        //private void GnosisContainerWPF_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    GotFocusHandler.Invoke();
-        //    HasFocus = true;
-        //}
-
-        //public void SetLostFocusHandler(Action action)
-        //{
-        //    LostFocusHandler = action;
-        //    this.LostFocus += GnosisContainerWPF_LostFocus;
-        //}
-
-        //private void GnosisContainerWPF_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    LostFocusHandler.Invoke();
-        //    HasFocus = false;
-        //}
-
-        //public void SetTooltipVisible(bool visible)
-        //{
-        //    ToolTipService.SetIsEnabled(this, visible);
-        //}
-
-        //public virtual void GnosisAddChild(IGnosisObject child)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
 
 
     }
