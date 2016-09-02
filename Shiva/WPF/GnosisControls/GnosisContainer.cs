@@ -13,11 +13,165 @@ using Shiva.Shared.ContainerControllers;
 using Shiva.Shared.ContentControllers;
 using ShivaWPF3.UtilityWPF;
 using Shiva.Shared.BaseControllers;
+using System.ComponentModel;
 
 namespace GnosisControls
 {
-    public partial class GnosisContainer : Border, IGnosisContainerImplementation
+    public partial class GnosisContainer : Border, IGnosisContainerImplementation, INotifyPropertyChanged
     {
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
+
+        private string caption;
+        private string controlType;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hidden;
+        private int id;
+        private int order;
+        private string tooltip;
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+                //string xaml = XamlWriter.Save(this.Style);
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+            }
+        }
+        public bool HasMouseDown
+        {
+            get { return hasMouseDown; }
+            set
+            {
+                hasMouseDown = value;
+                OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                OnPropertyChanged("Caption");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string GnosisName
+        {
+            get { return gnosisName; }
+            set { gnosisName = value; }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+                // OnPropertyChanged("ID");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+                //OnPropertyChanged("Order");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.ToolTip = tooltip;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
         //protected Action GotMouseFocusHandler;
         //protected Action LostMouseFocusHandler;
         //protected Action MouseDownHandler;
@@ -49,21 +203,21 @@ namespace GnosisControls
             this.MouseEnter += GnosisContainerWPF_MouseEnter;
             this.MouseLeave += GnosisContainerWPF_MouseLeave;
 
-            this.PropertyChanged += GnosisContainer_PropertyChanged;
+           // this.PropertyChanged += GnosisContainer_PropertyChanged;
         }
 
-        protected virtual void GnosisContainer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Hidden":
-                    this.SetVisibleExt(!hidden);
-                    break;
-                case "Tooltip":
-                    this.ToolTip = tooltip;
-                    break;
-            }
-        }
+        //protected virtual void GnosisContainer_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        //{
+        //    switch (e.PropertyName)
+        //    {
+        //        case "Hidden":
+        //            this.SetVisibleExt(!hidden);
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = tooltip;
+        //            break;
+        //    }
+        //}
 
         public void SetOrder(int _order)
         {
@@ -105,20 +259,20 @@ namespace GnosisControls
         //    }
         //}
 
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return this.Padding.Left;
+        //}
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            this.Padding = new Thickness(paddingHorizontal, this.Padding.Top, paddingHorizontal, this.Padding.Bottom);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    this.Padding = new Thickness(paddingHorizontal, this.Padding.Top, paddingHorizontal, this.Padding.Bottom);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            this.Padding = new Thickness(this.Padding.Left, paddingVertical, this.Padding.Right, paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    this.Padding = new Thickness(this.Padding.Left, paddingVertical, this.Padding.Right, paddingVertical);
+        //}
 
         //public void SetBorderColour(string borderColour)
         //{

@@ -462,6 +462,10 @@ namespace GnosisControls
             {
                 textColumns.Add((GnosisTextColumn)child);
             }
+            else
+            {
+                GlobalData.Singleton.ErrorHandler.HandleUnknowChildAddedError(this.GetType().Name, child.GetType().Name);
+            }
         }
 
 

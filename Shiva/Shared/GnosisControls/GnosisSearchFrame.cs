@@ -43,6 +43,7 @@ namespace GnosisControls
         private List<GnosisMessageGrid> messageGrids;
         private List<GnosisPanel> panels;
         private List<GnosisTextArea> textAreas;
+        private List<GnosisTab> tabs;
 
         public bool HasFocus
         {
@@ -356,6 +357,13 @@ namespace GnosisControls
             set { messageGrids = value; }
         }
 
+        [GnosisCollection]
+        public List<GnosisTab> Tabs
+        {
+            get { return tabs; }
+            set { tabs = value; }
+        }
+
         [GnosisCollectionAttribute]
         public List<GnosisTextArea> TextAreas
         {
@@ -424,6 +432,14 @@ namespace GnosisControls
                 }
 
                 panels.Add((GnosisPanel)child);
+            }
+            else if (child is GnosisTab)
+            {
+                if (tabs == null)
+                {
+                    tabs = new List<GnosisTab>();
+                }
+                tabs.Add((GnosisTab)child);
             }
             else if (child is GnosisTextArea)
             {

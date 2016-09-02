@@ -10,7 +10,7 @@ namespace GnosisControls
 
 
         private List<GnosisGallery> galleries;
-
+        
 
         [GnosisCollection]
         public List<GnosisGallery> Galleries

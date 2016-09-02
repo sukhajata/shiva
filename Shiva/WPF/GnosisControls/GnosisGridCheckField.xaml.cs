@@ -17,6 +17,7 @@ namespace GnosisControls
 {
     public partial class GnosisGridCheckField : Border, IGnosisGridCheckFieldImplementation, INotifyPropertyChanged
     {
+       
 
 
         //protected Action GotMouseFocusHandler;

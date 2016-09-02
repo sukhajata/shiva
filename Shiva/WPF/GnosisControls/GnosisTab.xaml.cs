@@ -3,31 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
-using Shiva.Shared.Interfaces;
-using ShivaWPF3.UtilityWPF;
-using System.ComponentModel;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Shiva.Shared.Interfaces;
+using System.ComponentModel;
+using ShivaWPF3.UtilityWPF;
 
 namespace GnosisControls
 {
-    public partial class GnosisMenuItem : MenuItem, IGnosisMenuItemImplementation, INotifyPropertyChanged
+    /// <summary>
+    /// Interaction logic for GnosisTab.xaml
+    /// </summary>
+    public partial class GnosisTab : UserControl, IGnosisTabImplementation, INotifyPropertyChanged
     {
+        protected Action GotFocusHandler;
+        protected Action LostFocusHandler;
         private bool hasFocus;
         private bool hasMouseFocus;
         private bool hasMouseDown;
 
+        private List<GnosisTabItem> tabItems;
         private string caption;
-        private bool disabled;
         private string controlType;
         private string gnosisName;
         private IGnosisVisibleControlImplementation gnosisParent;
         private bool hidden;
-        private string icon;
         private int id;
-        private string menuTag;
+        private int maxSectionSpan;
         private int order;
-        private string shortcut;
         private string tooltip;
 
         public bool HasFocus
@@ -46,10 +56,8 @@ namespace GnosisControls
             {
                 hasMouseFocus = value;
                 OnPropertyChanged("HasMouseFocus");
-                // string xaml = XamlWriter.Save(this);
             }
         }
-
         public bool HasMouseDown
         {
             get { return hasMouseDown; }
@@ -57,9 +65,24 @@ namespace GnosisControls
             {
                 hasMouseDown = value;
                 OnPropertyChanged("HasMouseDown");
+                
             }
         }
 
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                OnPropertyChanged("Caption");
+            }
+        }
 
         [GnosisPropertyAttribute]
         public string ControlType
@@ -75,35 +98,7 @@ namespace GnosisControls
             }
         }
 
-        [GnosisPropertyAttribute]
-        public string Caption
-        {
-            get
-            {
-                return caption;
-            }
-
-            set
-            {
-                caption = value;
-                this.Header = caption;
-            }
-        }
-
-
-        [GnosisPropertyAttribute]
-        public bool Disabled
-        {
-            get { return disabled; }
-            set
-            {
-                disabled = value;
-                OnPropertyChanged("Disabled");
-            }
-        }
-
-
-        [GnosisPropertyAttribute]
+        [GnosisProperty]
         public string GnosisName
         {
             get
@@ -117,30 +112,11 @@ namespace GnosisControls
             }
         }
 
-        [GnosisPropertyAttribute]
-        public string GnosisIcon
-        {
-            get
-            {
-                return icon;
-            }
-
-            set
-            {
-                icon = value;
-                this.Header = new Image
-                {
-                    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, this.IsEnabled)))
-                };
-            }
-        }
-
         public IGnosisVisibleControlImplementation GnosisParent
         {
             get { return gnosisParent; }
             set { gnosisParent = value; }
         }
-
 
 
         [GnosisPropertyAttribute]
@@ -154,7 +130,7 @@ namespace GnosisControls
             set
             {
                 hidden = value;
-                this.SetVisibleExt(!hidden);
+                tab.SetVisibleExt(!hidden);
                 OnPropertyChanged("Hidden");
             }
         }
@@ -170,20 +146,6 @@ namespace GnosisControls
             set
             {
                 id = value;
-                // OnPropertyChanged("ID");
-            }
-        }
-
-        public string MenuTag
-        {
-            get
-            {
-                return menuTag;
-            }
-
-            set
-            {
-                menuTag = value;
             }
         }
 
@@ -198,7 +160,6 @@ namespace GnosisControls
             set
             {
                 order = value;
-                //OnPropertyChanged("Order");
             }
         }
 
@@ -213,27 +174,28 @@ namespace GnosisControls
             set
             {
                 tooltip = value;
-                this.ToolTip = tooltip;
+                this.Tooltip = tooltip;
+                //OnPropertyChanged("Tooltip");
             }
         }
 
-
-
-
+     
+      
 
         [GnosisPropertyAttribute]
-        public string Shortcut
+        public int MaxSectionSpan
         {
             get
             {
-                return shortcut;
+                return maxSectionSpan;
             }
 
             set
             {
-                shortcut = value;
+                maxSectionSpan = value;
             }
         }
+
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -242,75 +204,83 @@ namespace GnosisControls
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        //protected Action GotMouseFocusHandler;
-        //protected Action LostMouseFocusHandler;
-        //protected Action MouseDownHandler;
-        //protected Action MouseUpHandler;
-        protected Action GotFocusHandler;
-        protected Action LostFocusHandler;
-        protected Action ClickHandler;
 
-        
-
-        public GnosisMenuItem() : base()
+        public GnosisTab()
         {
-            this.MouseEnter += GnosisMenuItemWPF_MouseEnter;
-            this.MouseLeave += GnosisMenuItemWPF_MouseLeave;
-            this.MouseDown += GnosisMenuItemWPF_MouseDown;
-            this.MouseUp += GnosisMenuItemWPF_MouseUp;
+            InitializeComponent();
 
-           // this.PropertyChanged += GnosisMenuItem_PropertyChanged;
+            tab.MouseEnter += GnosisCalendarWPF_MouseEnter;
+            tab.MouseLeave += GnosisCalendarWPF_MouseLeave;
+            tab.MouseDown += GnosisCalendarWPF_MouseDown;
+            tab.MouseUp += GnosisCalendarWPF_MouseUp;
         }
 
-        //private void GnosisMenuItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+
+        public void GnosisAddChild(IGnosisObject child)
+        {
+            if (child is GnosisTabItem)
+            {
+                if (tabItems == null)
+                {
+                    tabItems = new List<GnosisTabItem>();
+                }
+                tabItems.Add((GnosisTabItem)child);
+
+                tab.Items.Add((GnosisTabItem)child);
+            }
+        }
+
+        //private void GnosisCalendar_PropertyChanged(object sender, PropertyChangedEventArgs e)
         //{
         //    switch (e.PropertyName)
         //    {
         //        case "Caption":
-        //            this.Header = caption;
-        //            break;
-        //        case "Disabled":
-        //            this.IsEnabled = !disabled;
         //            break;
         //        case "Hidden":
         //            this.SetVisibleExt(!hidden);
         //            break;
-        //        case "GnosisIcon":
-        //            this.Header = new Image
-        //            {
-        //                Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, this.IsEnabled)))
-        //            };
-        //            break;
         //        case "Tooltip":
         //            this.ToolTip = tooltip;
         //            break;
+        //        case "ReadOnly":
+        //            this.IsEnabled = !readOnly;
+        //            break;
         //    }
         //}
+
+        public double GetAvailableWidth()
+        {
+            return tab.ActualWidth;
+        }
 
         //public double GetPaddingHorizontal()
         //{
         //    return this.Padding.Left;
         //}
 
+        //public void RemoveOutlineColour()
+        //{
+
+        //}
 
         //public void SetBackgroundColour(string backgroundColour)
         //{
-        //    this.Background = StyleHelper.GetBrushFromHex(backgroundColour);
+        //    calendar.Background = StyleHelper.GetBrushFromHex(backgroundColour);
         //}
 
         //public void SetBorderColour(string borderColour)
         //{
         //    this.BorderBrush = StyleHelper.GetBrushFromHex(borderColour);
-        //    this.BorderThickness = new System.Windows.Thickness(1);
+        //    this.BorderThickness = new Thickness(1);
         //}
 
         public void SetGotFocusHandler(Action action)
         {
             GotFocusHandler = action;
-            this.GotFocus += GnosisMenuItemWPF_GotFocus;
+            tab.GotFocus += GnosisCalendar_GotFocus;
         }
 
-        private void GnosisMenuItemWPF_GotFocus(object sender, System.Windows.RoutedEventArgs e)
+        private void GnosisCalendar_GotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
             GotFocusHandler.Invoke();
             HasFocus = true;
@@ -319,61 +289,60 @@ namespace GnosisControls
         //public void SetGotMouseFocusHandler(Action action)
         //{
         //    GotMouseFocusHandler = action;
-        //    this.MouseEnter += GnosisMenuItemWPF_MouseEnter;
+        //    this.MouseEnter += GnosisCalendarWPF_MouseEnter;
         //}
 
-        private void GnosisMenuItemWPF_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+
+
+        private void GnosisCalendarWPF_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             //GotMouseFocusHandler.Invoke();
             HasMouseFocus = true;
         }
 
-            
-
         public void SetLostFocusHandler(Action action)
         {
             LostFocusHandler = action;
-            this.LostFocus += GnosisMenuItemWPF_LostFocus;
+            tab.LostFocus += GnosisCalendarWPF_LostFocus;
         }
 
-        private void GnosisMenuItemWPF_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        private void GnosisCalendarWPF_LostFocus(object sender, System.Windows.RoutedEventArgs e)
         {
             LostFocusHandler.Invoke();
             HasFocus = false;
         }
 
-        private void GnosisMenuItemWPF_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-           // LostMouseFocusHandler.Invoke();
-            HasMouseFocus = false;
-        }
-
         //public void SetLostMouseFocusHandler(Action action)
         //{
         //    LostMouseFocusHandler = action;
-        //    this.MouseLeave += GnosisMenuItemWPF_MouseLeave;
-
+        //    this.MouseLeave += GnosisCalendarWPF_MouseLeave;
         //}
+
+        private void GnosisCalendarWPF_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            //LostMouseFocusHandler.Invoke();
+            HasMouseFocus = false;
+        }
 
         //public void SetMouseDownHandler(Action action)
         //{
         //    MouseDownHandler = action;
-        //    this.MouseDown += GnosisMenuItemWPF_MouseDown;
-        //}
+        //    this.MouseDown += GnosisCalendarWPF_MouseDown;
+        ////}
 
-        private void GnosisMenuItemWPF_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void GnosisCalendarWPF_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           // MouseDownHandler.Invoke();
+            //MouseDownHandler.Invoke();
             HasMouseDown = true;
         }
 
         //public void SetMouseUpHandler(Action action)
         //{
         //    MouseUpHandler = action;
-        //    this.MouseUp += GnosisMenuItemWPF_MouseUp;
+        //    this.MouseUp += GnosisCalendarWPF_MouseUp;
         //}
 
-        private void GnosisMenuItemWPF_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void GnosisCalendarWPF_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             //MouseUpHandler.Invoke();
             HasMouseDown = false;
@@ -381,7 +350,7 @@ namespace GnosisControls
 
         //public void SetOutlineColour(string outlineColour)
         //{
-            
+
         //}
 
         //public void SetPaddingHorizontal(double paddingHorizontal)
@@ -401,7 +370,7 @@ namespace GnosisControls
 
         public void SetTooltipVisible(bool visible)
         {
-            ToolTipService.SetIsEnabled(this, visible);
+            ToolTipService.SetIsEnabled(tab, visible);
         }
 
         //public void SetVisible(bool visible)
@@ -409,21 +378,16 @@ namespace GnosisControls
         //    this.SetVisibleExt(visible);
         //}
 
-        public void SetClickHandler(Action action)
+        public double GetHeight()
         {
-            ClickHandler = action;
-            this.Click += GnosisMenuItemWPF_Click;
+            return tab.ActualHeight;
         }
 
-        private void GnosisMenuItemWPF_Click(object sender, System.Windows.RoutedEventArgs e)
+        public void SetMarginLeft(int horizontalSpacing)
         {
-            ClickHandler.Invoke();
+            tab.Margin = new Thickness(horizontalSpacing, 0, 0, 0);
         }
 
-
-        public void GnosisAddChild(IGnosisObject child)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

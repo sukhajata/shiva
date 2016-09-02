@@ -14,44 +14,44 @@ namespace ShivaWPF3.UtilityWPF
             return clone;
         }
 
-        public static void SetVerticalPaddingExt(this Control control, double verticalPadding)
-        {
-            control.Padding = new Thickness(verticalPadding, control.Padding.Top, verticalPadding, control.Padding.Bottom);
-        }
-
-        public static void SetVerticalPaddingExt(this Border border, int verticalPadding)
-        {
-            border.Padding = new Thickness(verticalPadding, border.Padding.Top, verticalPadding, border.Padding.Bottom);
-        }
-
         public static void SetHorizontalPaddingExt(this Control control, double horizontalPadding)
         {
-            control.Padding = new Thickness(control.Padding.Left, horizontalPadding, control.Padding.Right, horizontalPadding);
+            control.Padding = new Thickness(horizontalPadding, control.Padding.Top, horizontalPadding, control.Padding.Bottom);
         }
 
         public static void SetHorizontalPaddingExt(this Border border, int horizontalPadding)
         {
-            border.Padding = new Thickness(border.Padding.Left, horizontalPadding, border.Padding.Right, horizontalPadding);
+            border.Padding = new Thickness(horizontalPadding, border.Padding.Top, horizontalPadding, border.Padding.Bottom);
         }
 
-        public static void SetVerticalMarginExt(this FrameworkElement control, int verticalMargin)
+        public static void SetVerticalPaddingExt(this Control control, double verticalPadding)
         {
-            control.Margin = new Thickness(verticalMargin, control.Margin.Top, verticalMargin, control.Margin.Bottom);
+            control.Padding = new Thickness(control.Padding.Left, verticalPadding, control.Padding.Right, verticalPadding);
         }
 
-        public static void SetVerticalMarginExt(this Border border, int verticalMargin)
+        public static void SetVerticalPaddingExt(this Border border, int verticalPadding)
         {
-            border.Margin = new Thickness(verticalMargin, border.Margin.Top, verticalMargin, border.Margin.Bottom);
+            border.Padding = new Thickness(border.Padding.Left, verticalPadding, border.Padding.Right, verticalPadding);
         }
 
         public static void SetHorizontalMarginExt(this FrameworkElement control, int horizontalMargin)
         {
-            control.Margin = new Thickness(control.Margin.Left, horizontalMargin, control.Margin.Right, horizontalMargin);
+            control.Margin = new Thickness(horizontalMargin, control.Margin.Top, horizontalMargin, control.Margin.Bottom);
         }
 
         public static void SetHorizontalMarginExt(this Border border, int horizontalMargin)
         {
-            border.Margin = new Thickness(border.Margin.Left, horizontalMargin, border.Margin.Right, horizontalMargin);
+            border.Margin = new Thickness(horizontalMargin, border.Margin.Top, horizontalMargin, border.Margin.Bottom);
+        }
+
+        public static void SetVerticalMarginExt(this FrameworkElement control, int verticalMargin)
+        {
+            control.Margin = new Thickness(control.Margin.Left, verticalMargin, control.Margin.Right, verticalMargin);
+        }
+
+        public static void SetVerticalMarginExt(this Border border, int verticalMargin)
+        {
+            border.Margin = new Thickness(border.Margin.Left, verticalMargin, border.Margin.Right, verticalMargin);
         }
 
         public static void SetBackgroundColourExt(this Control control, string backgroundHex)

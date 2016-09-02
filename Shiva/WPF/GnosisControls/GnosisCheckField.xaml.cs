@@ -15,7 +15,7 @@ namespace GnosisControls
     /// <summary>
     /// Interaction logic for GnosisCheckFieldWPF.xaml
     /// </summary>
-    public partial class GnosisCheckField : Border, IGnosisCheckFieldImplementation, INotifyPropertyChanged
+    public partial class GnosisCheckField : UserControl, IGnosisCheckFieldImplementation, INotifyPropertyChanged
     {
         private bool hasFocus;
         private bool hasMouseFocus;
@@ -536,7 +536,9 @@ namespace GnosisControls
             set
             {
                 horizontalPadding = value;
+                
                 this.SetHorizontalPaddingExt(horizontalPadding);
+                lblCaption.Padding = new Thickness(0, 0, horizontalPadding, 0);
             }
         }
 
@@ -588,7 +590,7 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisCheckField panelField = source as GnosisCheckField;
+            GnosisCheckField checkField = source as GnosisCheckField;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
             double paddingHorizontal;
@@ -598,20 +600,22 @@ namespace GnosisControls
             if (newThickness > oldThickness)
             {
                 //increase border thickness, decrease padding
-                paddingHorizontal = panelField.Padding.Left - newThickness;
-                paddingVertical = panelField.Padding.Top - newThickness;
+                paddingHorizontal = checkField.Padding.Left - newThickness;
+                paddingVertical = checkField.Padding.Top - newThickness;
             }
             else
             {
                 //decrease border thickness, increase padding
-                paddingHorizontal = panelField.Padding.Left + oldThickness;
-                paddingVertical = panelField.Padding.Top + oldThickness;
+                paddingHorizontal = checkField.Padding.Left + oldThickness;
+                paddingVertical = checkField.Padding.Top + oldThickness;
             }
 
             if (paddingHorizontal >= 0 && paddingVertical >= 0)
             {
-                panelField.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
-                panelField.BorderThickness = new Thickness(newThickness);
+                //control thickness is around check box only. The left padding of the field will not be affected
+                checkField.Padding = new Thickness(paddingHorizontal + newThickness, paddingVertical, paddingHorizontal, paddingVertical);
+                checkField.lblCaption.Padding = new Thickness(0, 0, paddingHorizontal, 0);
+                checkField.chkBox.BorderThickness = new Thickness(newThickness);
             }
         }
 
@@ -867,15 +871,15 @@ namespace GnosisControls
         //    this.Width = numCharacters * StyleController.GetCharacterWidth(lblCaption.FontFamily, lblCaption.FontSize, lblCaption.FontStyle, lblCaption.FontWeight, lblCaption.FontStretch);
         //}
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            this.Padding = new Thickness(paddingHorizontal, this.Padding.Top, paddingHorizontal, this.Padding.Bottom);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    this.Padding = new Thickness(paddingHorizontal, this.Padding.Top, paddingHorizontal, this.Padding.Bottom);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            this.Padding = new Thickness(this.Padding.Left, paddingVertical, this.Padding.Right, paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    this.Padding = new Thickness(this.Padding.Left, paddingVertical, this.Padding.Right, paddingVertical);
+        //}
 
 
         //public FontFamily GetFontFamily()
@@ -920,7 +924,7 @@ namespace GnosisControls
 
         public void SetWidth(double width)
         {
-            this.Width = width;
+           // this.Width = width;
         }
 
         public void SetGotFocusHandler(Action action)

@@ -112,7 +112,7 @@ namespace GnosisControls
 
         public void LoadFrame(IGnosisFrameImplementation frameImplementation, IGnosisToggleButtonImplementation _headerButton)
         {
-            gridContent.Children.Clear();
+           // gridContent.Children.Clear();
             //if (headerButton != null && pnlHeader.Children.Contains(headerButton))
             //{
             //    pnlHeader.Children.Remove(headerButton);
@@ -344,6 +344,7 @@ namespace GnosisControls
         public void Clear()
         {
             gridContent.Children.Clear();
+            Header = null;
             //if (headerButton != null && pnlHeader.Children.Contains(headerButton))
             //{
             //    pnlHeader.Children.Remove(headerButton);

@@ -550,15 +550,17 @@ namespace GnosisControls
 
             if (newThickness > oldThickness)
             {
-                //increase border thickness, decrease margin
+                //increase border thickness, decrease margin, increase height
                 marginHorizontal = button.Margin.Left - newThickness;
                 marginVertical = button.Margin.Top - newThickness;
+                button.Height = button.Height + (newThickness - oldThickness);
             }
             else
             {
-                //decrease border thickness, increase margin
+                //decrease border thickness, increase margin, decrease height
                 marginHorizontal = button.Margin.Left + oldThickness;
                 marginVertical = button.Margin.Top + oldThickness;
+                button.Height = button.Height - (oldThickness - newThickness);
             }
 
             button.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);

@@ -74,7 +74,12 @@ namespace Shiva.Shared.ContainerControllers
         public void LoadFrame(GnosisFrameController frameController)
         {
             showLoadingAnimation = false;
-           
+
+            frameControllers.Add(frameController);
+            currentFrameController = frameController;
+
+            ((GnosisTileTabItem)ControlImplementation).Clear();
+
             //((IGnosisTileTabItemImplementation)ControlImplementation).SetHeader(headerButton);
 
             string caption = ((IGnosisFrameImplementation)frameController.ControlImplementation).Caption;
@@ -95,8 +100,7 @@ namespace Shiva.Shared.ContainerControllers
             GlobalData.Singleton.StyleHelper.ApplyStyle(headerButton, frameController.EntityController.GetNormalStyle());
             frameController.TabHeaderButton = headerButton;
          
-            frameControllers.Add(frameController);
-            currentFrameController = frameController;
+           
 
             if (loaded)
             {

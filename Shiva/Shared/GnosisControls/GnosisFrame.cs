@@ -60,6 +60,7 @@ namespace GnosisControls
 
         protected List<GnosisSystemLayoutArea> systemLayoutAreas;
 
+
         //protected List<GnosisFramePresentation> framePresentations;
 
 
@@ -410,6 +411,13 @@ namespace GnosisControls
             set { systemLayoutAreas = value; }
         }
 
+        [GnosisCollection]
+        public List<GnosisTab> Tabs
+        {
+            get { return tabs; }
+            set { tabs = value; }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string name)
@@ -509,6 +517,14 @@ namespace GnosisControls
                 }
 
                 trees.Add((GnosisTree)child);
+            }
+            else if (child is GnosisTab)
+            {
+                if (tabs == null)
+                {
+                    tabs = new List<GnosisTab>();
+                }
+                tabs.Add((GnosisTab)child);
             }
             else if (child is GnosisSystemLayoutArea)
             {

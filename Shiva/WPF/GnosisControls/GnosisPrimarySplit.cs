@@ -14,6 +14,22 @@ namespace GnosisControls
 {
     public partial class GnosisPrimarySplit : GnosisSplit, IGnosisPrimarySplitImplementation
     {
+        private GnosisNavigatorTile gnosisNavTileField;
+
+
+        [GnosisChild]
+        public GnosisNavigatorTile GnosisNavTile
+        {
+            get
+            {
+                return this.gnosisNavTileField;
+            }
+            set
+            {
+                this.gnosisNavTileField = value;
+            }
+        }
+
         private Action<double, int> splitterMovedHandler;
 
         private bool tilesOverlayParent;

@@ -184,6 +184,7 @@ namespace Shiva.Shared.ContainerControllers
                 frameControllers.Add(frame);
                 currentFrameController = frame;
 
+                ((GnosisTile)ControlImplementation).Clear();
                 ((GnosisTile)ControlImplementation).LoadFrameImplementation((IGnosisFrameImplementation)frame.ControlImplementation);
             }
         }

@@ -167,7 +167,10 @@
     <Compile Include="Shared\Generic\GnosisGenericToggleMenuItem.cs" />
     <Compile Include="Shared\GnosisControls\GnosisAttribute.cs" />
     <Compile Include="Shared\GnosisControls\GnosisButtonGroup.cs" />
-    <Compile Include="WPF\GnosisControls\GnosisCheckColumn.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGallerySearchItem.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTabImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTabItemImplementation.cs" />
+    <Compile Include="Shared\GnosisControls\GnosisCheckColumn.cs" />
     <Compile Include="Shared\GnosisControls\GnosisCheckGroup.cs" />
     <Compile Include="Shared\GnosisControls\GnosisCheckResults.cs" />
     <Compile Include="Shared\GnosisControls\GnosisChildAttribute.cs" />
@@ -175,63 +178,39 @@
     <Compile Include="Shared\GnosisControls\GnosisCollectionAttribute.cs" />
     <Compile Include="Shared\GnosisControls\GnosisComboAttribute.cs" />
     <Compile Include="Shared\GnosisControls\GnosisComboColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisComboOption.cs" />
     <Compile Include="Shared\GnosisControls\GnosisConnection.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisConnectionFrame.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisContainer.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisContainerTreeViewItem.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisContentControl.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisControl.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisContentControl.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisControl.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDateColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisDateField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDateResults.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDateTimeColumn.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDateTimeResults.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisDocumentFrame.cs" />
     <Compile Include="Shared\GnosisControls\GnosisDocumentParameter.cs" />
     <Compile Include="Shared\GnosisControls\GnosisEntity.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisFrame.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGallery.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGalleryAttribute.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGalleryDetail.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGalleryDocumentItem.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGalleryItem.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGalleryDocumentItem.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGallerySearchAttribute.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGallerySearchItem.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGrid.cs" />
     <Compile Include="Shared\GnosisControls\GnosisGridColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGridComboField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGridDateField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGridDateTimeField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGridHeaderField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGridLinkField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisGridNumberField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisInnerLayoutControl.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisLabelField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGridComboField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGridDateField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGridDateTimeField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGridLinkField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisGridNumberField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisInnerLayoutControl.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisLabelField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisLinkAttribute.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisLinkButton.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisLinkButtonItem.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisLinkButton.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisLinkButtonItem.cs" />
     <Compile Include="Shared\GnosisControls\GnosisLinkColumn.cs" />
     <Compile Include="Shared\GnosisControls\GnosisLinkEntity.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisLinkField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisLinkMenuButton.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisListField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisMenuButton.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisMenuItem.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisMessageGrid.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisNavigatorFrame.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisNavigatorTile.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisLinkMenuButton.cs" />
     <Compile Include="Shared\GnosisControls\GnosisNewMenuItem.cs" />
     <Compile Include="Shared\GnosisControls\GnosisNumberColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisNumberField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisNumberResults.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisOuterLayoutControl.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisPanel.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisPanelField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisParentWindow.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisPrimarySplit.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisOuterLayoutControl.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisPanelField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisPropertyAttribute.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisRadioField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisRadioGroup.cs" />
     <Compile Include="WPF\GnosisControls\GnosisResultsCheckField.cs" />
     <Compile Include="WPF\GnosisControls\GnosisResultsColumn.cs" />
@@ -239,7 +218,6 @@
     <Compile Include="WPF\GnosisControls\GnosisResultsDateTimeField.cs" />
     <Compile Include="WPF\GnosisControls\GnosisResultsNumberField.cs" />
     <Compile Include="WPF\GnosisControls\GnosisResultsTextField.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisSearchFrame.cs" />
     <Compile Include="Shared\GnosisControls\GnosisSearchParameter.cs" />
     <Compile Include="Shared\GnosisControls\GnosisSearchResultsAttribute.cs" />
     <Compile Include="Shared\GnosisControls\GnosisSearchResultsGrid.cs" />
@@ -247,7 +225,6 @@
     <Compile Include="Shared\GnosisControls\GnosisSplitDetail.cs" />
     <Compile Include="Shared\GnosisControls\GnosisSystemAddressField.cs" />
     <Compile Include="Shared\GnosisControls\GnosisSystemLayoutArea.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisTab.cs" />
     <Compile Include="Shared\GnosisControls\GnosisTextArea.cs" />
     <Compile Include="Shared\GnosisControls\GnosisTextColumn.cs" />
     <Compile Include="Shared\GnosisControls\GnosisTextResults.cs" />
@@ -463,8 +440,14 @@
     </Compile>
     <Compile Include="WPF\GnosisControls\GnosisSplit.cs" />
     <Compile Include="WPF\GnosisControls\GnosisSystemAddressField.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisTab.xaml.cs">
+      <DependentUpon>GnosisTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPF\GnosisControls\GnosisTabHeaderButton.xaml.cs">
       <DependentUpon>GnosisTabHeaderButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GnosisControls\GnosisTabItem.xaml.cs">
+      <DependentUpon>GnosisTabItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="WPF\GnosisControls\_OldGnosisTabHeaderButton.cs" />
     <Compile Include="WPF\GnosisControls\GnosisTextArea.xaml.cs">
@@ -607,7 +590,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WPF\GnosisControls\GnosisTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WPF\GnosisControls\GnosisTabHeaderButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPF\GnosisControls\GnosisTabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

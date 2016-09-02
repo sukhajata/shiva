@@ -13,6 +13,52 @@ namespace GnosisControls
 {
     public partial class GnosisDocumentFrame : GnosisFrame, IGnosisDocFrameImplementation
     {
+        private bool isEditingField;
+
+        private bool isEmptyField;
+
+        private bool createdField;
+
+        private bool deletedField;
+
+        private bool updatedField;
+
+        //private List<GnosisDragEvent> dragEvents;
+
+
+
+        [GnosisProperty]
+        public bool _Created
+        {
+            get { return createdField; }
+            set
+            {
+                createdField = value;
+                OnPropertyChanged("Created");
+            }
+        }
+
+        [GnosisProperty]
+        public bool _Deleted
+        {
+            get { return deletedField; }
+            set
+            {
+                deletedField = value;
+                OnPropertyChanged("Deleted");
+            }
+        }
+
+        [GnosisProperty]
+        public bool _Updated
+        {
+            get { return updatedField; }
+            set
+            {
+                updatedField = value;
+                OnPropertyChanged("Updated");
+            }
+        }
 
 
         public GnosisDocumentFrame() : base()
@@ -20,22 +66,7 @@ namespace GnosisControls
 
         }
 
-        protected override void GnosisFrame_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Deleted":
-                    break;
-                case "Updated":
-                    break;
-                case "Created":
-                    break;
-                default:
-                    base.GnosisFrame_PropertyChanged(sender, e);
-                    break;
-            }
-
-        }
+       
 
     }
 }

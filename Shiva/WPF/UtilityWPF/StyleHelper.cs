@@ -1251,6 +1251,10 @@ namespace ShivaWPF3.UtilityWPF
             {
                 setter = new Setter(GnosisGallery.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
             }
+            else if (control is GnosisTabItem)
+            {
+                setter = new Setter(GnosisTabItem.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
+            }
             else if (control is GnosisToolbarTray)
             {
                 setter = new Setter(GnosisToolbarTray.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
@@ -1383,7 +1387,7 @@ namespace ShivaWPF3.UtilityWPF
                 height = formattedText.Height;
           //  }
 
-            return height + 2;
+            return height;
         }
 
         public double GetTextHeight(IGnosisGridTextFieldImplementation gnosisTextField, string font, int fontSize)

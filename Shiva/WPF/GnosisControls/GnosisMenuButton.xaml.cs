@@ -21,8 +21,219 @@ namespace GnosisControls
     /// <summary>
     /// Interaction logic for GnosisMenuButtonWPF.xaml
     /// </summary>
-    public partial class GnosisMenuButton : UserControl, IGnosisMenuButtonImplementation 
+    public partial class GnosisMenuButton : UserControl, IGnosisMenuButtonImplementation , INotifyPropertyChanged
     {
+        private List<GnosisMenuItem> menuItems;
+
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
+
+        private string caption;
+        private bool disabled;
+        private string controlType;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hidden;
+        private string icon;
+        private int id;
+        private int order;
+        private string shortcut;
+        private string tooltip;
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+                // string xaml = XamlWriter.Save(this);
+            }
+        }
+
+        public bool HasMouseDown
+        {
+            get { return hasMouseDown; }
+            set
+            {
+                hasMouseDown = value;
+                OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                btnMenu.Content = caption;
+            }
+        }
+
+        [GnosisProperty]
+        public string GnosisName
+        {
+            get
+            {
+                return gnosisName;
+            }
+
+            set
+            {
+                gnosisName = value;
+            }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+                // OnPropertyChanged("ID");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+                //OnPropertyChanged("Order");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.ToolTip = tooltip;
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Disabled
+        {
+            get { return disabled; }
+            set
+            {
+                disabled = value;
+                btnMenu.IsEnabled = !disabled;
+                OnPropertyChanged("Disabled");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string GnosisIcon
+        {
+            get
+            {
+                return icon;
+            }
+
+            set
+            {
+                icon = value;
+                btnMenu.Content = new Image
+                {
+                    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, this.IsEnabled)))
+                };
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Shortcut
+        {
+            get
+            {
+                return shortcut;
+            }
+
+            set
+            {
+                shortcut = value;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
         //protected Action GotMouseFocusHandler;
         //protected Action LostMouseFocusHandler;
         //protected Action MouseDownHandler;
@@ -43,38 +254,38 @@ namespace GnosisControls
             this.MouseDown += GnosisMenuButtonWPF_MouseDown;
             this.MouseUp += GnosisMenuButtonWPF_MouseUp;
 
-            this.PropertyChanged += GnosisMenuButton_PropertyChanged;
+          //  this.PropertyChanged += GnosisMenuButton_PropertyChanged;
         }
 
-        private void GnosisMenuButton_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Caption":
-                    btnMenu.Content = caption;
-                    break;
-                case "Disabled":
-                    btnMenu.IsEnabled = !disabled;
-                    break;
-                case "Hidden":
-                    this.SetVisibleExt(!hidden);
-                    break;
-                case "GnosisIcon":
-                    btnMenu.Content = new Image
-                    {
-                        Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, this.IsEnabled)))
-                    };
-                    break;
-                case "Tooltip":
-                    this.ToolTip = tooltip;
-                    break;
-            }
-        }
+        //private void GnosisMenuButton_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    switch (e.PropertyName)
+        //    {
+        //        case "Caption":
+        //            btnMenu.Content = caption;
+        //            break;
+        //        case "Disabled":
+        //            btnMenu.IsEnabled = !disabled;
+        //            break;
+        //        case "Hidden":
+        //            this.SetVisibleExt(!hidden);
+        //            break;
+        //        case "GnosisIcon":
+        //            btnMenu.Content = new Image
+        //            {
+        //                Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, this.IsEnabled)))
+        //            };
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = tooltip;
+        //            break;
+        //    }
+        //}
 
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return this.Padding.Left;
+        //}
 
         //public void RemoveOutlineColour()
         //{
@@ -171,15 +382,15 @@ namespace GnosisControls
 
         //}
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            this.SetHorizontalPaddingExt(paddingHorizontal);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    this.SetHorizontalPaddingExt(paddingHorizontal);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            this.SetVerticalPaddingExt(paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    this.SetVerticalPaddingExt(paddingVertical);
+        //}
 
         //public void SetTooltip(string toolTip)
         //{

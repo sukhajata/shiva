@@ -26,6 +26,217 @@ namespace GnosisControls
     /// </summary>
     public partial class GnosisGalleryItem : TreeViewItem, IGnosisGalleryItemImplementation, INotifyPropertyChanged
     {
+        private List<GnosisGalleryDatasetItem> galleryDatasetItems;
+        private List<GnosisGalleryItem> galleryItems;
+        private List<GnosisGalleryDocumentItem> galleryDocumentItems;
+        private List<GnosisGallerySearchItem> gallerySearchItems;
+
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
+
+        private bool active;
+        private string caption;
+        private bool disabled;
+        private bool gnosisExpanded;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private string controlType;
+        private bool hidden;
+        private int id;
+        private int order;
+        private int selectedFactor;
+        private string tooltip;
+
+
+        [GnosisPropertyAttribute]
+        public bool Active
+        {
+            get { return active; }
+            set
+            {
+                active = value;
+                OnPropertyChanged("Active");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                this.Header = caption;
+                //OnPropertyChanged("Caption");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool GnosisExpanded
+        {
+            get { return gnosisExpanded; }
+            set
+            {
+                gnosisExpanded = value;
+                this.IsExpanded = gnosisExpanded;
+                //OnPropertyChanged("GnosisExpanded");
+            }
+        }
+
+        [GnosisProperty]
+        public string GnosisName
+        {
+            get { return gnosisName; }
+            set { gnosisName = value; }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+                // OnPropertyChanged("ID");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+                //OnPropertyChanged("Order");
+            }
+        }
+
+        [GnosisProperty]
+        public int SelectedFactor
+        {
+            get { return selectedFactor; }
+            set { selectedFactor = value; }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.ToolTip = tooltip;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool Disabled
+        {
+            get { return disabled; }
+            set
+            {
+                disabled = value;
+                OnPropertyChanged("Disabled");
+            }
+        }
+
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+
+
+        [GnosisCollection]
+        public List<GnosisGalleryDatasetItem> GalleryDatasetItems
+        {
+            get { return galleryDatasetItems; }
+            set { galleryDatasetItems = value; }
+        }
+
+        [GnosisCollection]
+        public List<GnosisGalleryDocumentItem> GalleryDocumentItems
+        {
+            get { return galleryDocumentItems; }
+            set { galleryDocumentItems = value; }
+        }
+
+        [GnosisCollection]
+        public List<GnosisGalleryItem> GalleryItems
+        {
+            get { return galleryItems; }
+            set { galleryItems = value; }
+        }
+
+        [GnosisCollection]
+        public List<GnosisGallerySearchItem> GallerySearchItems
+        {
+            get { return gallerySearchItems; }
+            set { gallerySearchItems = value; }
+        }
+
+
+
         //private Action GotMouseFocusHandler;
         //private Action LostMouseFocusHandler;
         //private Action MouseDownHandler;
@@ -241,31 +452,31 @@ namespace GnosisControls
             this.MouseEnter += GnosisGalleryItemWPF_MouseEnter;
             this.MouseLeave += GnosisGalleryItemWPF_MouseLeave;
 
-            this.PropertyChanged += GnosisGalleryItemWPF_PropertyChanged;
+           // this.PropertyChanged += GnosisGalleryItemWPF_PropertyChanged;
 
         }
 
-        private void GnosisGalleryItemWPF_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Caption":
-                    this.Header = caption;
-                    break;
-                case "Disabled":
-                    this.Focusable = !disabled;
-                    break;
-                case "GnosisExpanded":
-                    this.IsExpanded = gnosisExpanded;
-                    break;
-                case "Hidden":
-                    this.SetVisibleExt(!hidden);
-                    break;
-                case "Tooltip":
-                    this.ToolTip = tooltip;
-                    break;
-            }
-        }
+        //private void GnosisGalleryItemWPF_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    switch (e.PropertyName)
+        //    {
+        //        case "Caption":
+        //            this.Header = caption;
+        //            break;
+        //        case "Disabled":
+        //            this.Focusable = !disabled;
+        //            break;
+        //        case "GnosisExpanded":
+        //            this.IsExpanded = gnosisExpanded;
+        //            break;
+        //        case "Hidden":
+        //            this.SetVisibleExt(!hidden);
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = tooltip;
+        //            break;
+        //    }
+        //}
 
         public void SetItemSelectedHandler(Action action)
         {
@@ -307,7 +518,7 @@ namespace GnosisControls
         }
 
 
-        //Because of the complex way that margins are applied in TreeViews, the following rules must be used to get the desired effect
+        //Because of the complex way that margins are applied in TreeViews, the following rules must be applied to get the desired effect
         //1.first child has top and bottom margin
         //2.middle children have bottom margin only
         //3.last child has no margin
@@ -318,15 +529,15 @@ namespace GnosisControls
                 GnosisGalleryItem galleryItem = ((GnosisGalleryItem)Items[i]);
                 if (i == 0)
                 {
-                    galleryItem.Margin = new Thickness(galleryItem.VerticalMargin, galleryItem.HorizontalMargin + spacing,
-                        galleryItem.VerticalMargin, galleryItem.HorizontalMargin + spacing);
+                    galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin, galleryItem.VerticalMargin + spacing,
+                        galleryItem.HorizontalMargin, galleryItem.VerticalMargin + spacing);
                 }
                 if (i > 0)
                 {
                     if (i < Items.Count - 1)
                     {
-                        galleryItem.Margin = new Thickness(galleryItem.VerticalMargin, galleryItem.HorizontalMargin,
-                            galleryItem.VerticalMargin, galleryItem.HorizontalMargin + spacing);
+                        galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin, galleryItem.VerticalMargin,
+                            galleryItem.HorizontalMargin, galleryItem.VerticalMargin + spacing);
 
                     }
                 }

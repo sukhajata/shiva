@@ -24,7 +24,7 @@ namespace GnosisControls
     /// <summary>
     /// Interaction logic for GnosisComboFieldWPF.xaml
     /// </summary>
-    public partial class GnosisComboField : ComboBox, IGnosisComboFieldImplementation
+    public partial class GnosisComboField : ComboBox, IGnosisComboFieldImplementation, INotifyPropertyChanged
     {
         private Action<GnosisComboOption> optionChangedHandler;
         //private Action GotMouseFocusHandler;
@@ -494,8 +494,9 @@ namespace GnosisControls
                     cbo.IsEnabled = !locked;
                     OnPropertyChanged("Locked");
 
+                    //string xaml = XamlWriter.Save(this.Style);
                 }
-                // string xaml = XamlWriter.Save(this.Style);
+
             }
         }
 
@@ -615,7 +616,7 @@ namespace GnosisControls
 
             if (newThickness > oldThickness)
             {
-                //increase border thickness, decrease padding
+                //increase border thickness, decrease margin
                 marginHorizontal = panelField.Margin.Left - newThickness;
                 marginVertical = panelField.Margin.Top - newThickness;
 

@@ -30,8 +30,252 @@ namespace GnosisControls
     /// <summary>
     /// Interaction logic for GnosisParentWindowWPF.xaml
     /// </summary>
-    public partial class GnosisParentWindow : Window, IGnosisParentWindowImplementation
+    public partial class GnosisParentWindow : Window, IGnosisParentWindowImplementation, INotifyPropertyChanged
     {
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
+
+        private string caption;
+        private string controlType;
+        private string gnosisName;
+        private bool hidden;
+        private string icon;
+        private int id;
+        private int order;
+        private GnosisController.OrientationType orientation;
+        private string tooltip;
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+            }
+        }
+        public bool HasMouseDown
+        {
+            get { return hasMouseDown; }
+            set
+            {
+                hasMouseDown = value;
+                OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                OnPropertyChanged("Caption");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string GnosisName
+        {
+            get { return gnosisName; }
+            set { gnosisName = value; }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return null; }
+            set { }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                if (hidden)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError("Parent window hidden", "GnosisParentWindow");
+                }
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+                // OnPropertyChanged("ID");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+                //OnPropertyChanged("Order");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.ToolTip = tooltip;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string GnosisIcon
+        {
+            get
+            {
+                return icon;
+            }
+
+            set
+            {
+                icon = value;
+                this.Icon = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, true)));
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string GnosisOrientation
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.OrientationType), orientation);
+            }
+
+            set
+            {
+                try
+                {
+                    orientation = (GnosisController.OrientationType)Enum.Parse(typeof(GnosisController.OrientationType), value.ToUpper());
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        public GnosisController.OrientationType _GnosisOrientation
+        {
+            get { return orientation; }
+            set { orientation = value; }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private List<GnosisToolbarTray> toolbarTrays;
+
+        private GnosisPrimarySplit primarySplit;
+
+
+        //  private bool visibleField;
+
+        private List<GnosisChildWindow> childWindows;
+
+        private List<GnosisEventHandler> eventHandlers;
+
+
+
+        [GnosisCollection]
+        public List<GnosisToolbarTray> ToolbarTrays
+        {
+            get
+            {
+                return this.toolbarTrays;
+            }
+            set
+            {
+                this.toolbarTrays = value;
+            }
+        }
+
+        [GnosisChild]
+        public GnosisPrimarySplit PrimarySplit
+        {
+            get
+            {
+                return this.primarySplit;
+            }
+            set
+            {
+                this.primarySplit = value;
+            }
+        }
+
+        [GnosisCollection]
+        public List<GnosisChildWindow> ChildWindows
+        {
+            get { return childWindows; }
+            set { childWindows = value; }
+        }
         protected GnosisParentWindowController controller;
         protected GnosisApplicationManager appManager;
         private GnosisPanel currentPanel;
@@ -57,7 +301,7 @@ namespace GnosisControls
 
             GlobalData.Singleton.ParentWindowImplementation = this;
       
-            this.PropertyChanged += GnosisParentWindow_PropertyChanged;
+           // this.PropertyChanged += GnosisParentWindow_PropertyChanged;
 
             this.Closed += GnosisParentWindow_Closed;
         }
@@ -72,24 +316,24 @@ namespace GnosisControls
 
         }
 
-        private void GnosisParentWindow_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Caption":
-                    break;
-                case "GnosisIcon":
-                    this.Icon = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, true)));
-                    break;
-                case "Hidden":
-                    this.SetVisibleExt(!hidden);
-                    break;
-                case "Tooltip":
-                    this.ToolTip = tooltip;
-                    break;
+        //private void GnosisParentWindow_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    switch (e.PropertyName)
+        //    {
+        //        case "Caption":
+        //            break;
+        //        case "GnosisIcon":
+        //            this.Icon = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, true)));
+        //            break;
+        //        case "Hidden":
+        //            this.SetVisibleExt(!hidden);
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = tooltip;
+        //            break;
 
-            }
-        }
+        //    }
+        //}
 
         ///// <summary>
         ///// TitleBar_MouseDown - Drag if single-click, resize if double-click

@@ -19,7 +19,321 @@ namespace GnosisControls
 {
     public partial class GnosisMessageGrid : Border, IGnosisMessageGridImplementation, INotifyPropertyChanged
     {
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
 
+        private string caption;
+        private GnosisController.HorizontalAlignmentType captionHorizontalAlignment;
+        private GnosisController.VerticalAlignmentType captionVerticalAlignment;
+        private GnosisController.CaptionPosition captionRelativePosition;
+        private string controlType;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hidden;
+        private int id;
+        private int maxDisplayRows;
+        private int maxLines;
+        private int maxSectionSpan;
+        private int minDisplayRows;
+        private int order;
+        private int maxWrapRows;
+        private string tooltip;
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+            }
+        }
+        public bool HasMouseDown
+        {
+            get { return hasMouseDown; }
+            set
+            {
+                hasMouseDown = value;
+                OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string GnosisName
+        {
+            get { return gnosisName; }
+            set { gnosisName = value; }
+        }
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+                // OnPropertyChanged("ID");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+                //OnPropertyChanged("Order");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Tooltip
+        {
+            get
+            {
+                return tooltip;
+            }
+
+            set
+            {
+                tooltip = value;
+                this.ToolTip = tooltip;
+            }
+        }
+
+
+
+        public bool GridIsLoaded
+        {
+            get
+            {
+                return this.IsLoaded;
+            }
+        }
+
+        public bool GridIsVisible
+        {
+            get
+            {
+                return this.IsVisible;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string CaptionRelativePosition
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.CaptionPosition), captionRelativePosition);
+            }
+
+            set
+            {
+                try
+                {
+                    captionRelativePosition = (GnosisController.CaptionPosition)Enum.Parse(typeof(GnosisController.CaptionPosition), value.ToUpper());
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string CaptionAlignmentHorizontal
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.HorizontalAlignmentType), captionHorizontalAlignment);
+            }
+
+            set
+            {
+                try
+                {
+                    captionHorizontalAlignment = (GnosisController.HorizontalAlignmentType)Enum.Parse(typeof(GnosisController.HorizontalAlignmentType), value.ToUpper());
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string CaptionAlignmentVertical
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.VerticalAlignmentType), captionVerticalAlignment);
+            }
+
+            set
+            {
+                try
+                {
+                    captionVerticalAlignment = (GnosisController.VerticalAlignmentType)Enum.Parse(typeof(GnosisController.VerticalAlignmentType), value.ToUpper());
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MinDisplayRows
+        {
+            get
+            {
+                return minDisplayRows;
+            }
+
+            set
+            {
+                minDisplayRows = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxDisplayRows
+        {
+            get
+            {
+                return maxDisplayRows;
+            }
+
+            set
+            {
+                maxDisplayRows = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxLines
+        {
+            get
+            {
+                return maxLines;
+            }
+
+            set
+            {
+                maxLines = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxSectionSpan
+        {
+            get
+            {
+                return maxSectionSpan;
+            }
+
+            set
+            {
+                maxSectionSpan = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxWrapRows
+        {
+            get
+            {
+                return maxWrapRows;
+            }
+
+            set
+            {
+                maxWrapRows = value;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+
+        public void GnosisAddChild(IGnosisObject child)
+        {
+            throw new NotImplementedException();
+        }
         //protected Action GotMouseFocusHandler;
         //protected Action LostMouseFocusHandler;
         //protected Action MouseDownHandler;
@@ -45,29 +359,29 @@ namespace GnosisControls
             this.MouseEnter += GnosisMessageGridWPF_MouseEnter;
             this.MouseLeave += GnosisMessageGridWPF_MouseLeave;
 
-            this.PropertyChanged += GnosisMessageGrid_PropertyChanged;
+           // this.PropertyChanged += GnosisMessageGrid_PropertyChanged;
         }
 
-        private void GnosisMessageGrid_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Caption":
-                    break;
-                case "CaptionVerticalAlignment":
-                    break;
-                case "CaptionHorizontalAlignment":
-                    break;
-                case "CaptionRelativePostion":
-                    break;
-                case "Hidden":
-                    this.SetVisibleExt(!hidden);
-                    break;
-                case "Tooltip":
-                    this.ToolTip = tooltip;
-                    break;
-            }
-        }
+        //private void GnosisMessageGrid_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    switch (e.PropertyName)
+        //    {
+        //        case "Caption":
+        //            break;
+        //        case "CaptionVerticalAlignment":
+        //            break;
+        //        case "CaptionHorizontalAlignment":
+        //            break;
+        //        case "CaptionRelativePostion":
+        //            break;
+        //        case "Hidden":
+        //            this.SetVisibleExt(!hidden);
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = tooltip;
+        //            break;
+        //    }
+        //}
 
 
         //public void SetCaption(string caption)
@@ -232,15 +546,15 @@ namespace GnosisControls
         //    return controller;
         //}
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            this.Padding = new Thickness(paddingHorizontal, this.Padding.Top, paddingHorizontal, this.Padding.Right);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    this.Padding = new Thickness(paddingHorizontal, this.Padding.Top, paddingHorizontal, this.Padding.Right);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            this.Padding = new Thickness(this.Padding.Left, paddingVertical, this.Padding.Top, paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    this.Padding = new Thickness(this.Padding.Left, paddingVertical, this.Padding.Top, paddingVertical);
+        //}
 
         //public FontFamily GetFontFamily()
         //{
@@ -267,10 +581,10 @@ namespace GnosisControls
         //    return content.FontStretch;
         //}
 
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return this.Padding.Left;
+        //}
 
         public void SetGotFocusHandler(Action action)
         {
@@ -296,9 +610,9 @@ namespace GnosisControls
             HasFocus = false;
         }
 
-        public void SetMarginLeft(int horizontalSpacing)
+        public void SetMarginLeft(int marginLeft)
         {
-            this.Margin = new Thickness(horizontalSpacing, 0, 0, 0);
+            this.Margin = new Thickness(marginLeft, 0, 0, 0);
         }
 
 

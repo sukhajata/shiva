@@ -167,7 +167,8 @@ namespace GnosisControls
                     if (horizontalMargin >= controlThickness && verticalMargin >= controlThickness)
                     {
                         this.BorderThickness = new Thickness(controlThickness);
-                        this.Margin = new Thickness(verticalMargin - controlThickness, horizontalMargin - controlThickness, verticalMargin - controlThickness, horizontalMargin - controlThickness);
+                        this.Margin = new Thickness(horizontalMargin - controlThickness, verticalMargin - controlThickness, 
+                            horizontalMargin - controlThickness, verticalMargin - controlThickness);
                     }
                 }
             }
@@ -186,16 +187,16 @@ namespace GnosisControls
                 switch (relativePosition)
                 {
                     case GnosisController.CaptionPosition.ABOVE:
-                        this.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin, horizontalMargin + captionSpacing);
+                        this.Margin = new Thickness(horizontalMargin, verticalMargin, horizontalMargin, verticalMargin + captionSpacing);
                         break;
                     case GnosisController.CaptionPosition.BELOW:
-                        this.Margin = new Thickness(verticalMargin, horizontalMargin + captionSpacing, verticalMargin, horizontalMargin);
+                        this.Margin = new Thickness(horizontalMargin, verticalMargin, horizontalMargin, verticalMargin + captionSpacing);
                         break;
                     case GnosisController.CaptionPosition.LEFT:
-                        this.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin + captionSpacing, horizontalMargin);
+                        this.Margin = new Thickness(horizontalMargin, verticalMargin, horizontalMargin + captionSpacing, verticalMargin);
                         break;
                     case GnosisController.CaptionPosition.RIGHT:
-                        this.Margin = new Thickness(verticalMargin + captionSpacing, horizontalMargin, verticalMargin, horizontalMargin);
+                        this.Margin = new Thickness(horizontalMargin + captionSpacing, verticalMargin, horizontalMargin, verticalMargin);
                         break;
                 }
             }

@@ -16,12 +16,498 @@ namespace GnosisControls
     /// </summary>
     public partial class GnosisDateField : UserControl, IGnosisDateFieldImplementation, INotifyPropertyChanged
     {
-        //private GnosisDateFieldController controller;
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
+        private bool locked;
 
-        //private Action GotMouseFocusHandler;
-        //private Action LostMouseFocusHandler;
-        //private Action MouseDownHandler;
-        //private Action MouseUpHandler;
+        private string caption;
+        private GnosisController.VerticalAlignmentType contentVerticalAlignment;
+        private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
+        private string controlType;
+        private bool datasetCreated;
+        private bool datasetUpdated;
+        private bool datasetDeleted;
+        private string dataset;
+        private string datasetItem;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hidden;
+        private int id;
+        private bool longDateFormat;
+        private int minDisplayChars;
+        private int maxDisplayChars;
+        private int order;
+        private bool readOnly;
+        private string toolip;
+        private string valueField;
+        private int variableControlID;
+        private int variableSystemID;
+        private bool variableIsInput;
+        private bool variableIsOutput;
+
+        public bool HasFocus
+        {
+            get { return hasFocus; }
+            set
+            {
+                hasFocus = value;
+                OnPropertyChanged("HasFocus");
+            }
+        }
+        public bool HasMouseFocus
+        {
+            get { return hasMouseFocus; }
+            set
+            {
+                hasMouseFocus = value;
+                OnPropertyChanged("HasMouseFocus");
+                // string xaml = XamlWriter.Save(this);
+            }
+        }
+
+        public bool HasMouseDown
+        {
+            get { return hasMouseDown; }
+            set
+            {
+                hasMouseDown = value;
+                OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ContentVerticalAlignment
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.VerticalAlignmentType), contentVerticalAlignment);
+            }
+            set
+            {
+                try
+                {
+                    _ContentVerticalAlignment = (GnosisController.VerticalAlignmentType)Enum.Parse(typeof(GnosisController.VerticalAlignmentType), value.ToUpper());
+                    //OnPropertyChanged("ContentVerticalAlignment");
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string ContentHorizontalAlignment
+        {
+            get
+            {
+                return Enum.GetName(typeof(GnosisController.HorizontalAlignmentType), contentHorizontalAlignment);
+            }
+            set
+            {
+                try
+                {
+                    _ContentHorizontalAlignment = (GnosisController.HorizontalAlignmentType)Enum.Parse(typeof(GnosisController.HorizontalAlignmentType), value.ToUpper());
+                    //OnPropertyChanged("ContentHorizontalAlignment");
+                }
+                catch (Exception ex)
+                {
+                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                }
+            }
+        }
+
+        public GnosisController.VerticalAlignmentType _ContentVerticalAlignment
+        {
+            get { return contentVerticalAlignment; }
+            set
+            {
+                contentVerticalAlignment = value;
+                SetVerticalContentAlignment(contentVerticalAlignment);
+            }
+        }
+
+        public GnosisController.HorizontalAlignmentType _ContentHorizontalAlignment
+        {
+            get { return contentHorizontalAlignment; }
+            set
+            {
+                contentHorizontalAlignment = value;
+                SetHorizontalContentAlignment(contentHorizontalAlignment);
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public string ControlType
+        {
+            get
+            {
+                return controlType;
+            }
+
+            set
+            {
+                controlType = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool DatasetCreated
+        {
+            get
+            {
+                return datasetCreated;
+            }
+
+            set
+            {
+                datasetCreated = value;
+                OnPropertyChanged("DatasetCreated");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool DatasetUpdated
+        {
+            get
+            {
+                return datasetUpdated;
+            }
+
+            set
+            {
+                datasetUpdated = value;
+                OnPropertyChanged("DatasetUpdated");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool DatasetDeleted
+        {
+            get
+            {
+                return datasetDeleted;
+            }
+
+            set
+            {
+                datasetDeleted = value;
+                OnPropertyChanged("DatasetDeleted");
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public string Dataset
+        {
+            get
+            {
+                return dataset;
+            }
+
+            set
+            {
+                dataset = value;
+                //OnPropertyChanged("Dataset");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string DatasetItem
+        {
+            get
+            {
+                return datasetItem;
+            }
+
+            set
+            {
+                datasetItem = value;
+                // OnPropertyChanged("DatasetItem");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Caption
+        {
+            get
+            {
+                return caption;
+            }
+
+            set
+            {
+                caption = value;
+                OnPropertyChanged("Caption");
+            }
+        }
+
+        [GnosisProperty]
+        public string GnosisName
+        {
+            get { return gnosisName; }
+            set { gnosisName = value; }
+        }
+
+
+        public IGnosisVisibleControlImplementation GnosisParent
+        {
+            get { return gnosisParent; }
+            set { gnosisParent = value; }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public bool Hidden
+        {
+            get
+            {
+                return hidden;
+            }
+
+            set
+            {
+                hidden = value;
+                this.SetVisibleExt(!hidden);
+                OnPropertyChanged("Hidden");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+                // OnPropertyChanged("ID");
+            }
+        }
+
+
+
+        [GnosisPropertyAttribute]
+        public int MinDisplayChars
+        {
+            get
+            {
+                return minDisplayChars;
+            }
+            set
+            {
+                minDisplayChars = value;
+                OnPropertyChanged("MinDisplayChars");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int MaxDisplayChars
+        {
+            get
+            {
+                return maxDisplayChars;
+            }
+            set
+            {
+                maxDisplayChars = value;
+                OnPropertyChanged("MaxDisplayChars");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int Order
+        {
+            get
+            {
+                return order;
+            }
+
+            set
+            {
+                order = value;
+                //OnPropertyChanged("Order");
+            }
+        }
+
+
+        [GnosisPropertyAttribute]
+        public string Tooltip
+        {
+            get
+            {
+                return toolip;
+            }
+
+            set
+            {
+                toolip = value;
+                this.ToolTip = toolip;
+            }
+        }
+
+
+
+        [GnosisPropertyAttribute]
+        public bool ReadOnly
+        {
+            get
+            {
+
+                return readOnly;
+            }
+
+            set
+            {
+                readOnly = value;
+                OnPropertyChanged("ReadOnly");
+                Locked = readOnly;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public string Value
+        {
+            get
+            {
+                return valueField;
+            }
+
+            set
+            {
+                valueField = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int VariableControlID
+        {
+            get
+            {
+                return variableControlID;
+            }
+
+            set
+            {
+                variableControlID = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public int VariableSystemID
+        {
+            get
+            {
+                return variableSystemID;
+            }
+
+            set
+            {
+                variableSystemID = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool VariableIsInput
+        {
+            get
+            {
+                return variableIsInput;
+            }
+
+            set
+            {
+                variableIsInput = value;
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool VariableIsOutput
+        {
+            get
+            {
+                return variableIsOutput;
+            }
+
+            set
+            {
+                variableIsOutput = value;
+            }
+        }
+
+        public bool Locked
+        {
+            get { return locked; }
+            set
+            {
+                if (!readOnly)
+                {
+                    locked = value;
+                }
+                if (locked || readOnly)
+                {
+                    //replace datepicker with textbox
+                    string text = picker.Text;
+                    picker.Visibility = System.Windows.Visibility.Collapsed;
+
+                    txtDate.Visibility = System.Windows.Visibility.Visible;
+                    txtDate.Text = text;
+                }
+                else
+                {
+                    if (txtDate.Visibility == System.Windows.Visibility.Visible)
+                    {
+                        string text = txtDate.Text;
+                        txtDate.Visibility = System.Windows.Visibility.Collapsed;
+
+                        picker.SelectedDate = Convert.ToDateTime(text);
+                        picker.Visibility = System.Windows.Visibility.Visible;
+                    }
+                }
+
+                OnPropertyChanged("Locked");
+            }
+        }
+
+        [GnosisPropertyAttribute]
+        public bool LongDateFormat
+        {
+            get
+            {
+                return longDateFormat;
+            }
+
+            set
+            {
+                longDateFormat = value;
+                if (longDateFormat)
+                {
+                    picker.SelectedDateFormat = DatePickerFormat.Long;
+                }
+                else
+                {
+                    picker.SelectedDateFormat = DatePickerFormat.Short;
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public void GnosisAddChild(IGnosisObject child)
+        {
+            throw new NotImplementedException();
+        }
+
         private Action GotFocusHandler;
         private Action LostFocusHandler;
 
@@ -121,62 +607,62 @@ namespace GnosisControls
             this.MouseEnter += GnosisDateFieldWPF_MouseEnter;
             this.MouseLeave += GnosisDateFieldWPF_MouseLeave;
 
-            this.PropertyChanged += GnosisDateField_PropertyChanged;
+          //  this.PropertyChanged += GnosisDateField_PropertyChanged;
         }
 
-        private void GnosisDateField_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case "Caption":
-                    break;
-                case "ContentVerticalAlignment":
-                    SetVerticalContentAlignment(contentVerticalAlignment);
-                    break;
-                case "ContentHorizontalAlignment":
-                    SetHorizontalContentAlignment(contentHorizontalAlignment);
-                    break;
-                case "Hidden":
-                    this.SetVisible(!hidden);
-                    break;
-                case "Locked":
-                    if (locked || readOnly)
-                    {
-                        //replace datepicker with textbox
-                        string text = picker.Text;
-                        picker.Visibility = System.Windows.Visibility.Collapsed;
+        //private void GnosisDateField_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    switch (e.PropertyName)
+        //    {
+        //        case "Caption":
+        //            break;
+        //        case "ContentVerticalAlignment":
+        //            SetVerticalContentAlignment(contentVerticalAlignment);
+        //            break;
+        //        case "ContentHorizontalAlignment":
+        //            SetHorizontalContentAlignment(contentHorizontalAlignment);
+        //            break;
+        //        case "Hidden":
+        //            this.SetVisible(!hidden);
+        //            break;
+        //        case "Locked":
+        //            if (locked || readOnly)
+        //            {
+        //                //replace datepicker with textbox
+        //                string text = picker.Text;
+        //                picker.Visibility = System.Windows.Visibility.Collapsed;
 
-                        txtDate.Visibility = System.Windows.Visibility.Visible;
-                        txtDate.Text = text;
-                    }
-                    else
-                    {
-                        if (txtDate.Visibility == System.Windows.Visibility.Visible)
-                        {
-                            string text = txtDate.Text;
-                            txtDate.Visibility = System.Windows.Visibility.Collapsed;
+        //                txtDate.Visibility = System.Windows.Visibility.Visible;
+        //                txtDate.Text = text;
+        //            }
+        //            else
+        //            {
+        //                if (txtDate.Visibility == System.Windows.Visibility.Visible)
+        //                {
+        //                    string text = txtDate.Text;
+        //                    txtDate.Visibility = System.Windows.Visibility.Collapsed;
 
-                            picker.SelectedDate = Convert.ToDateTime(text);
-                            picker.Visibility = System.Windows.Visibility.Visible;
-                        }
-                    }
-                    break;
-                case "LongDateFormat":
-                    if (longDateFormat)
-                    {
-                        picker.SelectedDateFormat = DatePickerFormat.Long;
-                    }
-                    else
-                    {
-                        picker.SelectedDateFormat = DatePickerFormat.Short;
-                    }
-                    break;
-                case "Tooltip":
-                    this.ToolTip = toolip;
-                    break;
-            }
+        //                    picker.SelectedDate = Convert.ToDateTime(text);
+        //                    picker.Visibility = System.Windows.Visibility.Visible;
+        //                }
+        //            }
+        //            break;
+        //        case "LongDateFormat":
+        //            if (longDateFormat)
+        //            {
+        //                picker.SelectedDateFormat = DatePickerFormat.Long;
+        //            }
+        //            else
+        //            {
+        //                picker.SelectedDateFormat = DatePickerFormat.Short;
+        //            }
+        //            break;
+        //        case "Tooltip":
+        //            this.ToolTip = toolip;
+        //            break;
+        //    }
 
-        }
+        //}
 
         public void SetDate(DateTime date)
         {
@@ -476,24 +962,24 @@ namespace GnosisControls
         //    return controller;
         //}
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            picker.Padding = new Thickness(paddingHorizontal, picker.Padding.Top, paddingHorizontal, picker.Padding.Bottom);
-            txtDate.Padding = new Thickness(paddingHorizontal, txtDate.Padding.Top, paddingHorizontal, txtDate.Padding.Bottom);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    picker.Padding = new Thickness(paddingHorizontal, picker.Padding.Top, paddingHorizontal, picker.Padding.Bottom);
+        //    txtDate.Padding = new Thickness(paddingHorizontal, txtDate.Padding.Top, paddingHorizontal, txtDate.Padding.Bottom);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            picker.Padding = new Thickness(picker.Padding.Left, paddingVertical, picker.Padding.Right, paddingVertical);
-            txtDate.Padding = new Thickness(txtDate.Padding.Left, paddingVertical, txtDate.Padding.Right, paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    picker.Padding = new Thickness(picker.Padding.Left, paddingVertical, picker.Padding.Right, paddingVertical);
+        //    txtDate.Padding = new Thickness(txtDate.Padding.Left, paddingVertical, txtDate.Padding.Right, paddingVertical);
+        //}
 
 
 
-        public double GetPaddingHorizontal()
-        {
-            return picker.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return picker.Padding.Left;
+        //}
 
         public void SetMinWidth(double minWidth)
         {

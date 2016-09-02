@@ -11,6 +11,41 @@ namespace GnosisControls
 {
     public partial class GnosisContainerTreeViewItem : TreeViewItem, IGnosisContainerTreeViewItemImplementation
     {
+        private string caption;
+        private string gnosisIcon;
+        private GnosisVisibleController tag;
+
+        public string Caption
+        {
+            get { return caption; }
+            set
+            {
+                caption = value;
+                lblCaption.Content = caption;
+            }
+        }
+
+        public string GnosisIcon
+        {
+            get { return gnosisIcon; }
+            set
+            {
+                gnosisIcon = value;
+                img.Margin = new Thickness(2);
+                img.Source = new BitmapImage(new Uri(@"pack://application:,,/Icons/" + gnosisIcon + "-25.png"));
+            }
+        }
+
+        public GnosisVisibleController GnosisTag
+        {
+            get { return tag; }
+            set
+            {
+                tag = value;
+                this.Tag = tag;
+            }
+        }
+
         private Grid gdBorder;
         private Label lblCaption;
         private StackPanel pnlContent;
@@ -39,27 +74,27 @@ namespace GnosisControls
 
             this.Header = pnlContent;
 
-            this.PropertyChanged += GnosisContainerTreeViewItem_PropertyChanged;
+           // this.PropertyChanged += GnosisContainerTreeViewItem_PropertyChanged;
 
         }
 
-        private void GnosisContainerTreeViewItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            switch(e.PropertyName)
-            {
-                case "Caption":
-                    lblCaption.Content = caption;
-                    break;
-                case "GnosisIcon":
-                    img.Margin = new Thickness(2);
-                    img.Source = new BitmapImage(new Uri(@"pack://application:,,/Icons/" + gnosisIcon + "-25.png"));
-                    break;
-                case "GnosisTag":
-                    this.Tag = GnosisTag;
-                    break;
+        //private void GnosisContainerTreeViewItem_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        //{
+        //    switch(e.PropertyName)
+        //    {
+        //        case "Caption":
+        //            lblCaption.Content = caption;
+        //            break;
+        //        case "GnosisIcon":
+        //            img.Margin = new Thickness(2);
+        //            img.Source = new BitmapImage(new Uri(@"pack://application:,,/Icons/" + gnosisIcon + "-25.png"));
+        //            break;
+        //        case "GnosisTag":
+        //            this.Tag = GnosisTag;
+        //            break;
 
-            }
-        }
+        //    }
+        //}
 
         //public void SetTag(GnosisVisibleController controller)
         //{

@@ -101,7 +101,9 @@ namespace Shiva.Shared.PanelFieldControllers
 
             if (((GnosisCheckField)ControlImplementation).Caption != null)
             {
-                minFieldWidth += characterWidth * ((GnosisCheckField)ControlImplementation).Caption.Length;
+                //calculate field width based on caption length plus extra horizontal padding between caption and check box
+                minFieldWidth += characterWidth * ((GnosisCheckField)ControlImplementation).Caption.Length +
+                    ((GnosisCheckField)ControlImplementation).HorizontalPadding;
                 maxFieldWidth = minFieldWidth;
             }
         }

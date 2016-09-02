@@ -13,37 +13,101 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Shiva.Shared.Interfaces;
-using ShivaWPF3.UtilityWPF;
 using System.ComponentModel;
-using Shiva.Shared.BaseControllers;
+using ShivaWPF3.UtilityWPF;
+using Shiva.Shared.Data;
 
 namespace GnosisControls
 {
     /// <summary>
-    /// Interaction logic for GnosisCalendarWPF.xaml
+    /// Interaction logic for GnosisTabItem.xaml
     /// </summary>
-    public partial class GnosisCalendar : UserControl, IGnosisCalendarImplementation, INotifyPropertyChanged
+    public partial class GnosisTabItem : UserControl, IGnosisTabItemImplementation, INotifyPropertyChanged
     {
-        
         protected Action GotFocusHandler;
         protected Action LostFocusHandler;
         private bool hasFocus;
         private bool hasMouseFocus;
         private bool hasMouseDown;
 
+        private List<GnosisPanel> panels;
+        private List<GnosisGrid> grids;
+        private List<GnosisTextArea> textAreas;
+        private List<GnosisTree> trees;
+        private List<GnosisCalendar> calendars;
+
         private string caption;
         private string controlType;
-        private string dataset;
-        private string datasetItem;
         private string gnosisName;
         private IGnosisVisibleControlImplementation gnosisParent;
         private bool hidden;
         private int id;
         private int maxSectionSpan;
         private int order;
-        private bool readOnly;
-        private string shortcut;
         private string tooltip;
+
+        private int containerHorizontalPadding;
+        private int containerVerticalPadding;
+        private bool hasBorder;
+        private int horizontalSpacing;
+        private int verticalSpacing;
+
+        public int HorizontalSpacing
+        {
+            get
+            {
+                return horizontalSpacing;
+            }
+
+            set
+            {
+                horizontalSpacing = value;
+            }
+        }
+
+        public int VerticalSpacing
+        {
+            get
+            {
+                return verticalSpacing;
+            }
+
+            set
+            {
+                verticalSpacing = value;
+            }
+        }
+
+        public int ContainerHorizontalPadding
+        {
+            get { return containerHorizontalPadding; }
+            set
+            {
+                containerHorizontalPadding = value;
+                this.SetHorizontalPaddingExt(containerHorizontalPadding);
+            }
+        }
+
+        public int ContainerVerticalPadding
+        {
+            get { return containerVerticalPadding; }
+            set
+            {
+                containerVerticalPadding = value;
+                this.SetVerticalPaddingExt(containerVerticalPadding);
+            }
+        }
+
+        [GnosisProperty]
+        public bool HasBorder
+        {
+            get { return hasBorder; }
+            set
+            {
+                hasBorder = value;
+                OnPropertyChanged("HasBorder");
+            }
+        }
 
         public bool HasFocus
         {
@@ -70,6 +134,7 @@ namespace GnosisControls
             {
                 hasMouseDown = value;
                 OnPropertyChanged("HasMouseDown");
+
             }
         }
 
@@ -134,7 +199,7 @@ namespace GnosisControls
             set
             {
                 hidden = value;
-                this.SetVisibleExt(!hidden);
+                tabItem.SetVisibleExt(!hidden);
                 OnPropertyChanged("Hidden");
             }
         }
@@ -183,49 +248,8 @@ namespace GnosisControls
             }
         }
 
-        [GnosisPropertyAttribute]
-        public string Dataset
-        {
-            get
-            {
-                return dataset;
-            }
 
-            set
-            {
-                dataset = value;
-            }
-        }
 
-        [GnosisPropertyAttribute]
-        public string DatasetItem
-        {
-            get
-            {
-                return datasetItem;
-            }
-
-            set
-            {
-                datasetItem = value;
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public bool ReadOnly
-        {
-            get
-            {
-                return readOnly;
-            }
-
-            set
-            {
-                readOnly = value;
-                this.IsEnabled = !readOnly;
-              //  OnPropertyChanged("ReadOnly");
-            }
-        }
 
         [GnosisPropertyAttribute]
         public int MaxSectionSpan
@@ -241,20 +265,64 @@ namespace GnosisControls
             }
         }
 
+        public static readonly DependencyProperty GnosisBorderThicknessProperty =
+           DependencyProperty.RegisterAttached("GnosisBorderThickness",
+           typeof(int), typeof(GnosisTabItem), new FrameworkPropertyMetadata(BorderThicknessPropertyChanged));
+        //new FrameworkPropertyMetadata(0,
+        //    FrameworkPropertyMetadataOptions.Inherits));
 
-
-
-        public GnosisCalendar()
+        public static void SetHighlightThickness(UIElement element, int value)
         {
-            InitializeComponent();
-
-            this.MouseEnter += GnosisCalendarWPF_MouseEnter;
-            this.MouseLeave += GnosisCalendarWPF_MouseLeave;
-            this.MouseDown += GnosisCalendarWPF_MouseDown;
-            this.MouseUp += GnosisCalendarWPF_MouseUp;
-
-           // this.PropertyChanged += GnosisCalendar_PropertyChanged;
+            element.SetValue(GnosisBorderThicknessProperty, value);
         }
+
+        public static int GetHighlightThickness(UIElement element)
+        {
+            return (int)element.GetValue(GnosisBorderThicknessProperty);
+        }
+
+        public static void BorderThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
+        {
+            GnosisTabItem tabItem = source as GnosisTabItem;
+            int newThickness = (int)e.NewValue;
+            int oldThickness = (int)e.OldValue;
+            double paddingHorizontal;
+            double paddingVertical;
+
+            if (newThickness > oldThickness)
+            {
+                if (tabItem.ContainerHorizontalPadding > 0 && tabItem.ContainerVerticalPadding > 0)
+                {
+                    //increase border thickness, decrease padding
+                    paddingHorizontal = tabItem.ContainerHorizontalPadding - newThickness;
+                    paddingVertical = tabItem.ContainerVerticalPadding - newThickness;
+
+                    if (paddingHorizontal >= 0 && paddingVertical >= 0)
+                    {
+                        tabItem.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+                        tabItem.BorderThickness = new Thickness(newThickness);
+                    }
+                    else
+                    {
+                        tabItem.Padding = new Thickness(0);
+                        tabItem.BorderThickness = new Thickness(tabItem.ContainerHorizontalPadding, tabItem.ContainerVerticalPadding,
+                            tabItem.ContainerHorizontalPadding, tabItem.ContainerVerticalPadding);
+                    }
+                }
+
+            }
+            else
+            {
+                //decrease border thickness, increase padding
+                paddingHorizontal = tabItem.Padding.Left + oldThickness;
+                paddingVertical = tabItem.Padding.Top + oldThickness;
+
+                tabItem.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+                tabItem.BorderThickness = new Thickness(newThickness);
+            }
+
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -263,9 +331,65 @@ namespace GnosisControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+
+        public GnosisTabItem()
+        {
+            InitializeComponent();
+
+            tabItem.MouseEnter += GnosisCalendarWPF_MouseEnter;
+            tabItem.MouseLeave += GnosisCalendarWPF_MouseLeave;
+            tabItem.MouseDown += GnosisCalendarWPF_MouseDown;
+            tabItem.MouseUp += GnosisCalendarWPF_MouseUp;
+        }
+        
+
         public void GnosisAddChild(IGnosisObject child)
         {
-            throw new NotImplementedException();
+            if (child is GnosisCalendar)
+            {
+                if (calendars == null)
+                {
+                    calendars = new List<GnosisCalendar>();
+                }
+                calendars.Add((GnosisCalendar)child);
+            }
+            else if (child is GnosisGrid)
+            {
+                if (grids == null)
+                {
+                    grids = new List<GnosisGrid>();
+                }
+                grids.Add((GnosisGrid)child);
+            }
+            else if (child is GnosisPanel)
+            {
+                if (panels == null)
+                {
+                    panels = new List<GnosisPanel>();
+                }
+                panels.Add((GnosisPanel)child);
+            }
+            else if (child is GnosisTextArea)
+            {
+                if (textAreas == null)
+                {
+                    textAreas = new List<GnosisTextArea>();
+                }
+                textAreas.Add((GnosisTextArea)child);
+            }
+            else if (child is GnosisTree)
+            {
+                if (trees == null)
+                {
+                    trees = new List<GnosisTree>();
+
+                }
+                trees.Add((GnosisTree)child);
+            }
+            else
+            {
+                GlobalData.Singleton.ErrorHandler.HandleUnknowChildAddedError(this.GetType().Name, child.GetType().Name);
+            }
         }
 
         //private void GnosisCalendar_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -288,7 +412,7 @@ namespace GnosisControls
 
         public double GetAvailableWidth()
         {
-            return this.ActualWidth;
+            return tabItem.ActualWidth;
         }
 
         //public double GetPaddingHorizontal()
@@ -298,7 +422,7 @@ namespace GnosisControls
 
         //public void RemoveOutlineColour()
         //{
-            
+
         //}
 
         //public void SetBackgroundColour(string backgroundColour)
@@ -315,7 +439,7 @@ namespace GnosisControls
         public void SetGotFocusHandler(Action action)
         {
             GotFocusHandler = action;
-            this.GotFocus += GnosisCalendar_GotFocus;
+            tabItem.GotFocus += GnosisCalendar_GotFocus;
         }
 
         private void GnosisCalendar_GotFocus(object sender, System.Windows.RoutedEventArgs e)
@@ -330,7 +454,7 @@ namespace GnosisControls
         //    this.MouseEnter += GnosisCalendarWPF_MouseEnter;
         //}
 
-            
+
 
         private void GnosisCalendarWPF_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -341,7 +465,7 @@ namespace GnosisControls
         public void SetLostFocusHandler(Action action)
         {
             LostFocusHandler = action;
-            this.LostFocus += GnosisCalendarWPF_LostFocus;
+            tabItem.LostFocus += GnosisCalendarWPF_LostFocus;
         }
 
         private void GnosisCalendarWPF_LostFocus(object sender, System.Windows.RoutedEventArgs e)
@@ -388,7 +512,7 @@ namespace GnosisControls
 
         //public void SetOutlineColour(string outlineColour)
         //{
-            
+
         //}
 
         //public void SetPaddingHorizontal(double paddingHorizontal)
@@ -408,7 +532,7 @@ namespace GnosisControls
 
         public void SetTooltipVisible(bool visible)
         {
-            ToolTipService.SetIsEnabled(this, visible);
+            ToolTipService.SetIsEnabled(tabItem, visible);
         }
 
         //public void SetVisible(bool visible)
@@ -418,12 +542,13 @@ namespace GnosisControls
 
         public double GetHeight()
         {
-            return this.ActualHeight;
+            return tabItem.ActualHeight;
         }
 
-        public void SetMarginLeft(int marginLeft)
-        {
-            this.Margin = new Thickness(marginLeft, 0, 0, 0);
-        }
+        //public void SetMarginLeft(int horizontalSpacing)
+        //{
+        //    tabItem.Margin = new Thickness(horizontalSpacing, 0, 0, 0);
+        //}
+
     }
 }

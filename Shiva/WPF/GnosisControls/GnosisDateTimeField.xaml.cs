@@ -17,7 +17,7 @@ namespace GnosisControls
     /// <summary>
     /// Interaction logic for GnosisDateTimeFieldWPF.xaml
     /// </summary>
-    public partial class GnosisDateTimeField : Border, IGnosisDateTimeFieldImplementation
+    public partial class GnosisDateTimeField : Border, IGnosisDateTimeFieldImplementation, INotifyPropertyChanged
     {
         //private GnosisDateTimeFieldController controller;
         //private Action GotMouseFocusHandler;
@@ -376,7 +376,10 @@ namespace GnosisControls
             set
             {
                 readOnly = value;
-                Locked = readOnly;
+                if (readOnly)
+                {
+                    Locked = true;
+                }
             }
         }
 
