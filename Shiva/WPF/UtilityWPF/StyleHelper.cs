@@ -201,29 +201,11 @@ namespace ShivaWPF3.UtilityWPF
             }
 
 
+            //border thickness takes from container padding so must be applied after 
             if (gnosisStyle.GnosisBorderThickness > 0 && control is IGnosisBorderThicknessPossessor)
             {
-                if (control is GnosisSearchFrame)
-                {
-                    Setter setter = new Setter(GnosisSearchFrame.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
-                    windowsStyle.Setters.Add(setter);
-                }
-                else if (control is GnosisFrame)
-                {
-                    Setter setter = new Setter(GnosisFrame.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
-                    windowsStyle.Setters.Add(setter);
-                }
-                else if (control is GnosisGallery)
-                {
-                    Setter setter = new Setter(GnosisGallery.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
-                    windowsStyle.Setters.Add(setter);
-                }
-                else if (control is GnosisToolbarTray)
-                {
-                    Setter setter = new Setter(GnosisToolbarTray.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
-                    windowsStyle.Setters.Add(setter);
-                }
-
+                Setter setter = GetBorderThicknessSetter((IGnosisBorderThicknessPossessor)control, gnosisStyle);
+                windowsStyle.Setters.Add(setter);
             }
 
             if (gnosisStyle.ControlColour != null && gnosisStyle.ControlColour.Length > 0)
@@ -239,12 +221,6 @@ namespace ShivaWPF3.UtilityWPF
                 }
             }
 
-
-            if (control is IGnosisControlThicknessPossessor)
-            {
-                Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisStyle);
-                windowsStyle.Setters.Add(setter);
-            }
 
 
             if (gnosisStyle.OutlineColour != null && gnosisStyle.OutlineColour.Length > 0)
@@ -354,7 +330,14 @@ namespace ShivaWPF3.UtilityWPF
                 //}
             }
 
-           // Type controlModelType = controller.ControlImplementation.GetType();
+            //control thickness takes from margin or padding so must be applied after
+            if (control is IGnosisControlThicknessPossessor)
+            {
+                Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisStyle);
+                windowsStyle.Setters.Add(setter);
+            }
+
+            // Type controlModelType = controller.ControlImplementation.GetType();
             Type controlType = control.GetType();
 
             foreach (GnosisStyleCondition condition in gnosisStyle.Conditions.OrderBy(c => c.Order))
@@ -1250,6 +1233,10 @@ namespace ShivaWPF3.UtilityWPF
             else if (control is GnosisGallery)
             {
                 setter = new Setter(GnosisGallery.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
+            }
+            else if (control is GnosisGrid)
+            {
+                setter = new Setter(GnosisGrid.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
             }
             else if (control is GnosisTabItem)
             {

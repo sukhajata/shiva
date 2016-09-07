@@ -591,12 +591,12 @@ namespace GnosisControls
         //new FrameworkPropertyMetadata(0,
         //    FrameworkPropertyMetadataOptions.Inherits));
 
-        public static void SetHighlightThickness(UIElement element, int value)
+        public static void SetGnosisBorderThickness(UIElement element, int value)
         {
             element.SetValue(GnosisBorderThicknessProperty, value);
         }
 
-        public static int GetHighlightThickness(UIElement element)
+        public static int GetGnosisBorderThickness(UIElement element)
         {
             return (int)element.GetValue(GnosisBorderThicknessProperty);
         }

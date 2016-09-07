@@ -27,6 +27,23 @@ namespace GnosisControls
         private bool hasFocus;
         private bool hasMouseFocus;
         private bool hasMouseDown;
+        private bool hasBorder;
+
+        //protected Action GotMouseFocusHandler;
+        //protected Action LostMouseFocusHandler;
+        //protected Action MouseDownHandler;
+        //protected Action MouseUpHandler;
+        protected Action<double> WidthChangedHandler;
+        protected Action LoadedHandler;
+        protected Action<bool> IsVisibleChangedHandler;
+        protected Action GotFocusHandler;
+        protected Action LostFocusHandler;
+
+        private int horizontalSpacing;
+        private int verticalSpacing;
+        private int horizontalMargin;
+        private int verticalMargin;
+        private int gridLineThickness;
 
         private string caption;
         private GnosisController.HorizontalAlignmentType captionHorizontalAlignment;
@@ -74,6 +91,44 @@ namespace GnosisControls
             {
                 hasMouseDown = value;
                 OnPropertyChanged("HasMouseDown");
+            }
+        }
+
+        [GnosisProperty]
+        public bool HasBorder
+        {
+            get { return hasBorder; }
+            set { hasBorder = value; }
+        }
+
+        public int HorizontalMargin
+        {
+            get { return horizontalMargin; }
+            set
+            {
+                horizontalMargin = value;
+                this.SetHorizontalMarginExt(horizontalMargin);
+            }
+        }
+
+        public int VerticalMargin
+        {
+            get { return verticalMargin; }
+            set
+            {
+                verticalMargin = value;
+                this.SetVerticalMarginExt(verticalMargin);
+            }
+        }
+
+
+        [GnosisProperty]
+        public int GridLineThickness
+        {
+            get { return gridLineThickness; }
+            set
+            {
+                gridLineThickness = value;
             }
         }
 
@@ -483,18 +538,7 @@ namespace GnosisControls
         }
 
 
-        //protected Action GotMouseFocusHandler;
-        //protected Action LostMouseFocusHandler;
-        //protected Action MouseDownHandler;
-        //protected Action MouseUpHandler;
-        protected Action<double> WidthChangedHandler;
-        protected Action LoadedHandler;
-        protected Action<bool> IsVisibleChangedHandler;
-        protected Action GotFocusHandler;
-        protected Action LostFocusHandler;
 
-        private int horizontalSpacing;
-        private int verticalSpacing;
 
         public int HorizontalSpacing
         {
@@ -522,7 +566,60 @@ namespace GnosisControls
             }
         }
 
+        public static readonly DependencyProperty GnosisBorderThicknessProperty =
+          DependencyProperty.RegisterAttached("GnosisBorderThickness",
+          typeof(int), typeof(GnosisGrid), new FrameworkPropertyMetadata(GnosisBorderThicknessPropertyChanged));
+        //new FrameworkPropertyMetadata(0,
+        //    FrameworkPropertyMetadataOptions.Inherits));
 
+        public static void SetGnosisBorderThickness(UIElement element, int value)
+        {
+            element.SetValue(GnosisBorderThicknessProperty, value);
+        }
+
+        public static int GetGnosisBorderThickness(UIElement element)
+        {
+            return (int)element.GetValue(GnosisBorderThicknessProperty);
+        }
+
+        public static void GnosisBorderThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
+        {
+            GnosisGrid grid = source as GnosisGrid;
+            int newThickness = (int)e.NewValue;
+            int oldThickness = (int)e.OldValue;
+            double newHorizontalMargin;
+            double newVerticalMargin;
+
+            if (newThickness > oldThickness)
+            {
+                //increase border thickness, decrease margin
+                newHorizontalMargin = grid.HorizontalMargin - newThickness;
+                newVerticalMargin = grid.VerticalMargin - newThickness;
+
+                if (newHorizontalMargin >= 0 && newVerticalMargin >= 0)
+                {
+                    grid.Margin = new Thickness(newHorizontalMargin, newVerticalMargin, newHorizontalMargin, newVerticalMargin);
+                    grid.BorderThickness = new Thickness(newThickness);
+                    grid.Height = grid.Height + (newThickness - oldThickness);
+                }
+
+            }
+            else
+            {
+                //decrease border thickness, increase margin
+                newHorizontalMargin = grid.Margin.Left + oldThickness;
+                newVerticalMargin = grid.Margin.Top + oldThickness;
+
+                if (newHorizontalMargin >= 0 && newVerticalMargin >= 0)
+                {
+                    grid.Margin = new Thickness(newHorizontalMargin, newVerticalMargin, newHorizontalMargin, newVerticalMargin);
+                    grid.BorderThickness = new Thickness(newThickness);
+                    grid.Height = grid.Height - (oldThickness - newThickness);
+                }
+            }
+
+
+        }
 
         public GnosisGrid()
         {
@@ -702,7 +799,11 @@ namespace GnosisControls
             //    gridContent.RowDefinitions.Add(rowdef);
             //}
 
-            UIElement gridFieldWPF = (UIElement)gridField;
+            FrameworkElement gridFieldWPF = (FrameworkElement)gridField;
+
+            //apply grid lines
+            gridFieldWPF.Margin = new Thickness(0, 0, gridLineThickness, gridLineThickness);
+
             //if (alternateRowColour)
             //{
             //    txtWPF.Background = (Brush)Application.Current.FindResource("LightPrimary");
@@ -780,7 +881,7 @@ namespace GnosisControls
 
         public double GetAvailableWidth()
         {
-            return this.ActualWidth - SystemParameters.VerticalScrollBarWidth;
+            return this.ActualWidth - SystemParameters.VerticalScrollBarWidth - horizontalMargin;
         }
 
         public void Clear()

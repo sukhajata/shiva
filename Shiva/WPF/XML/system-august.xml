@@ -1,7 +1,7 @@
 <GnosisSystem SystemName="Gnosis" UserName="Sukhajata" SystemURL="www.gnosis.co.nz" DeviceType="Desktop" HostName="BHEEMA" UserID="2" SystemID="57" VersionNo="1" ProtectionStatus="1" ShowTooltips="0" ScalePercentage="100">
   <GnosisStyleSet>
     <GnosisStyle Name="Caption" Font="Calibri" FontSize="9" ControlColour="000000" ContentColour="000000" BackgroundColour="DCC864" VerticalPadding="1" HorizontalPadding="1" CaptionSpacing="4" CaptionRelativePosition="Above" ControlThickness="1" />
-    <GnosisStyle Name="Field" Font="Calibri" FontSize="10" ControlColour="000000" ContentColour="000000" BackgroundColour="FFFFFF" ContainerHorizontalPadding="5" ContainerVerticalPadding="5" VerticalPadding="6" HorizontalPadding="8" VerticalMargin="2" HorizontalMargin="2" VerticalSpacing="4" HorizontalSpacing="10" BorderThickness="0" ControlThickness="1" >
+    <GnosisStyle Name="Field" Font="Calibri" FontSize="10" ControlColour="000000" ContentColour="000000" BackgroundColour="FFFFFF" ContainerHorizontalPadding="5" ContainerVerticalPadding="5" VerticalPadding="6" HorizontalPadding="8" VerticalMargin="2" HorizontalMargin="2" VerticalSpacing="4" HorizontalSpacing="10" BorderThickness="1" ControlThickness="1" >
       <GnosisStyleCondition Property="Disabled" Value="1" Name="Generic Disabled" Order="1" ControlColour="5F5F5F" ContentColour="5F5F5F" />
       <GnosisStyleCondition Property="Disabled" Value="0" Name="Generic Enabled" Order="2">
         <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Generic Mouse Focus" Order="1" BackgroundColour="FFFFB3">

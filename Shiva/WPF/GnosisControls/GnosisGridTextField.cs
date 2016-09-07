@@ -585,7 +585,7 @@ namespace GnosisControls
             this.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
             this.VerticalContentAlignment = System.Windows.VerticalAlignment.Top;
             this.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-            this.Margin = new System.Windows.Thickness(0, 0, 1, 1);
+           // this.Margin = new System.Windows.Thickness(0, 0, 1, 1);
 
             this.MouseEnter += GnosisTextFieldWPF_MouseEnter;
             this.MouseLeave += GnosisTextFieldWPF_MouseLeave;

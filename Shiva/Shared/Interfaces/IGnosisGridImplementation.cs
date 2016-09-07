@@ -4,7 +4,8 @@ using Shiva.Shared.BaseControllers;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisGridImplementation : IGnosisInnerLayoutControlImplementation, IGnosisSpacingPossessor
+    public interface IGnosisGridImplementation : IGnosisInnerLayoutControlImplementation, IGnosisSpacingPossessor,
+        IGnosisMarginPossessor, IGnosisBorderThicknessPossessor
     {
         //properties
         bool GridIsLoaded { get;  }
@@ -13,6 +14,7 @@ namespace Shiva.Shared.Interfaces
         string CaptionAlignmentHorizontal { get; set; }
         string CaptionAlignmentVertical { get; set; }
         string Dataset { get; set; }
+        int GridLineThickness { get; set; }
         int MinDisplayRows { get; set; }
         int MaxDisplayRows { get; set; }
         int MaxLines { get; set; }

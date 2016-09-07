@@ -110,7 +110,7 @@
       </GnosisComboField>
       <GnosisNumberField Name="search_max_rows" ID="14" ControlType="Number Field" Caption="Max Rows" Order="10" Dataset="Search Type" DatasetItem="Max Rows" />
     </GnosisPanel>
-    <GnosisSearchResultsGrid Name="SearchTypeResults" ID="4" ControlType="Search Results Grid" Caption="Search Type Results" Tooltip="Results for Search Type" Order="3" MinDisplayRows="1" MaxWrapRows="2" MaxLines="4" DocumentSystemID="57" DocumentEntityID="91" Dataset="Result">
+    <GnosisSearchResultsGrid Name="SearchTypeResults" ID="4" GridLineThickness="1" ControlType="Search Results Grid" Caption="Search Type Results" Tooltip="Results for Search Type" Order="3" MinDisplayRows="1" MaxWrapRows="2" MaxLines="4" DocumentSystemID="57" DocumentEntityID="91" Dataset="Result">
       <GnosisTextResults Name="result_order" ID="15" ControlType="Text Results" Caption="Result Order" Order="1" Hidden="1" Dataset="Result" DatasetItem="Result Order" />
       <GnosisTextResults Name="type_id" ID="16" ControlType="Text Results" Caption="Type Id" Order="2" Hidden="1" Dataset="Result" DatasetItem="Type Id" />
       <GnosisTextResults Name="type_name" ID="17" ControlType="Text Results" Caption="Type Name" Order="3" Dataset="Result" DatasetItem="Type Name" />
