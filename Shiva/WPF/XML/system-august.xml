@@ -16,7 +16,7 @@
       <GnosisStyleCondition Property="DatasetDeleted" Value="1" Name="Generic Deleted" Order="6" IsStrikethrough="1" />
       <GnosisStyleCondition Property="Selected" Value="0|1" Name="Has Selected" Order="7">
         <GnosisStyleCondition Property="Selected" Value="1" Name="Control Selected" Order="1" BackgroundColour="FFFF80" />
-        <GnosisStyleCondition Property="Selected" Value="0" Name="Control Unselected" Order="2" BackgroundColour="FFFFFF" />
+        <!-- <GnosisStyleCondition Property="Selected" Value="0" Name="Control Unselected" Order="2" BackgroundColour="FFFFFF" /> -->
         <GnosisStyleCondition Property="Locked" Value="0|null" Name="Has Selected Unlocked" Order="3">
           <GnosisStyleCondition Property="Disabled" Value="0" Name="Has Selected Enabled" Order="1" ControlColour="800080" ControlThickness="2">
             <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Has Selected Mouse Focus" Order="1" ControlColour="A64CA6" ControlThickness="2">
@@ -54,7 +54,7 @@
       </GnosisStyleCondition>
     </GnosisStyle>
     <GnosisStyle Name="Alternate Caption" Font="Calibri" FontSize="9" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="665814" VerticalPadding="1" HorizontalPadding="1" CaptionSpacing="2" CaptionRelativePosition="Above" ControlThickness="1" />
-    <GnosisStyle Name="Alternate Field" Font="Calibri" FontSize="10" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="800080" VerticalPadding="6" HorizontalPadding="8" VerticalSpacing="4" HorizontalSpacing="6" ContainerVerticalPadding="2" ContainerHorizontalPadding="2" BorderThickness="1" ControlThickness="1" >
+    <GnosisStyle Name="Alternate Field" Font="Calibri" FontSize="10" ControlColour="FFFFFF" ContentColour="FFFFFF" BackgroundColour="800080" VerticalPadding="6" HorizontalPadding="8" VerticalSpacing="4" HorizontalSpacing="1" ContainerVerticalPadding="2" ContainerHorizontalPadding="2" BorderThickness="1" ControlThickness="1" >
       <GnosisStyleCondition Property="Disabled" Value="1" Name="Generic Disabled" Order="1" ControlColour="E7E7E7" ContentColour="E7E7E7" />
       <GnosisStyleCondition Property="Disabled" Value="0" Name="Generic Enabled" Order="2">
         <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Generic Mouse Focus" Order="1" BackgroundColour="CC00CC">

@@ -31,7 +31,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border Background="Transparent" Height="Auto" Padding="5,5,5,5" Width="Auto">
+                        <Border Background="Transparent" Height="Auto" Padding="1" Width="Auto">
                             <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{StaticResource TreeViewItem.TreeArrow.Static.Fill}" Stroke="{StaticResource TreeViewItem.TreeArrow.Static.Stroke}">
                                 <Path.RenderTransform>
                                     <RotateTransform Angle="135" CenterY="3" CenterX="3"/>
@@ -101,7 +101,7 @@
                                     Grid.Column="1"
                                     BorderThickness="{TemplateBinding BorderThickness}" 
                                     Background="{TemplateBinding Background}" 
-                                     
+                                     Margin="0"
                                     Padding="{TemplateBinding Padding}"
                                     SnapsToDevicePixels="true">
                     <ContentPresenter x:Name="PART_Header" ContentSource="Header" 

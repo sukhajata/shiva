@@ -446,12 +446,12 @@ namespace GnosisControls
 
 
         //Because of the complex way that margins are applied in TreeViews, the following rules must be used to get the desired effect
-        //1.first child has top and bottom margin unless it has no parent, in which case only bottom margin
-        //2.middle children have bottom margin only
-        //3.last child has no margin
+        //1.first child has top and bottom spacing unless it has no parent, in which case only bottom margin
+        //2.middle children have bottom spacig only
+        //3.last child has no vertical spacing
         public void ApplySpacing()
         {
-            if (verticalSpacing > 0)
+            if (verticalSpacing > 0 || horizontalSpacing > 0)
             {
                 for (int i = 0; i < Items.Count; i++)
                 {
@@ -460,18 +460,26 @@ namespace GnosisControls
                     {
                         if (i < Items.Count - 1)
                         {
-                            galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin, galleryItem.VerticalMargin, 
-                                galleryItem.HorizontalMargin, galleryItem.VerticalMargin + verticalSpacing);
+                            galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + galleryItem.HorizontalSpacing, 
+                                galleryItem.VerticalMargin, galleryItem.HorizontalMargin, galleryItem.VerticalMargin + verticalSpacing);
+
+                        }
+                        else
+                        {
+                            galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + galleryItem.HorizontalSpacing,
+                               galleryItem.VerticalMargin, galleryItem.HorizontalMargin, galleryItem.VerticalMargin);
 
                         }
                     }
 
                     if (galleryItem.Items.Count > 0)
                     {
-                        galleryItem.ApplySpacing(verticalSpacing);
+                        galleryItem.ApplySpacing();
                     }
                 }
             }
+
+           
         }
 
        

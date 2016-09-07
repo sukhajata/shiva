@@ -48,6 +48,7 @@ namespace GnosisControls
             {
                 hasFocus = value;
                 OnPropertyChanged("HasFocus");
+                headerButton.Active = true;
             }
         }
         public bool HasMouseFocus

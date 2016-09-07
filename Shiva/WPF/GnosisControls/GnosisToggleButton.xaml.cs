@@ -73,7 +73,7 @@ namespace GnosisControls
             {
                 hasMouseFocus = value;
                 OnPropertyChanged("HasMouseFocus");
-                //  string xaml = XamlWriter.Save(this.Style);
+               // string xaml = XamlWriter.Save(this.Style);
             }
         }
         public bool HasMouseDown
@@ -786,6 +786,7 @@ namespace GnosisControls
         {
             //MouseDownHandler.Invoke();
             HasMouseDown = true;
+            Active = !Active;
         }
 
         //public void SetMouseUpHandler(Action action)
