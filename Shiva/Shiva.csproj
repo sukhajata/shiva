@@ -792,6 +792,12 @@
   <ItemGroup>
     <Folder Include="WPF\GridControlsWPF\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="WPF\XML\system-september.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="WPF\XML\entity-2247-september.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

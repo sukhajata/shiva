@@ -89,12 +89,16 @@ namespace Shiva.Shared.Utility
                 }
 
                 PropertyInfo propInfo = baseObject.GetType().GetProperty(shivaName);
-                //if (propInfo == null)
-                //{
+                if (propInfo == null)
+                {
                 //    var props = baseObject.GetType().GetProperties();
-                //}
+						GlobalData.Singleton.ErrorHandler.HandleError("Property not implemented on " + baseObject.GetType().Name + ": " + shivaName, 
+						"GnosisXMLHelper");
+                }
                 //propInfo.SetValue(baseObject, attribute.Value);
-                object val;
+                else
+				{
+				object val;
                 if (propInfo.PropertyType == typeof(bool) &&  xAttribute.Value.Equals("0"))
                 {
                     val = false;
@@ -109,6 +113,7 @@ namespace Shiva.Shared.Utility
                 }
 
                 propInfo.SetValue(baseObject, val, null);
+				}
             }
 
             //elements

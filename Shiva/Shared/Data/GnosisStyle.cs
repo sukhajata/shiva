@@ -38,6 +38,8 @@ namespace GnosisControls
 
         private bool isOutlined;
 
+		private int lineWidth;
+
         private string outlineColour;
 
         private bool isStrikethrough;
@@ -263,6 +265,14 @@ namespace GnosisControls
             get { return isStrikethrough; }
             set { isStrikethrough = value; }
         }
+
+		[GnosisProperty]
+		public int LineWidth
+		{
+			get { return lineWidth;}
+			set { lineWidth = value;}
+
+		}
 
         public virtual void GnosisAddChild(IGnosisObject child)
         {
