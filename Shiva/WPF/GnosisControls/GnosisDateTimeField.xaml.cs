@@ -687,8 +687,8 @@ namespace GnosisControls
            // this.PropertyChanged += GnosisDateTimeField_PropertyChanged;
 
 
-            SetDateFormat(GlobalData.GnosisDateFormat.LONG);
-            SetTimeFormat(GlobalData.GnosisTimeFormat.MINUTE);
+           // SetDateFormat(GlobalData.GnosisDateFormat.LONG);
+           // SetTimeFormat(GlobalData.GnosisTimeFormat.MINUTE);
         }
 
         //private void GnosisDateTimeField_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -166,7 +166,8 @@
     <Compile Include="Shared\Generic\GnosisGenericOutput.cs" />
     <Compile Include="Shared\Generic\GnosisGenericToggleMenuItem.cs" />
     <Compile Include="Shared\GnosisControls\GnosisAttribute.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisButtonGroup.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisButtonGroupImplementation.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisButtonGroup.cs" />
     <Compile Include="WPF\GnosisControls\GnosisGallerySearchItem.cs" />
     <Compile Include="Shared\Interfaces\IGnosisTabImplementation.cs" />
     <Compile Include="Shared\Interfaces\IGnosisTabItemImplementation.cs" />
@@ -771,7 +772,9 @@
     <Resource Include="WPF\nataraj.ico" />
     <Resource Include="WPF\XML\doc-entity.xml" />
     <Resource Include="WPF\XML\doc-instance.xml" />
-    <Resource Include="WPF\XML\entity-2247.xml" />
+    <Resource Include="WPF\XML\entity-2247.xml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Resource Include="WPF\XML\entity-91.xml" />
     <Resource Include="WPF\XML\Entity_Type.xml" />
     <Resource Include="WPF\XML\instance-2247-global.xml" />

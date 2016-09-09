@@ -6,7 +6,7 @@ using System.ComponentModel;
 namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisGridFieldImplementation : IGnosisContentControlImplementation, 
-        INotifyPropertyChanged, IGnosisDisplayCharsPossessor, IGnosisPaddingPossessor
+        INotifyPropertyChanged, IGnosisDisplayCharsPossessor, IGnosisPaddingPossessor, IGnosisControlThicknessPossessor
     {
         //properties
         bool IsEvenRow { get; set; }

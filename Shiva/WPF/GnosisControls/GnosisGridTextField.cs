@@ -549,24 +549,27 @@ namespace GnosisControls
             GnosisGridTextField textField = source as GnosisGridTextField;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
-            double marginHorizontal;
-            double marginVertical;
+            double newHorizontalPadding;
+            double newVerticalPadding;
 
             if (newThickness > oldThickness)
             {
-                //increase border thickness, decrease margin
-                marginHorizontal = textField.Margin.Left - newThickness;
-                marginVertical = textField.Margin.Top - newThickness;
+                //increase border thickness, decrease padding
+                newHorizontalPadding = textField.HorizontalPadding - newThickness;
+                newVerticalPadding = textField.VerticalPadding - newThickness;
             }
             else
             {
-                //decrease border thickness, increase margin
-                marginHorizontal = textField.Margin.Left + oldThickness;
-                marginVertical = textField.Margin.Top + oldThickness;
+                //decrease border thickness, increase padding
+                newHorizontalPadding = textField.HorizontalPadding + oldThickness;
+                newVerticalPadding = textField.VerticalPadding + oldThickness;
             }
 
-            textField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-            textField.BorderThickness = new Thickness(newThickness);
+            if (newHorizontalPadding >= 0 && newVerticalPadding >= 0)
+            {
+                textField.Margin = new Thickness(newHorizontalPadding, newVerticalPadding, newHorizontalPadding, newVerticalPadding);
+                textField.BorderThickness = new Thickness(newThickness);
+            }
 
         }
 

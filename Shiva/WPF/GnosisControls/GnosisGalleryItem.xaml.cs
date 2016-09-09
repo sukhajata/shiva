@@ -273,7 +273,7 @@ namespace GnosisControls
                 hasMouseFocus = value;
                 OnPropertyChanged("HasMouseFocus");
                 // this.Background = StyleHelper.GetBrushFromHex("CC00CC");
-                // string xaml = XamlWriter.Save(this.Style);
+               // string xaml = XamlWriter.Save(this.Style);
             }
         }
 

@@ -1,29 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ShivaWPF3.UtilityWPF;
 using Shiva.Shared.Interfaces;
 using Shiva.Shared.BaseControllers;
-using System.ComponentModel;
-using System.Windows.Markup;
 using Shiva.Shared.Data;
+using ShivaWPF3.UtilityWPF;
+using System.Windows;
+using System.ComponentModel;
 
 namespace GnosisControls
 {
-    public partial class GnosisButton : Button, IGnosisButtonImplementation, INotifyPropertyChanged
+    public class GnosisButtonGroup : Border, IGnosisButtonGroupImplementation
     {
-        private Action clickHandler;
+        private StackPanel pnlContent;
+
         protected Action GotFocusHandler;
         protected Action LostFocusHandler;
 
@@ -90,24 +81,7 @@ namespace GnosisControls
             }
         }
 
-        [GnosisPropertyAttribute]
-        public bool Disabled
-        {
-            get { return disabled; }
-            set
-            {
-                disabled = value;
-                this.IsEnabled = !disabled;
-                if (GnosisIcon != null)
-                {
-                    btn.Content = new Image
-                    {
-                        Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, btn.IsEnabled)))
-                    };
-                }
-                OnPropertyChanged("Disabled");
-            }
-        }
+       
 
         [GnosisPropertyAttribute]
         public string ContentVerticalAlignment
@@ -136,7 +110,7 @@ namespace GnosisControls
             set
             {
                 contentVerticalAlignment = value;
-                this.SetVerticalContentAlignmentExt(contentVerticalAlignment);
+               // this.SetVerticalContentAlignmentExt(contentVerticalAlignment);
             }
         }
 
@@ -167,7 +141,7 @@ namespace GnosisControls
             set
             {
                 contentHorizontalAlignment = value;
-                this.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
+               // this.SetHorizontalContentAlignmentExt(contentHorizontalAlignment);
             }
         }
 
@@ -321,7 +295,7 @@ namespace GnosisControls
             set
             {
                 caption = value;
-                btn.Content = caption;
+               // btn.Content = caption;
                 OnPropertyChanged("Caption");
             }
         }
@@ -453,40 +427,14 @@ namespace GnosisControls
             {
                 tooltip = value;
                 this.ToolTip = tooltip;
-               // OnPropertyChanged("Tooltip");
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public string GnosisIcon
-        {
-            get
-            {
-                return icon;
-            }
-
-            set
-            {
-                icon = value;
-                btn.Content = new Image
-                {
-                    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, btn.IsEnabled)))
-                };
-                if (horizontalPadding > 0)
-                {
-                    this.SetHorizontalPaddingExt(0);
-                }
-
-                if (verticalPadding > 0)
-                {
-                    this.SetVerticalPaddingExt(0);
-                }
-                OnPropertyChanged("GnosisIcon");
+                // OnPropertyChanged("Tooltip");
             }
         }
 
        
-       
+
+
+
 
         public int HorizontalPadding
         {
@@ -494,10 +442,10 @@ namespace GnosisControls
             set
             {
                 horizontalPadding = value;
-                if (GnosisIcon == null)
-                {
-                    this.SetHorizontalPaddingExt(horizontalPadding);
-                }
+                //if (GnosisIcon == null)
+                //{
+                //    this.SetHorizontalPaddingExt(horizontalPadding);
+                //}
             }
         }
 
@@ -507,10 +455,10 @@ namespace GnosisControls
             set
             {
                 verticalPadding = value;
-                if (GnosisIcon == null)
-                {
-                    this.SetVerticalPaddingExt(verticalPadding);
-                }
+                //if (GnosisIcon == null)
+                //{
+                //    this.SetVerticalPaddingExt(verticalPadding);
+                //}
             }
         }
 
@@ -536,9 +484,9 @@ namespace GnosisControls
 
         public static readonly DependencyProperty ControlThicknessProperty =
          DependencyProperty.RegisterAttached("ControlThickness",
-            typeof(int), typeof(GnosisButton), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
+            typeof(int), typeof(GnosisButtonGroup), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
 
-       
+
         public static void SetControlThickness(UIElement element, int value)
         {
             element.SetValue(ControlThicknessProperty, value);
@@ -551,7 +499,7 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisButton button = source as GnosisButton;
+            GnosisButtonGroup buttonGroup = source as GnosisButtonGroup;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
             double marginHorizontal;
@@ -560,37 +508,40 @@ namespace GnosisControls
             if (newThickness > oldThickness)
             {
                 //increase border thickness, decrease margin, increase height
-                marginHorizontal = button.Margin.Left - newThickness;
-                marginVertical = button.Margin.Top - newThickness;
-                button.Height = button.Height + (newThickness - oldThickness);
+                marginHorizontal = buttonGroup.Margin.Left - newThickness;
+                marginVertical = buttonGroup.Margin.Top - newThickness;
+                buttonGroup.Height = buttonGroup.Height + (newThickness - oldThickness);
             }
             else
             {
                 //decrease border thickness, increase margin, decrease height
-                marginHorizontal = button.Margin.Left + oldThickness;
-                marginVertical = button.Margin.Top + oldThickness;
-                button.Height = button.Height - (oldThickness - newThickness);
+                marginHorizontal = buttonGroup.Margin.Left + oldThickness;
+                marginVertical = buttonGroup.Margin.Top + oldThickness;
+                buttonGroup.Height = buttonGroup.Height - (oldThickness - newThickness);
             }
 
-            button.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-            button.BorderThickness = new Thickness(newThickness);
+            buttonGroup.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+            buttonGroup.BorderThickness = new Thickness(newThickness);
 
         }
 
-       
 
-        public GnosisButton()
+
+        public GnosisButtonGroup()
         {
-            InitializeComponent();
+            //InitializeComponent();
+            pnlContent = new StackPanel();
+            pnlContent.Orientation = Orientation.Horizontal;
+            this.Child = pnlContent;
 
             this.MouseEnter += GnosisButtonWPF_MouseEnter;
             this.MouseLeave += GnosisButtonWPF_MouseLeave;
             this.PreviewMouseDown += GnosisButtonWPF_MouseDown;
             this.PreviewMouseUp += GnosisButtonWPF_MouseUp;
 
-          //  this.PropertyChanged += GnosisButton_PropertyChanged;
+            //  this.PropertyChanged += GnosisButton_PropertyChanged;
 
-           
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -644,32 +595,21 @@ namespace GnosisControls
         //    }
         //}
 
-        public void SetClickHandler(Action _clickHandler)
-        {
-            clickHandler = _clickHandler;
-            btn.Click += GnosisButtonWPF_Click;
-        }
 
-
-
-        private void GnosisButtonWPF_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            clickHandler.Invoke();
-        }
 
         public double GetAvailableWidth()
         {
-            return this.ActualWidth;
+            return this.ActualWidth - (horizontalMargin * 2);
         }
 
 
-       
+
 
         private void GnosisButtonWPF_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-           // GotMouseFocusHandler.Invoke();
+            // GotMouseFocusHandler.Invoke();
             HasMouseFocus = true;
-           // string xaml = XamlWriter.Save(this.Style);
+            // string xaml = XamlWriter.Save(this.Style);
         }
 
         public void SetHorizontalAlignment(GnosisController.HorizontalAlignmentType horizontalAlignment)
@@ -678,10 +618,10 @@ namespace GnosisControls
 
         }
 
-       
+
         private void GnosisButtonWPF_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-           // LostMouseFocusHandler.Invoke();
+            // LostMouseFocusHandler.Invoke();
             HasMouseFocus = false;
         }
 
@@ -693,7 +633,7 @@ namespace GnosisControls
 
         private void GnosisButtonWPF_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           // MouseDownHandler.Invoke();
+            // MouseDownHandler.Invoke();
             HasMouseDown = true;
         }
 
@@ -723,10 +663,10 @@ namespace GnosisControls
         //    }
         //}
 
-        public double GetPaddingHorizontal()
-        {
-            return btn.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return btn.Padding.Left;
+        //}
 
         public void SetWidth(double width)
         {
@@ -783,7 +723,7 @@ namespace GnosisControls
 
         public void SetHeight(double fieldHeight)
         {
-            btn.Height = fieldHeight;
+            this.Height = fieldHeight;
         }
 
         public void SetVerticalAlignment(GnosisController.VerticalAlignmentType verticalAlignment)
@@ -793,9 +733,7 @@ namespace GnosisControls
 
         public void SetStrikethrough(bool strikethrough)
         {
-           
+
         }
-
-
     }
 }

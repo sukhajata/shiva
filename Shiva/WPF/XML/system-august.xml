@@ -69,7 +69,7 @@
       <GnosisStyleCondition Property="DatasetDeleted" Value="1" Name="Generic Deleted" Order="6" IsStrikethrough="1" />
       <GnosisStyleCondition Property="Selected" Value="0|1" Name="Has Selected" Order="7">
         <GnosisStyleCondition Property="Selected" Value="1" Name="Control Selected" Order="1" BackgroundColour="FF00FF" />
-        <!--<GnosisStyleCondition Property="Selected" Value="0" Name="Control Unselected" Order="2" BackgroundColour="800080" />-->
+        <GnosisStyleCondition Property="Selected" Value="0" Name="Control Unselected" Order="2" BackgroundColour="800080" />
         <GnosisStyleCondition Property="Locked" Value="0|null" Name="Has Selected Unlocked" Order="3">
           <GnosisStyleCondition Property="Disabled" Value="0" Name="Has Selected Enabled" Order="1" ControlColour="FFFF80" ControlThickness="2">
             <GnosisStyleCondition Property="HasMouseFocus" Value="1" Name="Has Selected Mouse Focus" Order="1" ControlColour="D9B380" ControlThickness="2">
