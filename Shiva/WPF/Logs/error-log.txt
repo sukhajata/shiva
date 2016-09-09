@@ -28,3 +28,6 @@ GnosisPanelController.LayoutChildren
 err no.1
 panel width 0
 GnosisPanelController.LayoutChildren
+err no.1
+Property not implemented on GnosisStyle: LineWidth
+GnosisXMLHelper

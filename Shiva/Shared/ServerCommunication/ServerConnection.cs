@@ -70,23 +70,23 @@ namespace Shiva.Shared.ServerCommunication
                 XElement xSystem;
 
                 //if online
-                //connection = new SqlConnection(connectionString);
-                //xSystem = GetGnosisSystemXML(xSystemRequest);
+                connection = new SqlConnection(connectionString);
+                xSystem = GetGnosisSystemXML(xSystemRequest);
 
-                //using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("system-august.xml"), FileMode.Create))
+               // using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("system-september.xml"), FileMode.Create))
                 //{
-                //    using (StreamWriter sw = new StreamWriter(stream))
-                //    {
-                //        sw.Write(xSystem.ToString());
+                 //   using (StreamWriter sw = new StreamWriter(stream))
+                  //  {
+                   //   sw.Write(xSystem.ToString());
 
                 //    }
-                //}
+               // }
                 //else 
-                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("system-august.xml"), FileMode.Open))
-                {
-                    xSystem = XElement.Load(stream);
+                //using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("system-august.xml"), FileMode.Open))
+                //{
+                //    xSystem = XElement.Load(stream);
 
-                }
+                //}
 
                 //end if
 
@@ -130,26 +130,26 @@ namespace Shiva.Shared.ServerCommunication
             string input = xRequest.ToString();
 
             //if offline
-            if (xRequest.Attribute("EntityID").Value.Equals("2247"))
-            {
-                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("instance-2247-global.xml"), FileMode.Open))
-                {
-                    XElement xInstance = XElement.Load(stream);
-                    instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
-                    instance.Content = xInstance;
-                }
-            }
-            else if (xRequest.Attribute("EntityID").Value.Equals("91"))
-            {
-                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("instance-91.xml"), FileMode.Open))
-                {
-                    XElement xInstance = XElement.Load(stream);
-                    instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
-                    instance.Content = xInstance;
-                }
-            }
-            else
-            {
+          //  if (xRequest.Attribute("EntityID").Value.Equals("2247"))
+            //{
+              //  using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("instance-2247-global.xml"), FileMode.Open))
+                //{
+                 //   XElement xInstance = XElement.Load(stream);
+                   // instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
+                   // instance.Content = xInstance;
+               // }
+            //}
+           // else if (xRequest.Attribute("EntityID").Value.Equals("91"))
+            //{
+              //  using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("instance-91.xml"), FileMode.Open))
+               // {
+                 //   XElement xInstance = XElement.Load(stream);
+                 //   instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
+                //    instance.Content = xInstance;
+                //}
+            //}
+            //else
+            //{
                 //end if
                 try
                 {
@@ -184,7 +184,7 @@ namespace Shiva.Shared.ServerCommunication
                     connection.Close();
                 }
             //if offline
-            }
+            //}
           //end if
             return instance;
 
@@ -195,25 +195,27 @@ namespace Shiva.Shared.ServerCommunication
             XElement xEntity = null;
             string input = entityRequest.ToString();
 
+			  
+
             //if offline
-            if (entityRequest.Attribute("EntityID").Value.Equals("2247"))
-            {
-                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-2247.xml"), FileMode.Open))
-                {
-                    xEntity = XElement.Load(stream);
+            //if (entityRequest.Attribute("EntityID").Value.Equals("2247"))
+            //{
+             //   using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-2247.xml"), FileMode.Open))
+               // {
+                //    xEntity = XElement.Load(stream);
 
-                }
-            }
-            else if (entityRequest.Attribute("EntityID").Value.Equals("91"))
-            {
-                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-91.xml"), FileMode.Open))
-                {
-                    xEntity = XElement.Load(stream);
+                //}
+            //}
+           // else if (entityRequest.Attribute("EntityID").Value.Equals("91"))
+            //{
+              //  using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-91.xml"), FileMode.Open))
+               // {
+                //    xEntity = XElement.Load(stream);
 
-                }
-            }
-            else
-            {
+//                }
+  //          }
+    //        else
+      //      {
                 //end if
                 try
                 {
@@ -228,6 +230,15 @@ namespace Shiva.Shared.ServerCommunication
                         using (StringReader sr = new StringReader(res))
                         {
                             xEntity = XElement.Load(sr);
+
+							 using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-2247-september.xml"), FileMode.Create))
+               {
+                  using (StreamWriter sw = new StreamWriter(stream))
+                 {
+					sw.Write(xEntity.ToString());
+
+                   }
+                }
                         }
 
                     }
@@ -241,7 +252,7 @@ namespace Shiva.Shared.ServerCommunication
                     connection.Close();
                 }
             //if offline
-            }
+        //    }
             //end if
 
             return xEntity;
