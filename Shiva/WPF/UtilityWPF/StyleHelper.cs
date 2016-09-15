@@ -374,7 +374,15 @@ namespace ShivaWPF3.UtilityWPF
                         BuildStyleConditions(control, condition, windowsStyle);
 
                     }
+                    else if (condition.Value.Equals("0|null"))
+                    {
+                        //not necessary for control to have this property
+                        foreach (GnosisStyleCondition child in condition.Conditions)
+                        {
+                            BuildStyleConditions(control, child, windowsStyle);
+                        }
 
+                    }
                 }
             }
 
@@ -500,6 +508,15 @@ namespace ShivaWPF3.UtilityWPF
                     if (controlType.GetProperty(PropertyNameConverter.GetShivaPropertyName(condition.Property)) != null)
                     {
                         BuildStyleConditions(control, condition, windowsStyle);
+
+                    }
+                    else if (condition.Value.Equals("0|null"))
+                    {
+                        //not necessary for control to have this property
+                        foreach (GnosisStyleCondition child in condition.Conditions)
+                        {
+                            BuildStyleConditions(control, child, windowsStyle);
+                        }
 
                     }
 
@@ -741,118 +758,118 @@ namespace ShivaWPF3.UtilityWPF
         //    //}
         //}
 
-        public void ApplyCondition(IGnosisVisibleControlImplementation control, IGnosisVisibleControlImplementation bindingSource, GnosisStyleCondition gnosisStyleCondition, Style windowsStyle)
-        {
+        //public void ApplyCondition(IGnosisVisibleControlImplementation control, IGnosisVisibleControlImplementation bindingSource, GnosisStyleCondition gnosisStyleCondition, Style windowsStyle)
+        //{
 
-            //Setter overrideStyleSetter = new Setter(Control.OverridesDefaultStyleProperty, true);
-            //windowsStyle.Setters.Add(overrideStyleSetter);
+        //    //Setter overrideStyleSetter = new Setter(Control.OverridesDefaultStyleProperty, true);
+        //    //windowsStyle.Setters.Add(overrideStyleSetter);
 
-            if (gnosisStyleCondition.Font != null && gnosisStyleCondition.Font.Length > 0)
-            {
-                Setter setter = new Setter(Control.FontFamilyProperty, new FontFamily(gnosisStyleCondition.Font));
-                windowsStyle.Setters.Add(setter);
-            }
-            if (gnosisStyleCondition.FontSize > 0)
-            {
-                Setter setter = new Setter(Control.FontSizeProperty, (double)gnosisStyleCondition.FontSize);
-                windowsStyle.Setters.Add(setter);
-            }
-            if (gnosisStyleCondition.ContentColour != null && gnosisStyleCondition.ContentColour.Length > 0)
-            {
-                Setter setter = new Setter(Control.ForegroundProperty, GetBrushFromHex(gnosisStyleCondition.ContentColour));
-                windowsStyle.Setters.Add(setter);
-            }
-
-
-            if (gnosisStyleCondition.BackgroundColour != null && gnosisStyleCondition.BackgroundColour.Length > 0)
-            {
-                Setter setter = new Setter(Control.BackgroundProperty, GetBrushFromHex(gnosisStyleCondition.BackgroundColour));
-                windowsStyle.Setters.Add(setter);
-            }
-
-            if (gnosisStyleCondition.ControlColour != null && gnosisStyleCondition.ControlColour.Length > 0)
-            {
-                if (control is IGnosisContentControlImplementation)
-                {
-                    Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisStyleCondition.ControlColour));
-                    windowsStyle.Setters.Add(setter);
-
-                    //Setter setter2 = new Setter(Control.BorderThicknessProperty, 1);
-                    //windowsStyle.Setters.Add(setter2);
-                }
-            }
-
-            if (gnosisStyleCondition.ControlThickness > 0)
-            {
-                if (control is IGnosisControlThicknessPossessor)
-                {
-                    Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisStyleCondition);
-                    windowsStyle.Setters.Add(setter);
-                }
-            }
+        //    if (gnosisStyleCondition.Font != null && gnosisStyleCondition.Font.Length > 0)
+        //    {
+        //        Setter setter = new Setter(Control.FontFamilyProperty, new FontFamily(gnosisStyleCondition.Font));
+        //        windowsStyle.Setters.Add(setter);
+        //    }
+        //    if (gnosisStyleCondition.FontSize > 0)
+        //    {
+        //        Setter setter = new Setter(Control.FontSizeProperty, (double)gnosisStyleCondition.FontSize);
+        //        windowsStyle.Setters.Add(setter);
+        //    }
+        //    if (gnosisStyleCondition.ContentColour != null && gnosisStyleCondition.ContentColour.Length > 0)
+        //    {
+        //        Setter setter = new Setter(Control.ForegroundProperty, GetBrushFromHex(gnosisStyleCondition.ContentColour));
+        //        windowsStyle.Setters.Add(setter);
+        //    }
 
 
-            if (gnosisStyleCondition.OutlineColour != null && gnosisStyleCondition.OutlineColour.Length > 0)
-            {
-                Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisStyleCondition.OutlineColour));
-                windowsStyle.Setters.Add(setter);
-            }
+        //    if (gnosisStyleCondition.BackgroundColour != null && gnosisStyleCondition.BackgroundColour.Length > 0)
+        //    {
+        //        Setter setter = new Setter(Control.BackgroundProperty, GetBrushFromHex(gnosisStyleCondition.BackgroundColour));
+        //        windowsStyle.Setters.Add(setter);
+        //    }
 
-            if (gnosisStyleCondition.IsUnderline)
-            {
-                if (control is IGnosisLinkFieldImplementation)
-                {
-                    Setter setter = new Setter(TextBox.TextDecorationsProperty, TextDecorations.Underline);
-                    windowsStyle.Setters.Add(setter);
-                }
-                //((GnosisLinkFieldController)controller).SetUnderline(true);
-            }
+        //    if (gnosisStyleCondition.ControlColour != null && gnosisStyleCondition.ControlColour.Length > 0)
+        //    {
+        //        if (control is IGnosisContentControlImplementation)
+        //        {
+        //            Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisStyleCondition.ControlColour));
+        //            windowsStyle.Setters.Add(setter);
 
+        //            //Setter setter2 = new Setter(Control.BorderThicknessProperty, 1);
+        //            //windowsStyle.Setters.Add(setter2);
+        //        }
+        //    }
 
-
-            //Type controlModelType = controller.ControlImplementation.GetType();
-            Type controlType = control.GetType();
-
-            foreach (GnosisStyleCondition condition in gnosisStyleCondition.Conditions.OrderBy(c => c.Order))
-            {
-
-                if (condition.Property.Equals("ControlType"))
-                {
-                    //find out if this control falls under the inheritance hierarchy of ControlType
-                    Type conditionControlType = ControlTypeMapping.GetControlType(condition.Value);
-                    if (conditionControlType.IsAssignableFrom(controlType))
-                    {
-                        ApplyCondition(control, bindingSource, condition, windowsStyle);
-                    }
-                    else
-                    {
-                        IGnosisVisibleControlImplementation parent = control.GnosisParent;
-                        while (parent != null)
-                        {
-                            if (conditionControlType.IsAssignableFrom(parent.GnosisParent.GetType()))
-                            {
-                                ApplyCondition(control, bindingSource, condition, windowsStyle);
-                                break;
-                            }
-                            parent = parent.GnosisParent;
-                        }
-                    }
-                }
-                else
-                {
-
-                    //dynamic properties
-                    if (controlType.GetProperty(PropertyNameConverter.GetShivaPropertyName(condition.Property)) != null)
-                    {
-                        BuildStyleConditions(control, bindingSource, condition, windowsStyle);
-
-                    }
-
-                }
-            }
+        //    if (gnosisStyleCondition.ControlThickness > 0)
+        //    {
+        //        if (control is IGnosisControlThicknessPossessor)
+        //        {
+        //            Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisStyleCondition);
+        //            windowsStyle.Setters.Add(setter);
+        //        }
+        //    }
 
 
-        }
+        //    if (gnosisStyleCondition.OutlineColour != null && gnosisStyleCondition.OutlineColour.Length > 0)
+        //    {
+        //        Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisStyleCondition.OutlineColour));
+        //        windowsStyle.Setters.Add(setter);
+        //    }
+
+        //    if (gnosisStyleCondition.IsUnderline)
+        //    {
+        //        if (control is IGnosisLinkFieldImplementation)
+        //        {
+        //            Setter setter = new Setter(TextBox.TextDecorationsProperty, TextDecorations.Underline);
+        //            windowsStyle.Setters.Add(setter);
+        //        }
+        //        //((GnosisLinkFieldController)controller).SetUnderline(true);
+        //    }
+
+
+
+        //    //Type controlModelType = controller.ControlImplementation.GetType();
+        //    Type controlType = control.GetType();
+
+        //    foreach (GnosisStyleCondition condition in gnosisStyleCondition.Conditions.OrderBy(c => c.Order))
+        //    {
+
+        //        if (condition.Property.Equals("ControlType"))
+        //        {
+        //            //find out if this control falls under the inheritance hierarchy of ControlType
+        //            Type conditionControlType = ControlTypeMapping.GetControlType(condition.Value);
+        //            if (conditionControlType.IsAssignableFrom(controlType))
+        //            {
+        //                ApplyCondition(control, bindingSource, condition, windowsStyle);
+        //            }
+        //            else
+        //            {
+        //                IGnosisVisibleControlImplementation parent = control.GnosisParent;
+        //                while (parent != null)
+        //                {
+        //                    if (conditionControlType.IsAssignableFrom(parent.GnosisParent.GetType()))
+        //                    {
+        //                        ApplyCondition(control, bindingSource, condition, windowsStyle);
+        //                        break;
+        //                    }
+        //                    parent = parent.GnosisParent;
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+
+        //            //dynamic properties
+        //            if (controlType.GetProperty(PropertyNameConverter.GetShivaPropertyName(condition.Property)) != null)
+        //            {
+        //                BuildStyleConditions(control, bindingSource, condition, windowsStyle);
+
+        //            }
+
+        //        }
+        //    }
+
+
+        //}
 
         private void BuildStyleConditions(IGnosisVisibleControlImplementation control, GnosisStyleCondition gnosisCondition, Style windowsStyle)
         {
@@ -888,42 +905,51 @@ namespace ShivaWPF3.UtilityWPF
                         styleCondition.Parent = gnosisCondition;
                         BuildStyleConditions(control, styleCondition, windowsStyle);
                     }
-                }
-
-            }
-
-        }
-
-        private void BuildStyleConditions(IGnosisVisibleControlImplementation control, IGnosisVisibleControlImplementation bindingSource, GnosisStyleCondition gnosisCondition, Style windowsStyle)
-        {
-            //build list of this condition and all ancestors
-            List<GnosisStyleCondition> ancestors = new List<GnosisStyleCondition>();
-            ancestors.Add(gnosisCondition);
-            GnosisStyleCondition currentCondition = gnosisCondition;
-
-            while (currentCondition.Parent != null)
-            {
-                ancestors.Add(currentCondition.Parent);
-                currentCondition = currentCondition.Parent;
-            }
-
-            MultiDataTrigger dataTrigger = GetMultiDataTrigger(control, bindingSource, ancestors);
-            windowsStyle.Triggers.Add(dataTrigger);
-
-            if (gnosisCondition.Conditions != null &&  gnosisCondition.Conditions.Count > 0)
-            {
-                foreach (GnosisStyleCondition styleCondition in gnosisCondition.Conditions)
-                {
-                    if (control.GetType().GetProperty(PropertyNameConverter.GetShivaPropertyName(styleCondition.Property)) != null)
+                    else if (styleCondition.Value.Equals("0|null"))
                     {
-                        styleCondition.Parent = gnosisCondition;
-                        BuildStyleConditions(control, bindingSource, styleCondition, windowsStyle);
+                        //not necessary for control to have this property
+                        foreach (GnosisStyleCondition child in styleCondition.Conditions)
+                        {
+                            BuildStyleConditions(control, child, windowsStyle);
+                        }
+
                     }
                 }
 
             }
 
         }
+
+        //private void BuildStyleConditions(IGnosisVisibleControlImplementation control, IGnosisVisibleControlImplementation bindingSource, GnosisStyleCondition gnosisCondition, Style windowsStyle)
+        //{
+        //    //build list of this condition and all ancestors
+        //    List<GnosisStyleCondition> ancestors = new List<GnosisStyleCondition>();
+        //    ancestors.Add(gnosisCondition);
+        //    GnosisStyleCondition currentCondition = gnosisCondition;
+
+        //    while (currentCondition.Parent != null)
+        //    {
+        //        ancestors.Add(currentCondition.Parent);
+        //        currentCondition = currentCondition.Parent;
+        //    }
+
+        //    MultiDataTrigger dataTrigger = GetMultiDataTrigger(control, bindingSource, ancestors);
+        //    windowsStyle.Triggers.Add(dataTrigger);
+
+        //    if (gnosisCondition.Conditions != null &&  gnosisCondition.Conditions.Count > 0)
+        //    {
+        //        foreach (GnosisStyleCondition styleCondition in gnosisCondition.Conditions)
+        //        {
+        //            if (control.GetType().GetProperty(PropertyNameConverter.GetShivaPropertyName(styleCondition.Property)) != null)
+        //            {
+        //                styleCondition.Parent = gnosisCondition;
+        //                BuildStyleConditions(control, bindingSource, styleCondition, windowsStyle);
+        //            }
+        //        }
+
+        //    }
+
+        //}
 
         private MultiDataTrigger GetMultiDataTrigger(IGnosisVisibleControlImplementation control, List<GnosisStyleCondition> gnosisConditions)
         {
@@ -1018,6 +1044,7 @@ namespace ShivaWPF3.UtilityWPF
                 multiDataTrigger.Setters.Add(setter);
             }
 
+
             if (gnosisFirstCondition.ControlThickness > 0 && control is IGnosisControlThicknessPossessor)
             {
                 Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisFirstCondition);
@@ -1082,7 +1109,7 @@ namespace ShivaWPF3.UtilityWPF
 
             if (gnosisFirstCondition.ControlColour != null && gnosisFirstCondition.ControlColour.Length > 0)
             {
-                if (control is IGnosisContentControlImplementation)
+                if (control is IGnosisControlThicknessPossessor)
                 {
                     //controller.SetBorderColour(gnosisStyle.ControlColour);
                     Brush brush = GetBrushFromHex(gnosisFirstCondition.ControlColour);
@@ -1103,120 +1130,120 @@ namespace ShivaWPF3.UtilityWPF
 
       
 
-        private MultiDataTrigger GetMultiDataTrigger(IGnosisVisibleControlImplementation control, IGnosisVisibleControlImplementation bindingSource, List<GnosisStyleCondition> gnosisConditions)
-        {
-            //only the styles of the first condition are applied
-            MultiDataTrigger multiDataTrigger = new MultiDataTrigger();
+        //private MultiDataTrigger GetMultiDataTrigger(IGnosisVisibleControlImplementation control, IGnosisVisibleControlImplementation bindingSource, List<GnosisStyleCondition> gnosisConditions)
+        //{
+        //    //only the styles of the first condition are applied
+        //    MultiDataTrigger multiDataTrigger = new MultiDataTrigger();
 
-            string triggerName = "";
+        //    string triggerName = "";
 
-            foreach (GnosisStyleCondition gnosisCondition in gnosisConditions)
-            {
-                Binding binding = new Binding(PropertyNameConverter.GetShivaPropertyName(gnosisCondition.Property));
-                binding.Source = bindingSource;
-                bool conditionValue = false;
-                if (gnosisCondition.Value.Equals("1"))
-                {
-                    conditionValue = true;
-                }
-                Condition condition = new Condition(binding, conditionValue);
-                multiDataTrigger.Conditions.Add(condition);
-                triggerName = triggerName + gnosisCondition.Property + ", ";
-            }
+        //    foreach (GnosisStyleCondition gnosisCondition in gnosisConditions)
+        //    {
+        //        Binding binding = new Binding(PropertyNameConverter.GetShivaPropertyName(gnosisCondition.Property));
+        //        binding.Source = bindingSource;
+        //        bool conditionValue = false;
+        //        if (gnosisCondition.Value.Equals("1"))
+        //        {
+        //            conditionValue = true;
+        //        }
+        //        Condition condition = new Condition(binding, conditionValue);
+        //        multiDataTrigger.Conditions.Add(condition);
+        //        triggerName = triggerName + gnosisCondition.Property + ", ";
+        //    }
 
-            //triggerName = triggerName.TrimEnd(' ').TrimEnd(',');
-            //TriggerTracing.SetTriggerName(multiDataTrigger, triggerName);
-            //TriggerTracing.SetTraceEnabled(multiDataTrigger, true);
+        //    //triggerName = triggerName.TrimEnd(' ').TrimEnd(',');
+        //    //TriggerTracing.SetTriggerName(multiDataTrigger, triggerName);
+        //    //TriggerTracing.SetTraceEnabled(multiDataTrigger, true);
 
-            GnosisStyleCondition gnosisFirstCondition = gnosisConditions.First();
-            if (gnosisFirstCondition.BackgroundColour != null && gnosisFirstCondition.BackgroundColour.Length > 0)
-            {
-                Brush brush = GetBrushFromHex(gnosisFirstCondition.BackgroundColour);
-                Setter setter = new Setter(Control.BackgroundProperty, brush);
-                multiDataTrigger.Setters.Add(setter);
+        //    GnosisStyleCondition gnosisFirstCondition = gnosisConditions.First();
+        //    if (gnosisFirstCondition.BackgroundColour != null && gnosisFirstCondition.BackgroundColour.Length > 0)
+        //    {
+        //        Brush brush = GetBrushFromHex(gnosisFirstCondition.BackgroundColour);
+        //        Setter setter = new Setter(Control.BackgroundProperty, brush);
+        //        multiDataTrigger.Setters.Add(setter);
 
-            }
+        //    }
 
-            if (gnosisFirstCondition.ContentColour != null && gnosisFirstCondition.ContentColour.Length > 0)
-            {
-                Setter setter = new Setter(Control.ForegroundProperty, GetBrushFromHex(gnosisFirstCondition.ContentColour));
-                multiDataTrigger.Setters.Add(setter);
-            }
+        //    if (gnosisFirstCondition.ContentColour != null && gnosisFirstCondition.ContentColour.Length > 0)
+        //    {
+        //        Setter setter = new Setter(Control.ForegroundProperty, GetBrushFromHex(gnosisFirstCondition.ContentColour));
+        //        multiDataTrigger.Setters.Add(setter);
+        //    }
 
-            if (gnosisFirstCondition.ControlThickness > 0)
-            {
-                if (control is IGnosisControlThicknessPossessor)
-                {
-                    Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisFirstCondition);
-                    multiDataTrigger.Setters.Add(setter);
-                }
-            }
-            //if (gnosisFirstCondition.IsOutlined)
-            //{
-            //    if (controller is GnosisFrameController || controller is GnosisContentController)
-            //    {
-            //        Setter setter = new Setter(Control.BorderThicknessProperty, new Thickness(1));
-            //        multiDataTrigger.Setters.Add(setter);
-            //    }
-            //}
+        //    if (gnosisFirstCondition.ControlThickness > 0)
+        //    {
+        //        if (control is IGnosisControlThicknessPossessor)
+        //        {
+        //            Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisFirstCondition);
+        //            multiDataTrigger.Setters.Add(setter);
+        //        }
+        //    }
+        //    //if (gnosisFirstCondition.IsOutlined)
+        //    //{
+        //    //    if (controller is GnosisFrameController || controller is GnosisContentController)
+        //    //    {
+        //    //        Setter setter = new Setter(Control.BorderThicknessProperty, new Thickness(1));
+        //    //        multiDataTrigger.Setters.Add(setter);
+        //    //    }
+        //    //}
 
-            if (gnosisFirstCondition.OutlineColour != null && gnosisFirstCondition.OutlineColour.Length > 0)
-            {
-                if (control is GnosisFrame || control is IGnosisContentControlImplementation)
-                {
-                    Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisFirstCondition.OutlineColour));
-                    multiDataTrigger.Setters.Add(setter);
-                }
-            }
+        //    if (gnosisFirstCondition.OutlineColour != null && gnosisFirstCondition.OutlineColour.Length > 0)
+        //    {
+        //        if (control is GnosisFrame || control is IGnosisContentControlImplementation)
+        //        {
+        //            Setter setter = new Setter(Control.BorderBrushProperty, GetBrushFromHex(gnosisFirstCondition.OutlineColour));
+        //            multiDataTrigger.Setters.Add(setter);
+        //        }
+        //    }
 
           
 
-            if (gnosisFirstCondition.ControlColour != null && gnosisFirstCondition.ControlColour.Length > 0)
-            {
-                //if (control is IGnosisContentControlImplementation)
-                //{
-                    //controller.SetBorderColour(gnosisStyle.ControlColour);
-                    Brush brush = GetBrushFromHex(gnosisFirstCondition.ControlColour);
-                    Setter setter = new Setter(Control.BorderBrushProperty, brush);
-                    multiDataTrigger.Setters.Add(setter);
-                //}
-            }
+        //    if (gnosisFirstCondition.ControlColour != null && gnosisFirstCondition.ControlColour.Length > 0)
+        //    {
+        //        //if (control is IGnosisContentControlImplementation)
+        //        //{
+        //            //controller.SetBorderColour(gnosisStyle.ControlColour);
+        //            Brush brush = GetBrushFromHex(gnosisFirstCondition.ControlColour);
+        //            Setter setter = new Setter(Control.BorderBrushProperty, brush);
+        //            multiDataTrigger.Setters.Add(setter);
+        //        //}
+        //    }
 
-            if (gnosisFirstCondition.GnosisBorderThickness > 0)
-            {
-                if (control is GnosisSearchFrame)
-                {
-                    Setter setter = new Setter(GnosisSearchFrame.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
-                    multiDataTrigger.Setters.Add(setter);
-                }
-                else if (control is GnosisFrame)
-                {
-                    Setter setter = new Setter(GnosisFrame.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
-                    multiDataTrigger.Setters.Add(setter);
-                }
-                else if (control is GnosisGallery)
-                {
-                    Setter setter = new Setter(GnosisGallery.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
-                    multiDataTrigger.Setters.Add(setter);
-                }
-                else if (control is GnosisToolbarTray)
-                {
-                    Setter setter = new Setter(GnosisToolbarTray.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
-                    multiDataTrigger.Setters.Add(setter);
-                }
+        //    if (gnosisFirstCondition.GnosisBorderThickness > 0)
+        //    {
+        //        if (control is GnosisSearchFrame)
+        //        {
+        //            Setter setter = new Setter(GnosisSearchFrame.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+        //            multiDataTrigger.Setters.Add(setter);
+        //        }
+        //        else if (control is GnosisFrame)
+        //        {
+        //            Setter setter = new Setter(GnosisFrame.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+        //            multiDataTrigger.Setters.Add(setter);
+        //        }
+        //        else if (control is GnosisGallery)
+        //        {
+        //            Setter setter = new Setter(GnosisGallery.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+        //            multiDataTrigger.Setters.Add(setter);
+        //        }
+        //        else if (control is GnosisToolbarTray)
+        //        {
+        //            Setter setter = new Setter(GnosisToolbarTray.GnosisBorderThicknessProperty, gnosisFirstCondition.GnosisBorderThickness);
+        //            multiDataTrigger.Setters.Add(setter);
+        //        }
 
-            }
-            //if (gnosisStyle.IsUnderline)
-            //{
-            //    ((GnosisLinkFieldController)controller).SetUnderline(true);
-            //}
-            //if (bindingSource is IGnosisTileTabItemImplementation)
-            //{
-            //    string xaml = XamlWriter.Save(multiDataTrigger);
-            //}
-            return multiDataTrigger;
+        //    }
+        //    //if (gnosisStyle.IsUnderline)
+        //    //{
+        //    //    ((GnosisLinkFieldController)controller).SetUnderline(true);
+        //    //}
+        //    //if (bindingSource is IGnosisTileTabItemImplementation)
+        //    //{
+        //    //    string xaml = XamlWriter.Save(multiDataTrigger);
+        //    //}
+        //    return multiDataTrigger;
 
-        }
+        //}
 
         private Setter GetBorderThicknessSetter(IGnosisBorderThicknessPossessor control, GnosisStyle gnosisStyle)
         {

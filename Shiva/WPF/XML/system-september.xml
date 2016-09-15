@@ -80,14 +80,14 @@
       </GnosisStyleCondition>
       <GnosisStyleCondition Property="RowSelected" Value="1" Name="Grid Selected Row" Order="8" BackgroundColour="004080" />
       <GnosisStyleCondition Property="RowSelected" Value="0" Name="Grid Unselected Row" Order="9">
-        <GnosisStyleCondition Property="IsEvenRow" Value="1" Name="Grid Even Row" Order="1" BackgroundColour="B000B0">
-          <GnosisStyleCondition Property="HasRowMouseFocus" Value="1" Name="Results Even Row Mouse Focus" Order="1" BackgroundColour="582098">
-            <GnosisStyleCondition Property="HasRowMouseDown" Value="1" Name="Results Even Row Mouse Down" Order="1" BackgroundColour="2C308C" />
-          </GnosisStyleCondition>
-        </GnosisStyleCondition>
         <GnosisStyleCondition Property="IsEvenRow" Value="0" Name="Grid Odd Row" Order="2" BackgroundColour="800080">
           <GnosisStyleCondition Property="HasRowMouseFocus" Value="1" Name="Results Odd Row Mouse Focus" Order="1" BackgroundColour="402080">
             <GnosisStyleCondition Property="HasRowMouseDown" Value="1" Name="Results Odd Row Mouse Down" Order="1" BackgroundColour="203080" />
+          </GnosisStyleCondition>
+        </GnosisStyleCondition>
+        <GnosisStyleCondition Property="IsEvenRow" Value="1" Name="Grid Even Row" Order="1" BackgroundColour="B000B0">
+          <GnosisStyleCondition Property="HasRowMouseFocus" Value="1" Name="Results Even Row Mouse Focus" Order="1" BackgroundColour="582098">
+            <GnosisStyleCondition Property="HasRowMouseDown" Value="1" Name="Results Even Row Mouse Down" Order="1" BackgroundColour="2C308C" />
           </GnosisStyleCondition>
         </GnosisStyleCondition>
       </GnosisStyleCondition>

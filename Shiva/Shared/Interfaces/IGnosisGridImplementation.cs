@@ -14,7 +14,7 @@ namespace Shiva.Shared.Interfaces
         string CaptionAlignmentHorizontal { get; set; }
         string CaptionAlignmentVertical { get; set; }
         string Dataset { get; set; }
-        int GridLineThickness { get; set; }
+        int LineThickness { get; set; }
         int MinDisplayRows { get; set; }
         int MaxDisplayRows { get; set; }
         int MaxLines { get; set; }

@@ -70,23 +70,23 @@ namespace Shiva.Shared.ServerCommunication
                 XElement xSystem;
 
                 //if online
-                connection = new SqlConnection(connectionString);
-                xSystem = GetGnosisSystemXML(xSystemRequest);
+                //connection = new SqlConnection(connectionString);
+                //xSystem = GetGnosisSystemXML(xSystemRequest);
 
-               // using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("system-september.xml"), FileMode.Create))
+                // using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("system-september.xml"), FileMode.Create))
                 //{
-                 //   using (StreamWriter sw = new StreamWriter(stream))
-                  //  {
-                   //   sw.Write(xSystem.ToString());
+                //   using (StreamWriter sw = new StreamWriter(stream))
+                //  {
+                //   sw.Write(xSystem.ToString());
 
                 //    }
-               // }
+                // }
                 //else 
-                //using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("system-august.xml"), FileMode.Open))
-                //{
-                //    xSystem = XElement.Load(stream);
+                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("system-september.xml"), FileMode.Open))
+                {
+                    xSystem = XElement.Load(stream);
 
-                //}
+                }
 
                 //end if
 
@@ -129,63 +129,63 @@ namespace Shiva.Shared.ServerCommunication
 
             string input = xRequest.ToString();
 
-            //if offline
-          //  if (xRequest.Attribute("EntityID").Value.Equals("2247"))
-            //{
-              //  using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("instance-2247-global.xml"), FileMode.Open))
-                //{
-                 //   XElement xInstance = XElement.Load(stream);
-                   // instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
-                   // instance.Content = xInstance;
-               // }
-            //}
-           // else if (xRequest.Attribute("EntityID").Value.Equals("91"))
-            //{
-              //  using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("instance-91.xml"), FileMode.Open))
-               // {
-                 //   XElement xInstance = XElement.Load(stream);
-                 //   instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
-                //    instance.Content = xInstance;
-                //}
-            //}
-            //else
-            //{
-                //end if
-                try
+            //offline
+            if (xRequest.Attribute("EntityID").Value.Equals("2247"))
+            {
+                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("instance-2247-global.xml"), FileMode.Open))
                 {
-                    connection.Open();
-
-                    using (SqlCommand command = new SqlCommand("gnosis.xml_instance", connection))
-                    {
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("input", input));
-                        string res = (string)command.ExecuteScalar();
-
-                        using (StringReader sr = new StringReader(res))
-                        {
-                            XElement xInstance = XElement.Load(sr);
-                            instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
-                            instance.Content = xInstance;
-                        }
-
-
-                    }
+                    XElement xInstance = XElement.Load(stream);
+                    instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
+                    instance.Content = xInstance;
                 }
-                catch (SqlException ex)
+            }
+            else if (xRequest.Attribute("EntityID").Value.Equals("91"))
+            {
+                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("instance-91.xml"), FileMode.Open))
                 {
-                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                    XElement xInstance = XElement.Load(stream);
+                    instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
+                    instance.Content = xInstance;
                 }
-                catch (Exception ex)
-                {
-                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            //if offline
-            //}
-          //end if
+            }
+            //end offline
+
+            //online
+            //try
+            //    {
+            //        connection.Open();
+
+            //        using (SqlCommand command = new SqlCommand("gnosis.xml_instance", connection))
+            //        {
+            //            command.CommandType = System.Data.CommandType.StoredProcedure;
+            //            command.Parameters.Add(new SqlParameter("input", input));
+            //            string res = (string)command.ExecuteScalar();
+
+            //            using (StringReader sr = new StringReader(res))
+            //            {
+            //                XElement xInstance = XElement.Load(sr);
+            //                instance = (GnosisInstance)GnosisXMLHelper.GnosisDeserializeXML(xInstance);
+            //                instance.Content = xInstance;
+            //            }
+
+
+            //        }
+            //    }
+            //    catch (SqlException ex)
+            //    {
+            //        GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+            //    }
+            //    finally
+            //    {
+            //        connection.Close();
+            //    }
+            
+            //end online
+          
             return instance;
 
         }
@@ -195,65 +195,64 @@ namespace Shiva.Shared.ServerCommunication
             XElement xEntity = null;
             string input = entityRequest.ToString();
 
-			  
 
-            //if offline
-            //if (entityRequest.Attribute("EntityID").Value.Equals("2247"))
-            //{
-             //   using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-2247.xml"), FileMode.Open))
-               // {
-                //    xEntity = XElement.Load(stream);
 
-                //}
-            //}
-           // else if (entityRequest.Attribute("EntityID").Value.Equals("91"))
-            //{
-              //  using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-91.xml"), FileMode.Open))
-               // {
-                //    xEntity = XElement.Load(stream);
-
-//                }
-  //          }
-    //        else
-      //      {
-                //end if
-                try
+            //offline
+            if (entityRequest.Attribute("EntityID").Value.Equals("2247"))
+            {
+                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-2247.xml"), FileMode.Open))
                 {
-                    connection.Open();
+                    xEntity = XElement.Load(stream);
 
-                    using (SqlCommand command = new SqlCommand("gnosis.xml_entity", connection))
-                    {
-                        command.CommandType = System.Data.CommandType.StoredProcedure;
-                        command.Parameters.Add(new SqlParameter("input", input));
-                        string res = (string)command.ExecuteScalar();
-
-                        using (StringReader sr = new StringReader(res))
-                        {
-                            xEntity = XElement.Load(sr);
-
-							 using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-2247-september.xml"), FileMode.Create))
-               {
-                  using (StreamWriter sw = new StreamWriter(stream))
-                 {
-					sw.Write(xEntity.ToString());
-
-                   }
                 }
-                        }
-
-                    }
-                }
-                catch (SqlException ex)
+            }
+            else if (entityRequest.Attribute("EntityID").Value.Equals("91"))
+            {
+                using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-91.xml"), FileMode.Open))
                 {
-                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+                    xEntity = XElement.Load(stream);
+
                 }
-                finally
-                {
-                    connection.Close();
-                }
-            //if offline
-        //    }
-            //end if
+            }
+            //end offline
+
+            //online
+     //       try
+     //           {
+     //               connection.Open();
+
+     //               using (SqlCommand command = new SqlCommand("gnosis.xml_entity", connection))
+     //               {
+     //                   command.CommandType = System.Data.CommandType.StoredProcedure;
+     //                   command.Parameters.Add(new SqlParameter("input", input));
+     //                   string res = (string)command.ExecuteScalar();
+
+     //                   using (StringReader sr = new StringReader(res))
+     //                   {
+     //                       xEntity = XElement.Load(sr);
+
+					//		 using (Stream stream = new FileStream(GlobalData.Singleton.IOHelper.GetXMLFilePath("entity-2247-september.xml"), FileMode.Create))
+     //          {
+     //             using (StreamWriter sw = new StreamWriter(stream))
+     //            {
+					//sw.Write(xEntity.ToString());
+
+     //              }
+     //           }
+     //                   }
+
+     //               }
+     //           }
+     //           catch (SqlException ex)
+     //           {
+     //               GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+     //           }
+     //           finally
+     //           {
+     //               connection.Close();
+     //           }
+
+            //end online
 
             return xEntity;
         }

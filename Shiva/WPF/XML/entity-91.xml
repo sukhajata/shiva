@@ -275,7 +275,7 @@
       <GnosisTextField Name="when_changed" ID="17" ControlType="Text Field" Caption="When Changed" Tooltip="When data relating to the Type was last changed" Order="12" ReadOnly="1" Dataset="Type" DatasetItem="When Changed" />
       <GnosisTextField Name="who_changed_id" ID="18" ControlType="Text Field" Caption="Who Changed" Tooltip="Who last changed data relating to the Type" Order="13" ReadOnly="1" Dataset="Type" DatasetItem="User Name" />
     </GnosisPanel>
-    <GnosisGrid Name="TypeRule" ID="4" ControlType="Grid" Caption="Type Rules" Order="4" GridLineThickness="3" MinDisplayRows="1" MaxWrapRows="2" MaxLines="2" Dataset="Rule">
+    <GnosisGrid Name="TypeRule" ID="4" ControlType="Grid" Caption="Type Rules" Order="4" LineThickness="3" MinDisplayRows="1" MaxWrapRows="2" MaxLines="2" Dataset="Rule">
       <GnosisTextColumn Name="rule_type_id" ID="19" ControlType="Text Column" Caption="Type ID" Tooltip="The Type Identifier" Order="1" Hidden="1" Dataset="Rule" DatasetItem="Type Id" />
       <GnosisTextColumn Name="rule_no" ID="20" ControlType="Text Column" Caption="Rule No" Tooltip="The Rule Number" Order="2" Hidden="1" Dataset="Rule" DatasetItem="Rule No" />
       <GnosisTextColumn Name="rule_name" ID="21" ControlType="Text Column" Caption="Rule Name" Tooltip="The Rule Name" Order="3" Dataset="Rule" DatasetItem="Rule Name" />

@@ -45,7 +45,7 @@
                                 </VisualStateManager.VisualStateGroups>
                                 <Grid x:Name="PART_Root" 
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        VerticalAlignment="Stretch"
+                                        VerticalAlignment="Center"
                                       Background="Transparent">
                                     <Grid.Resources>
                                         <SolidColorBrush x:Key="DisabledBrush" Color="#A5FFFFFF"/>
@@ -98,7 +98,8 @@
                                                         <VisualState x:Name="Disabled"/>
                                                     </VisualStateGroup>
                                                 </VisualStateManager.VisualStateGroups>
-                                                <Grid Background="#11FFFFFF" FlowDirection="LeftToRight" HorizontalAlignment="Center" 
+                                                <Grid Background="#11FFFFFF" FlowDirection="LeftToRight" 
+                                                      HorizontalAlignment="Center" 
                                                       Height="18" Margin="0" VerticalAlignment="Center" Width="19">
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="20*"/>
@@ -148,9 +149,10 @@
                                             <TextBox Margin="0" BorderThickness="0"
                                                      Background="Transparent" 
                                                       Text="{Binding Path=SelectedDate, RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}"
-                                                       VerticalAlignment="Stretch"
+                                                       VerticalAlignment="Center"
                                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"     />
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                                     />
                                         </ControlTemplate>
                                     </Grid.Resources>
                                     <Grid.ColumnDefinitions>
@@ -168,7 +170,7 @@
                                                        Grid.Column="0" 
                                                    Focusable="{TemplateBinding Focusable}" 
                                                        Width="0"
-                                                   
+                                                   Padding="{TemplateBinding Padding}"
                                                    Grid.Row="0" 
                                                     >
                                     </DatePickerTextBox>
@@ -489,9 +491,10 @@
             </Style>
            
         </StackPanel.Resources>
-        <TextBox Name="txtDate" BorderThickness="0" Background="Transparent" VerticalAlignment="Stretch"
-                 Focusable="False" IsReadOnly="True"/>
-        <DatePicker Name="datePicker" Style="{DynamicResource DatePickerStyle1}" 
+        <TextBox Name="txtDate" BorderThickness="0" Background="Transparent" 
+                 VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+                 Focusable="False" IsReadOnly="True" Padding="{Binding Padding, ElementName=border}"/>
+        <DatePicker Name="datePicker" Style="{DynamicResource DatePickerStyle1}"
                      BorderThickness="0" SelectedDateChanged="datePicker_SelectedDateChanged"/>
         <xceed:TimePicker Name="timePicker" Style="{DynamicResource TimePickerStyle1}"/>
         <local:GnosisComboField x:Name="cboTimeZone" Background="Transparent" BorderThickness="0"

@@ -167,6 +167,7 @@
     <Compile Include="Shared\Generic\GnosisGenericToggleMenuItem.cs" />
     <Compile Include="Shared\GnosisControls\GnosisAttribute.cs" />
     <Compile Include="Shared\Interfaces\IGnosisButtonGroupImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisCheckGroupImplementation.cs" />
     <Compile Include="WPF\GnosisControls\GnosisButtonGroup.cs" />
     <Compile Include="WPF\GnosisControls\GnosisGallerySearchItem.cs" />
     <Compile Include="Shared\Interfaces\IGnosisTabImplementation.cs" />

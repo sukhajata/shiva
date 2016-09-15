@@ -239,20 +239,6 @@ namespace GnosisControls
             set { gnosisParent = value; }
         }
 
-        [GnosisPropertyAttribute]
-        public int MaxChars
-        {
-            get
-            {
-                return maxChars;
-            }
-
-            set
-            {
-                maxChars = value;
-                OnPropertyChanged("MaxChars");
-            }
-        }
 
         [GnosisPropertyAttribute]
         public string Dataset
@@ -296,7 +282,7 @@ namespace GnosisControls
             {
                 caption = value;
                // btn.Content = caption;
-                OnPropertyChanged("Caption");
+               // OnPropertyChanged("Caption");
             }
         }
 
@@ -332,59 +318,33 @@ namespace GnosisControls
         }
 
 
-        [GnosisPropertyAttribute]
-        public string MenuTag
-        {
-            get
-            {
-                return Enum.GetName(typeof(GnosisController.MenuTagEnum), menuTag);
-            }
-            set
-            {
-                try
-                {
-                    menuTag = (GnosisController.MenuTagEnum)Enum.Parse(typeof(GnosisController.MenuTagEnum), value.ToUpper());
-                }
-                catch (Exception ex)
-                {
-                    GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
-                }
-            }
-        }
+        //[GnosisPropertyAttribute]
+        //public string MenuTag
+        //{
+        //    get
+        //    {
+        //        return Enum.GetName(typeof(GnosisController.MenuTagEnum), menuTag);
+        //    }
+        //    set
+        //    {
+        //        try
+        //        {
+        //            menuTag = (GnosisController.MenuTagEnum)Enum.Parse(typeof(GnosisController.MenuTagEnum), value.ToUpper());
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            GlobalData.Singleton.ErrorHandler.HandleError(ex.Message, ex.StackTrace);
+        //        }
+        //    }
+        //}
 
-        public GnosisController.MenuTagEnum _MenuTag
-        {
-            get { return menuTag; }
-            set { menuTag = value; }
-        }
+        //public GnosisController.MenuTagEnum _MenuTag
+        //{
+        //    get { return menuTag; }
+        //    set { menuTag = value; }
+        //}
 
-        [GnosisPropertyAttribute]
-        public int MinDisplayChars
-        {
-            get
-            {
-                return minDisplayChars;
-            }
-            set
-            {
-                minDisplayChars = value;
-                OnPropertyChanged("MinDisplayChars");
-            }
-        }
-
-        [GnosisPropertyAttribute]
-        public int MaxDisplayChars
-        {
-            get
-            {
-                return maxDisplayChars;
-            }
-            set
-            {
-                maxDisplayChars = value;
-                OnPropertyChanged("MaxDisplayChars");
-            }
-        }
+      
 
         [GnosisPropertyAttribute]
         public int Order
@@ -442,6 +402,7 @@ namespace GnosisControls
             set
             {
                 horizontalPadding = value;
+                this.SetHorizontalPaddingExt(horizontalPadding);
                 //if (GnosisIcon == null)
                 //{
                 //    this.SetHorizontalPaddingExt(horizontalPadding);
@@ -455,6 +416,7 @@ namespace GnosisControls
             set
             {
                 verticalPadding = value;
+                this.SetVerticalPaddingExt(verticalPadding);
                 //if (GnosisIcon == null)
                 //{
                 //    this.SetVerticalPaddingExt(verticalPadding);

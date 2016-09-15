@@ -772,41 +772,41 @@ namespace GnosisControls
             
         }
 
-        public void SetDateFormat(GlobalData.GnosisDateFormat dateFormat)
-        {
-            if (dateFormat == GlobalData.GnosisDateFormat.SHORT)
-            {
-                datePicker.SelectedDateFormat = DatePickerFormat.Short;
-            }
-            else if (dateFormat == GlobalData.GnosisDateFormat.LONG)
-            {
-                datePicker.SelectedDateFormat = DatePickerFormat.Long;
-            }
+        //public void SetDateFormat(GlobalData.GnosisDateFormat dateFormat)
+        //{
+        //    if (dateFormat == GlobalData.GnosisDateFormat.SHORT)
+        //    {
+        //        datePicker.SelectedDateFormat = DatePickerFormat.Short;
+        //    }
+        //    else if (dateFormat == GlobalData.GnosisDateFormat.LONG)
+        //    {
+        //        datePicker.SelectedDateFormat = DatePickerFormat.Long;
+        //    }
 
-        }
+        //}
 
-        public void SetTimeFormat(GlobalData.GnosisTimeFormat _timeFormat)
-        {
-            timeFormat = _timeFormat;
-            timePicker.Format = Xceed.Wpf.Toolkit.DateTimeFormat.Custom;
+        //public void SetTimeFormat(GlobalData.GnosisTimeFormat _timeFormat)
+        //{
+        //    timeFormat = _timeFormat;
+        //    timePicker.Format = Xceed.Wpf.Toolkit.DateTimeFormat.Custom;
 
-            switch (timeFormat)
-            {
-                case GlobalData.GnosisTimeFormat.HOUR:
-                    timePicker.FormatString = "h tt";
-                    break;
-                case GlobalData.GnosisTimeFormat.MINUTE:
-                    timePicker.FormatString = "t"; //"h:mm tt"
-                    break;
-                case GlobalData.GnosisTimeFormat.SECOND:
-                    timePicker.FormatString = "T"; //"h:mm:ss tt"
-                    break;
-                case GlobalData.GnosisTimeFormat.MILLISECOND:
-                    timePicker.FormatString = "h:mm:ss.fff tt";
-                    break;
-            }
+        //    switch (timeFormat)
+        //    {
+        //        case GlobalData.GnosisTimeFormat.HOUR:
+        //            timePicker.FormatString = "h tt";
+        //            break;
+        //        case GlobalData.GnosisTimeFormat.MINUTE:
+        //            timePicker.FormatString = "t"; //"h:mm tt"
+        //            break;
+        //        case GlobalData.GnosisTimeFormat.SECOND:
+        //            timePicker.FormatString = "T"; //"h:mm:ss tt"
+        //            break;
+        //        case GlobalData.GnosisTimeFormat.MILLISECOND:
+        //            timePicker.FormatString = "h:mm:ss.fff tt";
+        //            break;
+        //    }
 
-        }
+        //}
 
         public void SetMarginBottom(int marginBottom)
         {
@@ -1120,32 +1120,41 @@ namespace GnosisControls
             //this.Width = width;
 
             double characterWidth = GlobalData.Singleton.StyleHelper.GetCharacterWidth(datePicker.FontFamily.ToString(), (int)datePicker.FontSize);
-            if (datePicker.SelectedDateFormat == DatePickerFormat.Short)
+            if (longDateFormat)
             {
-                txtDate.Width = (10 * characterWidth) + (2 * verticalPadding);
+                txtDate.Width = (26 * characterWidth) + (2 * verticalPadding);
             }
             else
             {
-                txtDate.Width = (26 * characterWidth) + (2 * verticalPadding);
+                txtDate.Width = (10 * characterWidth) + (2 * verticalPadding);
             }
 
             datePicker.Width = 25;
 
-            switch (timeFormat)
+            if (longTimeFormat)
             {
-                case GlobalData.GnosisTimeFormat.HOUR:
-                    timePicker.Width = 6 * characterWidth + 30 + 2 * verticalPadding;
-                    break;
-                case GlobalData.GnosisTimeFormat.MINUTE:
-                    timePicker.Width = 9 * characterWidth + 30 + 2 * verticalPadding;
-                    break;
-                case GlobalData.GnosisTimeFormat.SECOND:
-                    timePicker.Width = 12 * characterWidth + 30 + 2 * verticalPadding;
-                    break;
-                case GlobalData.GnosisTimeFormat.MILLISECOND:
-                    timePicker.Width = 16 * characterWidth + 30 + 2 * verticalPadding;
-                    break;
+                timePicker.Width = 13 * characterWidth + 30 + 2 * verticalPadding;
             }
+            else
+            {
+                timePicker.Width = 10 * characterWidth + 30 + 2 * verticalPadding;
+            }
+
+            //switch (timeFormat)
+            //{
+            //    case GlobalData.GnosisTimeFormat.HOUR:
+            //        timePicker.Width = 10 * characterWidth + 30 + 2 * verticalPadding;
+            //        break;
+            //    case GlobalData.GnosisTimeFormat.MINUTE:
+            //        timePicker.Width = 13 * characterWidth + 30 + 2 * verticalPadding;
+            //        break;
+            //    case GlobalData.GnosisTimeFormat.SECOND:
+            //        timePicker.Width = 12 * characterWidth + 30 + 2 * verticalPadding;
+            //        break;
+            //    case GlobalData.GnosisTimeFormat.MILLISECOND:
+            //        timePicker.Width = 16 * characterWidth + 30 + 2 * verticalPadding;
+            //        break;
+            //}
 
             cboTimeZone.Width = 12 * characterWidth + 20 + 2 * verticalPadding;
 

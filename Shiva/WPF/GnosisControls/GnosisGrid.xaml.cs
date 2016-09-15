@@ -10,6 +10,7 @@ using System.ComponentModel;
 using Shiva.Shared.Data;
 using System.Windows.Markup;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace GnosisControls
 {
@@ -123,7 +124,7 @@ namespace GnosisControls
 
 
         [GnosisProperty]
-        public int GridLineThickness
+        public int LineThickness
         {
             get { return gridLineThickness; }
             set
@@ -1055,10 +1056,12 @@ namespace GnosisControls
             if (columnarFormat)
             {
                 scrlHeaders.Visibility = Visibility.Collapsed;
+                gridContent.Background = Brushes.Transparent;
             }
             else
             {
                 scrlHeaders.Visibility = Visibility.Visible;
+                gridContent.Background = border.BorderBrush;
             }
         }
 

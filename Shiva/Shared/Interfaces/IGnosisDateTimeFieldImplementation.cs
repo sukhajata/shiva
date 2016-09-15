@@ -20,8 +20,8 @@ namespace Shiva.Shared.Interfaces
 
         void SetDefaultTimeZone(TimeZoneInfo timezone);
         void SetDateTime(DateTime value);
-        void SetDateFormat(GlobalData.GnosisDateFormat dateFormat);
-        void SetTimeFormat(GlobalData.GnosisTimeFormat timeFormat);
+       // void SetDateFormat(GlobalData.GnosisDateFormat dateFormat);
+        //void SetTimeFormat(GlobalData.GnosisTimeFormat timeFormat);
         DateTime GetDateTime();
         double GetSetWidth();
     }
