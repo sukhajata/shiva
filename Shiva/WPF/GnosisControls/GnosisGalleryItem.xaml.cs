@@ -24,7 +24,7 @@ namespace GnosisControls
     /// <summary>
     /// Interaction logic for GnosisGalleryItemWPF.xaml
     /// </summary>
-    public partial class GnosisGalleryItem : TreeViewItem, IGnosisGalleryItemImplementation, INotifyPropertyChanged
+    public partial class GnosisGalleryItem : UserControl, IGnosisGalleryItemImplementation, INotifyPropertyChanged
     {
         private List<GnosisGalleryDatasetItem> galleryDatasetItems;
         private List<GnosisGalleryItem> galleryItems;
@@ -58,6 +58,7 @@ namespace GnosisControls
         private Action ItemUnselectedHandler;
 
         protected string gnosisIcon;
+        protected int iconSize;
         protected int horizontalPadding;
         protected int verticalPadding;
         protected int horizontalMargin;
@@ -101,7 +102,7 @@ namespace GnosisControls
             set
             {
                 caption = value;
-                this.Header = caption;
+                btnCaption.Content = caption;
                 //OnPropertyChanged("Caption");
             }
         }
@@ -113,7 +114,14 @@ namespace GnosisControls
             set
             {
                 gnosisExpanded = value;
-                this.IsExpanded = gnosisExpanded;
+                if (gnosisExpanded)
+                {
+                    pnlItems.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    pnlItems.Visibility = Visibility.Collapsed;
+                }
                 //OnPropertyChanged("GnosisExpanded");
             }
         }
@@ -207,6 +215,12 @@ namespace GnosisControls
             set
             {
                 disabled = value;
+                btnCaption.IsEnabled = !disabled;
+                if (gnosisIcon != null && iconSize > 0)
+                {
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    btnCaption.Content = new Image { Source = bi };
+                }
                 OnPropertyChanged("Disabled");
             }
         }
@@ -260,6 +274,14 @@ namespace GnosisControls
             set
             {
                 hasFocus = value;
+                if (hasFocus)
+                {
+                    Active = true;
+                }
+                else
+                {
+                    Active = false;
+                }
                 OnPropertyChanged("HasFocus");
                // string xaml = XamlWriter.Save(this.Style);
 
@@ -297,6 +319,7 @@ namespace GnosisControls
             set
             {
                 horizontalSpacing = value;
+                this.Margin = new Thickness(horizontalSpacing, 0, 0, 0);
                 //this.Margin = new Thickness(horizontalMargin + horizontalSpacing, verticalMargin, horizontalMargin, verticalMargin);
                 //this.Margin = new Thickness(0, 0, 0, 3);
                 //for (int i = 0; i < this.Items.Count; i++)
@@ -336,10 +359,28 @@ namespace GnosisControls
             set
             {
                 gnosisIcon = value;
-                this.Header = new Image
+               
+            }
+        }
+
+        public int IconSize
+        {
+            get { return iconSize; }
+            set
+            {
+                iconSize = value;
+                if (gnosisIcon != null)
                 {
-                    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(gnosisIcon, !this.Disabled)))
-                };
+                    //btnCaption.Content = new Image
+                    //{
+                    //    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(gnosisIcon, !this.disabled)))
+                    //};
+                    //System.Drawing.Image icon = System.Drawing.Image.FromFile(GnosisIOHelperWPF.GetIconPath(gnosisIcon, !disabled));
+                    //System.Drawing.Image resizedIcon = StyleHelper.ResizeImage(icon, iconSize, iconSize);
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+
+                    btnCaption.Content = new Image { Source = bi };
+                }
             }
         }
 
@@ -351,7 +392,7 @@ namespace GnosisControls
                 horizontalPadding = value;
                 if (GnosisIcon == null)
                 {
-                    this.SetHorizontalPaddingExt(horizontalPadding);
+                    btnCaption.SetHorizontalPaddingExt(horizontalPadding);
                 }
             }
         }
@@ -364,7 +405,7 @@ namespace GnosisControls
                 verticalPadding = value;
                 if (GnosisIcon == null)
                 {
-                    this.SetVerticalPaddingExt(verticalPadding);
+                    btnCaption.SetVerticalPaddingExt(verticalPadding);
                 }
             }
         }
@@ -375,7 +416,7 @@ namespace GnosisControls
             set
             {
                 horizontalMargin = value;
-                this.SetHorizontalMarginExt(horizontalMargin);
+               // this.SetHorizontalMarginExt(horizontalMargin);
             }
         }
 
@@ -385,9 +426,23 @@ namespace GnosisControls
             set
             {
                 verticalMargin = value;
-                this.SetVerticalMarginExt(verticalMargin);
+               // this.SetVerticalMarginExt(verticalMargin);
             }
         }
+
+        public static readonly DependencyProperty ItemBackgroundColourProperty =
+            DependencyProperty.RegisterAttached("ItemBackgroundColour", typeof(Brush), typeof(GnosisGalleryItem),
+                new FrameworkPropertyMetadata(ItemBackgroundColourPropertyChanged));
+
+
+        public static void ItemBackgroundColourPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
+        {
+            GnosisGalleryItem galleryItem = source as GnosisGalleryItem;
+            //string backgroundColour = (string)e.NewValue;
+
+            galleryItem.btnCaption.Background = (Brush)e.NewValue;// StyleHelper.GetBrushFromHex(backgroundColour);
+        }
+            
 
         public static readonly DependencyProperty ControlThicknessProperty =
             DependencyProperty.RegisterAttached("ControlThickness",
@@ -413,23 +468,23 @@ namespace GnosisControls
             double paddingHorizontal;
             double paddingVertical;
 
-            if (newThickness > oldThickness)
+            if (newThickness > galleryItem.btnCaption.BorderThickness.Left)
             {
                 //increase border thickness, decrease padding
-                paddingHorizontal = galleryItem.Padding.Left - newThickness;
-                paddingVertical = galleryItem.Padding.Top - newThickness;
+                paddingHorizontal = galleryItem.HorizontalPadding - newThickness;
+                paddingVertical = galleryItem.VerticalPadding - newThickness;
             }
             else
             {
                 //decrease border thickness, increase padding
-                paddingHorizontal = galleryItem.Padding.Left + oldThickness;
-                paddingVertical = galleryItem.Padding.Top + oldThickness;
+                paddingHorizontal = galleryItem.HorizontalPadding + oldThickness;
+                paddingVertical = galleryItem.VerticalPadding + oldThickness;
             }
 
             if (paddingHorizontal >= 0 && paddingVertical >= 0)
             {
-                galleryItem.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
-                galleryItem.BorderThickness = new Thickness(newThickness);
+                galleryItem.btnCaption.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+                galleryItem.btnCaption.BorderThickness = new Thickness(newThickness);
             }
 
         }
@@ -482,25 +537,25 @@ namespace GnosisControls
         public void SetItemSelectedHandler(Action action)
         {
             ItemSelectedHandler = action;
-            this.Selected += GnosisGalleryItemWPF_Selected;
+            btnCaption.Checked += GnosisGalleryItemWPF_Selected;
         }
 
         public void SetItemUnselectedHandler(Action action)
         {
             ItemUnselectedHandler = action;
-            this.Unselected += GnosisGalleryItemWPF_Unselected;
+            btnCaption.Unchecked += GnosisGalleryItemWPF_Unselected;
         }
 
         private void GnosisGalleryItemWPF_Unselected(object sender, RoutedEventArgs e)
         {
             ItemUnselectedHandler.Invoke();
-            Active = false;
+           // Active = false;
         }
 
         private void GnosisGalleryItemWPF_Selected(object sender, System.Windows.RoutedEventArgs e)
         {
             ItemSelectedHandler.Invoke();
-            Active = true;
+           // Active = true;
         }
 
         public void AddGalleryItem(GnosisGalleryItem child)
@@ -514,47 +569,66 @@ namespace GnosisControls
             //    child.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin, horizontalMargin + horizontalSpacing);
 
             //}
-
-            this.Items.Add(child);
+           // child.PropertyChanged += Child_PropertyChanged; 
+            pnlItems.Children.Add(child);
+            toggle.Visibility = Visibility.Visible;
         }
+
+        //private void Child_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    if (e.PropertyName.Equals("Active") && ((GnosisGalleryItem)sender).Active)
+        //    {
+        //        foreach (GnosisGalleryItem child in pnlItems.Children)
+        //        {
+        //            if (child != sender)
+        //            {
+        //                if (child.Active)
+        //                {
+        //                    child.Active = false;
+        //                }
+        //            }
+
+        //        }
+        //    }
+        //}
 
 
         //Because of the complex way that margins are applied in TreeViews, the following rules must be applied to get the desired effect
         //1.first child has top and bottom spacing
         //2.middle children have bottom spacing only
         //3.last child has no vertical spacing
-        public void ApplySpacing()
-        {
-            for (int i = 0; i < Items.Count; i++)
-            {
-                GnosisGalleryItem galleryItem = ((GnosisGalleryItem)Items[i]);
-                if (i == 0)
-                {
-                    galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + horizontalSpacing, 
-                        galleryItem.VerticalMargin + verticalSpacing, galleryItem.HorizontalMargin, galleryItem.VerticalMargin + verticalSpacing);
-                }
-                if (i > 0)
-                {
-                    if (i < Items.Count - 1)
-                    {
-                        galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + horizontalSpacing, galleryItem.VerticalMargin,
-                            galleryItem.HorizontalMargin, galleryItem.VerticalMargin + verticalSpacing);
+        //public void ApplySpacing()
+        //{
+        //    for (int i = 0; i < Items.Count; i++)
+        //    {
+        //        GnosisGalleryItem galleryItem = ((GnosisGalleryItem)Items[i]);
+        //        if (i == 0)
+        //        {
+        //            galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + horizontalSpacing, 
+        //                galleryItem.VerticalMargin + verticalSpacing, galleryItem.HorizontalMargin, galleryItem.VerticalMargin + verticalSpacing);
+        //        }
+        //        if (i > 0)
+        //        {
+        //            if (i < Items.Count - 1)
+        //            {
+        //                galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + horizontalSpacing, galleryItem.VerticalMargin,
+        //                    galleryItem.HorizontalMargin, galleryItem.VerticalMargin + verticalSpacing);
 
-                    }
-                    else
-                    {
-                        galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + horizontalSpacing, galleryItem.VerticalMargin,
-                           galleryItem.HorizontalMargin, galleryItem.VerticalMargin);
+        //            }
+        //            else
+        //            {
+        //                galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + horizontalSpacing, galleryItem.VerticalMargin,
+        //                   galleryItem.HorizontalMargin, galleryItem.VerticalMargin);
 
-                    }
-                }
+        //            }
+        //        }
 
-                if (galleryItem.Items.Count > 0)
-                {
-                    galleryItem.ApplySpacing();
-                }
-            }
-        }
+        //        if (galleryItem.Items.Count > 0)
+        //        {
+        //            galleryItem.ApplySpacing();
+        //        }
+        //    }
+        //}
 
         //public void SetCaption(string caption)
         //{
@@ -751,12 +825,12 @@ namespace GnosisControls
 
         public void SetPaddingHorizontal(double paddingHorizontal)
         {
-            this.SetHorizontalPaddingExt(paddingHorizontal);
+            btnCaption.SetHorizontalPaddingExt(paddingHorizontal);
         }
 
         public void SetPaddingVertical(double paddingVertical)
         {
-            this.SetVerticalPaddingExt(paddingVertical);
+            btnCaption.SetVerticalPaddingExt(paddingVertical);
         }
 
         //public FontFamily GetFontFamily()
@@ -830,6 +904,18 @@ namespace GnosisControls
         public void SetHeight(double fieldHeight)
         {
             this.Height = fieldHeight;
+        }
+
+        private void toggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (pnlItems.Visibility == Visibility.Collapsed)
+            {
+                pnlItems.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                pnlItems.Visibility = Visibility.Collapsed;
+            }
         }
 
         public virtual void GnosisAddChild(IGnosisObject child)

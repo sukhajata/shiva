@@ -29,7 +29,7 @@
         </Grid>
 
         <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="2" Name="scrlContent" >
-            <Grid Name="gridContent" Background="{Binding BorderBrush, ElementName=border}" />
+            <Grid Name="gridContent"  />
         </ScrollViewer>
     </Grid>
 

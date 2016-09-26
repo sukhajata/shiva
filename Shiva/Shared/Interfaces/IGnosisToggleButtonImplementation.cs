@@ -5,13 +5,14 @@ using System.Text;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisToggleButtonImplementation : IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor
+    public interface IGnosisToggleButtonImplementation : IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor,
+        IGnosisIconPossessor
     {
         //properties
         bool Active { get; set; }
         bool Disabled { get; set; }
         string GnosisGroupName { get; set; }
-        string GnosisIcon { get; set; }
+      //  string GnosisIcon { get; set; }
         int SelectedFactor { get; set; }
         string Shortcut { get; set; }
         bool TooltipSelected { get; set; }

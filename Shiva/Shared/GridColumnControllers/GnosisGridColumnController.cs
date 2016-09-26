@@ -22,10 +22,13 @@ namespace Shiva.Shared.GridColumnControllers
         GnosisGridController parent;
         private int colSpan;
         private List<IGnosisGridFieldImplementation> fields;
+        private IGnosisGridFieldImplementation fieldClone;
+        private string font;
+        private int fontSize;
 
         private double characterWidth;
         private double fieldHeight;
-        private double minFieldWidth;
+       // private double minFieldWidth;
         private double maxFieldWidth;
         private int numLines;
 
@@ -72,16 +75,95 @@ namespace Shiva.Shared.GridColumnControllers
             get { return columnModel.DatasetItem; }
         }
 
+        /// <summary>
+        /// If the field has MinTextDisplayWidthChars, this determines the minimum field width.
+        /// </summary>
         public double MinFieldWidth
         {
-            get { return minFieldWidth; }
-            set { minFieldWidth = value; }
+            get
+            {
+                if (columnModel is GnosisTextColumn && ((GnosisTextColumn)columnModel).MinTextDisplayWidthChars > 0)
+                {
+                    double minWidth = ((GnosisTextColumn)columnModel).MinTextDisplayWidthChars * CharacterWidth + (2 * fieldClone.HorizontalPadding);
+                    return minWidth;
+                }
+                else if (columnModel is GnosisTextResults && ((GnosisTextResults)columnModel).MinTextDisplayWidthChars > 0)
+                {
+                    double minWidth = ((GnosisTextResults)columnModel).MinTextDisplayWidthChars * CharacterWidth + (2 * fieldClone.HorizontalPadding);
+                    return minWidth;
+
+                }
+                else if (MinDisplayChars > 0)
+                {
+                    //if (numLines > 1)
+                    //{
+                    //    double totalMinWidth = CharacterWidth * MinDisplayChars;
+                    //    //padding on each line
+                    //    double lineMinWidth = (totalMinWidth / NumLines) + (2 * fieldClone.HorizontalPadding);
+
+                    //    return lineMinWidth;
+                    //}
+                    //else
+                    //{
+                    //    double minWidth = MinDisplayChars * CharacterWidth + (2 * fieldClone.HorizontalPadding);
+                    //    return minWidth;
+                    //}
+                    return 2 * characterWidth + (2 * fieldClone.HorizontalPadding);
+                }
+                else
+                {
+                    return 0;
+                }
+                //else if (MaxChars > 0)
+                //{
+                //    // MinFieldWidth = styles.GetMinFieldWidth(MaxChars);
+                //    MinFieldWidth = GlobalData.Singleton.StyleHelper.GetMinFieldWidth(gridField, font, fontSize, MaxChars);
+                //}
+            }
+            //set { minFieldWidth = value; }
         }
 
         public double MaxFieldWidth
         {
-            get { return maxFieldWidth; }
-            set { maxFieldWidth = value; }
+            get
+            {
+                if (columnModel is GnosisTextColumn && ((GnosisTextColumn)columnModel).MaxTextDisplayWidthChars > 0)
+                {
+                    double maxWidth = ((GnosisTextColumn)columnModel).MaxTextDisplayWidthChars * CharacterWidth + (2 * fieldClone.HorizontalPadding);
+                    return maxWidth;
+                }
+                else if (columnModel is GnosisTextResults && ((GnosisTextResults)columnModel).MaxTextDisplayWidthChars > 0)
+                {
+                    double maxWidth = ((GnosisTextResults)columnModel).MaxTextDisplayWidthChars * CharacterWidth + (2 * fieldClone.HorizontalPadding);
+                    return maxWidth;
+                }
+                else if (MaxDisplayChars > 0)
+                {
+                    if (numLines > 1)
+                    {
+                        double totalMaxWidth = MaxDisplayChars * CharacterWidth;
+                        double lineMaxWidth = totalMaxWidth / numLines + (2 * fieldClone.HorizontalPadding);
+
+                        return lineMaxWidth;
+                    }
+                    else
+                    {
+                        double maxWidth = MaxDisplayChars * CharacterWidth + (2 * fieldClone.HorizontalPadding);
+                        return maxWidth;
+
+                    }
+                }
+                else if (MaxChars > 0)
+                {
+                    double maxWidth = MaxChars * CharacterWidth + (2 * fieldClone.HorizontalPadding);
+                    return maxWidth;
+                }
+                else
+                {
+                    return 5000;
+                }
+            }
+            // set { maxFieldWidth = value; }
         }
 
         public int MinDisplayChars
@@ -112,8 +194,18 @@ namespace Shiva.Shared.GridColumnControllers
             get;set;
         }
 
-        public int PaddingVertical
-        { get; set; }
+        public int VerticalPadding
+        {
+            get
+            {
+                return fieldClone.VerticalPadding;
+            }
+        }
+
+        public int HorizontalPadding
+        {
+            get { return fieldClone.HorizontalPadding; }
+        }
 
         public int MaxChars
         {
@@ -234,78 +326,62 @@ namespace Shiva.Shared.GridColumnControllers
 
         public virtual IGnosisGridFieldImplementation GetFieldClone()
         {
+            IGnosisGridFieldImplementation gridField = null;
+
             if (ColumnModel is GnosisTextColumn)
             {
-                GnosisGridTextField textField = GnosisControlCreator.CreateGnosisGridTextField((GnosisTextColumn)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(textField, instanceController.EntityController.GetNormalStyle());
-                return textField;
+                gridField = GnosisControlCreator.CreateGnosisGridTextField((GnosisTextColumn)ColumnModel);
             }
             else if (ColumnModel is GnosisCheckColumn)
             {
-                GnosisGridCheckField checkField = GnosisControlCreator.CreateGnosisGridCheckField((GnosisCheckColumn)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(checkField, instanceController.EntityController.GetNormalStyle());
-                return checkField;
+                gridField = GnosisControlCreator.CreateGnosisGridCheckField((GnosisCheckColumn)ColumnModel);
             }
             else if (ColumnModel is GnosisDateColumn)
             {
-                GnosisGridDateField dateField =  GnosisControlCreator.CreateGnosisGridDateField((GnosisDateColumn)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(dateField, instanceController.EntityController.GetNormalStyle());
-                return dateField;
+                gridField =  GnosisControlCreator.CreateGnosisGridDateField((GnosisDateColumn)ColumnModel);
             }
             else if (ColumnModel is GnosisDateTimeColumn)
             {
-                GnosisGridDateTimeField dateTimeField = GnosisControlCreator.CreateGnosisGridDateTimeField((GnosisDateTimeColumn)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(dateTimeField, instanceController.EntityController.GetNormalStyle());
-                return dateTimeField;
+                gridField = GnosisControlCreator.CreateGnosisGridDateTimeField((GnosisDateTimeColumn)ColumnModel);
             }
             else if (ColumnModel is GnosisComboColumn)
             {
-                GnosisGridComboField comboField = GnosisControlCreator.CreateGnosisGridComboField((GnosisComboColumn)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(comboField, instanceController.EntityController.GetNormalStyle());
-                return comboField;
-
+                gridField = GnosisControlCreator.CreateGnosisGridComboField((GnosisComboColumn)ColumnModel);
             }
             else if (ColumnModel is GnosisLinkColumn)
             {
-                GnosisGridLinkField linkField = GnosisControlCreator.CreateGnosisGridLinkField((GnosisLinkColumn)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(linkField, instanceController.EntityController.GetNormalStyle());
-                return linkField;
+                gridField = GnosisControlCreator.CreateGnosisGridLinkField((GnosisLinkColumn)ColumnModel);
             }
             else if (ColumnModel is GnosisNumberColumn)
             {
-                GnosisGridNumberField numberField = GnosisControlCreator.CreateGnosisGridNumberField((GnosisNumberColumn)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(numberField, instanceController.EntityController.GetNormalStyle());
-                return numberField;
+                gridField = GnosisControlCreator.CreateGnosisGridNumberField((GnosisNumberColumn)ColumnModel);
             }
             else if (ColumnModel is GnosisTextResults)
             {
-                GnosisResultsTextField textField = GnosisControlCreator.CreateGnosisResultsTextField((GnosisTextResults)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(textField, instanceController.EntityController.GetNormalStyle());
-                return textField;
+                gridField = GnosisControlCreator.CreateGnosisResultsTextField((GnosisTextResults)ColumnModel);
             }
             else if (ColumnModel is GnosisCheckResults)
             {
-                GnosisResultsCheckField checkField = GnosisControlCreator.CreateGnosisResultsCheckField((GnosisCheckResults)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(checkField, instanceController.EntityController.GetNormalStyle());
-                return checkField;
+                gridField = GnosisControlCreator.CreateGnosisResultsCheckField((GnosisCheckResults)ColumnModel);
             }
             else if (ColumnModel is GnosisDateResults)
             {
-                GnosisResultsDateField dateField =  GnosisControlCreator.CreateGnosisResultsDateField((GnosisDateResults)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(dateField, instanceController.EntityController.GetNormalStyle());
-                return dateField;
+                gridField =  GnosisControlCreator.CreateGnosisResultsDateField((GnosisDateResults)ColumnModel);
             }
             else if (ColumnModel is GnosisDateTimeResults)
             {
-                GnosisResultsDateTimeField dateTimeField =  GnosisControlCreator.CreateGnosisResultsDateTimeField((GnosisDateTimeResults)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(dateTimeField, instanceController.EntityController.GetNormalStyle());
-                return dateTimeField;
+                gridField =  GnosisControlCreator.CreateGnosisResultsDateTimeField((GnosisDateTimeResults)ColumnModel);
             }
             else if (ColumnModel is GnosisNumberResults)
             {
-                GnosisResultsNumberField numberField = GnosisControlCreator.CreateGnosisResultsNumberField((GnosisNumberResults)ColumnModel);
-                GlobalData.Singleton.StyleHelper.ApplyStyle(numberField, instanceController.EntityController.GetNormalStyle());
-                return numberField;
+                gridField = GnosisControlCreator.CreateGnosisResultsNumberField((GnosisNumberResults)ColumnModel);
+            }
+
+
+            if (gridField != null)
+            {
+                GlobalData.Singleton.StyleHelper.ApplyStyle(gridField, instanceController.EntityController.GetNormalStyle());
+                return gridField;
             }
             else
             {
@@ -328,13 +404,13 @@ namespace Shiva.Shared.GridColumnControllers
 
         protected void SetDisplayWidths()
         {
-            IGnosisGridFieldImplementation gridField = GetFieldClone();
+            fieldClone = GetFieldClone();
 
-            string font = instanceController.EntityController.GetNormalStyle().Font;
-            int fontSize = instanceController.EntityController.GetNormalStyle().FontSize;
-            characterWidth = GlobalData.Singleton.StyleHelper.GetCharacterWidth(gridField, font, fontSize);
+            font = instanceController.EntityController.GetNormalStyle().Font;
+            fontSize = instanceController.EntityController.GetNormalStyle().FontSize;
+            characterWidth = GlobalData.Singleton.StyleHelper.GetCharacterWidth(fieldClone, font, fontSize);
 
-            fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(gridField, font, fontSize);
+            fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(fieldClone, font, fontSize);
 
 
             //display chars
@@ -363,54 +439,55 @@ namespace Shiva.Shared.GridColumnControllers
             }
 
 
-            //field width
-            if (columnModel is GnosisTextColumn && ((GnosisTextColumn)columnModel).MaxTextDisplayWidthChars > 0)
-            {
-                //MaxFieldWidth = styles.GetMaxFieldWidth(((GnosisTextColumn)columnModel).MaxDisplayWidthChars);
-                MaxFieldWidth = GlobalData.Singleton.StyleHelper.GetMaxFieldWidth(gridField, font, fontSize, ((GnosisTextColumn)columnModel).MaxDisplayChars);
-            }
-            else if (MaxDisplayChars > 0)
-            {
-                //MaxFieldWidth = styles.GetMaxFieldWidth(MaxDisplayChars);
-                MaxFieldWidth = GlobalData.Singleton.StyleHelper.GetMaxFieldWidth(gridField, font, fontSize, MaxDisplayChars);
-            }
-            else if (MaxChars > 0)
-            {
-                //MaxFieldWidth = styles.GetMaxFieldWidth(MaxChars);
-                MaxFieldWidth = GlobalData.Singleton.StyleHelper.GetMaxFieldWidth(gridField, font, fontSize, MaxChars);
-            }
+            //max field width
+            //if (columnModel is GnosisTextColumn && ((GnosisTextColumn)columnModel).MaxTextDisplayWidthChars > 0)
+            //{
+            //    //MaxFieldWidth = styles.GetMaxFieldWidth(((GnosisTextColumn)columnModel).MaxDisplayWidthChars);
+            //    MaxFieldWidth = GlobalData.Singleton.StyleHelper.GetMaxFieldWidth(gridField, font, fontSize, ((GnosisTextColumn)columnModel).MaxDisplayChars);
+            //}
+            //else if (MaxDisplayChars > 0)
+            //{
+            //    //MaxFieldWidth = styles.GetMaxFieldWidth(MaxDisplayChars);
+            //    MaxFieldWidth = GlobalData.Singleton.StyleHelper.GetMaxFieldWidth(gridField, font, fontSize, MaxDisplayChars);
+            //}
+            //else if (MaxChars > 0)
+            //{
+            //    //MaxFieldWidth = styles.GetMaxFieldWidth(MaxChars);
+            //    MaxFieldWidth = GlobalData.Singleton.StyleHelper.GetMaxFieldWidth(gridField, font, fontSize, MaxChars);
+            //}
 
-            if (columnModel is GnosisTextColumn && ((GnosisTextColumn)columnModel).MinTextDisplayWidthChars > 0)
-            {
-                MinFieldWidth = GlobalData.Singleton.StyleHelper.GetMinFieldWidth(gridField, font, fontSize, ((GnosisTextColumn)columnModel).MinTextDisplayWidthChars);
-            }
-            else if (columnModel is GnosisTextResults && ((GnosisTextResults)columnModel).MinTextDisplayWidthChars > 0)
-            {
-                MinFieldWidth = GlobalData.Singleton.StyleHelper.GetMinFieldWidth(gridField, font, fontSize, ((GnosisTextResults)columnModel).MinTextDisplayWidthChars);
+            ////min field width
+            //if (columnModel is GnosisTextColumn && ((GnosisTextColumn)columnModel).MinTextDisplayWidthChars > 0)
+            //{
+            //    MinFieldWidth = GlobalData.Singleton.StyleHelper.GetMinFieldWidth(gridField, font, fontSize, ((GnosisTextColumn)columnModel).MinTextDisplayWidthChars);
+            //}
+            //else if (columnModel is GnosisTextResults && ((GnosisTextResults)columnModel).MinTextDisplayWidthChars > 0)
+            //{
+            //    MinFieldWidth = GlobalData.Singleton.StyleHelper.GetMinFieldWidth(gridField, font, fontSize, ((GnosisTextResults)columnModel).MinTextDisplayWidthChars);
 
-            }
-            else if (MinDisplayChars > 0)
-            {
-                //MinFieldWidth = styles.GetMinFieldWidth(MinDisplayChars);
-                MinFieldWidth = GlobalData.Singleton.StyleHelper.GetMinFieldWidth(gridField, font, fontSize, MinDisplayChars);
-            }
-            else if (MaxChars > 0)
-            {
-                // MinFieldWidth = styles.GetMinFieldWidth(MaxChars);
-                MinFieldWidth = GlobalData.Singleton.StyleHelper.GetMinFieldWidth(gridField, font, fontSize, MaxChars);
-            }
+            //}
+            //else if (MinDisplayChars > 0)
+            //{
+            //    //MinFieldWidth = styles.GetMinFieldWidth(MinDisplayChars);
+            //    MinFieldWidth = GlobalData.Singleton.StyleHelper.GetMinFieldWidth(gridField, font, fontSize, MinDisplayChars);
+            //}
+            //else if (MaxChars > 0)
+            //{
+            //    // MinFieldWidth = styles.GetMinFieldWidth(MaxChars);
+            //    MinFieldWidth = GlobalData.Singleton.StyleHelper.GetMinFieldWidth(gridField, font, fontSize, MaxChars);
+            //}
 
 
 
 
-            if (MinFieldWidth > MaxFieldWidth)
-            {
-                MinFieldWidth = MaxFieldWidth;
-            }
-            else if (MaxFieldWidth < MinFieldWidth)
-            {
-                MaxFieldWidth = MinFieldWidth;
-            }
+            //if (MinFieldWidth > MaxFieldWidth)
+            //{
+            //    MinFieldWidth = MaxFieldWidth;
+            //}
+            //else if (MaxFieldWidth < MinFieldWidth)
+            //{
+            //    MaxFieldWidth = MinFieldWidth;
+            //}
 
             if (columnModel._ContentHorizontalAlignment == GnosisController.HorizontalAlignmentType.NONE)
             {
@@ -419,14 +496,14 @@ namespace Shiva.Shared.GridColumnControllers
                 header._ContentHorizontalAlignment  = ha;
             }
 
-            if (gridField is GnosisGridTextField || gridField is GnosisResultsTextField)
+            if (fieldClone is GnosisGridTextField || fieldClone is GnosisResultsTextField)
             {
                 TextHeight = GlobalData.Singleton.StyleHelper.GetTextHeight(
-                    (GnosisGridTextField)gridField,
+                    (GnosisGridTextField)fieldClone,
                     instanceController.EntityController.GetNormalStyle().Font,
                     instanceController.EntityController.GetNormalStyle().FontSize);
 
-                PaddingVertical = (int)(fieldHeight - TextHeight) / 2;
+                //PaddingVertical = (int)(fieldHeight - TextHeight) / 2;
             }
 
         }

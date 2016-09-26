@@ -36,6 +36,7 @@ namespace GnosisControls
         private string controlType;
         private bool disabled;
         private string gnosisIcon;
+        private int iconSize;
         private string gnosisName;
         private IGnosisVisibleControlImplementation gnosisParent;
         private bool hidden;
@@ -50,6 +51,7 @@ namespace GnosisControls
         protected int horizontalMargin;
         protected int verticalMargin;
 
+        [GnosisProperty]
         public int HorizontalPadding
         {
             get { return horizontalPadding; }
@@ -63,6 +65,7 @@ namespace GnosisControls
             }
         }
 
+        [GnosisProperty]
         public int VerticalPadding
         {
             get { return verticalPadding; }
@@ -76,6 +79,7 @@ namespace GnosisControls
             }
         }
 
+        [GnosisProperty]
         public int HorizontalMargin
         {
             get { return horizontalMargin; }
@@ -86,6 +90,7 @@ namespace GnosisControls
             }
         }
 
+        [GnosisProperty]
         public int VerticalMargin
         {
             get { return verticalMargin; }
@@ -137,6 +142,7 @@ namespace GnosisControls
             }
         }
 
+        [GnosisProperty]
         public string Caption
         {
             get { return caption; }
@@ -147,6 +153,7 @@ namespace GnosisControls
             }
         }
 
+        [GnosisProperty]
         public string ControlType
         {
             get
@@ -160,19 +167,37 @@ namespace GnosisControls
             }
         }
 
+        [GnosisProperty]
         public string GnosisIcon
         {
             get { return gnosisIcon; }
             set
             {
                 gnosisIcon = value;
-                this.Content = new Image
-                {
-                    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(gnosisIcon, this.IsEnabled)))
-                };
+                //this.Content = new Image
+                //{
+                //    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(gnosisIcon, this.IsEnabled)))
+                //};
             }
         }
 
+        public int IconSize
+        {
+            get { return iconSize; }
+            set
+            {
+                iconSize = value;
+                if (gnosisIcon != null)
+                {
+
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+
+                    this.Content = new Image { Source = bi };
+                }
+            }
+        }
+
+        [GnosisProperty]
         public string GnosisName
         {
             get { return gnosisName; }
@@ -185,7 +210,7 @@ namespace GnosisControls
             set { gnosisParent = value; }
         }
 
-
+        [GnosisProperty]
         public bool Hidden
         {
             get
@@ -200,12 +225,14 @@ namespace GnosisControls
             }
         }
 
+        [GnosisProperty]
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
 
+        [GnosisProperty]
         public string MenuTag
         {
             get
@@ -231,18 +258,21 @@ namespace GnosisControls
             set { menuTag = value; }
         }
 
+        [GnosisProperty]
         public int Order
         {
             get { return order; }
             set { order = value; }
         }
 
+        [GnosisProperty]
         public string Shortcut
         {
             get { return shortcut; }
             set { shortcut = value; }
         }
 
+        [GnosisProperty]
         public string Tooltip
         {
             get { return tooltip; }

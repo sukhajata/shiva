@@ -44,7 +44,8 @@ namespace GnosisControls
         private string gnosisName;
         private IGnosisVisibleControlImplementation gnosisParent;
         private bool hidden;
-        private string icon;
+        private string gnosisIcon;
+        private int iconSize;
         private int id;
         private int maxChars;
         private GnosisController.MenuTagEnum menuTag;
@@ -92,12 +93,10 @@ namespace GnosisControls
             {
                 disabled = value;
                 btn.IsEnabled = !disabled;
-                if (icon != null)
+                if (gnosisIcon != null && IconSize  > 0)
                 {
-                    btn.Content = new Image
-                    {
-                        Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, btn.IsEnabled)))
-                    };
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    btn.Content = new Image { Source = bi };
                 }
                 OnPropertyChanged("Disabled");
             }
@@ -455,16 +454,28 @@ namespace GnosisControls
         {
             get
             {
-                return icon;
+                return gnosisIcon;
             }
 
             set
             {
-                icon = value;
-                btn.Content = new Image
+                gnosisIcon = value;
+               
+            }
+        }
+
+        public int IconSize
+        {
+            get { return iconSize; }
+            set
+            {
+                iconSize = value;
+                if (gnosisIcon != null)
                 {
-                    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, btn.IsEnabled)))
-                };
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+
+                    btn.Content = new Image { Source = bi } ;
+                }
             }
         }
 

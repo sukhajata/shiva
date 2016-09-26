@@ -5,9 +5,9 @@ using System.Text;
 namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisToolbarButtonImplementation : IGnosisMouseVisibleControlImplementation,
-        IGnosisPaddingPossessor, IGnosisMarginPossessor, IGnosisControlThicknessPossessor//: IGnosisButtonImplementation
+        IGnosisPaddingPossessor, IGnosisMarginPossessor, IGnosisControlThicknessPossessor, IGnosisIconPossessor
     {
-        string GnosisIcon { get; set; }
+       // string GnosisIcon { get; set; }
         string Shortcut { get; set; }
         string MenuTag { get; set; }
         bool Disabled { get; set; }

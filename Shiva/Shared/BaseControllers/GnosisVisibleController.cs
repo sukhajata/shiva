@@ -214,6 +214,16 @@ namespace Shiva.Shared.BaseControllers
            // }
         }
 
+        //protected virtual int GetIconHeight()
+        //{
+        //    GnosisStyle style = EntityController.GetNormalStyle();
+        //    double textHeight = GlobalData.Singleton.StyleHelper.GetTextHeight((IGnosisVisibleControlImplementation)ControlImplementation,
+        //        style.Font, style.FontSize);
+        //    double iconHeight = 2 * ((IGnosisPaddingPossessor)ControlImplementation).VerticalPadding + textHeight;
+
+        //    return (int)iconHeight;
+
+        //}
 
 
         //internal void SetBackgroundColour(string backgroundColour)

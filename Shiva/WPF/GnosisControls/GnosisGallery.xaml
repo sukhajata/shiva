@@ -1,46 +1,18 @@
-﻿<TreeView x:Class="GnosisControls.GnosisGallery"
+﻿<Border x:Class="GnosisControls.GnosisGallery"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GnosisControls"
-             mc:Ignorable="d" BorderThickness="0"
+             mc:Ignorable="d" Name="Bd"
              >
-    <!--<TreeView.Resources>
-        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                      Color="Transparent" />
-        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
-                      Color="Transparent" />
-        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
-                      Color="Transparent" />
-        <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
-                      Color="Transparent" />
-
-    </TreeView.Resources>-->
-    
-    <TreeView.Template>
-        <ControlTemplate TargetType="{x:Type TreeView}">
-            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" 
-                    SnapsToDevicePixels="true">
-                <ScrollViewer x:Name="_tv_scrollviewer_" 
-                              Background="{TemplateBinding Background}" 
+    <ScrollViewer x:Name="scrollContent" 
+                              Background="{Binding Background, ElementName=Bd}" 
                               CanContentScroll="false" 
                               Focusable="false" 
-                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" 
-                              Padding="{TemplateBinding Padding}" 
-                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
-                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                    <ItemsPresenter/>
-                </ScrollViewer>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                </Trigger>
-                <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
-                    <Setter Property="CanContentScroll" TargetName="_tv_scrollviewer_" Value="true"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-    </TreeView.Template>
-</TreeView>
+                              HorizontalScrollBarVisibility="Auto" 
+                              SnapsToDevicePixels="True" 
+                              VerticalScrollBarVisibility="Auto">
+        <StackPanel Name="content"/>
+    </ScrollViewer>
+</Border>

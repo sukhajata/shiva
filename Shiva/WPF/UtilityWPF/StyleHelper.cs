@@ -12,6 +12,9 @@ using Shiva.Shared.ToolbarControllers;
 using Shiva.Shared.Utility;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -21,6 +24,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using UtilityWPF.TriggerTracing;
 
 namespace ShivaWPF3.UtilityWPF
@@ -47,7 +51,7 @@ namespace ShivaWPF3.UtilityWPF
 
             if (gnosisStyle.Font != null && gnosisStyle.Font.Length > 0)
             {
-                Setter setter = new Setter(Control.FontFamilyProperty, new FontFamily(gnosisStyle.Font));
+                Setter setter = new Setter(Control.FontFamilyProperty, new System.Windows.Media.FontFamily(gnosisStyle.Font));
                 windowsStyle.Setters.Add(setter);
             }
 
@@ -78,7 +82,7 @@ namespace ShivaWPF3.UtilityWPF
             {
                 //captionLabel.SetFont(captionStyle.Font);
                 //fontFamily = captionStyle.Font;
-                Setter setter = new Setter(Control.FontFamilyProperty, new FontFamily(captionStyle.Font));
+                Setter setter = new Setter(Control.FontFamilyProperty, new System.Windows.Media.FontFamily(captionStyle.Font));
                 windowsStyle.Setters.Add(setter);
             }
 
@@ -88,6 +92,7 @@ namespace ShivaWPF3.UtilityWPF
                 Setter setter = new Setter(Control.FontSizeProperty, (double)captionStyle.FontSize);
                 windowsStyle.Setters.Add(setter);
             }
+
 
             if (captionStyle.BackgroundColour != null && captionStyle.BackgroundColour.Length > 0)
             {
@@ -165,7 +170,7 @@ namespace ShivaWPF3.UtilityWPF
 
             if (gnosisStyle.Font != null && gnosisStyle.Font.Length > 0)
             {
-                Setter setter = new Setter(Control.FontFamilyProperty, new FontFamily(gnosisStyle.Font));
+                Setter setter = new Setter(Control.FontFamilyProperty, new System.Windows.Media.FontFamily(gnosisStyle.Font));
                 windowsStyle.Setters.Add(setter);
                 //wpfControl.Style.Setters.Add(setter);
             }
@@ -176,9 +181,11 @@ namespace ShivaWPF3.UtilityWPF
                 //wpfControl.Style.Setters.Add(setter);
             }
 
+           
+
             if (gnosisStyle.BackgroundColour != null && gnosisStyle.BackgroundColour.Length > 0)
             {
-                Setter setter = new Setter(Control.BackgroundProperty, GetBrushFromHex(gnosisStyle.BackgroundColour));
+                Setter setter = GetBackgroundSetter(control, GetBrushFromHex(gnosisStyle.BackgroundColour));
                 windowsStyle.Setters.Add(setter);
                 //wpfControl.Style.Setters.Add(setter);
             }
@@ -256,13 +263,6 @@ namespace ShivaWPF3.UtilityWPF
                 {
                     ((IGnosisPaddingPossessor)control).HorizontalPadding = gnosisStyle.HorizontalPadding;
                 }
-               // if (controller is GnosisFrameController)
-               // {
-                    //controller.SetHorizontalPadding(gnosisStyle.HorizontalPadding);
-                    //Border b = (Border)control;
-                    //Setter setter = new Setter(Border.PaddingProperty, new Thickness(b.Padding.Left, gnosisStyle.HorizontalPadding, b.Padding.Right, gnosisStyle.HorizontalPadding));
-                    //windowsStyle.Setters.Add(setter);
-               // }
             }
 
             if (gnosisStyle.VerticalPadding > 0)
@@ -271,13 +271,14 @@ namespace ShivaWPF3.UtilityWPF
                 {
                     ((IGnosisPaddingPossessor)control).VerticalPadding = gnosisStyle.VerticalPadding;
                 }
-              //  if (controller is GnosisFrameController)
-                //{
-                    //controller.SetVerticalPadding(gnosisStyle.VerticalPadding);
-                    //Border b = (Border)control;
-                    //Setter setter = new Setter(Border.PaddingProperty, new Thickness(gnosisStyle.VerticalPadding, b.Padding.Top, gnosisStyle.VerticalPadding, b.Padding.Bottom));
-                    //windowsStyle.Setters.Add(setter);
-                //}
+            }
+
+            //icon size
+            if (control is IGnosisIconPossessor)
+            {
+                double textHeight = GetTextHeight((IGnosisVisibleControlImplementation)control, gnosisStyle.Font, gnosisStyle.FontSize);
+                double verticalPadding = gnosisStyle.VerticalPadding;
+                ((IGnosisIconPossessor)control).IconSize = (int)Math.Round(2 * verticalPadding + textHeight);
             }
 
             if (gnosisStyle.HorizontalMargin > 0 )
@@ -331,7 +332,7 @@ namespace ShivaWPF3.UtilityWPF
             }
 
             //control thickness takes from margin or padding so must be applied after
-            if (control is IGnosisControlThicknessPossessor)
+            if (gnosisStyle.ControlThickness > 0 && control is IGnosisControlThicknessPossessor)
             {
                 Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisStyle);
                 windowsStyle.Setters.Add(setter);
@@ -410,16 +411,18 @@ namespace ShivaWPF3.UtilityWPF
             //Setter overrideStyleSetter = new Setter(Control.OverridesDefaultStyleProperty, true);
             //windowsStyle.Setters.Add(overrideStyleSetter);
 
-            if (gnosisStyleCondition.Font != null && gnosisStyleCondition.Font.Length > 0)
-            {
-                Setter setter = new Setter(Control.FontFamilyProperty, new FontFamily(gnosisStyleCondition.Font));
-                windowsStyle.Setters.Add(setter);
-            }
-            if (gnosisStyleCondition.FontSize > 0)
-            {
-                Setter setter = new Setter(Control.FontSizeProperty, (double)gnosisStyleCondition.FontSize);
-                windowsStyle.Setters.Add(setter);
-            }
+            //if (gnosisStyleCondition.Font != null && gnosisStyleCondition.Font.Length > 0)
+            //{
+            //    Setter setter = new Setter(Control.FontFamilyProperty, new System.Windows.Media.FontFamily(gnosisStyleCondition.Font));
+            //    windowsStyle.Setters.Add(setter);
+            //}
+            //if (gnosisStyleCondition.FontSize > 0)
+            //{
+            //    Setter setter = new Setter(Control.FontSizeProperty, (double)gnosisStyleCondition.FontSize);
+            //    windowsStyle.Setters.Add(setter);
+            //}
+
+
             if (gnosisStyleCondition.ContentColour != null && gnosisStyleCondition.ContentColour.Length > 0)
             {
                 Setter setter = new Setter(Control.ForegroundProperty, GetBrushFromHex(gnosisStyleCondition.ContentColour));
@@ -429,7 +432,7 @@ namespace ShivaWPF3.UtilityWPF
 
             if (gnosisStyleCondition.BackgroundColour != null && gnosisStyleCondition.BackgroundColour.Length > 0)
             {
-                Setter setter = new Setter(Control.BackgroundProperty, GetBrushFromHex(gnosisStyleCondition.BackgroundColour));
+                Setter setter = GetBackgroundSetter(control, GetBrushFromHex(gnosisStyleCondition.BackgroundColour));
                 windowsStyle.Setters.Add(setter);
             }
 
@@ -445,13 +448,10 @@ namespace ShivaWPF3.UtilityWPF
                 }
             }
 
-            if (gnosisStyleCondition.ControlThickness > 0)
+            if (gnosisStyleCondition.ControlThickness > 0 && control is IGnosisControlThicknessPossessor)
             {
-                if (control is IGnosisControlThicknessPossessor)
-                {
                     Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisStyleCondition);
                     windowsStyle.Setters.Add(setter);
-                }
             }
 
 
@@ -524,6 +524,21 @@ namespace ShivaWPF3.UtilityWPF
             }
 
           
+        }
+
+        private Setter GetBackgroundSetter(IGnosisVisibleControlImplementation control, System.Windows.Media.Brush brush)
+        {
+            Setter setter;
+            if (control is GnosisGalleryItem)
+            {
+                setter = new Setter(GnosisGalleryItem.ItemBackgroundColourProperty, brush);
+            }
+            else
+            {
+                setter = new Setter(Control.BackgroundProperty, brush);
+            }
+
+            return setter;
         }
 
 
@@ -1021,11 +1036,11 @@ namespace ShivaWPF3.UtilityWPF
             GnosisStyleCondition gnosisFirstCondition = gnosisConditions.First();
             if (gnosisFirstCondition.BackgroundColour != null && gnosisFirstCondition.BackgroundColour.Length > 0)
             {
-                Brush brush = GetBrushFromHex(gnosisFirstCondition.BackgroundColour);
+                System.Windows.Media.Brush brush = GetBrushFromHex(gnosisFirstCondition.BackgroundColour);
 
                 //if (!gnosisFirstCondition.Property.Equals("Selected"))
                 //{
-                    Setter setter = new Setter(Control.BackgroundProperty, brush);
+                    Setter setter = GetBackgroundSetter(control, brush);
                     multiDataTrigger.Setters.Add(setter);
                // }
                 
@@ -1044,7 +1059,10 @@ namespace ShivaWPF3.UtilityWPF
                 multiDataTrigger.Setters.Add(setter);
             }
 
-
+            //if (control is GnosisGalleryItem)
+            //{
+            //    int i = 1;
+            //}
             if (gnosisFirstCondition.ControlThickness > 0 && control is IGnosisControlThicknessPossessor)
             {
                 Setter setter = GetControlThicknessSetter((IGnosisControlThicknessPossessor)control, gnosisFirstCondition);
@@ -1112,7 +1130,7 @@ namespace ShivaWPF3.UtilityWPF
                 if (control is IGnosisControlThicknessPossessor)
                 {
                     //controller.SetBorderColour(gnosisStyle.ControlColour);
-                    Brush brush = GetBrushFromHex(gnosisFirstCondition.ControlColour);
+                    System.Windows.Media.Brush brush = GetBrushFromHex(gnosisFirstCondition.ControlColour);
                     Setter setter = new Setter(Control.BorderBrushProperty, brush);
                     multiDataTrigger.Setters.Add(setter);
                 }
@@ -1128,7 +1146,20 @@ namespace ShivaWPF3.UtilityWPF
 
         }
 
-      
+        public static BitmapImage GetIcon(string iconName, int iconSize, bool disabled)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.DecodePixelWidth = iconSize;
+            bi.DecodePixelHeight = iconSize;
+            string iconPath = GnosisIOHelperWPF.GetIconPath(iconName, !disabled);
+            bi.UriSource = new Uri(iconPath);
+            bi.EndInit();
+
+            return bi;
+        }
+
+
 
         //private MultiDataTrigger GetMultiDataTrigger(IGnosisVisibleControlImplementation control, IGnosisVisibleControlImplementation bindingSource, List<GnosisStyleCondition> gnosisConditions)
         //{
@@ -1196,7 +1227,7 @@ namespace ShivaWPF3.UtilityWPF
         //        }
         //    }
 
-          
+
 
         //    if (gnosisFirstCondition.ControlColour != null && gnosisFirstCondition.ControlColour.Length > 0)
         //    {
@@ -1365,7 +1396,7 @@ namespace ShivaWPF3.UtilityWPF
             //        FlowDirection.LeftToRight,
             //        new Typeface(txt.FontFamily, txt.FontStyle, txt.FontWeight, txt.FontStretch),
             //        txt.FontSize,
-            //        Brushes.Black);
+            //        System.Windows.Media.Brushes.Black);
 
             var formattedText = new FormattedText(
                  alphabet,
@@ -1373,7 +1404,7 @@ namespace ShivaWPF3.UtilityWPF
                  FlowDirection.LeftToRight,
                  new Typeface(font),
                  fontSize,
-                 Brushes.Black);
+                 System.Windows.Media.Brushes.Black);
 
 
             return formattedText.Height + 2;
@@ -1393,7 +1424,7 @@ namespace ShivaWPF3.UtilityWPF
             //           FlowDirection.LeftToRight,
             //           new Typeface(control.FontFamily, control.FontStyle, control.FontWeight, control.FontStretch),
             //           control.FontSize,
-            //           Brushes.Black);
+            //           System.Windows.Media.Brushes.Black);
 
             //    height = formattedText.Height; 
             //}
@@ -1405,7 +1436,7 @@ namespace ShivaWPF3.UtilityWPF
                      FlowDirection.LeftToRight,
                      new Typeface(font),
                      fontSize,
-                     Brushes.Black);
+                     System.Windows.Media.Brushes.Black);
 
                 height = formattedText.Height;
           //  }
@@ -1426,7 +1457,7 @@ namespace ShivaWPF3.UtilityWPF
             //           FlowDirection.LeftToRight,
             //           new Typeface(control.FontFamily, control.FontStyle, control.FontWeight, control.FontStretch),
             //           control.FontSize,
-            //           Brushes.Black);
+            //           System.Windows.Media.Brushes.Black);
 
             //    height = formattedText.Height;
             //}
@@ -1438,7 +1469,7 @@ namespace ShivaWPF3.UtilityWPF
                      FlowDirection.LeftToRight,
                      new Typeface(font),
                      fontSize,
-                     Brushes.Black);
+                     System.Windows.Media.Brushes.Black);
 
                 height = formattedText.Height;
           //  }
@@ -1459,7 +1490,7 @@ namespace ShivaWPF3.UtilityWPF
             //           FlowDirection.LeftToRight,
             //           new Typeface(control.FontFamily, control.FontStyle, control.FontWeight, control.FontStretch),
             //           control.FontSize,
-            //           Brushes.Black);
+            //           System.Windows.Media.Brushes.Black);
 
             //    height = formattedText.Height;
             //}
@@ -1471,7 +1502,7 @@ namespace ShivaWPF3.UtilityWPF
                      FlowDirection.LeftToRight,
                      new Typeface(font),
                      fontSize,
-                     Brushes.Black);
+                     System.Windows.Media.Brushes.Black);
 
                 height = formattedText.Height;
             //}
@@ -1489,7 +1520,7 @@ namespace ShivaWPF3.UtilityWPF
                      FlowDirection.LeftToRight,
                      new Typeface(font),
                      fontSize,
-                     Brushes.Black);
+                     System.Windows.Media.Brushes.Black);
 
             height += formattedText.Height + 1;
 
@@ -1522,7 +1553,7 @@ namespace ShivaWPF3.UtilityWPF
                 //           FlowDirection.LeftToRight,
                 //           new Typeface(control.FontFamily, control.FontStyle, control.FontWeight, control.FontStretch),
                 //           control.FontSize,
-                //           Brushes.Black);
+                //           System.Windows.Media.Brushes.Black);
 
                 //    // if (formattedText.Height > height)
                 //    // {
@@ -1537,7 +1568,7 @@ namespace ShivaWPF3.UtilityWPF
                       FlowDirection.LeftToRight,
                       new Typeface(font),
                       fontSize,
-                      Brushes.Black);
+                      System.Windows.Media.Brushes.Black);
 
             // if (formattedText.Height > height)
             //{
@@ -1562,7 +1593,7 @@ namespace ShivaWPF3.UtilityWPF
             //           FlowDirection.LeftToRight,
             //           new Typeface(control.FontFamily, control.FontStyle, control.FontWeight, control.FontStretch),
             //           control.FontSize,
-            //           Brushes.Black);
+            //           System.Windows.Media.Brushes.Black);
 
             //    // if (formattedText.Height > height)
             //    // {
@@ -1577,7 +1608,7 @@ namespace ShivaWPF3.UtilityWPF
                   FlowDirection.LeftToRight,
                   new Typeface(font),
                   fontSize,
-                  Brushes.Black);
+                  System.Windows.Media.Brushes.Black);
 
                 // if (formattedText.Height > height)
                 //{
@@ -1602,7 +1633,7 @@ namespace ShivaWPF3.UtilityWPF
         //          FlowDirection.LeftToRight,
         //          new Typeface(fontFamily),
         //          fontSize,
-        //          Brushes.Black);
+        //          System.Windows.Media.Brushes.Black);
 
         //    double numberWidth = formattedText.Width / numbers.Length;
 
@@ -1618,7 +1649,7 @@ namespace ShivaWPF3.UtilityWPF
                    FlowDirection.LeftToRight,
                    new Typeface(control.FontFamily, control.FontStyle, control.FontWeight, control.FontStretch),
                    control.FontSize,
-                   Brushes.Black);
+                   System.Windows.Media.Brushes.Black);
 
             double characterWidth = formattedText.Width / numbers.Length;
 
@@ -1636,7 +1667,7 @@ namespace ShivaWPF3.UtilityWPF
                      FlowDirection.LeftToRight,
                      new Typeface(control.FontFamily, control.FontStyle, control.FontWeight, control.FontStretch),
                      control.FontSize,
-                     Brushes.Black);
+                     System.Windows.Media.Brushes.Black);
 
             double characterWidth = formattedText.Width / alphabet.Length;
 
@@ -1658,7 +1689,7 @@ namespace ShivaWPF3.UtilityWPF
                        FlowDirection.LeftToRight,
                        new Typeface(control.FontFamily, control.FontStyle, control.FontWeight, control.FontStretch),
                        control.FontSize,
-                       Brushes.Black);
+                       System.Windows.Media.Brushes.Black);
 
                 double characterWidth = formattedText.Width / alphabet.Length;
 
@@ -1679,7 +1710,7 @@ namespace ShivaWPF3.UtilityWPF
                     FlowDirection.LeftToRight,
                     new Typeface(font),
                     fontSize,
-                    Brushes.Black);
+                    System.Windows.Media.Brushes.Black);
 
             double characterWidth = formattedText.Width / alphabet.Length;
 
@@ -1695,7 +1726,7 @@ namespace ShivaWPF3.UtilityWPF
         //            FlowDirection.LeftToRight,
         //            new Typeface(fontFamily),
         //            fontSize,
-        //            Brushes.Black);
+        //            System.Windows.Media.Brushes.Black);
 
         //    double characterWidth = formattedText.Width / alphabet.Length;
 

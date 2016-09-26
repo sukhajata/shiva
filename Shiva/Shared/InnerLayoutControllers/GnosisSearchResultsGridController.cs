@@ -91,7 +91,7 @@ namespace Shiva.Shared.InnerLayoutControllers
                 }
             }
 
-            totalMinWidth = columns.Sum(c => c.MinFieldWidth);
+            minWidthForSingleRow = columns.Sum(c => c.MinFieldWidth);
 
 
             CreateFields();

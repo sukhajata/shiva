@@ -11,7 +11,7 @@ namespace Shiva.Shared.Interfaces
         int ExpandToLevel { get; set; }
         string Direction { get; set; }
 
-        void ApplySpacing();
+       // void ApplySpacing();
         //  int MaxSectionSpan { get; set; }
 
 

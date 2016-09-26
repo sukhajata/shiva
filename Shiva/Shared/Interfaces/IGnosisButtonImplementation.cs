@@ -5,11 +5,11 @@ using static Shiva.Shared.BaseControllers.GnosisController;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisButtonImplementation : IGnosisPanelFieldImplementation
+    public interface IGnosisButtonImplementation : IGnosisPanelFieldImplementation, IGnosisIconPossessor
     {
         //properties
         bool Disabled { get; set; }
-        string GnosisIcon { get; set; }
+        //string GnosisIcon { get; set; }
         string Shortcut { get; set; }
         string MenuTag { get; set; }
         int MaxChars { get; set; }

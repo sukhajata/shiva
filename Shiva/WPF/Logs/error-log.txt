@@ -56,3 +56,10 @@ GnosisXMLHelper
 err no.1
 Property not implemented on GnosisGrid: GridLineThickness
 GnosisXMLHelper
+err no.1
+Parameter is not valid.
+   at System.Drawing.Bitmap..ctor(Int32 width, Int32 height, PixelFormat format)
+   at System.Drawing.Bitmap..ctor(Int32 width, Int32 height)
+   at ShivaWPF3.UtilityWPF.StyleHelper.ResizeImage(Image image, Int32 width, Int32 height) in C:\Users\Tim\documents\visual studio 2015\Projects\Shiva\Shiva\WPF\UtilityWPF\StyleHelper.cs:line 1164
+   at GnosisControls.GnosisToggleButton.set_Disabled(Boolean value) in C:\Users\Tim\documents\visual studio 2015\Projects\Shiva\Shiva\WPF\GnosisControls\GnosisToggleButton.xaml.cs:line 183
+   at Shiva.Shared.ToolbarControllers.GnosisToolbarController.Setup() in C:\Users\Tim\documents\visual studio 2015\Projects\Shiva\Shiva\Shared\ToolbarControllers\GnosisToolbarController.cs:line 71

@@ -609,7 +609,7 @@ namespace GnosisControls
             double paddingHorizontal;
             double paddingVertical;
 
-            if (newThickness > oldThickness)
+            if (newThickness > frame.BorderThickness.Left)
             {
                 if (frame.ContainerHorizontalPadding > 0 && frame.ContainerVerticalPadding > 0)
                 {

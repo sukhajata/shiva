@@ -23,7 +23,7 @@ namespace GnosisControls
     /// <summary>
     /// Interaction logic for GnosisGalleryWPF.xaml
     /// </summary>
-    public partial class GnosisGallery : TreeView, IGnosisGalleryImplementation, INotifyPropertyChanged
+    public partial class GnosisGallery : Border, IGnosisGalleryImplementation, INotifyPropertyChanged
     {
         private List<GnosisGalleryItem> galleryItems;
         private List<GnosisGallerySearchAttribute> galleryAttributes;
@@ -372,7 +372,7 @@ namespace GnosisControls
             double paddingHorizontal;
             double paddingVertical;
 
-            if (newThickness > oldThickness)
+            if (newThickness > gallery.BorderThickness.Left)
             {
                 if (gallery.ContainerHorizontalPadding > 0 && gallery.ContainerVerticalPadding > 0)
                 {
@@ -440,7 +440,7 @@ namespace GnosisControls
         private void AddGalleryItem(GnosisGalleryItem item)
         {
           //  item.Margin = new Thickness(item.Margin.Left, item.Margin.Top, item.Margin.Right, horizontalSpacing);
-            this.Items.Add(item);
+            content.Children.Add(item);
 
         }
 
@@ -449,38 +449,38 @@ namespace GnosisControls
         //1.first child has top and bottom spacing unless it has no parent, in which case only bottom margin
         //2.middle children have bottom spacig only
         //3.last child has no vertical spacing
-        public void ApplySpacing()
-        {
-            if (verticalSpacing > 0 || horizontalSpacing > 0)
-            {
-                for (int i = 0; i < Items.Count; i++)
-                {
-                    GnosisGalleryItem galleryItem = ((GnosisGalleryItem)Items[i]);
-                    if (i > 0)
-                    {
-                        if (i < Items.Count - 1)
-                        {
-                            galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + galleryItem.HorizontalSpacing, 
-                                galleryItem.VerticalMargin, galleryItem.HorizontalMargin, galleryItem.VerticalMargin + verticalSpacing);
+        //public void ApplySpacing()
+        //{
+        //    if (verticalSpacing > 0 || horizontalSpacing > 0)
+        //    {
+        //        for (int i = 0; i < Items.Count; i++)
+        //        {
+        //            GnosisGalleryItem galleryItem = ((GnosisGalleryItem)Items[i]);
+        //            if (i > 0)
+        //            {
+        //                if (i < Items.Count - 1)
+        //                {
+        //                    galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + galleryItem.HorizontalSpacing, 
+        //                        galleryItem.VerticalMargin, galleryItem.HorizontalMargin, galleryItem.VerticalMargin + verticalSpacing);
 
-                        }
-                        else
-                        {
-                            galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + galleryItem.HorizontalSpacing,
-                               galleryItem.VerticalMargin, galleryItem.HorizontalMargin, galleryItem.VerticalMargin);
+        //                }
+        //                else
+        //                {
+        //                    galleryItem.Margin = new Thickness(galleryItem.HorizontalMargin + galleryItem.HorizontalSpacing,
+        //                       galleryItem.VerticalMargin, galleryItem.HorizontalMargin, galleryItem.VerticalMargin);
 
-                        }
-                    }
+        //                }
+        //            }
 
-                    if (galleryItem.Items.Count > 0)
-                    {
-                        galleryItem.ApplySpacing();
-                    }
-                }
-            }
+        //            if (galleryItem.Items.Count > 0)
+        //            {
+        //                galleryItem.ApplySpacing();
+        //            }
+        //        }
+        //    }
 
            
-        }
+        //}
 
        
 

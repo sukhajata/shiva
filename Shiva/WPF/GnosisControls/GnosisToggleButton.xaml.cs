@@ -46,7 +46,8 @@ namespace GnosisControls
         private IGnosisVisibleControlImplementation gnosisParent;
         private string groupName;
         private bool hidden;
-        private string icon;
+        private string gnosisIcon;
+        private int iconSize;
         private int id;
         private int minDisplayChars;
         private int maxDisplayChars;
@@ -171,14 +172,26 @@ namespace GnosisControls
             {
                 disabled = value;
                 toggleButton.IsEnabled = !disabled;
-                if (GnosisIcon != null)
+                if (GnosisIcon != null && iconSize > 0)
                 {
-                    this.Content = new Image
-                    {
-                        Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, toggleButton.IsEnabled)))
-                    };
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    this.Content = new Image { Source = bi };
                 }
                 OnPropertyChanged("Disabled");
+            }
+        }
+
+        public int IconSize
+        {
+            get { return iconSize; }
+            set
+            {
+                iconSize = value;
+                if (gnosisIcon != null)
+                {
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    this.Content = new Image { Source = bi };
+                }
             }
         }
 
@@ -331,14 +344,14 @@ namespace GnosisControls
         [GnosisPropertyAttribute]
         public string GnosisIcon
         {
-            get { return icon; }
+            get { return gnosisIcon; }
             set
             {
-                icon = value;
-                this.Content = new Image
-                {
-                    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, toggleButton.IsEnabled)))
-                };
+                gnosisIcon = value;
+                //this.Content = new Image
+                //{
+                //    Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(gnosisIcon, toggleButton.IsEnabled)))
+                //};
             }
         }
 

@@ -1,11 +1,21 @@
-﻿<TreeViewItem x:Class="GnosisControls.GnosisGalleryItem"
+﻿<UserControl x:Class="GnosisControls.GnosisGalleryItem"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GnosisControls"
-             mc:Ignorable="d" >
-    <TreeViewItem.Resources>
+             mc:Ignorable="d" Name="root">
+    <StackPanel Orientation="Vertical" Name="pnlOuter">
+        <StackPanel Name="pnlCaption" Orientation="Horizontal">
+            <local:GnosisToggleButton x:Name="toggle" Content="+" Visibility="Collapsed" Click="toggle_Click"/>
+            <local:GnosisToggleButton x:Name="btnCaption" 
+                                      Background="{Binding Background, ElementName=root}"
+                                      Foreground="{Binding Foreground, ElementName=root}"
+                                      BorderBrush="{Binding BorderBrush, ElementName=root}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Name="pnlItems" />
+    </StackPanel>
+    <!--<TreeViewItem.Resources>
         <Style x:Key="TreeViewItemFocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -126,6 +136,6 @@
 
             </ControlTemplate.Triggers>
         </ControlTemplate>
-    </TreeViewItem.Template>
+    </TreeViewItem.Template>-->
    
-</TreeViewItem>
+</UserControl>

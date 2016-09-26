@@ -26,7 +26,7 @@ namespace Shiva.Shared.InnerLayoutControllers
         private GnosisOuterLayoutController parentController;
         private double rowHeight;
         private bool alternateRowColour;
-        protected double totalMinWidth; //the sum of MinWidth of all columns
+        protected double minWidthForSingleRow; //the sum of MinWidth of all columns
         private double newWidth;
         private double oldWidth;
         private BackgroundWorker widthChangedBackgroundWorker;
@@ -99,7 +99,7 @@ namespace Shiva.Shared.InnerLayoutControllers
             : base(grid, instanceController, _parentController)
         {
             parentController = _parentController;
-            numGridCols = 64;
+            numGridCols = 512;
 
             //indent 
             //GnosisTextColumn txtField = ModelCreator.CreateGnosisGridTextField(1);
@@ -117,9 +117,9 @@ namespace Shiva.Shared.InnerLayoutControllers
             characterWidth = GlobalData.Singleton.StyleHelper.GetCharacterWidth(font, fontSize);
 
             //background thread for calculating if layout change is necessary
-            widthChangedBackgroundWorker = new BackgroundWorker();
-            widthChangedBackgroundWorker.DoWork += WidthChanged_DoWorkBackground;
-            widthChangedBackgroundWorker.RunWorkerCompleted += WidthChanged_WorkCompleted;
+            //widthChangedBackgroundWorker = new BackgroundWorker();
+            //widthChangedBackgroundWorker.DoWork += WidthChanged_DoWorkBackground;
+            //widthChangedBackgroundWorker.RunWorkerCompleted += WidthChanged_WorkCompleted;
 
             //gridImplementation.SetWidthChangedHandler(new Action<double>(WidthChanged));
 
@@ -177,7 +177,7 @@ namespace Shiva.Shared.InnerLayoutControllers
                 columns.Add(columnController);
             }
 
-            totalMinWidth = columns.Sum(c => c.MinFieldWidth);
+            minWidthForSingleRow = columns.Sum(c => c.CharacterWidth * c.MinDisplayChars + (2 * c.HorizontalPadding));
            
 
             CreateFields();
@@ -347,132 +347,242 @@ namespace Shiva.Shared.InnerLayoutControllers
 
 
             double widthGridCol = totalWidthAvailable / numGridCols;
-            headerRows = new Dictionary<int, List<GnosisGridColumnController>>();
+            AssignColSpans(totalWidthAvailable, widthGridCol, false);
+
+            //LayoutRows(totalWidthAvailable);
+
+            // headerRows = new Dictionary<int, List<GnosisGridColumnController>>();
 
             //Calculate ColSpans
             //ColSpans are assigned to columns but are applicable to headers and fields in that column
             //First see if all fields can fit in space available
-            int rowCount;
+            //int rowCount;
 
-            if (totalMinWidth <= totalWidthAvailable)
-            {
-                //all fields will fit on one row
-                AssignColSpans(columns, widthGridCol, false);
-                rowCount = 1;
-                headerRows.Add(0, columns);
-            }
-            else
-            {//1
-                //all fields will not fit on one row
-                List<GnosisGridColumnController> assigned = new List<GnosisGridColumnController>();
-                int currentOrder = 0;
-                rowCount = 0;
+            //if (minWidthForSingleRow <= totalWidthAvailable)
+            //{
+            //    //all fields will fit on one row with a single line
+            //    AssignColSpans(totalWidthAvailable, widthGridCol, false);
+            //    rowCount = 1;
+            //    headerRows.Add(0, columns);
+            //}
+            //else
+            //{//1
+            //    //all fields will not fit on one row with a single line
+            //    //they may fit on a single row with multiple lines
+            //    if (((GnosisGrid)ControlImplementation).MaxLines > 1)
+            //    {//2
 
-                while (assigned.Count() < columns.Count())
-                {//2
-                    double usedWidth = 0;
-                    List<GnosisGridColumnController> row = new List<GnosisGridColumnController>();
-                    var unassignedColumns = columns.Where(c => c.Order > currentOrder);
-                    foreach (GnosisGridColumnController column in unassignedColumns.OrderBy(c => c.Order))
-                    {//3
-                        if (column.MinFieldWidth > totalWidthAvailable)
-                        {//4
-                            //GlobalData.Singleton.ErrorHandler.HandleError("MinFieldWidth greater than width available: " + column.DatasetItem + " - " + column.MinFieldWidth.ToString(), "GnosisGridController.LayoutRows");
-                            column.MinFieldWidth = totalWidthAvailable;
-                        }//4
 
-                        if (usedWidth + column.MinFieldWidth <= totalWidthAvailable)
-                        {//4
-                            usedWidth = usedWidth + column.MinFieldWidth;
-                            row.Add(column);
-                            assigned.Add(column);
-                            currentOrder = column.Order;
-                        }//4
-                        else
-                        {//4
-                            break;
-                        }//4
-                    }//3
 
-                    if (rowCount == 0)
-                    {//3
-                        AssignColSpans(row, widthGridCol, false);
-                    }//3
-                    else
-                    {//3
-                        AssignColSpans(row, widthGridCol, true);
-                    }//3
-                    headerRows.Add(rowCount, row);
+            //       // int numLines = 1;
+            //        foreach (IGnosisGridFieldImplementation fieldImp in rowControllers[0].Fields)
+            //        {//5
+            //            GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+            //            double fieldWidth = fieldImp.GetWidth();
+            //            int charsPerLine = (int)Math.Floor((fieldWidth - 2 * fieldImp.HorizontalPadding) / columnController.CharacterWidth);
+            //            int numChars = 0;
 
-                    rowCount++;
+            //            if (fieldImp is IGnosisResultsTextFieldImplementation)
+            //            {//6
+            //                numChars = charsPerLine * ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines;
+            //            }//6
+            //            else if (fieldImp is IGnosisGridTextFieldImplementation)
+            //            {//6
+            //                numChars = charsPerLine * ((IGnosisGridTextFieldImplementation)fieldImp).NumLines;
+            //            }//6
 
-                    if (rowCount > ((GnosisGrid)ControlImplementation).MaxWrapRows)
-                    {//3
-                        LoadColumnar(totalWidthAvailable);
-                        return;
-                    }//3
-                }//2
+            //            if (numChars < columnController.MinDisplayChars)
+            //            {//6
+            //                int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
 
-            }//1
+            //                if (numLinesNeeded > ((GnosisGrid)ControlImplementation).MaxLines)
+            //                {//7
+            //                    layoutNeeded = true;
+            //                    break;
+            //                }//7
+            //                else
+            //                {//7
+            //                    if (numLinesNeeded > numLines)
+            //                    {//8
+            //                        numLines = numLinesNeeded;
+            //                    }//8
+
+            //                }//7
+            //            }//6
+
+            //        }//5
+
+            //        //numLines has been calculated. Now apply it to all fields
+            //        foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
+            //        {//6
+            //            if (fieldImp is IGnosisResultsTextFieldImplementation)
+            //            {//7
+            //                GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+            //                if (numLines != ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines)
+            //                {//8
+            //                    columnController.NumLines = numLines;
+
+            //                    //Use Dispatcher to touch UI since this is run in a background thread
+            //                    Application.Current.Dispatcher.Invoke((Action)(() =>
+            //                    {//9
+            //                        foreach (IGnosisGridFieldImplementation gridFieldImp in columnController.Fields)
+            //                        {//10
+            //                            if (numLines > 1)
+            //                            {//11
+            //                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
+            //                            }//11
+            //                            else
+            //                            {//11
+            //                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
+            //                            }//11
+
+            //                            double newHeight = columnController.TextHeight * numLines + columnController.VerticalPadding * 2;
+            //                            ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
+            //                            ((IGnosisResultsTextFieldImplementation)gridFieldImp).NumLines = numLines;
+            //                        }//10
+            //                    }));//9
+            //                }//8
+            //            }//7
+            //            else if (fieldImp is IGnosisGridTextFieldImplementation)
+            //            {//7
+            //                GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+            //                if (numLines != ((IGnosisGridTextFieldImplementation)fieldImp).NumLines)
+            //                {//8
+            //                    columnController.NumLines = numLines;
+
+            //                    //Use Dispatcher to touch UI since this is run in a background thread
+            //                    Application.Current.Dispatcher.Invoke((Action)(() =>
+            //                    {//9
+            //                        foreach (IGnosisGridTextFieldImplementation gridFieldImp in columnController.Fields)
+            //                        {//10
+            //                            if (numLines > 1)
+            //                            {//11
+            //                                ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
+            //                            }//11
+            //                            else
+            //                            {//11
+            //                                ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
+            //                            }//11
+
+            //                            double newHeight = columnController.TextHeight * numLines + columnController.VerticalPadding * 2;
+            //                            ((IGnosisGridTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
+            //                            ((IGnosisGridTextFieldImplementation)gridFieldImp).NumLines = numLines;
+            //                        }//10
+            //                    }));//9
+            //                }//8
+            //            }//7
+            //        }//6
+            //    }//2
+
+            //    List<GnosisGridColumnController> assigned = new List<GnosisGridColumnController>();
+            //    int currentOrder = 0;
+            //    rowCount = 0;
+
+            //    while (assigned.Count() < columns.Count())
+            //    {//2
+            //        double usedWidth = 0;
+            //        List<GnosisGridColumnController> row = new List<GnosisGridColumnController>();
+            //        var unassignedColumns = columns.Where(c => c.Order > currentOrder);
+            //        foreach (GnosisGridColumnController column in unassignedColumns.OrderBy(c => c.Order))
+            //        {//3
+            //            if (column.MinFieldWidth > totalWidthAvailable)
+            //            {//4
+            //                GlobalData.Singleton.ErrorHandler.HandleError("MinFieldWidth greater than width available: " + column.DatasetItem + " - " + column.MinFieldWidth.ToString(), "GnosisGridController.LayoutRows");
+            //               // column.MinFieldWidth = totalWidthAvailable;
+            //            }//4
+
+            //            if (usedWidth + column.MinFieldWidth <= totalWidthAvailable)
+            //            {//4
+            //                usedWidth = usedWidth + column.MinFieldWidth;
+            //                row.Add(column);
+            //                assigned.Add(column);
+            //                currentOrder = column.Order;
+            //            }//4
+            //            else
+            //            {//4
+            //                break;
+            //            }//4
+            //        }//3
+
+            //        if (rowCount == 0)
+            //        {//3
+            //            AssignColSpans(row, widthGridCol, false);
+            //        }//3
+            //        else
+            //        {//3
+            //            AssignColSpans(row, widthGridCol, true);
+            //        }//3
+            //        headerRows.Add(rowCount, row);
+
+            //        rowCount++;
+
+            //        if (rowCount > ((GnosisGrid)ControlImplementation).MaxWrapRows)
+            //        {//3
+            //            LoadColumnar(totalWidthAvailable);
+            //            return;
+            //        }//3
+            //    }//2
+
+            //}//1
 
             //All text fields will be assigned the same NumLines based on the minimum
             //required to meet the MinDisplayChars of all fields
-            int colNo = 0;
-            int numLines = 1;
-            foreach(var columnController in columns)
-            {//1
-                int colSpan = columnController.ColSpan;
-                bool placed = false;
-                while (!placed)
-                {//2
-                    if (colNo + colSpan <= numGridCols)
-                    {//3
+            //int colNo = 0;
+            //int numLines = 1;
+            //foreach(var columnController in columns)
+            //{//1
+            //    int colSpan = columnController.ColSpan;
+            //    bool placed = false;
+            //    while (!placed)
+            //    {//2
+            //        if (colNo + colSpan <= numGridCols)
+            //        {//3
 
-                        colNo = colNo + colSpan;
-                        placed = true;
+            //            colNo = colNo + colSpan;
+            //            placed = true;
 
-                        //check MinDisplayChars is met
-                        if (columnController.ColumnModel is GnosisTextColumn || columnController.ColumnModel is GnosisTextResults)
-                        {//4
-                            int charsPerLine = (int)Math.Floor((colSpan * widthGridCol) / columnController.CharacterWidth);
-                            int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
-                            //((GnosisGridTextFieldController)columnController.FieldController).NumLines = numLinesNeeded;
-                            if (numLinesNeeded > numLines)
-                            {
-                                numLines = numLinesNeeded;
-                            }
+            //            //check MinDisplayChars is met
+            //            if (columnController.ColumnModel is GnosisTextColumn || columnController.ColumnModel is GnosisTextResults)
+            //            {//4
+            //                int charsPerLine = (int)Math.Floor((colSpan * widthGridCol) / columnController.CharacterWidth);
+            //                int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
+            //                //((GnosisGridTextFieldController)columnController.FieldController).NumLines = numLinesNeeded;
+            //                if (numLinesNeeded > numLines)
+            //                {
+            //                    numLines = numLinesNeeded;
+            //                }
 
-                        }//4
-                        //else if (columnController.ColumnModel is GnosisTextResults)
-                        //{//4
-                        //    int charsPerLine = (int)Math.Floor((colSpan * widthGridCol) / columnController.CharacterWidth);
-                        //    int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
-                        //    //((GnosisTextResultsFieldController)columnController.FieldController).NumLines = numLinesNeeded;
-                        //    if (numLinesNeeded > numLines)
-                        //    {
-                        //        numLines = numLinesNeeded;
-                        //    }
+            //            }//4
+            //            //else if (columnController.ColumnModel is GnosisTextResults)
+            //            //{//4
+            //            //    int charsPerLine = (int)Math.Floor((colSpan * widthGridCol) / columnController.CharacterWidth);
+            //            //    int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
+            //            //    //((GnosisTextResultsFieldController)columnController.FieldController).NumLines = numLinesNeeded;
+            //            //    if (numLinesNeeded > numLines)
+            //            //    {
+            //            //        numLines = numLinesNeeded;
+            //            //    }
 
-                        //}//4
+            //            //}//4
 
-                    }//3
-                    else
-                    {//3
-                        colNo = 0;
-                    }//3
-                }//2
-            }//1
+            //        }//3
+            //        else
+            //        {//3
+            //            colNo = 0;
+            //        }//3
+            //    }//2
+            //}//1
 
-            foreach (var columnController in columns)
-            {
-                if (columnController.ColumnModel is GnosisTextColumn || columnController.ColumnModel is GnosisTextResults)
-                {
-                    columnController.NumLines = numLines;
-                }
-                
-            }
+            //foreach (var columnController in columns)
+            //{
+            //    if (columnController.ColumnModel is GnosisTextColumn || columnController.ColumnModel is GnosisTextResults)
+            //    {
+            //        columnController.NumLines = numLines;
+            //    }
 
-            LayoutRows(totalWidthAvailable);
+            //}
+
+            //  LayoutRows(totalWidthAvailable);
         }
 
         public void LayoutRows(double totalWidthAvailable)
@@ -606,7 +716,7 @@ namespace Shiva.Shared.InnerLayoutControllers
                                         ((IGnosisResultsTextFieldImplementation)field).SetTextWrapping(false);
                                     }//9
 
-                                    double newHeight = columnController.TextHeight * numLinesNeeded + columnController.PaddingVertical * 2;
+                                    double newHeight = columnController.TextHeight * numLinesNeeded + columnController.VerticalPadding * 2;
                                     ((IGnosisResultsTextFieldImplementation)field).SetHeight(newHeight);
                                     ((IGnosisResultsTextFieldImplementation)field).NumLines = numLinesNeeded;
                                 }//8
@@ -627,7 +737,7 @@ namespace Shiva.Shared.InnerLayoutControllers
                                         ((IGnosisGridTextFieldImplementation)field).SetTextWrapping(false);
                                     }//9
 
-                                    double newHeight = columnController.TextHeight * numLinesNeeded + columnController.PaddingVertical * 2;
+                                    double newHeight = columnController.TextHeight * numLinesNeeded + columnController.VerticalPadding * 2;
                                     ((IGnosisGridTextFieldImplementation)field).SetHeight(newHeight);
                                     ((IGnosisGridTextFieldImplementation)field).NumLines = numLinesNeeded;
                                 }//8
@@ -661,71 +771,399 @@ namespace Shiva.Shared.InnerLayoutControllers
             return colSpan;
         }
 
-        private void AssignColSpans(List<GnosisGridColumnController> cols, double widthGridCol, bool isSecondaryRow)
+        private void AssignColSpans(double totalWidthAvailable, double widthGridCol, bool isSecondaryRow)
         {
+
+
+            //double totalMinWidth = columns.Sum(c => c.MinFieldWidth);
+
+            //if (totalMinWidth <= totalWidthAvailable)
+            //{
+            //    //all columns will fit on one row
+            //    foreach (GnosisGridColumnController columnController in columns)
+            //    {
+            //        row.Add(columnController);
+            //    }
+            //}
+            //else
+            //{
+            //    //we need more than one row
+            //    double remainingWidth = totalWidthAvailable;
+
+            //    foreach (GnosisGridColumnController columnController in columns)
+            //    {
+            //        if (remainingWidth - columnController.MinFieldWidth <= 0)
+            //        {
+            //            row = new List<GnosisGridColumnController>();
+            //            headerRows.Add(rowNo, row);
+
+            //            remainingWidth = totalWidthAvailable;
+            //            rowNo++;    
+            //        }
+
+            //        row.Add(columnController);
+            //        remainingWidth = remainingWidth - columnController.MinFieldWidth;
+
+            //    }
+
+            //}
+
+            //assign columns to rows 
+
+            headerRows = new Dictionary<int, List<GnosisGridColumnController>>();
+
+            //will all columns fit on one row?
+            double minWidth = columns.Sum(c => c.MinFieldWidth);
+            if(minWidth <= totalWidthAvailable)
+            {
+                List<GnosisGridColumnController> row = new List<GnosisGridColumnController>();
+
+                foreach (GnosisGridColumnController columnController in columns)
+                {
+                    row.Add(columnController);
+                }
+
+                headerRows.Add(0, row);
+            }
+            else
+            {
+                double remainingWidth = totalWidthAvailable;
+                List<GnosisGridColumnController> row = new List<GnosisGridColumnController>();
+                headerRows.Add(0, row);
+                int idx = 0;
+
+                foreach (GnosisGridColumnController columnController in columns)
+                {
+                    if (columnController.MinFieldWidth > totalWidthAvailable)
+                    {
+                        GlobalData.Singleton.ErrorHandler.HandleError("Minimum field width greater than width available", "GnosisGridController");
+                        break;
+                    }
+
+                    if (columnController.MinFieldWidth <= remainingWidth)
+                    {
+                        headerRows[idx].Add(columnController);
+                        remainingWidth = remainingWidth - columnController.MinFieldWidth;
+                    }
+                    else
+                    {
+                        if (headerRows.Count() + 1 > ((GnosisGrid)ControlImplementation).MaxWrapRows)
+                        {
+                            LoadColumnar(totalWidthAvailable);
+                            return;
+                        }
+                        idx++;
+                        List<GnosisGridColumnController> newRow = new List<GnosisGridColumnController>();
+                        headerRows.Add(idx, newRow);
+
+                        headerRows[idx].Add(columnController);
+                    }
+                }
+               
+            }
+
             
-            //First find all fixed width fields (MinFieldWidth == MaxFieldWidth)
-            int totalColSpan = 0;
-            List<GnosisGridColumnController> nonFixedWidthColumns = new List<GnosisGridColumnController>();
-            foreach (GnosisGridColumnController columnController in cols)
-            {
-                if (columnController.MinFieldWidth == columnController.MaxFieldWidth)
-                {
-                    double width = columnController.MinFieldWidth;
-                    columnController.ColSpan = (int)Math.Round(width / widthGridCol);
 
-                    totalColSpan = totalColSpan + columnController.ColSpan;
-                }
+            bool finished = false;
+            bool impossible = false;
+            bool needColumnarFormat = false;
+
+            while (!finished)
+            {//1
+                int rowNum = 0;
+                int order = 1;
+
+                for (int i = 0; i < headerRows.Count(); i++)
+                {//2
+                    if (needColumnarFormat)
+                    {
+                        finished = true;
+                        break;
+                    }
+
+                    rowNum = i;
+                    double totalMinFieldWidth = headerRows[i].Sum(c => c.MinFieldWidth);
+                    int remainingGridCols = numGridCols;
+                    int numLines = 1;
+
+                    foreach (GnosisGridColumnController columnController in headerRows[i])
+                    {//3
+                        double proportion = columnController.MinFieldWidth / totalMinFieldWidth;
+                        int colSpan = (int)Math.Round(proportion * numGridCols);
+
+                        double width = colSpan * widthGridCol;
+                        if (width < columnController.MinFieldWidth)
+                        {//4
+                            colSpan = (int)Math.Ceiling(columnController.MinFieldWidth / widthGridCol);
+                        }//4
+
+                        //if (remainingGridCols - colSpan < 0)
+                        //{//4
+                        //    impossible = true;
+
+                        //    if (headerRows.Count() + 1 > ((GnosisGrid)ControlImplementation).MaxWrapRows)
+                        //    {//5
+                        //        needColumnarFormat = true;
+                        //    }//5
+                        //    else
+                        //    {//5 
+                        //        order = columnController.Order;
+                        //    }//5
+
+                        //    break;
+                        //}//4
+                        while (remainingGridCols - colSpan < 0)
+                        {
+                            numGridCols++;
+                            remainingGridCols++;
+                            ((GnosisGrid)ControlImplementation).AddColumn();
+                        }
+
+                        columnController.ColSpan = colSpan;
+                        remainingGridCols = remainingGridCols - columnController.ColSpan;
+
+                        width = colSpan * widthGridCol;
+                        int displayChars = (int)Math.Floor(width - (2 * columnController.HorizontalPadding) / characterWidth) * numLines;
+                        while (displayChars < columnController.MinDisplayChars)
+                        {//4
+                            numLines++;
+                            if (numLines > ((GnosisGrid)ControlImplementation).MaxLines)
+                            {//5
+                                //we cannot continue with this layout
+
+                                impossible = true;
+
+                                //check if we are allowed to add another row
+                                if (headerRows.Count() + 1 > ((GnosisGrid)ControlImplementation).MaxWrapRows)
+                                {//6
+                                    needColumnarFormat = true;
+                                }//6
+                                else
+                                { //6
+                                    //store a reference to this column then break out of the for loop in order to modify the header rows
+                                    order = columnController.Order;
+
+                                  
+                                    
+                                }//6
+
+                                //start over
+                                break;
+                            }//5
+                            displayChars = (int)Math.Floor(width - (2 * columnController.HorizontalPadding) / characterWidth) * numLines;
+
+                        }//4
+
+                        if (impossible)
+                        {//4
+                            //start over
+                            break;
+                        }//4
+
+                    }//3
+
+                    if (impossible)
+                    {//3
+                        break;
+                    }//3
+                    
+                    if (!impossible && numLines > 1)
+                    {//3
+                        foreach (GnosisGridColumnController columnController in headerRows[i])
+                        {//4
+                            columnController.NumLines = numLines;
+                        }//4
+                    }//3
+
+                }//2
+
+                if (impossible && !needColumnarFormat)
+                {//2
+                    //rebuild the row with all previous columns
+                    List<GnosisGridColumnController> newRow = new List<GnosisGridColumnController>();
+                    foreach (GnosisGridColumnController colController in headerRows[rowNum].Where(c => c.Order < order))
+                    {//3
+                        newRow.Add(colController);
+                    }//3
+
+                    //create a new row with the remaning columns
+                    List<GnosisGridColumnController> nextRow = new List<GnosisGridColumnController>();
+                    foreach (GnosisGridColumnController colController in headerRows[rowNum].Where(c => c.Order >= order))
+                    {//3
+                        nextRow.Add(colController);
+                    }//3
+                    headerRows[rowNum] = newRow;
+                    if (headerRows.ContainsKey(rowNum + 1))
+                    {//3
+                        headerRows[rowNum + 1] = nextRow;
+                    }//3
+                    else
+                    {//3
+                        headerRows.Add(rowNum + 1, nextRow);
+                    }//3
+                }//2
                 else
-                {
-                    nonFixedWidthColumns.Add(columnController);
-                }
-            }
+                {//2
+                    finished = true;
+                }//2
 
-            //now share out the remaining grid columns according to MinDisplayChars
-            double totalMinDisplayChars = nonFixedWidthColumns.Sum(c => c.MinDisplayChars);
+            }//1
 
-            if (isSecondaryRow)
+            if (needColumnarFormat)
             {
-                //leave space for indent
-                int indentCols = GetColSpan(1, characterWidth, widthGridCol);
-                totalColSpan = totalColSpan + indentCols;
+                LoadColumnar(totalWidthAvailable);
             }
-            int remainingNumGridCols = numGridCols - totalColSpan;
-
-            foreach (GnosisGridColumnController nonFixedWidthColumn in nonFixedWidthColumns)
+            else
             {
-                double proportion = nonFixedWidthColumn.MinDisplayChars / totalMinDisplayChars;
-                nonFixedWidthColumn.ColSpan = (int)Math.Round(proportion * remainingNumGridCols);
-                // int compare = GetColSpan(nonFixedWidthColumn.MinDisplayChars, nonFixedWidthColumn.StyleManager, widthGridCol);
-
-                double width = nonFixedWidthColumn.ColSpan * widthGridCol;
-                //check that MinFieldWidth is met
-                if (width < nonFixedWidthColumn.MinFieldWidth)
-                {
-                    nonFixedWidthColumn.ColSpan = (int)Math.Ceiling(nonFixedWidthColumn.MinFieldWidth / widthGridCol);
-                }
-
-                //check that MaxFieldWidth has not been exceeded
-                if (width > nonFixedWidthColumn.MaxFieldWidth)
-                {
-                    nonFixedWidthColumn.ColSpan = (int)Math.Floor(nonFixedWidthColumn.MaxFieldWidth / widthGridCol);
-                }
-
-                totalColSpan = totalColSpan + nonFixedWidthColumn.ColSpan;
-
-                while (totalColSpan > numGridCols)
-                {
-                    nonFixedWidthColumn.ColSpan--;
-                    totalColSpan--;
-                }
+                LayoutRows(totalWidthAvailable);
             }
+          
 
-            while (totalColSpan < numGridCols)
-            {
-                cols.Last().ColSpan++;
-                totalColSpan++;
-            }
+            //foreach (List<GnosisGridColumnController> headerRow in headerRows.Values)
+            //{
+            //    //Share out grid cols according to MinDisplayChars
+            //    //Check that MinFieldWidth is met
+            //    int remainingGridCols = numGridCols;
+            //    double totalMinDisplayChars = headerRow.Sum(c => c.MinDisplayChars);
+            //    int numLines = 1;
+
+            //    foreach (GnosisGridColumnController columnController in headerRow)
+            //    {
+            //        double proportion = columnController.MinDisplayChars / totalMinDisplayChars;
+            //        int colSpan = (int)Math.Round(proportion * numGridCols);
+
+            //        double width = colSpan * widthGridCol;
+            //        if (width < columnController.MinFieldWidth)
+            //        {
+            //            colSpan = (int)Math.Ceiling(columnController.MinFieldWidth / widthGridCol);
+            //        }
+
+            //        while (remainingGridCols - colSpan <= 0)
+            //        {
+            //            colSpan--;
+            //        }
+
+            //        columnController.ColSpan = colSpan;
+            //        remainingGridCols = remainingGridCols - columnController.ColSpan;
+
+            //        width = colSpan * widthGridCol;
+            //        int displayChars = (int)Math.Floor(width - (2 * columnController.HorizontalPadding) / characterWidth) * numLines;
+            //        while (displayChars < columnController.MinDisplayChars)
+            //        {
+            //            numLines++;
+            //            if (numLines > ((GnosisGrid)ControlImplementation).MaxLines)
+            //            {
+
+            //            }
+            //            displayChars = (int)Math.Floor(width - (2 * columnController.HorizontalPadding) / characterWidth) * numLines;
+
+            //        }
+            //    }
+
+            //    //all fields are given the same num lines for alignment
+            //    if (numLines > 1)
+            //    {
+            //        foreach (GnosisGridColumnController columnController in headerRow)
+            //        {
+            //            columnController.NumLines = numLines;
+            //        }
+            //    }
+            //}
+
+            //foreach (GnosisGridColumnController columnController in columns)
+            //{
+            //    double proportion = columnController.MinDisplayChars / totalMinDisplayChars;
+            //    int colSpan = (int)Math.Round(proportion * numGridCols);
+
+            //    double width = colSpan * widthGridCol;
+            //    if (width < columnController.MinFieldWidth)
+            //    {
+            //        colSpan = (int)Math.Ceiling(columnController.MinFieldWidth / widthGridCol);
+            //    }
+
+            //    if (remainingGridCols - colSpan <= 0)
+            //    {
+            //        row = new List<GnosisGridColumnController>();
+            //        rowNo += 1;
+            //        headerRows.Add(rowNo, row);
+            //        remainingGridCols = numGridCols;
+            //    }
+
+            //    columnController.ColSpan = colSpan;
+            //    remainingGridCols = remainingGridCols - columnController.ColSpan;
+            //    row.Add(columnController);
+
+            //}
+
+
+            //if (failed)
+            //{
+
+            //}
+
+
+            //First find all fixed width fields (MinFieldWidth == MaxFieldWidth)
+            //int totalColSpan = 0;
+            //List<GnosisGridColumnController> nonFixedWidthColumns = new List<GnosisGridColumnController>();
+            //foreach (GnosisGridColumnController columnController in cols)
+            //{
+            //    if (columnController.MinFieldWidth == columnController.MaxFieldWidth)
+            //    {
+            //        double width = columnController.MinFieldWidth;
+            //        columnController.ColSpan = (int)Math.Round(width / widthGridCol);
+
+            //        totalColSpan = totalColSpan + columnController.ColSpan;
+            //    }
+            //    else
+            //    {
+            //        nonFixedWidthColumns.Add(columnController);
+            //    }
+            //}
+
+            ////now share out the remaining grid columns according to MinDisplayChars
+            //double totalMinDisplayChars = nonFixedWidthColumns.Sum(c => c.MinDisplayChars);
+
+            //if (isSecondaryRow)
+            //{
+            //    //leave space for indent
+            //    int indentCols = GetColSpan(1, characterWidth, widthGridCol);
+            //    totalColSpan = totalColSpan + indentCols;
+            //}
+            //int remainingNumGridCols = numGridCols - totalColSpan;
+
+            //foreach (GnosisGridColumnController nonFixedWidthColumn in nonFixedWidthColumns)
+            //{
+            //    double proportion = nonFixedWidthColumn.MinDisplayChars / totalMinDisplayChars;
+            //    nonFixedWidthColumn.ColSpan = (int)Math.Round(proportion * remainingNumGridCols);
+            //    // int compare = GetColSpan(nonFixedWidthColumn.MinDisplayChars, nonFixedWidthColumn.StyleManager, widthGridCol);
+
+            //    double width = nonFixedWidthColumn.ColSpan * widthGridCol;
+            //    //check that MinFieldWidth is met
+            //    if (width < nonFixedWidthColumn.MinFieldWidth)
+            //    {
+            //        nonFixedWidthColumn.ColSpan = (int)Math.Ceiling(nonFixedWidthColumn.MinFieldWidth / widthGridCol);
+            //    }
+
+            //    //check that MaxFieldWidth has not been exceeded
+            //    if (width > nonFixedWidthColumn.MaxFieldWidth)
+            //    {
+            //        nonFixedWidthColumn.ColSpan = (int)Math.Floor(nonFixedWidthColumn.MaxFieldWidth / widthGridCol);
+            //    }
+
+            //    totalColSpan = totalColSpan + nonFixedWidthColumn.ColSpan;
+
+            //    while (totalColSpan > numGridCols)
+            //    {
+            //        nonFixedWidthColumn.ColSpan--;
+            //        totalColSpan--;
+            //    }
+            //}
+
+            //while (totalColSpan < numGridCols)
+            //{
+            //    cols.Last().ColSpan++;
+            //    totalColSpan++;
+            //}
 
         }
 
@@ -744,24 +1182,50 @@ namespace Shiva.Shared.InnerLayoutControllers
                 {//1
                     if (newWidth < oldWidth)
                     {//2
-                        if (newWidth < totalMinWidth)
-                        {//3
-                            layoutNeeded = true;
-                        }//3
-                        else
-                        {//3
-                         //width is sufficient.
-                         //check if MinDisplayChars are still met
-                            int numLines = 1;
-                            foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
-                            {//4
-                                GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
-                                double fieldWidth = fieldImp.GetWidth();
+                        //width has decreased. Check if MinDisplayChars are being displayed for all columns
+                        int maxLines = ((GnosisGrid)ControlImplementation).MaxLines;
+                        int lastColumnOrder = firstRow.Fields.OrderBy(f => f.Order).Last().Order;
+                        var firstRowColumns = columns.Where(c => c.Order <= lastColumnOrder);
 
-                                if (fieldImp is IGnosisResultsTextFieldImplementation)
+                        //if (newWidth < totalMinWidth)
+                        //{//3
+                        //    layoutNeeded = true;
+                        //}//3
+                        if (minWidth == 0)
+                        {//3
+                            minWidth = firstRowColumns.Sum(c => c.MinFieldWidth);
+
+                        }//3
+
+                        if (newWidth < minWidth)
+                        {//3
+                            //we need to something
+                            //we may be able to increase field height
+                            if (((GnosisGrid)ControlImplementation).MaxLines <= 1)
+                            {//4
+                                //field height can not be increased. We need to move some columns to a new row
+                                layoutNeeded = true;
+                            }//4
+                            else
+                            {//4
+                                //try increasing field height
+                                //take the first row and find the minimum number of lines which meets the requirements of all fields
+                                int numLines = 1;
+                                foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
                                 {//5
-                                    int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
-                                    int numChars = charsPerLine * ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines;
+                                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                                    double fieldWidth = fieldImp.GetWidth();
+                                    int charsPerLine = (int)Math.Floor((fieldWidth - 2 * fieldImp.HorizontalPadding) / columnController.CharacterWidth);
+                                    int numChars = 0;
+
+                                    if (fieldImp is IGnosisResultsTextFieldImplementation)
+                                    {//6
+                                        numChars = charsPerLine * ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines;
+                                    }//6
+                                    else if (fieldImp is IGnosisGridTextFieldImplementation)
+                                    {//6
+                                        numChars = charsPerLine * ((IGnosisGridTextFieldImplementation)fieldImp).NumLines;
+                                    }//6
 
                                     if (numChars < columnController.MinDisplayChars)
                                     {//6
@@ -779,105 +1243,193 @@ namespace Shiva.Shared.InnerLayoutControllers
                                                 numLines = numLinesNeeded;
                                             }//8
 
-
                                         }//7
                                     }//6
+
                                 }//5
-                                else if (fieldImp is IGnosisGridTextFieldImplementation)
-                                {//5
-                                    int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
-                                    int numChars = charsPerLine * ((IGnosisGridTextFieldImplementation)fieldImp).NumLines;
 
-                                    if (numChars < columnController.MinDisplayChars)
-                                    {//6
-                                        int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
+                                //numLines has been calculated. Now apply it to all fields
+                                foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
+                                {//6
+                                    if (fieldImp is IGnosisResultsTextFieldImplementation)
+                                    {//7
+                                        GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                                        if (numLines != ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines)
+                                        {//8
+                                            columnController.NumLines = numLines;
 
-                                        if (numLinesNeeded > ((GnosisGrid)ControlImplementation).MaxLines)
-                                        {//7
-                                            layoutNeeded = true;
-                                            break;
-                                        }//7
-                                        else
-                                        {//7
+                                            //Use Dispatcher to touch UI since this is run in a background thread
+                                            Application.Current.Dispatcher.Invoke((Action)(() =>
+                                            {//9
+                                                foreach (IGnosisGridFieldImplementation gridFieldImp in columnController.Fields)
+                                                {//10
+                                                    if (numLines > 1)
+                                                    {//11
+                                                        ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
+                                                    }//11
+                                                    else
+                                                    {//11
+                                                        ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
+                                                    }//11
 
-                                            if (numLinesNeeded > numLines)
-                                            {//8
-                                                numLines = numLinesNeeded;
-                                            }//8
+                                                    double newHeight = columnController.TextHeight * numLines + columnController.VerticalPadding * 2;
+                                                    ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
+                                                    ((IGnosisResultsTextFieldImplementation)gridFieldImp).NumLines = numLines;
+                                                }//10
+                                            }));//9
+                                        }//8
+                                    }//7
+                                    else if (fieldImp is IGnosisGridTextFieldImplementation)
+                                    {//7
+                                        GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                                        if (numLines != ((IGnosisGridTextFieldImplementation)fieldImp).NumLines)
+                                        {//8
+                                            columnController.NumLines = numLines;
 
+                                            //Use Dispatcher to touch UI since this is run in a background thread
+                                            Application.Current.Dispatcher.Invoke((Action)(() =>
+                                            {//9
+                                                foreach (IGnosisGridTextFieldImplementation gridFieldImp in columnController.Fields)
+                                                {//10
+                                                    if (numLines > 1)
+                                                    {//11
+                                                        ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
+                                                    }//11
+                                                    else
+                                                    {//11
+                                                        ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
+                                                    }//11
 
-                                        }//7
-                                    }//6
-                                }//5
-                            }//4
+                                                    double newHeight = columnController.TextHeight * numLines + columnController.VerticalPadding * 2;
+                                                    ((IGnosisGridTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
+                                                    ((IGnosisGridTextFieldImplementation)gridFieldImp).NumLines = numLines;
+                                                }//10
+                                            }));//9
+                                        }//8
+                                    }//7
+                                }//6
 
+                                //reset minWidth since NumLines has increased
+                                minWidth = 0;
 
-                            foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
-                            {//4
-                                if (fieldImp is IGnosisResultsTextFieldImplementation)
-                                {//5
-                                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
-                                    if (numLines != ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines)
-                                    {//6
-                                        columnController.NumLines = numLines;
-
-                                        //Use Dispatcher to touch UI since this is run in a background thread
-                                        Application.Current.Dispatcher.Invoke((Action)(() =>
-                                        {//7
-                                        foreach (IGnosisGridFieldImplementation gridFieldImp in columnController.Fields)
-                                            {//8
-                                            if (numLines > 1)
-                                                {//9
-                                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
-                                                }//9
-                                            else
-                                                {//9
-                                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
-                                                }//9
-
-                                            double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
-                                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
-                                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).NumLines = numLines;
-                                            }//8
-                                    }));//7
-                                    }//6
-                                }//5
-                                else if (fieldImp is IGnosisGridTextFieldImplementation)
-                                {//5
-                                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
-                                    if (numLines != ((IGnosisGridTextFieldImplementation)fieldImp).NumLines)
-                                    {//8
-                                        columnController.NumLines = numLines;
-
-                                        //Use Dispatcher to touch UI since this is run in a background thread
-                                        Application.Current.Dispatcher.Invoke((Action)(() =>
-                                        {//9
-                                        foreach (IGnosisGridTextFieldImplementation gridFieldImp in columnController.Fields)
-                                            {//10
-                                            if (numLines > 1)
-                                                {//11
-                                                ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
-                                                }//11
-                                            else
-                                                {//11
-                                                ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
-                                                }//11
-
-                                            double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
-                                                ((IGnosisGridTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
-                                                ((IGnosisGridTextFieldImplementation)gridFieldImp).NumLines = numLines;
-                                            }//10
-                                    }));//9
-                                    }//8
-                                }//5
                             }//4
                         }//3
+                        else //minWidth is met, no need to do anything
+                        {//3 
+                        //    //width is sufficient for this layout but more lines may be needed
+                        //    if (((GnosisGrid)ControlImplementation).MaxLines > 1)
+                        //    {//4 
+                        //        //check if MinDisplayChars are still met
+                        //        int numLines = 1;
 
+                        //        foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
+                        //        {//5
+                        //            GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                        //            double fieldWidth = fieldImp.GetWidth();
+                        //            int charsPerLine = (int)Math.Floor(fieldWidth / columnController.CharacterWidth);
+                        //            int numChars = 0;
+
+                        //            if (fieldImp is IGnosisResultsTextFieldImplementation)
+                        //            {//6
+                        //                numChars = charsPerLine * ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines;
+                        //            }//6
+                        //            else if (fieldImp is IGnosisGridTextFieldImplementation)
+                        //            {//6
+                        //                numChars = charsPerLine * ((IGnosisGridTextFieldImplementation)fieldImp).NumLines;
+                        //            }//6
+
+                        //            if (numChars < columnController.MinDisplayChars)
+                        //            {//6
+                        //                int numLinesNeeded = (int)Math.Ceiling((double)columnController.MinDisplayChars / charsPerLine);
+
+                        //                if (numLinesNeeded > ((GnosisGrid)ControlImplementation).MaxLines)
+                        //                {//7
+                        //                    layoutNeeded = true;
+                        //                    break;
+                        //                }//7
+                        //                else
+                        //                {//7
+                        //                    if (numLinesNeeded > numLines)
+                        //                    {//8
+                        //                        numLines = numLinesNeeded;
+                        //                    }//8
+
+                        //                }//7
+                        //            }//6
+
+                        //        }//5
+
+
+                        //        if (!layoutNeeded)
+                        //        {//5
+                        //            foreach (IGnosisGridFieldImplementation fieldImp in firstRow.Fields)
+                        //            {//6
+                        //                if (fieldImp is IGnosisResultsTextFieldImplementation)
+                        //                {//7
+                        //                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                        //                    if (numLines != ((IGnosisResultsTextFieldImplementation)fieldImp).NumLines)
+                        //                    {//8
+                        //                        columnController.NumLines = numLines;
+
+                        //                        //Use Dispatcher to touch UI since this is run in a background thread
+                        //                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        //                        {//9
+                        //                            foreach (IGnosisGridFieldImplementation gridFieldImp in columnController.Fields)
+                        //                            {//10
+                        //                                if (numLines > 1)
+                        //                                {//11
+                        //                                    ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
+                        //                                }//11
+                        //                                else
+                        //                                {//11
+                        //                                    ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
+                        //                                }//11
+
+                        //                                double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
+                        //                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
+                        //                                ((IGnosisResultsTextFieldImplementation)gridFieldImp).NumLines = numLines;
+                        //                            }//10
+                        //                        }));//9
+                        //                    }//8
+                        //                }//7
+                        //                else if (fieldImp is IGnosisGridTextFieldImplementation)
+                        //                {//7
+                        //                    GnosisGridColumnController columnController = columns.Find(c => c.Order == fieldImp.Order);
+                        //                    if (numLines != ((IGnosisGridTextFieldImplementation)fieldImp).NumLines)
+                        //                    {//8
+                        //                        columnController.NumLines = numLines;
+
+                        //                        //Use Dispatcher to touch UI since this is run in a background thread
+                        //                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        //                        {//9
+                        //                            foreach (IGnosisGridTextFieldImplementation gridFieldImp in columnController.Fields)
+                        //                            {//10
+                        //                                if (numLines > 1)
+                        //                                {//11
+                        //                                    ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(true);
+                        //                                }//11
+                        //                                else
+                        //                                {//11
+                        //                                    ((IGnosisGridTextFieldImplementation)gridFieldImp).SetTextWrapping(false);
+                        //                                }//11
+
+                        //                                double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
+                        //                                ((IGnosisGridTextFieldImplementation)gridFieldImp).SetHeight(newHeight);
+                        //                                ((IGnosisGridTextFieldImplementation)gridFieldImp).NumLines = numLines;
+                        //                            }//10
+                        //                        }));//9
+                        //                    }//8
+                        //                }//7
+                        //            }//6
+
+                        //        }//5
+                        //    }//4
+                        }//3
                     }//2
                     else //width increased
                     {//2
                      //if rows are currently wrapping, we might now be able to fit all the fields on one row
-                        if (headerRows != null && headerRows.Count > 1 && newWidth > totalMinWidth)
+                        if (headerRows != null && headerRows.Count > 1 && newWidth > minWidthForSingleRow)
                         {//3
                             layoutNeeded = true;
                         }//3
@@ -948,7 +1500,7 @@ namespace Shiva.Shared.InnerLayoutControllers
                                                 resultsFieldImp.SetTextWrapping(false);
                                                 }//9
 
-                                            double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
+                                            double newHeight = columnController.TextHeight * numLines + columnController.VerticalPadding * 2;
                                                 resultsFieldImp.SetHeight(newHeight);
                                             }//8
                                     }));//7
@@ -975,7 +1527,7 @@ namespace Shiva.Shared.InnerLayoutControllers
                                                 gridTextField.SetTextWrapping(false);
                                                 }//9
 
-                                            double newHeight = columnController.TextHeight * numLines + columnController.PaddingVertical * 2;
+                                            double newHeight = columnController.TextHeight * numLines + columnController.VerticalPadding * 2;
                                                 gridTextField.SetHeight(newHeight);
                                             }//8
                                     }));//7
@@ -1010,12 +1562,14 @@ namespace Shiva.Shared.InnerLayoutControllers
                 return; //no data
             }
 
-            if (!widthChangedBackgroundWorker.IsBusy)
-            {
-                newWidth = _newWidth;
-                layoutNeeded = false;
-                widthChangedBackgroundWorker.RunWorkerAsync();
-            }
+            //if (!widthChangedBackgroundWorker.IsBusy)
+            //{
+            //    newWidth = _newWidth;
+            //    layoutNeeded = false;
+            //    widthChangedBackgroundWorker.RunWorkerAsync();
+            //}
+
+            LayoutRows();
 
             //don't run the algorithm on every tiny change
             //if (Math.Abs(newWidth - oldWidth) < 2)
@@ -1168,7 +1722,10 @@ namespace Shiva.Shared.InnerLayoutControllers
         internal override void SizeChanged()
         {
             double width = GetWidth();
-            WidthChanged(width);
+            if (Math.Abs(oldWidth - width) > 10)
+            {
+                WidthChanged(width);
+            }
         }
 
     }
