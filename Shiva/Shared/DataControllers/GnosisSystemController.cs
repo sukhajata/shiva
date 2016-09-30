@@ -220,16 +220,17 @@ namespace Shiva.Shared.DataControllers
 
             }
 
-           
+            //Parent Window has no instance
+            GnosisEntityController parentWindowController = entityControllers.Find(e => e.EntityType == GnosisEntity.EntityTypeEnum.Layout);
+            GnosisInstanceController parentWindowInstanceController = parentWindowController.CreateInstanceController(null);
+            instanceControllers.Add(parentWindowInstanceController);
+
         }
 
         public void SetupUI()
         {
             //Setup instance controllers. This creates the visible controls
-            //Parent Window has no instance
-            GnosisEntityController parentWindowController = entityControllers.Find(e => e.EntityType == GnosisEntity.EntityTypeEnum.Layout);
-            GnosisInstanceController parentWindowInstanceController = parentWindowController.CreateInstanceController(null);
-            instanceControllers.Add(parentWindowInstanceController);
+            GnosisInstanceController parentWindowInstanceController = instanceControllers.Find(i => i.EntityController.EntityType == GnosisEntity.EntityTypeEnum.Layout);
             parentWindowInstanceController.Setup();
 
             //Navigator instance
@@ -341,17 +342,33 @@ namespace Shiva.Shared.DataControllers
 
         internal void Cancel()
         {
+            //GnosisInstance original = currentInstanceController.Instance;
+            //GnosisEntityController entityController = entityControllers.Find(e => e.EntityID == original.EntityID && e.SystemID == SystemID);
+            //entityControllers.Remove(entityController);
+
+            //XElement entityRequest = environmentVariableController.GetEntityRequest(original.EntityID, SystemID);
+            //XElement xEntity = GlobalData.Singleton.DatabaseConnection.GetGnosisEntityXML(entityRequest);
+            //GnosisEntity entity = GnosisXMLHelper.LoadGnosisEntity(xEntity);
+
+            //GnosisEntityController newEntityController = new GnosisEntityController(entity, xEntity);
+            //LoadStyles(newEntityController);
+
+            //entityControllers.Add(newEntityController);
+
+            //currentInstanceController = new GnosisInstanceController(original, newEntityController);
+            //currentInstanceController.Setup();
+
             if (currentInstanceController.Deleted)
             {
                 currentInstanceController.Deleted = false;
-               // ((GnosisDocumentFrameController)currentInstanceController.VisibleController).SetStrikethrough(false);
+                // ((GnosisDocumentFrameController)currentInstanceController.VisibleController).SetStrikethrough(false);
                 ((GnosisGenericToggleMenuItem)documentMenuItemDictionary[GnosisGenericMenuItem.MenuTagEnum.DELETE].ControlImplementation).Active = false;
             }
             else if (currentInstanceController.Updated)
             {
                 currentInstanceController.Updated = false;
                 ((GnosisGenericToggleMenuItem)documentMenuItemDictionary[GnosisGenericMenuItem.MenuTagEnum.EDIT].ControlImplementation).Active = false;
-                LoadDocument(CurrentInstanceController);
+                // LoadDocument(CurrentInstanceController);
             }
             else if (currentInstanceController.Created)
             {
@@ -360,7 +377,9 @@ namespace Shiva.Shared.DataControllers
 
             currentInstanceController.IsEditing = false;
             currentInstanceController.Editable = false;
-            currentInstanceController.Cancel();
+            // currentInstanceController.Cancel();
+
+            ((GnosisFrameController)currentInstanceController.VisibleController).LoadData(); 
 
             UpdateDocumentPermissions();
 
@@ -636,7 +655,7 @@ namespace Shiva.Shared.DataControllers
                         ((GnosisGenericMenuItem)documentMenuItemDictionary[GnosisGenericMenuItem.MenuTagEnum.REMOVE].ControlImplementation).Disabled = true;
                     }
                 }
-                else
+                else if (currentInstanceController.Updated)
                 {
                     ((GnosisGenericMenuItem)documentMenuItemDictionary[GnosisGenericMenuItem.MenuTagEnum.INSERT].ControlImplementation).Hidden = true;
                     ((GnosisGenericMenuItem)documentMenuItemDictionary[GnosisGenericMenuItem.MenuTagEnum.SAVE].ControlImplementation).Hidden = false;
@@ -753,7 +772,7 @@ namespace Shiva.Shared.DataControllers
             //  loadSearchComplete = false;
             GnosisEntityController entityController = null;
 
-            //touch UI with parent window thread
+            //touch UI with parent window thread in synchronous call
             ((GnosisParentWindow)GlobalData.Singleton.ParentWindowImplementation).Dispatcher.Invoke((Action)(() =>
             {
                 entityController = GetEntityController(currentSearchRequest.EntityID, currentSearchRequest.SystemID);
@@ -785,7 +804,7 @@ namespace Shiva.Shared.DataControllers
 
 
 
-                //must use the Dispatcher of Parent Window to touch UI from a background thread. Calling Invoke blocks UI thread
+                //must use the Dispatcher of Parent Window to touch UI from a background thread. Asynchronous call
                 ((GnosisParentWindow)GlobalData.Singleton.ParentWindowImplementation).Dispatcher.BeginInvoke((Action)(() =>
                 {
                     GnosisInstance instance = GetInstance(currentSearchRequest.EntityID, currentSearchRequest.SystemID, "Search", xContent);
@@ -880,13 +899,13 @@ namespace Shiva.Shared.DataControllers
 
                 Debug.WriteLine("->Search, get instance and create controller , Milliseconds elapsed: {0}", timer.ElapsedMilliseconds);
 
-                    instanceController.Setup();
-                    if (currentSearchRequest.AutoSearchAction != null && currentSearchRequest.AutoSearchAction.Equals("Search"))
-                    {
-                        ((GnosisSearchFrameController)instanceController.VisibleController).SetAutoSearch(true);
-                    }
+                instanceController.Setup();
+                if (currentSearchRequest.AutoSearchAction != null && currentSearchRequest.AutoSearchAction.Equals("Search"))
+                {
+                    ((GnosisSearchFrameController)instanceController.VisibleController).SetAutoSearch(true);
+                }
 
-                    CurrentInstanceController = instanceController;
+                CurrentInstanceController = instanceController;
 
                 Debug.WriteLine("->Search, set up instance controller, Milliseconds elapsed: {0}", timer.ElapsedMilliseconds);
 

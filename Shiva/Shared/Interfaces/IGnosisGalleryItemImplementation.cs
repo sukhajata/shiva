@@ -6,7 +6,7 @@ using System.Text;
 namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisGalleryItemImplementation : IGnosisMouseVisibleControlImplementation, IGnosisControlThicknessPossessor,
-        IGnosisPaddingPossessor, IGnosisSpacingPossessor, IGnosisIconPossessor
+        IGnosisPaddingPossessor, IGnosisMarginPossessor,IGnosisSpacingPossessor, IGnosisIconPossessor
     {
         //properties
         bool Active { get; set; }

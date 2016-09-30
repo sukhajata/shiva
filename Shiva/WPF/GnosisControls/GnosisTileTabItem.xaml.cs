@@ -41,6 +41,25 @@ namespace GnosisControls
         private int order;
         private string tooltip;
 
+        //protected Action GotMouseFocusHandler;
+        //protected Action LostMouseFocusHandler;
+        //protected Action MouseDownHandler;
+        //protected Action MouseUpHandler;
+        protected Action<double> loadedHandler;
+        protected Action closeHandler;
+        protected Action GotFocusHandler;
+        protected Action LostFocusHandler;
+
+        private GnosisToggleButton headerButton;
+       // private GnosisSearchFrame searchFrame;
+        //private GnosisFrame frame;
+
+        public GnosisToggleButton HeaderButton
+        {
+            get { return headerButton; }
+            set { headerButton = value; }
+        }
+
         public bool HasFocus
         {
             get { return hasFocus; }
@@ -48,7 +67,7 @@ namespace GnosisControls
             {
                 hasFocus = value;
                 OnPropertyChanged("HasFocus");
-                headerButton.Active = true;
+               // headerButton.Active = true;
             }
         }
         public bool HasMouseFocus
@@ -189,20 +208,7 @@ namespace GnosisControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        //protected Action GotMouseFocusHandler;
-        //protected Action LostMouseFocusHandler;
-        //protected Action MouseDownHandler;
-        //protected Action MouseUpHandler;
-        protected Action<double> loadedHandler;
-        protected Action closeHandler;
-        protected Action GotFocusHandler;
-        protected Action LostFocusHandler;
-
-
-        private GnosisToggleButton headerButton;
-        private GnosisSearchFrame searchFrame;
-        private GnosisFrame frame;
-
+      
         //public bool HasFocus
         //{
         //    get { return hasFocus; }
@@ -269,7 +275,10 @@ namespace GnosisControls
             this.MouseEnter += GnosisTabItemWPF_MouseEnter;
             this.MouseLeave += GnosisTabItemWPF_MouseLeave;
 
+            
         }
+
+      
 
         public void LoadFrame(IGnosisFrameImplementation frameImplementation, IGnosisToggleButtonImplementation _headerButton)
         {
@@ -279,7 +288,7 @@ namespace GnosisControls
             //    pnlHeader.Children.Remove(headerButton);
             //}
             headerButton = (GnosisToggleButton)_headerButton;
-          //  headerButton.Click += headerButton_Click;
+            headerButton.GotFocus += headerButton_GotFocus;
             //Binding binding = new Binding("IsSelected");
             //binding.Source = this;
             //headerButton.SetBinding(GnosisToggleButton.IsCheckedProperty, binding);
@@ -293,18 +302,11 @@ namespace GnosisControls
 
             if (frameImplementation is GnosisSearchFrame)
             {
-                searchFrame = (GnosisSearchFrame)frameImplementation;
-                frame = null;
-                gridContent.Children.Add(searchFrame);
-               // headerButton.Style = searchFrame.Style;
-               // pnlHeader.Background = searchFrame.Background;
+                gridContent.Children.Add((GnosisSearchFrame)frameImplementation);
             }
             else
             {
-                frame = (GnosisFrame)frameImplementation;
-                searchFrame = null;
-                gridContent.Children.Add(frame);
-               // headerButton.Style = frame.Style;
+                gridContent.Children.Add((GnosisFrame)frameImplementation);
             }
 
             HideLoadingAnimation();
@@ -535,6 +537,7 @@ namespace GnosisControls
         {
             GotFocusHandler.Invoke();
             HasFocus = true;
+            ((GnosisTileTab)this.Parent).SelectTabItem(this);
         }
 
         public void SetLostFocusHandler(Action action)
@@ -556,7 +559,7 @@ namespace GnosisControls
             //    pnlHeader.Children.Remove(headerButton);
             //}
             headerButton = (GnosisToggleButton)_headerButton;
-            // headerButton.Click += headerButton_Click;
+            headerButton.GotFocus += headerButton_GotFocus;
             //Binding binding = new Binding("IsSelected");
             //binding.Source = this;
             //binding.Mode = BindingMode.TwoWay;
@@ -597,20 +600,23 @@ namespace GnosisControls
             closeHandler.Invoke();
         }
 
-        private void headerButton_Click(object sender, RoutedEventArgs e)
+        private void headerButton_GotFocus(object sender, RoutedEventArgs e)
         {
             //string xaml = XamlWriter.Save(headerButton.Style);
-            ((GnosisTileTab)this.Parent).SelectedItem = this;
-            headerButton.RaiseEvent(new RoutedEventArgs(GnosisToggleButton.CheckedEvent));
+            ((GnosisTileTab)this.Parent).SelectTabItem( this);
+            // headerButton.RaiseEvent(new RoutedEventArgs(GnosisToggleButton.CheckedEvent));
 
-            HideLoadingAnimation();
+            //HideLoadingAnimation();
+
 
             //create dummy content if needed
             if (gridContent.Children.Count == 0)
             {
                 headerButton.Caption = "          ";
                 Grid grid = new Grid();
-                grid.CopyStyle(headerButton.Style);
+                grid.Background = headerButton.Background;
+                grid.VerticalAlignment = VerticalAlignment.Stretch;
+                grid.HorizontalAlignment = HorizontalAlignment.Stretch;
                 gridContent.Children.Add(grid);
             }
         }

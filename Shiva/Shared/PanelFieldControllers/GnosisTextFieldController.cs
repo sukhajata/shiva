@@ -15,6 +15,7 @@ namespace Shiva.Shared.PanelFieldControllers
 {
     public class GnosisTextFieldController : GnosisPanelFieldController
     {
+        private string originalText;
         private string currentText;
         private int numLines;
         private double textHeight;
@@ -85,6 +86,7 @@ namespace Shiva.Shared.PanelFieldControllers
         public void TextChanged(string text)
         {
             InstanceController.SetDataUpdated(Dataset, 0);
+            currentText = text;
         }
 
         protected override void EnableGenericEvent(GnosisEventHandler.GnosisEventType eventType)
@@ -136,16 +138,23 @@ namespace Shiva.Shared.PanelFieldControllers
             InstanceController.PushUndo(this, currentText);
         }
 
+        public override void OnGotFocus()
+        {
+            originalText = ((IGnosisTextFieldImplementation)ControlImplementation).GetText();
+        }
 
         public override void OnLostFocus()
         {
-            string newText = ((IGnosisTextFieldImplementation)ControlImplementation).GetText();
-
-            if (!newText.Equals(currentText))
+            //string newText = ((IGnosisTextFieldImplementation)ControlImplementation).GetText();
+            if (!currentText.Equals(originalText))
             {
-                InstanceController.PushUndo(this, currentText); //save old text for undo event
-                currentText = newText;
+                InstanceController.PushUndo(this, originalText); //save old text for undo event
             }
+            //if (!newText.Equals(currentText))
+            //{
+            //    InstanceController.PushUndo(this, currentText); //save old text for undo event
+            //    currentText = newText;
+            //}
         }
 
         protected override void SetDisplayDimensions()

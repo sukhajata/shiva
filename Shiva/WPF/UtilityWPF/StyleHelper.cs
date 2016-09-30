@@ -1819,41 +1819,41 @@ namespace ShivaWPF3.UtilityWPF
 
     }
 
-    public static class StyleExtensions
-    {
-        public static void CopyStyle(this FrameworkElement control, Style style)
-        {
+    //public static class StyleExtensions
+    //{
+    //    public static void CopyStyle(this FrameworkElement control, Style style)
+    //    {
 
-            if (style == null)
-            {
-                GlobalData.Singleton.ErrorHandler.HandleError("Can not copy null style", "StyleExtensions.CopyStyle");
-                return;
-            }
+    //        if (style == null)
+    //        {
+    //            GlobalData.Singleton.ErrorHandler.HandleError("Can not copy null style", "StyleExtensions.CopyStyle");
+    //            return;
+    //        }
 
-            if (control.Style == null)
-            {
-                control.Style = new Style(control.GetType());
-            }
+    //        if (control.Style == null)
+    //        {
+    //            control.Style = new Style(control.GetType());
+    //        }
 
-            if (control.Style.TargetType.IsAssignableFrom(style.TargetType))
-            {
-                control.Style = new Style(control.GetType(), style);
-            }
-            else
-            {
-                Style newStyle = new Style(control.GetType(), control.Style);
+    //        if (control.Style.TargetType.IsAssignableFrom(style.TargetType))
+    //        {
+    //            control.Style = new Style(control.GetType(), style);
+    //        }
+    //        else
+    //        {
+    //            Style newStyle = new Style(control.GetType(), control.Style);
 
-                foreach (SetterBase currentSetter in style.Setters)
-                    newStyle.Setters.Add(currentSetter);
-                foreach (TriggerBase currentTrigger in style.Triggers)
-                    newStyle.Triggers.Add(currentTrigger);
-                // This code is only needed when using DynamicResources.
-                foreach (object key in style.Resources.Keys)
-                    newStyle.Resources[key] = style.Resources[key];
+    //            foreach (SetterBase currentSetter in style.Setters)
+    //                newStyle.Setters.Add(currentSetter);
+    //            foreach (TriggerBase currentTrigger in style.Triggers)
+    //                newStyle.Triggers.Add(currentTrigger);
+    //            // This code is only needed when using DynamicResources.
+    //            foreach (object key in style.Resources.Keys)
+    //                newStyle.Resources[key] = style.Resources[key];
 
-                control.Style = newStyle;
-            }
+    //            control.Style = newStyle;
+    //        }
            
-        }
-    }
+    //    }
+    //}
 }

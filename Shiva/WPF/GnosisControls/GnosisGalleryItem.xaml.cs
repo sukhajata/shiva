@@ -319,15 +319,8 @@ namespace GnosisControls
             set
             {
                 horizontalSpacing = value;
+                
                 this.Margin = new Thickness(horizontalSpacing, 0, 0, 0);
-                //this.Margin = new Thickness(horizontalMargin + horizontalSpacing, verticalMargin, horizontalMargin, verticalMargin);
-                //this.Margin = new Thickness(0, 0, 0, 3);
-                //for (int i = 0; i < this.Items.Count; i++)
-                //{
-                //    ((GnosisGalleryItem)Items[i]).HorizontalSpacing = horizontalSpacing;
-                //    //GnosisGalleryItem item = (GnosisGalleryItem)Items[i];
-                //    //item.Margin = new Thickness(verticalMargin, horizontalMargin, verticalMargin, horizontalMargin + horizontalSpacing);
-                //}
             }
         }
 
@@ -416,7 +409,19 @@ namespace GnosisControls
             set
             {
                 horizontalMargin = value;
-               // this.SetHorizontalMarginExt(horizontalMargin);
+
+                //horizontal margin is only applied in wide format
+                IGnosisVisibleControlImplementation ancestor = this.GnosisParent;
+                while (!(ancestor is GnosisGallery))
+                {
+                    ancestor = ancestor.GnosisParent;
+                }
+
+                //horizontal margin is applied to btnCaption, after the expand button
+                if (((GnosisGallery)ancestor).IsWideFormat)
+                {
+                    btnCaption.Margin = new Thickness(horizontalMargin, 0, horizontalMargin, 0);
+                }
             }
         }
 
@@ -465,28 +470,69 @@ namespace GnosisControls
             GnosisGalleryItem galleryItem = source as GnosisGalleryItem;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
-            double paddingHorizontal;
-            double paddingVertical;
 
-            if (newThickness > galleryItem.btnCaption.BorderThickness.Left)
+            //if in wide format, thickness is taken from margin
+            //else thickness is taken from padding
+            IGnosisVisibleControlImplementation ancestor = galleryItem.GnosisParent;
+            while (!(ancestor is GnosisGallery))
             {
-                //increase border thickness, decrease padding
-                paddingHorizontal = galleryItem.HorizontalPadding - newThickness;
-                paddingVertical = galleryItem.VerticalPadding - newThickness;
+                ancestor = ancestor.GnosisParent;
+            }
+
+            if (((GnosisGallery)ancestor).IsWideFormat)
+            {
+                double marginHorizontal;
+                double marginVertical;
+
+                if (newThickness > oldThickness)
+                {
+                    //increase border thickness, decrease margin, increase height
+                    marginHorizontal = galleryItem.HorizontalMargin - newThickness;
+                    marginVertical = galleryItem.VerticalMargin - newThickness;
+                    if (marginVertical >= 0 && marginHorizontal >= 0)
+                    {
+                        galleryItem.Height = galleryItem.Height + (newThickness - oldThickness);
+                    }
+                }
+                else
+                {
+                    //decrease border thickness, increase margin, decrease height
+                    marginHorizontal = galleryItem.Margin.Left + oldThickness;
+                    marginVertical = galleryItem.Margin.Top + oldThickness;
+                    galleryItem.Height = galleryItem.Height - (oldThickness - newThickness);
+                }
+
+                if (marginHorizontal >= 0 && marginVertical >= 0)
+                {
+                    galleryItem.btnCaption.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                    galleryItem.btnCaption.BorderThickness = new Thickness(newThickness);
+                }
             }
             else
             {
-                //decrease border thickness, increase padding
-                paddingHorizontal = galleryItem.HorizontalPadding + oldThickness;
-                paddingVertical = galleryItem.VerticalPadding + oldThickness;
-            }
 
-            if (paddingHorizontal >= 0 && paddingVertical >= 0)
-            {
-                galleryItem.btnCaption.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
-                galleryItem.btnCaption.BorderThickness = new Thickness(newThickness);
-            }
+                double paddingHorizontal;
+                double paddingVertical;
 
+                if (newThickness > galleryItem.btnCaption.BorderThickness.Left)
+                {
+                    //increase border thickness, decrease padding
+                    paddingHorizontal = galleryItem.HorizontalPadding - newThickness;
+                    paddingVertical = galleryItem.VerticalPadding - newThickness;
+                }
+                else
+                {
+                    //decrease border thickness, increase padding
+                    paddingHorizontal = galleryItem.HorizontalPadding + oldThickness;
+                    paddingVertical = galleryItem.VerticalPadding + oldThickness;
+                }
+
+                if (paddingHorizontal >= 0 && paddingVertical >= 0)
+                {
+                    galleryItem.btnCaption.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+                    galleryItem.btnCaption.BorderThickness = new Thickness(newThickness);
+                }
+            }
         }
 
         public GnosisGalleryItem()
@@ -549,13 +595,13 @@ namespace GnosisControls
         private void GnosisGalleryItemWPF_Unselected(object sender, RoutedEventArgs e)
         {
             ItemUnselectedHandler.Invoke();
-           // Active = false;
+            // Active = false;
         }
 
         private void GnosisGalleryItemWPF_Selected(object sender, System.Windows.RoutedEventArgs e)
         {
             ItemSelectedHandler.Invoke();
-           // Active = true;
+            // Active = true;
         }
 
         public void AddGalleryItem(GnosisGalleryItem child)

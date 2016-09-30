@@ -386,8 +386,16 @@ namespace Shiva.Shared.DataControllers
 
         internal void Cancel()
         {
+            //while (undoStack.Count != 0)
+            //{
+            //    GnosisDocChange docChange = undoStack.Pop();
+            //    docChange.Controller.Undo(docChange.OldState);
+            //}
+
             undoStack = new Stack<GnosisDocChange>();
             redoStack = new Stack<GnosisDocChange>();
+
+            //((GnosisFrameController)VisibleController).LoadData();
         }
     }
 }

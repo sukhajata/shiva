@@ -575,7 +575,7 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisToggleButton panelField = source as GnosisToggleButton;
+            GnosisToggleButton toggleButton = source as GnosisToggleButton;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
             double marginHorizontal;
@@ -584,27 +584,27 @@ namespace GnosisControls
             if (newThickness > oldThickness)
             {
                 //increase border thickness, decrease margin
-                marginHorizontal = panelField.Margin.Left - newThickness;
-                marginVertical = panelField.Margin.Top - newThickness;
+                marginHorizontal = toggleButton.HorizontalMargin - newThickness;
+                marginVertical = toggleButton.VerticalMargin - newThickness;
 
                 if (marginHorizontal >= 0 && marginVertical >= 0)
                 {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height + (newThickness - oldThickness);
+                    toggleButton.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                    toggleButton.BorderThickness = new Thickness(newThickness);
+                    toggleButton.Height = toggleButton.Height + (newThickness - oldThickness);
                 }
             }
             else
             {
                 //decrease border thickness, increase margin
-                marginHorizontal = panelField.Margin.Left + oldThickness;
-                marginVertical = panelField.Margin.Top + oldThickness;
+                marginHorizontal = toggleButton.HorizontalMargin + oldThickness;
+                marginVertical = toggleButton.VerticalMargin + oldThickness;
 
                 if (marginHorizontal >= 0 && marginVertical >= 0)
                 {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height - (oldThickness - newThickness);
+                    toggleButton.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                    toggleButton.BorderThickness = new Thickness(newThickness);
+                    toggleButton.Height = toggleButton.Height - (oldThickness - newThickness);
                 }
             }
 

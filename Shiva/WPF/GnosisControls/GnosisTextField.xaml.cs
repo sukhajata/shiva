@@ -36,11 +36,47 @@ namespace GnosisControls
         protected Action<string> TextChangedHandler;
 
         protected bool userInput = true;
+        protected string text = "";
 
         protected int horizontalPadding;
         protected int verticalPadding;
         protected int horizontalMargin;
         protected int verticalMargin;
+
+
+        private bool hasFocus;
+        private bool hasMouseFocus;
+        private bool hasMouseDown;
+        private bool optional;
+
+        private string caption;
+        private GnosisController.VerticalAlignmentType contentVerticalAlignment;
+        private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
+        private string controlType;
+        private bool datasetCreated;
+        private bool datasetUpdated;
+        private bool datasetDeleted;
+        private string dataset;
+        private string datasetItem;
+        private string gnosisName;
+        private IGnosisVisibleControlImplementation gnosisParent;
+        private bool hidden;
+        private int id;
+        private bool locked;
+        private int maxChars;
+        private int maxDisplayChars;
+        private int maxTextDisplayWidthChars;
+        private int maxSectionSpan;
+        private int minDisplayChars;
+        private int minTextDisplayWidthChars;
+        private int order;
+        private bool readOnly;
+        private string tooltip;
+        private string valueField;
+        private int variableControlID;
+        private int variableSystemID;
+        private bool variableIsInput;
+        private bool variableIsOutput;
 
         public int HorizontalPadding
         {
@@ -82,40 +118,7 @@ namespace GnosisControls
             }
         }
 
-        private bool hasFocus;
-        private bool hasMouseFocus;
-        private bool hasMouseDown;
-        private bool optional;
-
-        private string caption;
-        private GnosisController.VerticalAlignmentType contentVerticalAlignment;
-        private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
-        private string controlType;
-        private bool datasetCreated;
-        private bool datasetUpdated;
-        private bool datasetDeleted;
-        private string dataset;
-        private string datasetItem;
-        private string gnosisName;
-        private IGnosisVisibleControlImplementation gnosisParent;
-        private bool hidden;
-        private int id;
-        private bool locked;
-        private int maxChars;
-        private int maxDisplayChars;
-        private int maxTextDisplayWidthChars;
-        private int maxSectionSpan;
-        private int minDisplayChars;
-        private int minTextDisplayWidthChars;
-        private int order;
-        private bool readOnly;
-        private string tooltip;
-        private string valueField;
-        private int variableControlID;
-        private int variableSystemID;
-        private bool variableIsInput;
-        private bool variableIsOutput;
-
+        
         public bool HasFocus
         {
             get { return hasFocus; }
@@ -722,7 +725,7 @@ namespace GnosisControls
 
         public string GetText()
         {
-            return this.Text;
+            return text;
         }
 
         public double GetAvailableWidth()
@@ -731,11 +734,14 @@ namespace GnosisControls
         }
 
 
-        public void SetText(string text)
+        public void SetText(string _text)
         {
             userInput = false;
-            this.Text = text;
+            this.Clear();
+            this.Text = _text;
             userInput = true;
+
+            //this.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
         }
 
         public void SetMaxLines(int maxLines)
@@ -840,14 +846,19 @@ namespace GnosisControls
         public void SetTextChangedHandler(Action<string> handler)
         {
             TextChangedHandler = handler;
-            this.TextChanged += GnosisTextFieldWPF_TextChanged;
+            this.TextChanged += GnosisTextField_TextChanged;
         }
 
-        private void GnosisTextFieldWPF_TextChanged(object sender, TextChangedEventArgs e)
+        private void GnosisTextField_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (userInput)
+
+            //cannot use this.Text as it does not have updated value
+            TextBox txtBox = e.OriginalSource as TextBox;
+            text = txtBox.Text;
+
+            if (this.IsLoaded && userInput)
             {
-                TextChangedHandler.Invoke(this.Text);
+                TextChangedHandler.Invoke(text);
             }
         }
 
@@ -1028,6 +1039,7 @@ namespace GnosisControls
 
         private void GnosisTextFieldWPF_GotFocus(object sender, RoutedEventArgs e)
         {
+            text = this.Text;
             GotFocusHandler.Invoke();
             HasFocus = true;
         }
@@ -1040,6 +1052,11 @@ namespace GnosisControls
 
         private void GnosisTextFieldWPF_LostFocus(object sender, RoutedEventArgs e)
         {
+            //if (TextChangedHandler != null)
+            //{
+            //    TextChangedHandler.Invoke(text);
+            //}
+
             LostFocusHandler.Invoke();
             HasFocus = false;
         }

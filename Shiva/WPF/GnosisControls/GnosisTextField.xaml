@@ -22,7 +22,7 @@
                             Width="{TemplateBinding Width}">
                 <Grid >
 
-                    <TextBox  Text="{TemplateBinding Text}"
+                    <TextBox x:Name="PART_TextBox" Text="{TemplateBinding Text}"
                                   Background="{TemplateBinding Background}" 
                                 Foreground="{TemplateBinding Foreground}"
                               FontFamily="{TemplateBinding FontFamily}"

@@ -11,8 +11,8 @@ namespace Shiva.Shared.Interfaces
 
         void LoadTabItem(IGnosisTileTabItemImplementation tabItemImplementation);
         void RemoveTabItem(IGnosisTileTabItemImplementation tabItemImplementation);
-        void LoadNewTabItem(IGnosisTileTabItemImplementation tabItemImplementation);
-        void LoadDummyTabItem(IGnosisTileTabItemImplementation tabItemImp);
+       // void LoadNewTabItem(IGnosisTileTabItemImplementation tabItemImplementation);
+        //void LoadDummyTabItem(IGnosisTileTabItemImplementation tabItemImp);
         void SetCloseTabItemHandler(Action<IGnosisTileTabItemImplementation> action);
     }
 }

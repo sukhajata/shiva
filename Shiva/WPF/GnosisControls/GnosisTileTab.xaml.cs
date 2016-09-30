@@ -250,7 +250,7 @@ namespace GnosisControls
         public GnosisTileTab()
         {
             InitializeComponent();
-            this.SelectionChanged += GnosisTileTabWPF_SelectionChanged;
+          //  this.SelectionChanged += GnosisTileTabWPF_SelectionChanged;
             this.MouseDown += GnosisTabWPF_MouseDown;
             this.MouseUp += GnosisTabWPF_MouseUp;
             this.MouseEnter += GnosisTabWPF_MouseEnter;
@@ -267,10 +267,25 @@ namespace GnosisControls
         //    //}
         //}
 
-        private void GnosisTileTabWPF_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void SelectTabItem(GnosisTileTabItem item)
         {
-            GnosisTileTabItem item = (GnosisTileTabItem)this.SelectedItem;
             CurrentTileTabItem = item;
+            Dispatcher.BeginInvoke((Action)(() => this.SelectedItem = item));
+
+            foreach (GnosisTileTabItem child in this.Items)
+            {
+                if (child.HeaderButton != null)
+                {
+                    if (child != item)
+                    {
+                        child.HeaderButton.Active = false;
+                    }
+                    else
+                    {
+                        child.HeaderButton.Active = true;
+                    }
+                }
+            }
         }
 
         public void LoadTabItem(IGnosisTileTabItemImplementation tabItemImplementation)
@@ -279,24 +294,8 @@ namespace GnosisControls
             //tabItem.HeaderTemplate = this.FindResource("TabHeader") as DataTemplate;
             this.Items.Add(tabItem);
             tabItem.Tag = this.Items.Count - 1;
-           // string xaml = XamlWriter.Save(this);
-        }
-
-        public void LoadNewTabItem(IGnosisTileTabItemImplementation tabItemImplementation)
-        {
-            GnosisTileTabItem tabItem = (GnosisTileTabItem)tabItemImplementation;
-          //  tabItem.HeaderTemplate = this.FindResource("TabHeader") as DataTemplate;
-            tabItem.Header = "+";
-            this.Items.Add(tabItem);
-            tabItem.Tag = this.Items.Count - 1;
-        }
-
-        public void LoadDummyTabItem(IGnosisTileTabItemImplementation dummyTabItem)
-        {
-            GnosisTileTabItem tabItem = (GnosisTileTabItem)dummyTabItem;
-          //  tabItem.HeaderTemplate = this.FindResource("DummyHeader") as DataTemplate;
-            this.Items.Add(tabItem);
-            tabItem.Tag = this.Items.Count - 1;
+            CurrentTileTabItem = tabItem;
+            // string xaml = XamlWriter.Save(this);
         }
 
 
@@ -382,6 +381,8 @@ namespace GnosisControls
             //GotMouseFocusHandler.Invoke();
             HasMouseFocus = true;
         }
+
+        
 
         //public void SetBorderColour(string borderColour)
         //{

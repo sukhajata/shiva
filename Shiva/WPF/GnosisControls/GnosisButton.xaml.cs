@@ -99,13 +99,12 @@ namespace GnosisControls
             {
                 disabled = value;
                 this.IsEnabled = !disabled;
-                //if (GnosisIcon != null)
-                //{
-                //    btn.Content = new Image
-                //    {
-                //        Source = new BitmapImage(new Uri(GnosisIOHelperWPF.GetIconPath(icon, btn.IsEnabled)))
-                //    };
-                //}
+                if (GnosisIcon != null)
+                {
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+
+                    btn.Content = new Image { Source = bi };
+                }
                 OnPropertyChanged("Disabled");
             }
         }

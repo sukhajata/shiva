@@ -118,25 +118,11 @@ namespace Shiva.Shared.ContentControllers
 
         public virtual void ItemSelected()
         {
-           // Active = true;
-
-            //if (Parent is GnosisGalleryItemController)
-            //{
-            //    ((GnosisGalleryItemController)Parent).OnItemSelected(this);
-            //}
-            //else if (Parent is GnosisGalleryController)
-            //{
-            //    ((GnosisGalleryController)Parent).OnItemSelected(this);
-            //}
-            //else
-            //{
-            //    GlobalData.Singleton.ErrorHandler.HandleError("Unknown parent type: " + Parent.GetType(), "GnosisGalleryItemController.ItemSelected");
-            //}
+            
         }
 
         public virtual void ItemUnselected()
         {
-           // Active = false;
         }
 
         //internal void OnItemSelected(GnosisGalleryItemController selectedItem)
