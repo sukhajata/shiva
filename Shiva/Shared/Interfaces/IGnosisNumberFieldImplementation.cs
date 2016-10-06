@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisNumberFieldImplementation : IGnosisPanelFieldImplementation
+    public interface IGnosisNumberFieldImplementation : IGnosisPanelFieldImplementation, IGnosisCaptionLabelPossessor
     {
         bool Locked { get; set; }
         int MaxChars { get; set; }

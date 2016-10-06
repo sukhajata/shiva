@@ -104,6 +104,7 @@
     <ComboBox.Style>
         <Style TargetType="{x:Type ComboBox}">
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
         </Style>
     </ComboBox.Style>
     <ComboBox.Template>
@@ -115,7 +116,7 @@
                     <ToggleButton Name="ToggleButton" Grid.Column="2"
                                 ClickMode="Press" Focusable="False"
                                 IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                                  
+                                  Padding="0"
                                 >
                         <ToggleButton.Template>
                             <ControlTemplate TargetType="ToggleButton">
@@ -124,10 +125,10 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="20" />
                                     </Grid.ColumnDefinitions>
-                                    <Border Grid.ColumnSpan="2" Name="Border"
-                             
-                              CornerRadius="0" BorderThickness="0" 
-                              Background="Transparent" />
+                                    <Border Grid.ColumnSpan="2" 
+                                            Name="Border"                             
+                                      CornerRadius="0" BorderThickness="0" 
+                                      Background="Transparent" />
                                     <Border Grid.Column="1" Margin="0" Name="ButtonBorder"
                                       CornerRadius="0, 0, 0, 0" BorderThickness="1" 
                                       Background="#e3e9ef" />
@@ -141,12 +142,13 @@
                             </ControlTemplate>
                         </ToggleButton.Template>
                     </ToggleButton>
-                    <ContentPresenter Name="ContentSite" Margin="3, 3, 23, 3" IsHitTestVisible="False"
+                    <ContentPresenter Name="ContentSite" Margin="0, 0, 23, 0" IsHitTestVisible="False"
                               HorizontalAlignment="Left" VerticalAlignment="Center"                              
                               Content="{TemplateBinding ComboBox.SelectionBoxItem}" 
                               ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"/>
                     <TextBox Name="PART_EditableTextBox" 
-                                     Margin="3,3,23,3"
+                                     Margin="0,0,23,0"
+                                    Padding="{TemplateBinding Padding}"
                                      BorderThickness="0"
                                      Background="Transparent"
                                      VerticalContentAlignment="Center"

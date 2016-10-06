@@ -30,6 +30,7 @@ namespace GnosisControls
         private bool locked;
 
         private string caption;
+        private GnosisCaptionLabel captionLabel;
         private GnosisController.VerticalAlignmentType contentVerticalAlignment;
         private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
         private string controlType;
@@ -54,6 +55,12 @@ namespace GnosisControls
         private int variableSystemID;
         private bool variableIsInput;
         private bool variableIsOutput;
+
+        public GnosisCaptionLabel CaptionLabel
+        {
+            get { return captionLabel; }
+            set { captionLabel = value; }
+        }
 
         public bool HasFocus
         {
@@ -1112,9 +1119,10 @@ namespace GnosisControls
 
         public void SetWidth(double width)
         {
-            this.Width = width;
+            //this.Width = width;
         }
 
+        //calculates width needed, sets it and returns it
         public double GetSetWidth()
         {
             //this.Width = width;
@@ -1122,22 +1130,22 @@ namespace GnosisControls
             double characterWidth = GlobalData.Singleton.StyleHelper.GetCharacterWidth(datePicker.FontFamily.ToString(), (int)datePicker.FontSize);
             if (longDateFormat)
             {
-                txtDate.Width = (26 * characterWidth) + (2 * verticalPadding);
+                txtDate.Width = (26 * characterWidth) + (2 * horizontalPadding);
             }
             else
             {
-                txtDate.Width = (10 * characterWidth) + (2 * verticalPadding);
+                txtDate.Width = (10 * characterWidth) + (2 * horizontalPadding);
             }
 
-            datePicker.Width = 25;
+           // datePicker.Width = this.Height;
 
             if (longTimeFormat)
             {
-                timePicker.Width = 13 * characterWidth + 30 + 2 * verticalPadding;
+                timePicker.Width = 13 * characterWidth + 30 + 2 * horizontalPadding;
             }
             else
             {
-                timePicker.Width = 10 * characterWidth + 30 + 2 * verticalPadding;
+                timePicker.Width = 10 * characterWidth + 30 + 2 * horizontalPadding;
             }
 
             //switch (timeFormat)
@@ -1156,10 +1164,11 @@ namespace GnosisControls
             //        break;
             //}
 
-            cboTimeZone.Width = 12 * characterWidth + 20 + 2 * verticalPadding;
+            cboTimeZone.Width = 12 * characterWidth + 20 + 2 * horizontalPadding;
 
-            double width = txtDate.Width + datePicker.Width + timePicker.Width + cboTimeZone.Width;
-            this.Width = width;
+            //datePicker width is set to the height of the field
+            double width = txtDate.Width + this.Height + timePicker.Width + cboTimeZone.Width;
+           // this.Width = width;
 
             return width;
         }
@@ -1248,6 +1257,8 @@ namespace GnosisControls
         public void SetHeight(double fieldHeight)
         {
             this.Height = fieldHeight;
+
+            var calendarButton = datePicker.FindName("calendar_icon");
         }
 
         private void cboTimeZone_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1255,6 +1266,7 @@ namespace GnosisControls
             if (cboTimeZone.SelectedItem != null)
             {
                 string timeZone = cboTimeZone.SelectedItem as string;
+                
               //  cboTimeZone.Text = timeZone.Substring(0, 11);
             }
             

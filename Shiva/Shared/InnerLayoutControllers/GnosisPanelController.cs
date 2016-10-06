@@ -155,7 +155,25 @@ namespace Shiva.Shared.InnerLayoutControllers
             double minFieldWidth = child.MinFieldWidth;
             double maxFieldWidth = child.MaxFieldWidth;
 
-            double displayWidth = colWidth * child.ColSpan - 8;
+          
+            
+            double displayWidth = (colWidth * child.ColSpan) - (2 * ((IGnosisMarginPossessor)child.ControlImplementation).HorizontalMargin);
+
+
+            if (child.ControlImplementation is IGnosisCaptionLabelPossessor)
+            {
+                if (captionPosition == CaptionPosition.LEFT || captionPosition == CaptionPosition.RIGHT)
+                {
+                    GnosisCaptionLabel captionLabel = ((IGnosisCaptionLabelPossessor)child.ControlImplementation).CaptionLabel;
+                    double captionWidth = captionLabel.GetWidth() + (2 * captionLabel.HorizontalMargin) + captionLabel.CaptionSpacing;
+                    displayWidth = displayWidth - captionWidth;
+                }
+            }
+
+            if (child.ColNo != 0 && ((GnosisPanel)ControlImplementation).HorizontalSpacing > 0)
+            {
+                displayWidth -= ((GnosisPanel)ControlImplementation).HorizontalSpacing;
+            }
 
             //if (child.MaxDisplayChars == 0)
             //{
@@ -220,7 +238,7 @@ namespace Shiva.Shared.InnerLayoutControllers
                             int totalLines = ((GnosisTextFieldController)child).NumLines + numLinesNeeded;
                             ((GnosisTextFieldController)child).NumLines = totalLines;
 
-                            double newHeight = ((GnosisTextFieldController)child).TextHeight * totalLines + (((GnosisTextFieldController)child).PaddingVertical * 2);
+                            double newHeight = ((GnosisTextFieldController)child).TextHeight * totalLines + (((GnosisTextField)child.ControlImplementation).VerticalPadding * 2);
                             ((IGnosisTextFieldImplementation)child.ControlImplementation).SetHeight(newHeight);
 
                             if (totalLines > 1)
@@ -406,12 +424,10 @@ namespace Shiva.Shared.InnerLayoutControllers
             if (captionPosition == CaptionPosition.ABOVE || captionPosition == CaptionPosition.BELOW)
             {
                 ((IGnosisPanelImplementation)ControlImplementation).AddRowAutoHeight(); //caption row
-             //   ((IGnosisPanelImplementation)ControlImplementation).AddRowFixedHeight(fieldRowHeight); //field row
                 ((IGnosisPanelImplementation)ControlImplementation).AddRowAutoHeight(); //field row
             }
             else
             {
-                //   ((IGnosisPanelImplementation)ControlImplementation).AddRowFixedHeight(fieldRowHeight);
                 ((IGnosisPanelImplementation)ControlImplementation).AddRowAutoHeight(); //field row
             }
 
@@ -432,28 +448,39 @@ namespace Shiva.Shared.InnerLayoutControllers
                 int rowSpan = 1;
                 child.ColSpan = 1;
 
-                GnosisCaptionLabel captionLabel = null;
-                if (!(child is GnosisButtonController || child is GnosisCheckFieldController))
-                {
-                    //create label
-                    string caption = ((IGnosisContentControlImplementation)child.ControlImplementation).Caption;
-                    captionLabel = new GnosisCaptionLabel();
-                    //  IGnosisCaptionLabelImplementation captionLabelImp = GlobalData.Singleton.ImplementationCreator.GetGnosisCaptionLabelImplementation();
-                    GlobalData.Singleton.StyleHelper.ApplyCaptionStyle(captionLabel, EntityController.GetCaptionStyle());
-                    captionLabel.Caption = caption;
+               // GnosisCaptionLabel captionLabel = null;
+                //if (child is IGnosisCaptionLabelPossessor)
+                //{
+                //    //create label
+                //    string caption = ((IGnosisContentControlImplementation)child.ControlImplementation).Caption;
+                //    captionLabel = new GnosisCaptionLabel();
+                //    //  IGnosisCaptionLabelImplementation captionLabelImp = GlobalData.Singleton.ImplementationCreator.GetGnosisCaptionLabelImplementation();
+                //    GlobalData.Singleton.StyleHelper.ApplyCaptionStyle(captionLabel, EntityController.GetCaptionStyle());
+                //    captionLabel.Caption = caption;
 
-                   // ((IGnosisPanelImplementation)ControlImplementation).AddGnosisCaptionLabel(captionLabel, currentCol, captionRowNo, child.ColSpan, 1);
-                }
+                //   // ((IGnosisPanelImplementation)ControlImplementation).AddGnosisCaptionLabel(captionLabel, currentCol, captionRowNo, child.ColSpan, 1);
+                //}
 
                 double minFieldWidth = child.MinFieldWidth;
                 double maxFieldWidth = child.MaxFieldWidth;
 
-                double displayWidth = colWidth - 8;
+                double displayWidth = colWidth - (2 * ((IGnosisMarginPossessor)child.ControlImplementation).HorizontalMargin);
 
-                if (captionPosition == CaptionPosition.LEFT || captionPosition == CaptionPosition.RIGHT)
+                if (child.ControlImplementation is IGnosisCaptionLabelPossessor)
                 {
-                    displayWidth = displayWidth - captionLabel.GetWidth() - captionLabel.CaptionSpacing;
+                    if (captionPosition == CaptionPosition.LEFT || captionPosition == CaptionPosition.RIGHT)
+                    {
+                        GnosisCaptionLabel captionLabel = ((IGnosisCaptionLabelPossessor)child.ControlImplementation).CaptionLabel;
+                        double captionWidth = captionLabel.GetWidth() + (2 * captionLabel.HorizontalMargin) + captionLabel.CaptionSpacing;
+                        displayWidth = displayWidth - captionWidth;
+                    }
                 }
+
+                if (currentCol != 0 && ((GnosisPanel)ControlImplementation).HorizontalSpacing > 0)
+                {
+                    displayWidth -= ((GnosisPanel)ControlImplementation).HorizontalSpacing;
+                }
+
                 //if (child.MaxDisplayChars == 0)
                 //{
                 //    // ((IGnosisContentControlImplementation)child.ControlImplementation).SetWidth(displayWidth);
@@ -475,7 +502,7 @@ namespace Shiva.Shared.InnerLayoutControllers
                         {//if4
                             //colspan can increase
                             child.ColSpan++;
-                            displayWidth = displayWidth + colWidth;
+                            displayWidth = displayWidth + colWidth - (2 * ((IGnosisMarginPossessor)child.ControlImplementation).HorizontalMargin);
                         }//if4
                         else
                         {//else4
@@ -493,7 +520,7 @@ namespace Shiva.Shared.InnerLayoutControllers
                                     int totalLines = ((GnosisTextFieldController)child).NumLines + numLinesNeeded;
                                     ((GnosisTextFieldController)child).NumLines = totalLines;
 
-                                    double newHeight = ((GnosisTextFieldController)child).TextHeight * totalLines + (((GnosisTextFieldController)child).PaddingVertical * 2);
+                                    double newHeight = ((GnosisTextFieldController)child).TextHeight * totalLines + (((GnosisTextField)child.ControlImplementation).VerticalPadding * 2);
                                     ((IGnosisTextFieldImplementation)child.ControlImplementation).SetHeight(newHeight);
 
                                 }
@@ -528,20 +555,18 @@ namespace Shiva.Shared.InnerLayoutControllers
 
                 }//else2
 
-
-
                 if (currentCol + child.ColSpan > numCols)
                 {
                     currentRow++;
                     currentCol = 0;
-                    int horizontalSpacing = ((GnosisPanel)ControlImplementation).HorizontalSpacing;
+                    int verticalSpacing = ((GnosisPanel)ControlImplementation).VerticalSpacing;
 
                     if (captionPosition == CaptionPosition.ABOVE || captionPosition == CaptionPosition.BELOW)
                     {
-                        if (horizontalSpacing > 0)
+                        if (verticalSpacing > 0)
                         {
                             ((IGnosisPanelImplementation)ControlImplementation).AddRowAutoHeight();
-                            ((IGnosisPanelImplementation)ControlImplementation).AddRowFixedHeight(horizontalSpacing);
+                            ((IGnosisPanelImplementation)ControlImplementation).AddRowFixedHeight(verticalSpacing);
 
                             currentRow++;
                         }
@@ -552,9 +577,9 @@ namespace Shiva.Shared.InnerLayoutControllers
                     }
                     else
                     {
-                        if (horizontalSpacing > 0)
+                        if (verticalSpacing > 0)
                         {
-                            ((IGnosisPanelImplementation)ControlImplementation).AddRowFixedHeight(horizontalSpacing);
+                            ((IGnosisPanelImplementation)ControlImplementation).AddRowFixedHeight(verticalSpacing);
                             currentRow++;
                         }
 
@@ -562,58 +587,27 @@ namespace Shiva.Shared.InnerLayoutControllers
                       ((IGnosisPanelImplementation)ControlImplementation).AddRowAutoHeight(); //field row
                     }
 
-                  
-
                 }
 
-                //bool placed = false;
-                //while (!placed)
-                //{
-                //    if (currentCol > numCols - 1)
-                //    {
-                //        currentRow++;
-                //        //rowSpan++;
-                //        currentCol = 0;
-                //    }
-                //    else
-                //    {
-                //        placed = true;
-                //    }
-                //}
-
-
-
-                //update used cells and lastRowUsed. Check if implementation needs more rows
-                //int oldLastRowUsed = lastRowUsed;
-                //UpdateUsedCells(currentCol, currentRow, child.ColSpan, rowSpan);
-                //if (lastRowUsed > oldLastRowUsed)
-                //{
-                //    int difference = lastRowUsed - oldLastRowUsed; //the number of rows we need to add
-                //    for (int i = 0; i < difference; i++)
-                //    {
-                //        if (captionPosition == CaptionPosition.Above || captionPosition == CaptionPosition.Below)
-                //        {
-                //            ((IGnosisPanelImplementation)ControlImplementation).AddRowAutoHeight(); //caption row
-                //            ((IGnosisPanelImplementation)ControlImplementation).AddRowFixedHeight(fieldRowHeight); //field row
-                //        }
-                //        else
-                //        {
-                //            ((IGnosisPanelImplementation)ControlImplementation).AddRowFixedHeight(fieldRowHeight);
-                //        }
-                //    }
-                //}
+                child.ColNo = currentCol;
 
                 //determine layout row numbers and spans
                 int fieldRowNo;
                 int fieldRowSpan;
                 int captionRowNo;
 
-                if (captionPosition == CaptionPosition.ABOVE || captionPosition == CaptionPosition.BELOW)
+                if (captionPosition == CaptionPosition.ABOVE)
                 {
                     //account for caption row
                     captionRowNo = currentRow * 2;
                     fieldRowNo = captionRowNo + 1;
                     fieldRowSpan = rowSpan * 2 - 1; //1 row for caption
+                }
+                else if (captionPosition == CaptionPosition.BELOW)
+                {
+                    fieldRowNo = currentRow * 2;
+                    captionRowNo = fieldRowNo + 1;
+                    fieldRowSpan = rowSpan * 2 - 1;
                 }
                 else
                 {
@@ -622,58 +616,60 @@ namespace Shiva.Shared.InnerLayoutControllers
                     fieldRowSpan = rowSpan;
                 }
 
-                //caption label
-                if (!(child is GnosisButtonController || child is GnosisCheckFieldController))
-                {
-                    //create label
-                  //  string caption = ((IGnosisContentControlImplementation)child.ControlImplementation).Caption;
-                  //  GnosisCaptionLabel captionLabel = new GnosisCaptionLabel();
-                  ////  IGnosisCaptionLabelImplementation captionLabelImp = GlobalData.Singleton.ImplementationCreator.GetGnosisCaptionLabelImplementation();
-                  //  GlobalData.Singleton.StyleHelper.ApplyCaptionStyle(captionLabel, EntityController.GetCaptionStyle());
-                  //  captionLabel.Caption = caption;
+                
 
-                    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisCaptionLabel(captionLabel, currentCol, captionRowNo, child.ColSpan, 1);
+                if (captionPosition == CaptionPosition.RIGHT)
+                {
+                    if (currentCol != 0 && ((GnosisPanel)ControlImplementation).HorizontalSpacing > 0)
+                    {
+                        ((IGnosisPanelImplementation)ControlImplementation).AddHorizontalSpacing(currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
+                    }
+
+                    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisContentControlImplementation((IGnosisContentControlImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
+
+                    if (child.ControlImplementation is IGnosisCaptionLabelPossessor)
+                    {
+                        ((IGnosisPanelImplementation)ControlImplementation).AddGnosisCaptionLabel((GnosisCaptionLabel)((IGnosisCaptionLabelPossessor)child.ControlImplementation).CaptionLabel, currentCol, captionRowNo, child.ColSpan, 1);
+                    }
+
+                }
+                else if (captionPosition == CaptionPosition.LEFT)
+                {
+                    if (currentCol != 0 && ((GnosisPanel)ControlImplementation).HorizontalSpacing > 0)
+                    {
+                        ((IGnosisPanelImplementation)ControlImplementation).AddHorizontalSpacing(currentCol, fieldRowNo, child.ColSpan, 1);
+                    }
+
+                    if (child.ControlImplementation is IGnosisCaptionLabelPossessor)
+                    {
+                        ((IGnosisPanelImplementation)ControlImplementation).AddGnosisCaptionLabel((GnosisCaptionLabel)((IGnosisCaptionLabelPossessor)child.ControlImplementation).CaptionLabel, currentCol, captionRowNo, child.ColSpan, 1);
+                    }
+
+                    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisContentControlImplementation((IGnosisContentControlImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
+
+                }
+                else
+                {
+                    if (currentCol != 0 && ((GnosisPanel)ControlImplementation).HorizontalSpacing > 0)
+                    {
+                        ((IGnosisPanelImplementation)ControlImplementation).AddHorizontalSpacing(currentCol, captionRowNo, child.ColSpan, 1);
+                    }
+
+                    if (child.ControlImplementation is IGnosisCaptionLabelPossessor)
+                    {
+                        ((IGnosisPanelImplementation)ControlImplementation).AddGnosisCaptionLabel((GnosisCaptionLabel)((IGnosisCaptionLabelPossessor)child.ControlImplementation).CaptionLabel, currentCol, captionRowNo, child.ColSpan, 1);
+                    }
+
+                    if (currentCol != 0 && ((GnosisPanel)ControlImplementation).HorizontalSpacing > 0)
+                    {
+                        ((IGnosisPanelImplementation)ControlImplementation).AddHorizontalSpacing(currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
+                    }
+
+                    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisContentControlImplementation((IGnosisContentControlImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
+
                 }
 
-                ((IGnosisPanelImplementation)ControlImplementation).AddGnosisContentControlImplementation((IGnosisContentControlImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
-
-                //if (child is GnosisTextFieldController)
-                //{
-                //    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisContentControlImplementation((IGnosisTextFieldImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
-                //}
-                //else if (child is GnosisComboFieldController)
-                //{
-                //    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisContentControlImplementation((IGnosisComboFieldImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
-                //}
-                //else if (child is GnosisCheckFieldController)
-                //{
-                //    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisContentControlImplementation((IGnosisCheckFieldImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
-                //}
-                //else if (child is GnosisDateFieldController)
-                //{
-                //    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisContentControlImplementation((IGnosisDateFieldImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
-                //}
-                //else if (child is GnosisDateTimeFieldController)
-                //{
-                //    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisDateTimeFieldImplementation((IGnosisDateTimeFieldImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
-                //}
-                //else if (child is GnosisButtonController)
-                //{
-                //    ((IGnosisPanelImplementation)ControlImplementation).AddGnosisContentControlImplementation((IGnosisButtonImplementation)child.ControlImplementation, currentCol, fieldRowNo, child.ColSpan, fieldRowSpan);
-                //}
-
-
-                //previousStartCol = colNo;
-                //previousStartRow = controlRowNo;
-                //previousColSpan = colSpan;
-                //previousRowSpan = controlRowSpan;
-
                 currentCol = currentCol + child.ColSpan;
-
-                //if (numCols == 1)
-                //{
-                //    currentRow = currentRow + rowSpan;
-                //}
 
             }//foreach
 
@@ -682,46 +678,46 @@ namespace Shiva.Shared.InnerLayoutControllers
 
 
 
-        private void UpdateUsedCells(int col, int row, int colSpan, int rowSpan)
-        {
+        //private void UpdateUsedCells(int col, int row, int colSpan, int rowSpan)
+        //{
 
-            //First fill in spaces occupied by this control
-            for (int c = col; c  < col + colSpan; c++)
-            {
-                for (int r = row; r < row + rowSpan; r++)
-                {
-                    usedCells[c, r] = 1;
-                }
-            }
+        //    //First fill in spaces occupied by this control
+        //    for (int c = col; c  < col + colSpan; c++)
+        //    {
+        //        for (int r = row; r < row + rowSpan; r++)
+        //        {
+        //            usedCells[c, r] = 1;
+        //        }
+        //    }
 
-            //update lastRowUsed
-            bool found = false;
-            int currentRow = row + rowSpan - 1;
-            //at the end of while loop current row is the first empty row
-            while (!found)
-            {
-                for (int c = 0; c < usedCells.GetLength(0); c++)
-                {
-                    if (usedCells[c,currentRow] == 1)
-                    {
-                        currentRow = currentRow + 1;
-                        if (currentRow > usedCells.GetLength(1))
-                        {
-                            GlobalData.Singleton.ErrorHandler.HandleError("All rows used in panel", "GnosisPanelController", 2);
-                            found = true;
-                        }
-                        break;
-                    }
-                    else if (c == usedCells.GetLength(0) - 1) 
-                    {
-                        //we have scanned the whole column and it is empty
-                        found = true;
-                    }
-                }
-            }
-            lastRowUsed = currentRow - 1;
+        //    //update lastRowUsed
+        //    bool found = false;
+        //    int currentRow = row + rowSpan - 1;
+        //    //at the end of while loop current row is the first empty row
+        //    while (!found)
+        //    {
+        //        for (int c = 0; c < usedCells.GetLength(0); c++)
+        //        {
+        //            if (usedCells[c,currentRow] == 1)
+        //            {
+        //                currentRow = currentRow + 1;
+        //                if (currentRow > usedCells.GetLength(1))
+        //                {
+        //                    GlobalData.Singleton.ErrorHandler.HandleError("All rows used in panel", "GnosisPanelController", 2);
+        //                    found = true;
+        //                }
+        //                break;
+        //            }
+        //            else if (c == usedCells.GetLength(0) - 1) 
+        //            {
+        //                //we have scanned the whole column and it is empty
+        //                found = true;
+        //            }
+        //        }
+        //    }
+        //    lastRowUsed = currentRow - 1;
         
-        }
+        //}
 
         internal override GnosisController FindControllerByID(int controlID)
         {

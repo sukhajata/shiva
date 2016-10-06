@@ -66,3 +66,6 @@ Parameter is not valid.
 err no.1
 No tab item selected
 GnosisTileTabController.AddFrameController
+err no.1
+Minimum field width greater than width available
+GnosisGridController

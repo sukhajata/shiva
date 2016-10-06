@@ -27,5 +27,6 @@ namespace Shiva.Shared.Interfaces
         void SetRowAutoHeight(int currentRow);
         void SetRowFixedHeight(int row, double newFieldHeight);
         void SetHeightChangedHandler(Action<double> action);
+        void AddHorizontalSpacing(int column, int row, int colSpan, int rowSpan);
     }
 }

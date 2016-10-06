@@ -190,7 +190,7 @@ namespace GnosisControls
                 if (gnosisIcon != null)
                 {
 
-                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, (SolidColorBrush)this.Foreground, disabled);
 
                     this.Content = new Image { Source = bi };
                 }

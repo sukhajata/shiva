@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisListFieldImplementation : IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor
+    public interface IGnosisListFieldImplementation : IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor,
+        IGnosisCaptionLabelPossessor
     {
         //properties
         bool HasScrollBar { get; set; }

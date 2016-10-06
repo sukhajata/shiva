@@ -54,6 +54,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WriteableBitmapEx.Wpf, Version=1.5.0.0, Culture=neutral, PublicKeyToken=50375ca6144f1c69, processorArchitecture=MSIL">
+      <HintPath>..\packages\WriteableBitmapEx.1.5.0.0\lib\net40\WriteableBitmapEx.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
       <Private>True</Private>
@@ -168,6 +172,7 @@
     <Compile Include="Shared\Generic\GnosisGenericToggleMenuItem.cs" />
     <Compile Include="Shared\GnosisControls\GnosisAttribute.cs" />
     <Compile Include="Shared\Interfaces\IGnosisButtonGroupImplementation.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisCaptionLabelPossessor.cs" />
     <Compile Include="Shared\Interfaces\IGnosisCheckGroupImplementation.cs" />
     <Compile Include="Shared\Interfaces\IGnosisIconPossessor.cs" />
     <Compile Include="WPF\GnosisControls\GnosisButtonGroup.cs" />
@@ -805,6 +810,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="WPF\XML\entity-2247-september.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="WPF\Icons\calendar2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

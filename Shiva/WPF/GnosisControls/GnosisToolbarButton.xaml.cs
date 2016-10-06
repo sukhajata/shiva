@@ -95,7 +95,7 @@ namespace GnosisControls
                 btn.IsEnabled = !disabled;
                 if (gnosisIcon != null && IconSize  > 0)
                 {
-                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, (SolidColorBrush)this.Foreground, disabled);
                     btn.Content = new Image { Source = bi };
                 }
                 OnPropertyChanged("Disabled");
@@ -472,7 +472,7 @@ namespace GnosisControls
                 iconSize = value;
                 if (gnosisIcon != null)
                 {
-                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, (SolidColorBrush)this.Foreground, disabled);
 
                     btn.Content = new Image { Source = bi } ;
                 }

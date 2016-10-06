@@ -120,8 +120,10 @@ namespace Shiva.Shared.InnerLayoutControllers
             Initialize();
         }
 
-        protected virtual void Initialize()
+        protected override void Initialize()
         {
+            base.Initialize();
+
             // ((IGnosisTextAreaImplementation)ControlImplementation).SetHorizontalAlignment(HorizontalAlignmentType.Left);
            // ((IGnosisTextAreaImplementation)ControlImplementation).SetVerticalContentAlignment(((GnosisTextArea)ControlImplementation).ContentVerticalAlignment);
 

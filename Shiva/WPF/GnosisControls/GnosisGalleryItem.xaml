@@ -5,15 +5,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GnosisControls"
              mc:Ignorable="d" Name="root">
-    <StackPanel Orientation="Vertical" Name="pnlOuter">
-        <StackPanel Name="pnlCaption" Orientation="Horizontal">
-            <local:GnosisToggleButton x:Name="toggle" Content="+" Visibility="Collapsed" Click="toggle_Click"/>
-            <local:GnosisToggleButton x:Name="btnCaption" 
+    <StackPanel Orientation="Horizontal"  Name="pnlOuter">
+        
+        <local:GnosisToggleButton x:Name="toggle" Content="+" 
+                                  VerticalAlignment="Top" 
+                                  VerticalContentAlignment="Center"
+                                  Margin="{Binding Margin, ElementName=btnCaption}"
+                                  Padding="{Binding Padding, ElementName=btnCaption}"
+                                  FontSize="{Binding FontSize, ElementName=btnCaption}"
+                                  BorderThickness="{Binding BorderThickness, ElementName=btnCaption}"
+                                  BorderBrush="{Binding BorderBrush, ElementName=btnCaption}"
+                                  Background="{Binding Background, ElementName=btnCaption}"
+                                  Foreground="{Binding Foreground, ElementName=btnCaption}"
+                                  Visibility="Collapsed" 
+                                  Click="toggle_Click"/>
+        <StackPanel Name="pnlCaption" Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <local:GnosisToggleButton Grid.Column="0" x:Name="btnCaption" 
+                                      HorizontalContentAlignment="Left"
+                                      Width="Auto"
                                       Background="{Binding Background, ElementName=root}"
                                       Foreground="{Binding Foreground, ElementName=root}"
                                       BorderBrush="{Binding BorderBrush, ElementName=root}"/>
+
+            </Grid>
+            
+            <StackPanel Orientation="Vertical" Name="pnlItems" />
         </StackPanel>
-        <StackPanel Orientation="Vertical" Name="pnlItems" />
+        
     </StackPanel>
     <!--<TreeViewItem.Resources>
         <Style x:Key="TreeViewItemFocusVisual">

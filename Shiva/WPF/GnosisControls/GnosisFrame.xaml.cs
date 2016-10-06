@@ -113,7 +113,7 @@ namespace GnosisControls
                 hasMouseFocus = value;
                 OnPropertyChanged("HasMouseFocus");
                 // string xaml = XamlWriter.Save(this.Style);
-                //GnosisIOHelperWPF.WriteXamlToFile(xaml);
+               // GnosisIOHelperWPF.WriteXamlToFile(xaml);
 
             }
         }
@@ -652,13 +652,6 @@ namespace GnosisControls
             this.MouseUp += GnosisFrameWPF_MouseUp;
             this.MouseEnter += GnosisFrameWPF_MouseEnter;
             this.MouseLeave += GnosisFrameWPF_MouseLeave;
-
-            //calendars = new List<GnosisCalendar>();
-            //grids = new List<GnosisGrid>();
-            //panels = new List<GnosisPanel>();
-            //messageGrids = new List<GnosisMessageGrid>();
-            //textAreas = new List<GnosisTextArea>();
-            //trees = new List<GnosisTree>();
 
           //  this.PropertyChanged += GnosisFrame_PropertyChanged;
 

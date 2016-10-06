@@ -19,7 +19,7 @@ namespace Shiva.Shared.PanelFieldControllers
         private string currentText;
         private int numLines;
         private double textHeight;
-        protected double paddingVertical;
+      //  protected double paddingVertical;
 
 
         //public int MaxDisplayWidthChars
@@ -51,11 +51,11 @@ namespace Shiva.Shared.PanelFieldControllers
             set { textHeight = value; }
         }
 
-        public double PaddingVertical
-        {
-            get { return paddingVertical; }
-            set { paddingVertical = value; }
-        }
+        //public double PaddingVertical
+        //{
+        //    get { return paddingVertical; }
+        //    set { paddingVertical = value; }
+        //}
 
 
         public GnosisTextFieldController(
@@ -181,7 +181,7 @@ namespace Shiva.Shared.PanelFieldControllers
                     ((GnosisTextField)ControlImplementation).MaxChars);
             }
 
-            //textHeight = GlobalData.Singleton.StyleHelper.GetTextHeight((IGnosisTextFieldImplementation)ControlImplementation, font, fontSize);
+            textHeight = GlobalData.Singleton.StyleHelper.GetTextHeight((IGnosisTextFieldImplementation)ControlImplementation, font, fontSize);
             //paddingVertical = (FieldHeight - textHeight)/2;
 
             //((IGnosisTextFieldImplementation)ControlImplementation).SetPaddingVertical(paddingVertical);

@@ -190,7 +190,7 @@ namespace GnosisControls
                         this.Margin = new Thickness(horizontalMargin, verticalMargin, horizontalMargin, verticalMargin + captionSpacing);
                         break;
                     case GnosisController.CaptionPosition.BELOW:
-                        this.Margin = new Thickness(horizontalMargin, verticalMargin, horizontalMargin, verticalMargin + captionSpacing);
+                        this.Margin = new Thickness(horizontalMargin, verticalMargin + captionSpacing, horizontalMargin, verticalMargin);
                         break;
                     case GnosisController.CaptionPosition.LEFT:
                         this.Margin = new Thickness(horizontalMargin, verticalMargin, horizontalMargin + captionSpacing, verticalMargin);

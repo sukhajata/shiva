@@ -30,6 +30,7 @@ namespace GnosisControls
         private bool hasMouseDown;
 
         private string caption;
+        private GnosisCaptionLabel captionLabel;
         private GnosisController.VerticalAlignmentType contentVerticalAlignment;
         private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
         private string controlType;
@@ -53,6 +54,13 @@ namespace GnosisControls
         private int order;
         private bool readOnly;
         private string tooltip;
+
+        public GnosisCaptionLabel CaptionLabel
+        {
+            get { return captionLabel; }
+            set { captionLabel = value; }
+        }
+
 
         public bool HasFocus
         {

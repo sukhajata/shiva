@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisComboFieldImplementation :  IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor
+    public interface IGnosisComboFieldImplementation :  IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor,
+        IGnosisCaptionLabelPossessor
     {
         //properties
         int DocumentSystemID { get; set; }

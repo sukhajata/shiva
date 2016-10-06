@@ -33,6 +33,7 @@ namespace GnosisControls
         private bool optional;
 
         private string caption;
+        private GnosisCaptionLabel captionLabel;
         private GnosisController.VerticalAlignmentType contentVerticalAlignment;
         private GnosisController.HorizontalAlignmentType contentHorizontalAlignment;
         private string controlType;
@@ -62,6 +63,12 @@ namespace GnosisControls
         private int variableSystemID;
         private bool variableIsInput;
         private bool variableIsOutput;
+
+        public GnosisCaptionLabel CaptionLabel
+        {
+            get { return captionLabel; }
+            set { captionLabel = value; }
+        }
 
         public bool HasFocus
         {

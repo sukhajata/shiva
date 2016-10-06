@@ -218,7 +218,7 @@ namespace GnosisControls
                 btnCaption.IsEnabled = !disabled;
                 if (gnosisIcon != null && iconSize > 0)
                 {
-                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, (SolidColorBrush)this.Foreground, disabled);
                     btnCaption.Content = new Image { Source = bi };
                 }
                 OnPropertyChanged("Disabled");
@@ -320,6 +320,7 @@ namespace GnosisControls
             {
                 horizontalSpacing = value;
                 
+                
                 this.Margin = new Thickness(horizontalSpacing, 0, 0, 0);
             }
         }
@@ -370,7 +371,7 @@ namespace GnosisControls
                     //};
                     //System.Drawing.Image icon = System.Drawing.Image.FromFile(GnosisIOHelperWPF.GetIconPath(gnosisIcon, !disabled));
                     //System.Drawing.Image resizedIcon = StyleHelper.ResizeImage(icon, iconSize, iconSize);
-                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, (SolidColorBrush)this.Foreground, disabled);
 
                     btnCaption.Content = new Image { Source = bi };
                 }
@@ -420,7 +421,7 @@ namespace GnosisControls
                 //horizontal margin is applied to btnCaption, after the expand button
                 if (((GnosisGallery)ancestor).IsWideFormat)
                 {
-                    btnCaption.Margin = new Thickness(horizontalMargin, 0, horizontalMargin, 0);
+                    pnlCaption.Margin = new Thickness(horizontalMargin, 0, horizontalMargin, 0);
                 }
             }
         }

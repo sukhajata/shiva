@@ -16,6 +16,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Resources;
 using UtilityWPF.TriggerTracing;
 
 namespace ShivaWPF3.UtilityWPF
@@ -1146,18 +1149,7 @@ namespace ShivaWPF3.UtilityWPF
 
         }
 
-        public static BitmapImage GetIcon(string iconName, int iconSize, bool disabled)
-        {
-            BitmapImage bi = new BitmapImage();
-            bi.BeginInit();
-            bi.DecodePixelWidth = iconSize;
-            bi.DecodePixelHeight = iconSize;
-            string iconPath = GnosisIOHelperWPF.GetIconPath(iconName, !disabled);
-            bi.UriSource = new Uri(iconPath);
-            bi.EndInit();
-
-            return bi;
-        }
+       
 
 
 
@@ -1512,7 +1504,7 @@ namespace ShivaWPF3.UtilityWPF
 
         public double GetFieldHeight(IGnosisCaptionLabelImplementation caption, string font, int fontSize)
         {
-            double height = caption.HorizontalPadding * 2;
+            double height = caption.VerticalPadding * 2;
 
             var formattedText = new FormattedText(
                      alphabet,
@@ -1533,7 +1525,7 @@ namespace ShivaWPF3.UtilityWPF
 
             if (gnosisControl is IGnosisPaddingPossessor)
             {
-                height = ((IGnosisPaddingPossessor)gnosisControl).HorizontalPadding * 2;
+                height = ((IGnosisPaddingPossessor)gnosisControl).VerticalPadding * 2;
             }
 
             //if (gnosisControl is GnosisDateField || gnosisControl is GnosisDateTimeField)
@@ -1582,7 +1574,7 @@ namespace ShivaWPF3.UtilityWPF
 
         public double GetFieldHeight(IGnosisGridFieldImplementation gridField, string font, int fontSize)
         {
-            double height = gridField.HorizontalPadding * 2;
+            double height = gridField.VerticalPadding * 2;
 
             //try
             //{
@@ -1619,6 +1611,76 @@ namespace ShivaWPF3.UtilityWPF
             return height;
 
         }
+
+        public static BitmapImage GetIcon(string iconName, int iconSize, SolidColorBrush brush, bool disabled)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.DecodePixelWidth = iconSize;
+            bi.DecodePixelHeight = iconSize;
+            string iconPath = GnosisIOHelperWPF.GetIconPath(iconName, !disabled);
+            bi.UriSource = new Uri(iconPath);
+            bi.EndInit();
+
+
+            return bi;
+        }
+
+
+        //returns icon with specified size and colour
+        //public static WriteableBitmap GetIcon(string iconName, int iconSize, SolidColorBrush brush, bool disabled)
+        //{
+        //    string iconPath = GnosisIOHelperWPF.GetIconPath(iconName, !disabled);
+        //    WriteableBitmap writeableBitmap;
+
+        //    using (Stream stream = new FileStream(iconPath, FileMode.Open))
+        //    {
+        //        BitmapDecoder decoder = BitmapDecoder.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.Default);
+        //        BitmapFrame image = decoder.Frames[0];
+        //        byte[] pixels = new byte[image.PixelWidth * image.PixelHeight * 4];
+        //        image.CopyPixels(pixels, image.PixelWidth * 4, 0);
+
+        //        // Modify the white pixels
+        //        if (!disabled)
+        //        {
+        //            for (int i = 0; i < pixels.Length / 4; ++i)
+        //            {
+        //                byte b = pixels[i * 4];
+        //                byte g = pixels[i * 4 + 1];
+        //                byte r = pixels[i * 4 + 2];
+        //                byte a = pixels[i * 4 + 3];
+
+        //                if ((r == 255 &&
+        //                        g == 255 &&
+        //                        b == 255 &&
+        //                        a == 255) ||
+        //                    (a != 0 && a != 255 &&
+        //                        r == g && g == b && r != 0))
+        //                {
+        //                    // Change it to brush colour
+        //                    r = brush.Color.R;
+        //                    g = brush.Color.G;
+        //                    b = brush.Color.B;
+
+        //                    pixels[i * 4] = b;
+        //                    pixels[i * 4 + 1] = g;
+        //                    pixels[i * 4 + 2] = r;
+        //                }
+
+
+        //            }
+        //        }
+        //        // Write the modified pixels into a new bitmap and use that as the source of an Image
+        //        writeableBitmap = new WriteableBitmap(image.PixelWidth, image.PixelHeight, image.DpiX, image.DpiY, PixelFormats.Pbgra32, null);
+        //        writeableBitmap.WritePixels(new Int32Rect(0, 0, image.PixelWidth, image.PixelHeight), pixels, image.PixelWidth * 4, 0);
+        //    }
+
+        //    WriteableBitmap resized = writeableBitmap.Resize(iconSize, iconSize, WriteableBitmapExtensions.Interpolation.Bilinear);
+
+        //    return resized;
+        //    //return writeableBitmap;
+           
+        //}
 
 
         ///// <summary>

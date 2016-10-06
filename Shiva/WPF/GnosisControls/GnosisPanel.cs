@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Windows.Markup;
 using Shiva.Shared.Data;
 using Shiva.Shared.BaseControllers;
+using System.Windows.Media;
 
 namespace GnosisControls
 {
@@ -519,16 +520,7 @@ namespace GnosisControls
             matrix = new StackPanel[100, 100];
             this.Child = contentGrid;
 
-            buttons = new List<GnosisButton>();
-            checkFields = new List<GnosisCheckField>();
-            comboFields = new List<GnosisComboField>();
-            dateFields = new List<GnosisDateField>();
-            dateTimeFields = new List<GnosisDateTimeField>();
-            listFields = new List<GnosisListField>();
-            linkFields = new List<GnosisLinkField>();
-            numberFields = new List<GnosisNumberField>();
-            radioFields = new List<GnosisRadioField>();
-            textFields = new List<GnosisTextField>();
+            //contentGrid.ShowGridLines = true;
 
             //contentGrid.ShowGridLines = true;
            // this.GotFocus += GnosisPanelWPF_GotFocus;
@@ -540,9 +532,6 @@ namespace GnosisControls
             this.MouseUp += GnosisPanelWPF_MouseUp;
             this.MouseEnter += GnosisPanelWPF_MouseEnter;
             this.MouseLeave += GnosisPanelWPF_MouseLeave;
-
-            buttons = new List<GnosisButton>();
-            checkFields = new List<GnosisCheckField>();
 
            // this.PropertyChanged += GnosisPanel_PropertyChanged;
         }
@@ -585,16 +574,12 @@ namespace GnosisControls
 
         public void AddGnosisCaptionLabel(GnosisCaptionLabel captionLabel, int column, int row, int colSpan, int rowSpan)
         {
-            //string xaml = XamlWriter.Save(captionLabel);
-
-            if (captionLabel.RelativePosition == Shiva.Shared.BaseControllers.GnosisController.CaptionPosition.LEFT ||
-                captionLabel.RelativePosition == Shiva.Shared.BaseControllers.GnosisController.CaptionPosition.RIGHT)
+            //each grid cell contains a stack panel
+            StackPanel panel;
+            if (matrix[column, row] == null)
             {
-                captionLabel.VerticalAlignment = VerticalAlignment.Center;
-
-                StackPanel panel = new StackPanel();
+                panel = new StackPanel();
                 panel.Orientation = Orientation.Horizontal;
-                panel.Children.Add(captionLabel);
                 matrix[column, row] = panel;
 
                 Grid.SetColumn(panel, column);
@@ -605,12 +590,18 @@ namespace GnosisControls
             }
             else
             {
-                Grid.SetColumn(captionLabel, column);
-                Grid.SetRow(captionLabel, row);
-                Grid.SetColumnSpan(captionLabel, colSpan);
-                Grid.SetRowSpan(captionLabel, rowSpan);
-                contentGrid.Children.Add(captionLabel);
+                panel = matrix[column, row];
             }
+
+            if (captionLabel.RelativePosition == GnosisController.CaptionPosition.LEFT ||
+                captionLabel.RelativePosition == GnosisController.CaptionPosition.RIGHT)
+            {
+                captionLabel.VerticalAlignment = VerticalAlignment.Center;
+            }
+
+            panel.Children.Add(captionLabel);
+
+            
         }
 
         public void AddGnosisContentControlImplementation(IGnosisContentControlImplementation contentControlImplementation, int column, int row, int colSpan, int rowSpan)
@@ -618,32 +609,26 @@ namespace GnosisControls
 
             UIElement control = (UIElement)contentControlImplementation;
 
-            if (matrix[column, row] != null)
+            StackPanel panel;
+            if (matrix[column, row] == null)
             {
-                matrix[column, row].Children.Add(control);
-            }
+                panel = new StackPanel();
+                panel.Orientation = Orientation.Horizontal;
+                matrix[column, row] = panel;
 
+                Grid.SetColumn(panel, column);
+                Grid.SetRow(panel, row);
+                Grid.SetColumnSpan(panel, colSpan);
+                Grid.SetRowSpan(panel, rowSpan);
+                contentGrid.Children.Add(panel);
+            }
             else
             {
-                Grid.SetColumn(control, column);
-                Grid.SetColumnSpan(control, colSpan);
-                Grid.SetRow(control, row);
-                Grid.SetRowSpan(control, rowSpan);
-
-                contentGrid.Children.Add(control);
+                panel = matrix[column, row];
             }
-            //if (contentControlImplementation is GnosisTextFieldWPF)
-            //{
-            //    this.Children.Add((GnosisTextFieldWPF)contentControlImplementation);
-            //}
-            //else if (contentControlImplementation is GnosisComboFieldWPF)
-            //{
-            //    this.Children.Add((GnosisComboFieldWPF)contentControlImplementation);
-            //}
-            //else if (contentControlImplementation is GnosisCheckFieldWPF)
-            //{
-            //    this.Children.Add((GnosisCheckFieldWPF)contentControlImplementation);
-            //}
+
+            panel.Children.Add(control);
+
         }
 
         public void AddGnosisLayoutControlImplementation(IGnosisInnerLayoutControlImplementation layoutControlImplementation, int column, int row, int colSpan, int rowSpan)
@@ -996,6 +981,31 @@ namespace GnosisControls
             this.Margin = new Thickness(marginLeft, 0, 0, 0);
         }
 
+        public void AddHorizontalSpacing(int column, int row, int colSpan, int rowSpan)
+        {
+            Label lbl = new Label();
+            lbl.Width = HorizontalSpacing;
+            lbl.Background = Brushes.Transparent;
 
+            StackPanel panel;
+            if (matrix[column, row] == null)
+            {
+                panel = new StackPanel();
+                panel.Orientation = Orientation.Horizontal;
+                matrix[column, row] = panel;
+
+                Grid.SetColumn(panel, column);
+                Grid.SetRow(panel, row);
+                Grid.SetColumnSpan(panel, colSpan);
+                Grid.SetRowSpan(panel, rowSpan);
+                contentGrid.Children.Add(panel);
+            }
+            else
+            {
+                panel = matrix[column, row];
+            }
+
+            panel.Children.Add(lbl);
+        }
     }
 }

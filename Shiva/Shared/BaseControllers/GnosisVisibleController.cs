@@ -140,7 +140,7 @@ namespace Shiva.Shared.BaseControllers
             Initialize();
         }
 
-        private void Initialize()
+        protected virtual void Initialize()
         {
            // ControlImplementation.SetController(this);
 

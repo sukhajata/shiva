@@ -117,6 +117,11 @@ namespace Shiva.Shared.ContentControllers
             }
         }
 
+        public int ColNo
+        {
+            get; set;
+        }
+
         public string Dataset
         {
             get { return ((IGnosisContentControlImplementation)ControlImplementation).Dataset; }
@@ -147,29 +152,21 @@ namespace Shiva.Shared.ContentControllers
            // Initialize();
         }
 
-        //protected virtual void Initialize()
-        //{
-        //   // ((IGnosisContentControlImplementation)ControlImplementation).SetHorizontalAlignment(HorizontalAlignmentType.Left);
-        //    //((IGnosisContentControlImplementation)ControlImplementation).ContentVerticalAlignment =(((GnosisContentControl)ControlImplementation).ContentVerticalAlignment);
 
-        //    //if (((GnosisContentControl)ControlImplementation).ContentHorizontalAlignment != HorizontalAlignmentType.NONE)
-        //    //{
-        //    //    ((IGnosisContentControlImplementation)ControlImplementation).SetHorizontalContentAlignment(((GnosisContentControl)ControlImplementation).ContentHorizontalAlignment);
-        //    //}
+        protected override void Initialize()
+        {
+            base.Initialize();
 
-
-        //    characterWidth = GlobalData.Singleton.StyleHelper.GetCharacterWidth((IGnosisContentControlImplementation)ControlImplementation, EntityController.GetNormalStyle().Font, EntityController.GetNormalStyle().FontSize);
-
-        //    //if (((GnosisContentControl)ControlImplementation).Disabled)
-        //    //{
-        //    //    ((IGnosisContentControlImplementation)ControlImplementation).SetIsEnabled(false);
-        //    //}
-
-        //    //if (!contentControl.HideCaption)
-        //    //{
-        //    //    contentControlImplementation.SetCaptionSpan(contentControl.CaptionCellSpan, contentControl.CellSpan);
-        //    //}
-        //}
+            if (ControlImplementation is IGnosisCaptionLabelPossessor)
+            {
+                string caption = ((IGnosisContentControlImplementation)ControlImplementation).Caption;
+                GnosisCaptionLabel captionLabel = new GnosisCaptionLabel();
+                //  IGnosisCaptionLabelImplementation captionLabelImp = GlobalData.Singleton.ImplementationCreator.GetGnosisCaptionLabelImplementation();
+                GlobalData.Singleton.StyleHelper.ApplyCaptionStyle(captionLabel, EntityController.GetCaptionStyle());
+                captionLabel.Caption = caption;
+                ((IGnosisCaptionLabelPossessor)ControlImplementation).CaptionLabel = captionLabel;
+            }
+        }
 
 
         internal void SetEditMode()
@@ -231,6 +228,7 @@ namespace Shiva.Shared.ContentControllers
 
 
                 //field width
+               
                 if (MaxDisplayChars > 0)
                 {
                     //MaxFieldWidth = StyleManager.GetMaxFieldWidth(MaxDisplayChars);
@@ -252,6 +250,17 @@ namespace Shiva.Shared.ContentControllers
                 {
                     MaxFieldWidth = MinFieldWidth;
                 }
+
+                //if (ControlImplementation is IGnosisCaptionLabelPossessor)
+                //{
+                //    GnosisCaptionLabel captionLabel = ((IGnosisCaptionLabelPossessor)ControlImplementation).CaptionLabel;
+                //    if (captionLabel.RelativePosition == CaptionPosition.LEFT || captionLabel.RelativePosition == CaptionPosition.RIGHT)
+                //    {
+                //        double captionWidth = captionLabel.GetWidth() + (2 * captionLabel.HorizontalMargin);
+                //        minFieldWidth += captionWidth;
+                //        maxFieldWidth += captionWidth;
+                //    }
+                //}
             }
 
             //field height

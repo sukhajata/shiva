@@ -174,7 +174,7 @@ namespace GnosisControls
                 toggleButton.IsEnabled = !disabled;
                 if (GnosisIcon != null && iconSize > 0)
                 {
-                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, (SolidColorBrush)this.Foreground, disabled);
                     this.Content = new Image { Source = bi };
                 }
                 OnPropertyChanged("Disabled");
@@ -189,7 +189,7 @@ namespace GnosisControls
                 iconSize = value;
                 if (gnosisIcon != null)
                 {
-                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, disabled);
+                    BitmapImage bi = StyleHelper.GetIcon(gnosisIcon, iconSize, (SolidColorBrush)this.Foreground, disabled);
                     this.Content = new Image { Source = bi };
                 }
             }

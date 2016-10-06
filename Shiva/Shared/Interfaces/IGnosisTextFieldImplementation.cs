@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisTextFieldImplementation : IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor
+    public interface IGnosisTextFieldImplementation : IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor,
+        IGnosisCaptionLabelPossessor
     {
         //properties
         bool Locked { get; set; }

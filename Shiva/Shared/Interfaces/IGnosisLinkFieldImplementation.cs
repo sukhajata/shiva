@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisLinkFieldImplementation : IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor
+    public interface IGnosisLinkFieldImplementation : IGnosisPanelFieldImplementation, IGnosisDisplayCharsPossessor,
+        IGnosisCaptionLabelPossessor
     {
         //properties
         int DocumentEntityID { get; set; }

@@ -5,7 +5,8 @@ using Shiva.Shared.BaseControllers;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisTextAreaImplementation : IGnosisInnerLayoutControlImplementation, IGnosisDisplayCharsPossessor
+    public interface IGnosisTextAreaImplementation : IGnosisInnerLayoutControlImplementation, IGnosisDisplayCharsPossessor,
+        IGnosisCaptionLabelPossessor
     {
         //properties
         string ContentVerticalAlignment { get; set; }

@@ -221,7 +221,7 @@ namespace Shiva.Shared.OuterLayoutControllers
             numRows = 0;
 
             GnosisInnerLayoutController previousChild = null;
-            if (orderedContent.First() is GnosisGridController)
+            if (orderedContent.First() is GnosisGridController || orderedContent.First() is GnosisGalleryController)
             {
                 ((IGnosisFrameImplementation)ControlImplementation).AddRow();
             }
@@ -303,9 +303,9 @@ namespace Shiva.Shared.OuterLayoutControllers
                             currentRow++;
                         }
 
-                        if (child is GnosisGridController)
+                        if (child is GnosisGridController || child is GnosisGalleryController)
                         {
-                            ((IGnosisFrameImplementation)ControlImplementation).AddRow(); //star sized
+                            ((IGnosisFrameImplementation)ControlImplementation).AddRow(); //star sized, use left over space
                         }
                         else
                         {

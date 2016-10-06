@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Shiva.Shared.Interfaces
 {
-    public interface IGnosisDateTimeFieldImplementation : IGnosisPanelFieldImplementation
+    public interface IGnosisDateTimeFieldImplementation : IGnosisPanelFieldImplementation, IGnosisCaptionLabelPossessor
     {
         //properties
         bool Locked { get; set; }
