@@ -557,6 +557,15 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
+
         public static readonly DependencyProperty ControlThicknessProperty =
             DependencyProperty.RegisterAttached("ControlThickness",
             typeof(int), typeof(GnosisToggleButton), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
@@ -591,7 +600,11 @@ namespace GnosisControls
                 {
                     toggleButton.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
                     toggleButton.BorderThickness = new Thickness(newThickness);
-                    toggleButton.Height = toggleButton.Height + (newThickness - oldThickness);
+                    //toggleButton.Height = toggleButton.Height + (newThickness - oldThickness);
+
+                    double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(toggleButton, toggleButton.FontFamily.ToString(),
+                        (int)toggleButton.FontSize);
+                    toggleButton.SetHeight(fieldHeight);
                 }
             }
             else
@@ -604,7 +617,10 @@ namespace GnosisControls
                 {
                     toggleButton.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
                     toggleButton.BorderThickness = new Thickness(newThickness);
-                    toggleButton.Height = toggleButton.Height - (oldThickness - newThickness);
+
+                    double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(toggleButton, toggleButton.FontFamily.ToString(),
+                        (int)toggleButton.FontSize);
+                    toggleButton.SetHeight(fieldHeight);
                 }
             }
 

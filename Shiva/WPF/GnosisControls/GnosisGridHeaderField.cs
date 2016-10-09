@@ -40,6 +40,7 @@ namespace GnosisControls
                     {
                         this.BorderThickness = new Thickness(controlThickness);
                         this.Margin = new Thickness(verticalMargin - controlThickness, horizontalMargin - controlThickness, verticalMargin - controlThickness, horizontalMargin - controlThickness);
+
                     }
                 }
             }

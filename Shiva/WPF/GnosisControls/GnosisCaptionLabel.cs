@@ -152,6 +152,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return controlThickness;
+            }
+        }
+
         public int ControlThickness
         {
             get
@@ -169,6 +177,10 @@ namespace GnosisControls
                         this.BorderThickness = new Thickness(controlThickness);
                         this.Margin = new Thickness(horizontalMargin - controlThickness, verticalMargin - controlThickness, 
                             horizontalMargin - controlThickness, verticalMargin - controlThickness);
+
+                        double captionHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(this, this.FontFamily.ToString(),
+                            (int)this.FontSize);
+                        this.Height = captionHeight;
                     }
                 }
             }

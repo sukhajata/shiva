@@ -352,6 +352,13 @@ namespace GnosisControls
             HasFocus = true;
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
         //public void SetGotMouseFocusHandler(Action action)
         //{
         //    GotMouseFocusHandler = action;

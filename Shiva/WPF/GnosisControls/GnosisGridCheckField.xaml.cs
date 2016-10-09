@@ -496,6 +496,10 @@ namespace GnosisControls
             }
         }
 
+        public void GnosisAddChild(IGnosisObject child)
+        {
+            throw new NotImplementedException();
+        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -505,9 +509,12 @@ namespace GnosisControls
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public void GnosisAddChild(IGnosisObject child)
+        public int CurrentThickness
         {
-            throw new NotImplementedException();
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
         }
 
 
@@ -529,27 +536,30 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisGridCheckField panelField = source as GnosisGridCheckField;
+            GnosisGridCheckField gridCheckField = source as GnosisGridCheckField;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
-            double marginHorizontal;
-            double marginVertical;
+            double paddingHorizontal;
+            double paddingVertical;
 
             if (newThickness > oldThickness)
             {
-                //increase border thickness, decrease margin
-                marginHorizontal = panelField.Margin.Left - newThickness;
-                marginVertical = panelField.Margin.Top - newThickness;
+                //increase border thickness, decrease padding
+                paddingHorizontal = gridCheckField.HorizontalPadding - newThickness;
+                paddingVertical = gridCheckField.VerticalPadding - newThickness;
             }
             else
             {
-                //decrease border thickness, increase margin
-                marginHorizontal = panelField.Margin.Left + oldThickness;
-                marginVertical = panelField.Margin.Top + oldThickness;
+                //decrease border thickness, increase padding
+                paddingHorizontal = gridCheckField.Padding.Left + oldThickness;
+                paddingVertical = gridCheckField.Padding.Top + oldThickness;
             }
 
-            panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-            panelField.BorderThickness = new Thickness(newThickness);
+            if (paddingHorizontal >= 0 && paddingVertical >= 0)
+            {
+                gridCheckField.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+                gridCheckField.chkBox.BorderThickness = new Thickness(newThickness);
+            }
 
         }
 
@@ -611,30 +621,30 @@ namespace GnosisControls
         //    this.BorderThickness = new System.Windows.Thickness(1);
         //}
 
-        public void SetCaption(string caption)
-        {
+        //public void SetCaption(string caption)
+        //{
 
-        }
+        //}
 
         public void SetTooltipVisible(bool visible)
         {
             ToolTipService.SetIsEnabled(this, visible);
         }
 
-        public void SetFont(string font)
-        {
-            //  this.FontFamily = new System.Windows.Media.FontFamily(font);
-        }
+        //public void SetFont(string font)
+        //{
+        //    //  this.FontFamily = new System.Windows.Media.FontFamily(font);
+        //}
 
-        public void SetFontSize(int fontSize)
-        {
-            //  this.FontSize = FontSize;
-        }
+        //public void SetFontSize(int fontSize)
+        //{
+        //    //  this.FontSize = FontSize;
+        //}
 
-        public void SetForegroundColour(string contentColour)
-        {
-            //  this.Foreground = StyleHelper.GetBrushFromHex(contentColour);
-        }
+        //public void SetForegroundColour(string contentColour)
+        //{
+        //    //  this.Foreground = StyleHelper.GetBrushFromHex(contentColour);
+        //}
 
         //public void SetGotMouseFocusHandler(Action action)
         //{
@@ -666,11 +676,11 @@ namespace GnosisControls
             this.SetVerticalAlignmentExt(verticalAlignment);
         }
 
-        public void SetHorizontalContentAlignment(GnosisController.HorizontalAlignmentType horizontalAlignment)
-        {
-            // this.SetHorizontalContentAlignmentExt(horizontalAlignment);
+        //public void SetHorizontalContentAlignment(GnosisController.HorizontalAlignmentType horizontalAlignment)
+        //{
+        //    // this.SetHorizontalContentAlignmentExt(horizontalAlignment);
 
-        }
+        //}
 
         //public void SetIsEnabled(bool isEnabled)
         //{
@@ -739,22 +749,22 @@ namespace GnosisControls
 
         //}
 
-        public void SetTooltip(string tooltip)
-        {
-            this.ToolTip = tooltip;
-        }
+        //public void SetTooltip(string tooltip)
+        //{
+        //    this.ToolTip = tooltip;
+        //}
 
-        public void SetVerticalContentAlignment(GnosisController.VerticalAlignmentType verticalAlignment)
-        {
-            //  this.SetVerticalContentAlignmentExt(verticalAlignment);
+        //public void SetVerticalContentAlignment(GnosisController.VerticalAlignmentType verticalAlignment)
+        //{
+        //    //  this.SetVerticalContentAlignmentExt(verticalAlignment);
 
-        }
+        //}
 
-        public void SetVisible(bool visible)
-        {
-            this.SetVisibleExt(visible);
+        //public void SetVisible(bool visible)
+        //{
+        //    this.SetVisibleExt(visible);
 
-        }
+        //}
 
         //public GnosisVisibleController GetController()
         //{
@@ -767,30 +777,30 @@ namespace GnosisControls
         }
 
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            // this.SetPaddingHorizontalExt(paddingHorizontal);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    // this.SetPaddingHorizontalExt(paddingHorizontal);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            //  this.SetPaddingVerticalExt(paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    //  this.SetPaddingVerticalExt(paddingVertical);
+        //}
 
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return this.Padding.Left;
+        //}
 
-        public void SetMinWidth(double minWidth)
-        {
-            this.MinWidth = minWidth;
-        }
+        //public void SetMinWidth(double minWidth)
+        //{
+        //    this.MinWidth = minWidth;
+        //}
 
-        public void SetMaxWidth(double maxWidth)
-        {
-            this.MaxWidth = maxWidth;
-        }
+        //public void SetMaxWidth(double maxWidth)
+        //{
+        //    this.MaxWidth = maxWidth;
+        //}
 
         public void SetGotFocusHandler(Action action)
         {

@@ -20,6 +20,7 @@
                                   Visibility="Collapsed" 
                                   Click="toggle_Click"/>
         <StackPanel Name="pnlCaption" Orientation="Vertical">
+            <!-- Having an unused * column stops the toggle button from expanding to the width of pnlItems -->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>

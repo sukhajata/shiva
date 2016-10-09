@@ -66,6 +66,13 @@ namespace GnosisControls
         private int horizontalSpacing;
         private int verticalSpacing;
 
+        private bool isWideFormat;
+
+        public bool IsWideFormat
+        {
+            get { return isWideFormat; }
+        }
+
         [GnosisPropertyAttribute]
         public bool Active
         {
@@ -136,7 +143,21 @@ namespace GnosisControls
         public IGnosisVisibleControlImplementation GnosisParent
         {
             get { return gnosisParent; }
-            set { gnosisParent = value; }
+            set
+            {
+                gnosisParent = value;
+
+                IGnosisVisibleControlImplementation ancestor = this.GnosisParent;
+                while (!(ancestor is GnosisGallery))
+                {
+                    ancestor = ancestor.GnosisParent;
+                }
+
+                if (((GnosisGallery)ancestor).IsWideFormat)
+                {
+                    isWideFormat = true;
+                }
+            }
         }
 
 
@@ -320,8 +341,12 @@ namespace GnosisControls
             {
                 horizontalSpacing = value;
                 
-                
-                this.Margin = new Thickness(horizontalSpacing, 0, 0, 0);
+                //do not apply spacing to root item
+                if (!(this.GnosisParent is GnosisGallery))
+                {
+                    this.Margin = new Thickness(horizontalSpacing, 0, 0, 0);
+
+                }
             }
         }
 
@@ -335,7 +360,13 @@ namespace GnosisControls
             set
             {
                 verticalSpacing = value;
-               // this.Margin = new Thickness(horizontalMargin, verticalMargin + verticalSpacing, horizontalMargin, verticalMargin);
+
+                if (isWideFormat && !(this.GnosisParent is GnosisGallery))
+                {
+                    btnCaption.Margin = new Thickness(btnCaption.Margin.Left, btnCaption.Margin.Top + verticalSpacing,
+                        btnCaption.Margin.Right, btnCaption.Margin.Bottom);
+
+                }
 
                 //for (int i = 0; i < Items.Count; i++)
                 //{
@@ -412,16 +443,10 @@ namespace GnosisControls
                 horizontalMargin = value;
 
                 //horizontal margin is only applied in wide format
-                IGnosisVisibleControlImplementation ancestor = this.GnosisParent;
-                while (!(ancestor is GnosisGallery))
+                if(isWideFormat)
                 {
-                    ancestor = ancestor.GnosisParent;
-                }
-
-                //horizontal margin is applied to btnCaption, after the expand button
-                if (((GnosisGallery)ancestor).IsWideFormat)
-                {
-                    pnlCaption.Margin = new Thickness(horizontalMargin, 0, horizontalMargin, 0);
+                    btnCaption.Margin = new Thickness(btnCaption.Margin.Left + horizontalMargin, btnCaption.Margin.Top,
+                        btnCaption.Margin.Right + horizontalMargin, btnCaption.Margin.Bottom);
                 }
             }
         }
@@ -432,7 +457,20 @@ namespace GnosisControls
             set
             {
                 verticalMargin = value;
-               // this.SetVerticalMarginExt(verticalMargin);
+                
+                if (isWideFormat)
+                {
+                    btnCaption.Margin = new Thickness(btnCaption.Margin.Left, btnCaption.Margin.Top + verticalMargin,
+                        btnCaption.Margin.Right, btnCaption.Margin.Bottom + verticalMargin);
+                }
+            }
+        }
+
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)btnCaption.BorderThickness.Top;
             }
         }
 
@@ -474,13 +512,9 @@ namespace GnosisControls
 
             //if in wide format, thickness is taken from margin
             //else thickness is taken from padding
-            IGnosisVisibleControlImplementation ancestor = galleryItem.GnosisParent;
-            while (!(ancestor is GnosisGallery))
-            {
-                ancestor = ancestor.GnosisParent;
-            }
+          
 
-            if (((GnosisGallery)ancestor).IsWideFormat)
+            if (galleryItem.IsWideFormat)
             {
                 double marginHorizontal;
                 double marginVertical;
@@ -490,22 +524,33 @@ namespace GnosisControls
                     //increase border thickness, decrease margin, increase height
                     marginHorizontal = galleryItem.HorizontalMargin - newThickness;
                     marginVertical = galleryItem.VerticalMargin - newThickness;
-                    if (marginVertical >= 0 && marginHorizontal >= 0)
-                    {
-                        galleryItem.Height = galleryItem.Height + (newThickness - oldThickness);
-                    }
+
+                    //double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(galleryItem, galleryItem.FontFamily.ToString(), (int)galleryItem.FontSize);
+                    //if (marginVertical >= 0 && marginHorizontal >= 0)
+                    //{
+                    //    galleryItem.Height = galleryItem.Height + (newThickness - oldThickness);
+                    //}
                 }
                 else
                 {
                     //decrease border thickness, increase margin, decrease height
                     marginHorizontal = galleryItem.Margin.Left + oldThickness;
                     marginVertical = galleryItem.Margin.Top + oldThickness;
-                    galleryItem.Height = galleryItem.Height - (oldThickness - newThickness);
+                   // galleryItem.Height = galleryItem.Height - (oldThickness - newThickness);
                 }
 
                 if (marginHorizontal >= 0 && marginVertical >= 0)
                 {
-                    galleryItem.btnCaption.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                    if (galleryItem.GnosisParent is GnosisGallery)
+                    {
+                        galleryItem.btnCaption.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                    }
+                    else
+                    {
+                        galleryItem.btnCaption.Margin = new Thickness(marginHorizontal, marginVertical + galleryItem.VerticalSpacing,
+                        marginHorizontal, marginVertical);
+                    }
+
                     galleryItem.btnCaption.BorderThickness = new Thickness(newThickness);
                 }
             }
@@ -540,6 +585,7 @@ namespace GnosisControls
         {
             InitializeComponent();
 
+          
             //galleryDatasetItems = new List<GnosisGalleryDatasetItem>();
             //galleryDocumentItems = new List<GnosisGalleryDocumentItem>();
             //galleryItems = new List<GnosisGalleryItem>();

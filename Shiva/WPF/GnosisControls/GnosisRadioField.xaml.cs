@@ -513,6 +513,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
            DependencyProperty.RegisterAttached("ControlThickness",
            typeof(int), typeof(GnosisRadioField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
@@ -550,8 +558,13 @@ namespace GnosisControls
                 paddingVertical = panelField.Padding.Top + oldThickness;
             }
 
-            panelField.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
-            panelField.BorderThickness = new Thickness(newThickness);
+            if (paddingHorizontal >= 0 && paddingVertical >= 0)
+            {
+                panelField.Padding = new Thickness(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+                panelField.BorderThickness = new Thickness(newThickness);
+
+                
+            }
 
         }
 

@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Shiva.Shared.BaseControllers;
+using System.Windows.Controls;
 
 namespace GnosisControls
 {
-    public class GnosisRadioGroup : IGnosisRadioGroupImplementation
+    public class GnosisRadioGroup : Border, IGnosisRadioGroupImplementation
     {
         private bool locked;
         private bool readOnly;
@@ -352,6 +353,14 @@ namespace GnosisControls
             set
             {
                 throw new NotImplementedException();
+            }
+        }
+
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
             }
         }
 

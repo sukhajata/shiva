@@ -617,6 +617,15 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string name)
@@ -648,7 +657,7 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisTextField panelField = source as GnosisTextField;
+            GnosisTextField textField = source as GnosisTextField;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
             double marginHorizontal;
@@ -657,28 +666,36 @@ namespace GnosisControls
             if (newThickness > oldThickness)
             {
                 //increase border thickness, decrease margin
-                marginHorizontal = panelField.Margin.Left - newThickness;
-                marginVertical = panelField.Margin.Top - newThickness;
+                marginHorizontal = textField.Margin.Left - newThickness;
+                marginVertical = textField.Margin.Top - newThickness;
 
                 if (marginHorizontal >= 0 && marginVertical >= 0)
                 {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height + (newThickness - oldThickness);
+                    textField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                    textField.BorderThickness = new Thickness(newThickness);
+                    
+                    //The control height has changed since BorderThickness is part of height but margin is not
+                    double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(textField, textField.FontFamily.ToString(), (int)textField.FontSize);
+                    textField.SetHeight(fieldHeight);
+
                 }
 
             }
             else
             {
                 //decrease border thickness, increase margin
-                marginHorizontal = panelField.Margin.Left + oldThickness;
-                marginVertical = panelField.Margin.Top + oldThickness;
+                marginHorizontal = textField.Margin.Left + oldThickness;
+                marginVertical = textField.Margin.Top + oldThickness;
 
                 if (marginHorizontal >= 0 && marginVertical >= 0)
                 {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height - (oldThickness - newThickness);
+                    textField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                    textField.BorderThickness = new Thickness(newThickness);
+                    
+                    //The control height has changed since BorderThickness is part of height but margin is not
+                    double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(textField, textField.FontFamily.ToString(), (int)textField.FontSize);
+                    textField.SetHeight(fieldHeight);
+
                 }
             }
 

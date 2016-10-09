@@ -598,6 +598,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
            DependencyProperty.RegisterAttached("ControlThickness",
            typeof(int), typeof(GnosisLinkField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
@@ -616,7 +624,7 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisLinkField panelField = source as GnosisLinkField;
+            GnosisLinkField linkField = source as GnosisLinkField;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
             double marginHorizontal;
@@ -625,18 +633,25 @@ namespace GnosisControls
             if (newThickness > oldThickness)
             {
                 //increase border thickness, decrease margin
-                marginHorizontal = panelField.Margin.Left - newThickness;
-                marginVertical = panelField.Margin.Top - newThickness;
+                marginHorizontal = linkField.Margin.Left - newThickness;
+                marginVertical = linkField.Margin.Top - newThickness;
             }
             else
             {
                 //decrease border thickness, increase margin
-                marginHorizontal = panelField.Margin.Left + oldThickness;
-                marginVertical = panelField.Margin.Top + oldThickness;
+                marginHorizontal = linkField.Margin.Left + oldThickness;
+                marginVertical = linkField.Margin.Top + oldThickness;
             }
 
-            panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-            panelField.BorderThickness = new Thickness(newThickness);
+            if (marginHorizontal >= 0 && marginVertical >= 0)
+            {
+                linkField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                linkField.BorderThickness = new Thickness(newThickness);
+
+                double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(linkField, linkField.FontFamily.ToString(),
+                    (int)linkField.FontSize);
+                linkField.SetHeight(fieldHeight);
+            }
 
         }
 
@@ -789,7 +804,7 @@ namespace GnosisControls
             HasMouseFocus = true;
         }
 
-            
+
 
         public void SetHorizontalAlignment(GnosisController.HorizontalAlignmentType horizontalAlignment)
         {
@@ -915,30 +930,30 @@ namespace GnosisControls
         //    this.Width = numCharacters * StyleController.GetCharacterWidth(this.FontFamily, this.FontSize, this.FontStyle, this.FontWeight, this.FontStretch);
         //}
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            this.SetHorizontalPaddingExt(paddingHorizontal);
-        }
+        //public void SetPaddingHorizontal(double paddingHorizontal)
+        //{
+        //    this.SetHorizontalPaddingExt(paddingHorizontal);
+        //}
 
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            this.SetVerticalPaddingExt(paddingVertical);
-        }
+        //public void SetPaddingVertical(double paddingVertical)
+        //{
+        //    this.SetVerticalPaddingExt(paddingVertical);
+        //}
 
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
+        //public double GetPaddingHorizontal()
+        //{
+        //    return this.Padding.Left;
+        //}
 
-        public void SetMinWidth(double minWidth)
-        {
-            this.MinWidth = minWidth;
-        }
+        //public void SetMinWidth(double minWidth)
+        //{
+        //    this.MinWidth = minWidth;
+        //}
 
-        public void SetMaxWidth(double maxWidth)
-        {
-            this.MaxWidth = maxWidth;
-        }
+        //public void SetMaxWidth(double maxWidth)
+        //{
+        //    this.MaxWidth = maxWidth;
+        //}
 
         public void SetWidth(double width)
         {

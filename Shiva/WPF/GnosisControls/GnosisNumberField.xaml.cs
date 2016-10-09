@@ -565,6 +565,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
            DependencyProperty.RegisterAttached("ControlThickness",
            typeof(int), typeof(GnosisNumberField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
@@ -595,12 +603,7 @@ namespace GnosisControls
                 marginHorizontal = panelField.Margin.Left - newThickness;
                 marginVertical = panelField.Margin.Top - newThickness;
 
-                if (marginHorizontal >= 0 && marginVertical >= 0)
-                {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height + (newThickness - oldThickness);
-                }
+               
             }
             else
             {
@@ -608,15 +611,19 @@ namespace GnosisControls
                 marginHorizontal = panelField.Margin.Left + oldThickness;
                 marginVertical = panelField.Margin.Top + oldThickness;
 
-                if (marginHorizontal >= 0 && marginVertical >= 0)
-                {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height - (oldThickness - newThickness);
-                }
             }
 
-           
+            if (marginHorizontal >= 0 && marginVertical >= 0)
+            {
+                panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                panelField.BorderThickness = new Thickness(newThickness);
+
+                double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(panelField, panelField.FontFamily.ToString(),
+                    (int)panelField.FontSize);
+                panelField.SetHeight(fieldHeight);
+            }
+
+
         }
 
         public GnosisNumberField()

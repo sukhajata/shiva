@@ -572,6 +572,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)chkBox.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
         DependencyProperty.RegisterAttached("ControlThickness",
         typeof(int), typeof(GnosisCheckField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));

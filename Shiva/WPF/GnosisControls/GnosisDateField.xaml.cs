@@ -564,6 +564,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
              DependencyProperty.RegisterAttached("ControlThickness",
              typeof(int), typeof(GnosisDateField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
@@ -582,7 +590,7 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisDateField panelField = source as GnosisDateField;
+            GnosisDateField dateField = source as GnosisDateField;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
             double marginHorizontal;
@@ -591,18 +599,25 @@ namespace GnosisControls
             if (newThickness > oldThickness)
             {
                 //increase border thickness, decrease padding
-                marginHorizontal = panelField.Margin.Left - newThickness;
-                marginVertical = panelField.Margin.Top - newThickness;
+                marginHorizontal = dateField.Margin.Left - newThickness;
+                marginVertical = dateField.Margin.Top - newThickness;
             }
             else
             {
                 //decrease border thickness, increase padding
-                marginHorizontal = panelField.Margin.Left + oldThickness;
-                marginVertical = panelField.Margin.Top + oldThickness;
+                marginHorizontal = dateField.Margin.Left + oldThickness;
+                marginVertical = dateField.Margin.Top + oldThickness;
             }
 
-            panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-            panelField.BorderThickness = new Thickness(newThickness);
+            if (marginHorizontal >= 0 && marginVertical >= 0)
+            {
+                dateField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                dateField.BorderThickness = new Thickness(newThickness);
+
+                double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(dateField, dateField.FontFamily.ToString(),
+                    (int)dateField.FontSize);
+                dateField.SetHeight(fieldHeight);
+            }
 
         }
 

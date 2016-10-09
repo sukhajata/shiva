@@ -428,7 +428,7 @@ namespace Shiva.Shared.InnerLayoutControllers
             }
             else
             {
-                ((IGnosisPanelImplementation)ControlImplementation).AddRowAutoHeight(); //field row
+                ((IGnosisPanelImplementation)ControlImplementation).AddRowAutoHeight(); //field and caption row
             }
 
             //layout children

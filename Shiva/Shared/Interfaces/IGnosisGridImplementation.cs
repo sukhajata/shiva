@@ -5,7 +5,7 @@ using Shiva.Shared.BaseControllers;
 namespace Shiva.Shared.Interfaces
 {
     public interface IGnosisGridImplementation : IGnosisInnerLayoutControlImplementation, IGnosisSpacingPossessor,
-        IGnosisMarginPossessor, IGnosisBorderThicknessPossessor
+        IGnosisMarginPossessor//, IGnosisBorderThicknessPossessor
     {
         //properties
         bool GridIsLoaded { get;  }

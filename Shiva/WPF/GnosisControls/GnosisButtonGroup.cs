@@ -444,6 +444,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
          DependencyProperty.RegisterAttached("ControlThickness",
             typeof(int), typeof(GnosisButtonGroup), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
@@ -482,8 +490,13 @@ namespace GnosisControls
                 buttonGroup.Height = buttonGroup.Height - (oldThickness - newThickness);
             }
 
-            buttonGroup.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-            buttonGroup.BorderThickness = new Thickness(newThickness);
+            if (marginHorizontal >= 0 && marginVertical >= 0)
+            {
+                buttonGroup.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                buttonGroup.BorderThickness = new Thickness(newThickness);
+
+                
+            }
 
         }
 

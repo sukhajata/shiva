@@ -614,6 +614,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
             DependencyProperty.RegisterAttached("ControlThickness",
             typeof(int), typeof(GnosisDateTimeField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
@@ -632,7 +640,7 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisDateTimeField panelField = source as GnosisDateTimeField;
+            GnosisDateTimeField dateTimeField = source as GnosisDateTimeField;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
             double marginHorizontal;
@@ -641,31 +649,27 @@ namespace GnosisControls
             if (newThickness > oldThickness)
             {
                 //increase border thickness, decrease margin
-                marginHorizontal = panelField.Margin.Left - newThickness;
-                marginVertical = panelField.Margin.Top - newThickness;
-
-                if (marginHorizontal >= 0 && marginVertical >= 0)
-                {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height + (newThickness - oldThickness);
-                }
+                marginHorizontal = dateTimeField.Margin.Left - newThickness;
+                marginVertical = dateTimeField.Margin.Top - newThickness;
+               
             }
             else
             {
                 //decrease border thickness, increase margin
-                marginHorizontal = panelField.Margin.Left + oldThickness;
-                marginVertical = panelField.Margin.Top + oldThickness;
-
-                if (marginHorizontal >= 0 && marginVertical >= 0)
-                {
-                    panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-                    panelField.BorderThickness = new Thickness(newThickness);
-                    panelField.Height = panelField.Height - (oldThickness - newThickness);
-                }
+                marginHorizontal = dateTimeField.Margin.Left + oldThickness;
+                marginVertical = dateTimeField.Margin.Top + oldThickness;
             }
 
-            
+            if (marginHorizontal >= 0 && marginVertical >= 0)
+            {
+                dateTimeField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                dateTimeField.BorderThickness = new Thickness(newThickness);
+
+                double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(dateTimeField, dateTimeField.datePicker.FontFamily.ToString(),
+                    (int)dateTimeField.datePicker.FontSize);
+                dateTimeField.SetHeight(fieldHeight);
+            }
+
         }
 
         public GnosisDateTimeField()

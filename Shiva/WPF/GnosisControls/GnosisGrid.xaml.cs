@@ -567,60 +567,60 @@ namespace GnosisControls
             }
         }
 
-        public static readonly DependencyProperty GnosisBorderThicknessProperty =
-          DependencyProperty.RegisterAttached("GnosisBorderThickness",
-          typeof(int), typeof(GnosisGrid), new FrameworkPropertyMetadata(GnosisBorderThicknessPropertyChanged));
-        //new FrameworkPropertyMetadata(0,
-        //    FrameworkPropertyMetadataOptions.Inherits));
+        //public static readonly DependencyProperty GnosisBorderThicknessProperty =
+        //  DependencyProperty.RegisterAttached("GnosisBorderThickness",
+        //  typeof(int), typeof(GnosisGrid), new FrameworkPropertyMetadata(GnosisBorderThicknessPropertyChanged));
+        ////new FrameworkPropertyMetadata(0,
+        ////    FrameworkPropertyMetadataOptions.Inherits));
 
-        public static void SetGnosisBorderThickness(UIElement element, int value)
-        {
-            element.SetValue(GnosisBorderThicknessProperty, value);
-        }
+        //public static void SetGnosisBorderThickness(UIElement element, int value)
+        //{
+        //    element.SetValue(GnosisBorderThicknessProperty, value);
+        //}
 
-        public static int GetGnosisBorderThickness(UIElement element)
-        {
-            return (int)element.GetValue(GnosisBorderThicknessProperty);
-        }
+        //public static int GetGnosisBorderThickness(UIElement element)
+        //{
+        //    return (int)element.GetValue(GnosisBorderThicknessProperty);
+        //}
 
-        public static void GnosisBorderThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
-        {
-            GnosisGrid grid = source as GnosisGrid;
-            int newThickness = (int)e.NewValue;
-            int oldThickness = (int)e.OldValue;
-            double newHorizontalMargin;
-            double newVerticalMargin;
+        //public static void GnosisBorderThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
+        //{
+        //    GnosisGrid grid = source as GnosisGrid;
+        //    int newThickness = (int)e.NewValue;
+        //    int oldThickness = (int)e.OldValue;
+        //    double newHorizontalMargin;
+        //    double newVerticalMargin;
 
-            if (newThickness > oldThickness)
-            {
-                //increase border thickness, decrease margin
-                newHorizontalMargin = grid.HorizontalMargin - newThickness;
-                newVerticalMargin = grid.VerticalMargin - newThickness;
+        //    if (newThickness > oldThickness)
+        //    {
+        //        //increase border thickness, decrease margin
+        //        newHorizontalMargin = grid.HorizontalMargin - newThickness;
+        //        newVerticalMargin = grid.VerticalMargin - newThickness;
 
-                if (newHorizontalMargin >= 0 && newVerticalMargin >= 0)
-                {
-                    grid.Margin = new Thickness(newHorizontalMargin, newVerticalMargin, newHorizontalMargin, newVerticalMargin);
-                    grid.BorderThickness = new Thickness(newThickness);
-                    grid.Height = grid.Height + (newThickness - oldThickness);
-                }
+        //        if (newHorizontalMargin >= 0 && newVerticalMargin >= 0)
+        //        {
+        //            grid.Margin = new Thickness(newHorizontalMargin, newVerticalMargin, newHorizontalMargin, newVerticalMargin);
+        //            grid.BorderThickness = new Thickness(newThickness);
+        //            grid.Height = grid.Height + (newThickness - oldThickness);
+        //        }
 
-            }
-            else
-            {
-                //decrease border thickness, increase margin
-                newHorizontalMargin = grid.Margin.Left + oldThickness;
-                newVerticalMargin = grid.Margin.Top + oldThickness;
+        //    }
+        //    else
+        //    {
+        //        //decrease border thickness, increase margin
+        //        newHorizontalMargin = grid.Margin.Left + oldThickness;
+        //        newVerticalMargin = grid.Margin.Top + oldThickness;
 
-                if (newHorizontalMargin >= 0 && newVerticalMargin >= 0)
-                {
-                    grid.Margin = new Thickness(newHorizontalMargin, newVerticalMargin, newHorizontalMargin, newVerticalMargin);
-                    grid.BorderThickness = new Thickness(newThickness);
-                    grid.Height = grid.Height - (oldThickness - newThickness);
-                }
-            }
+        //        if (newHorizontalMargin >= 0 && newVerticalMargin >= 0)
+        //        {
+        //            grid.Margin = new Thickness(newHorizontalMargin, newVerticalMargin, newHorizontalMargin, newVerticalMargin);
+        //            grid.BorderThickness = new Thickness(newThickness);
+        //            grid.Height = grid.Height - (oldThickness - newThickness);
+        //        }
+        //    }
 
 
-        }
+        //}
 
         public GnosisGrid()
         {
@@ -820,14 +820,26 @@ namespace GnosisControls
 
         public void LoadCell(IGnosisCaptionLabelImplementation header, int col, int row, int colSpan, int rowSpan)
         {
-            GnosisCaptionLabel headerWPF = (GnosisCaptionLabel)header;
+            GnosisCaptionLabel captionLabel = (GnosisCaptionLabel)header;
 
-            Grid.SetColumn(headerWPF, col);
-            Grid.SetColumnSpan(headerWPF, colSpan);
-            Grid.SetRow(headerWPF, row);
-            Grid.SetRowSpan(headerWPF, rowSpan);
+            if (captionLabel.RelativePosition == GnosisController.CaptionPosition.LEFT )
+            {
+                captionLabel.VerticalAlignment = VerticalAlignment.Top;
+                captionLabel.HorizontalAlignment = HorizontalAlignment.Right;
+            }
+            else if (captionLabel.RelativePosition == GnosisController.CaptionPosition.RIGHT)
+            {
+                captionLabel.VerticalAlignment = VerticalAlignment.Top;
+                captionLabel.HorizontalAlignment = HorizontalAlignment.Left;
+            }
 
-            gridContent.Children.Add(headerWPF);
+
+            Grid.SetColumn(captionLabel, col);
+            Grid.SetColumnSpan(captionLabel, colSpan);
+            Grid.SetRow(captionLabel, row);
+            Grid.SetRowSpan(captionLabel, rowSpan);
+
+            gridContent.Children.Add(captionLabel);
         }
 
         public void LoadCell(IGnosisGridHeaderFieldImplementation header, int column, int row, int colSpan, int rowSpan)

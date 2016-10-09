@@ -109,7 +109,7 @@ namespace Shiva.Shared.InnerLayoutControllers
 
             //determine layout parameters. Use dummy text field to apply styles
             GnosisGridTextField txtField = new GnosisGridTextField();
-            GlobalData.Singleton.StyleHelper.ApplyFontStyle(txtField, EntityController.GetNormalStyle());
+            GlobalData.Singleton.StyleHelper.ApplyStyle(txtField, EntityController.GetNormalStyle());
 
             string font = EntityController.GetNormalStyle().Font;
             int fontSize = EntityController.GetNormalStyle().FontSize;
@@ -1596,8 +1596,14 @@ namespace Shiva.Shared.InnerLayoutControllers
                 case CaptionPosition.LEFT:
                     ColumnarLeft();
                     break;
+                case CaptionPosition.RIGHT:
+                    ColumnarRight();
+                    break;
                 case CaptionPosition.ABOVE:
                     ColumnarAbove(totalWidthAvailable);
+                    break;
+                case CaptionPosition.BELOW:
+                    ColumnarBelow(totalWidthAvailable);
                     break;
             }
 
@@ -1608,31 +1614,71 @@ namespace Shiva.Shared.InnerLayoutControllers
         private void ColumnarLeft()
         {
             int rowNo = 0;
-            ((IGnosisGridImplementation)ControlImplementation).NumColumns = 2;
+            ((IGnosisGridImplementation)ControlImplementation).NumColumns = 3;
 
             foreach (GnosisGridRowController row in rowControllers.Values)
             {
                 foreach (IGnosisGridFieldImplementation field in row.Fields)
                 {
-                    ((IGnosisGridImplementation)ControlImplementation).AddRow(rowHeight);
+                    ((IGnosisGridImplementation)ControlImplementation).AddRowAutoHeight();
 
                     //header
                     GnosisGridColumnController columnController = columns.Where(c => c.Order == field.Order).First();
-                    ((IGnosisGridImplementation)ControlImplementation).LoadCell(columnController.Header, 0, rowNo, 1, 1);
+                    ((IGnosisGridImplementation)ControlImplementation).LoadCell(columnController.GetColumnarHeaderClone(), 0, rowNo, 1, 1);
 
                     //field
-                    ((IGnosisGridImplementation)ControlImplementation).LoadCell(field, 1, rowNo, 1, 1, alternateRowColour);
-
+                    ((IGnosisGridImplementation)ControlImplementation).LoadCell(field, 1, rowNo, 2, 1, alternateRowColour);
+                    double width = field.GetWidth();
                     rowNo++;
+
+                    if (((GnosisGrid)ControlImplementation).VerticalSpacing > 0)
+                    {
+                        ((GnosisGrid)ControlImplementation).AddRow(((GnosisGrid)ControlImplementation).VerticalSpacing);
+                        rowNo++;
+                    }
+
                 }
 
                 alternateRowColour = !alternateRowColour;
             }
         }
 
+        private void ColumnarRight()
+        {
+            int rowNo = 0;
+            ((IGnosisGridImplementation)ControlImplementation).NumColumns = 3;
+
+            foreach (GnosisGridRowController row in rowControllers.Values)
+            {
+                foreach (IGnosisGridFieldImplementation field in row.Fields)
+                {
+                    ((IGnosisGridImplementation)ControlImplementation).AddRowAutoHeight();
+
+                    //field
+                    ((IGnosisGridImplementation)ControlImplementation).LoadCell(field, 0, rowNo, 2, 1, alternateRowColour);
+                    double width = field.GetWidth();
+
+                    //header
+                    GnosisGridColumnController columnController = columns.Where(c => c.Order == field.Order).First();
+                    ((IGnosisGridImplementation)ControlImplementation).LoadCell(columnController.GetColumnarHeaderClone(), 2, rowNo, 1, 1);
+
+                    rowNo++;
+
+                    if (((GnosisGrid)ControlImplementation).VerticalSpacing > 0)
+                    {
+                        ((GnosisGrid)ControlImplementation).AddRow(((GnosisGrid)ControlImplementation).VerticalSpacing);
+                        rowNo++;
+                    }
+
+                }
+
+                alternateRowColour = !alternateRowColour;
+            }
+        }
 
         private void ColumnarAbove(double totalWidthAvailable)
         {
+
             int rowNo = 0;
             ((IGnosisGridImplementation)ControlImplementation).NumColumns = 1;
 
@@ -1681,9 +1727,9 @@ namespace Shiva.Shared.InnerLayoutControllers
                     field.SetHorizontalAlignment(HorizontalAlignmentType.LEFT);
                     ((IGnosisGridImplementation)ControlImplementation).LoadCell(field, 0, rowNo, 1, 1, alternateRowColour);
 
-                    if (((GnosisGrid)ControlImplementation).HorizontalSpacing > 0)
+                    if (((GnosisGrid)ControlImplementation).VerticalSpacing > 0)
                     {
-                        ((GnosisGrid)ControlImplementation).AddRow(((GnosisGrid)ControlImplementation).HorizontalSpacing);
+                        ((GnosisGrid)ControlImplementation).AddRow(((GnosisGrid)ControlImplementation).VerticalSpacing);
                         rowNo++;
                     }
 
@@ -1691,7 +1737,68 @@ namespace Shiva.Shared.InnerLayoutControllers
                 }
             }
 
-            
+        }
+
+        private void ColumnarBelow(double totalWidthAvailable)
+        {
+
+            int rowNo = 0;
+            ((IGnosisGridImplementation)ControlImplementation).NumColumns = 1;
+
+            //double widthGridCol = totalWidthAvailable / numGridCols;
+            totalWidthAvailable = totalWidthAvailable - 20;
+
+            foreach (GnosisGridRowController row in rowControllers.Values)
+            {
+                foreach (IGnosisGridFieldImplementation field in row.Fields)
+                {
+                    GnosisGridColumnController columnController = columns.Find(c => c.Order == field.Order);
+
+                    double minFieldWidth = columnController.MinFieldWidth;
+                    double maxFieldWidth = columnController.MaxFieldWidth;
+
+                    if (columnController.MaxDisplayChars == 0)
+                    {
+                        // ((IGnosisContentControlImplementation)child.ControlImplementation).SetWidth(displayWidth);
+                        field.SetHorizontalAlignment(HorizontalAlignmentType.STRETCH);
+                    }
+                    else if (totalWidthAvailable > maxFieldWidth)
+                    {//if2
+                        field.SetWidth(maxFieldWidth);
+                    }//if2
+                    else if (totalWidthAvailable > minFieldWidth)
+                    {//elseif2
+                        field.SetWidth(totalWidthAvailable);
+                    }//elseif2
+                    else //(displayWidth < minFieldWidth)
+                    {//else2
+
+                        field.SetWidth(totalWidthAvailable);
+
+
+                    }//else2
+
+                    
+                    //field
+                    ((IGnosisGridImplementation)ControlImplementation).AddRowAutoHeight();
+                    field.SetHorizontalAlignment(HorizontalAlignmentType.LEFT);
+                    ((IGnosisGridImplementation)ControlImplementation).LoadCell(field, 0, rowNo, 1, 1, alternateRowColour);
+                    rowNo++;
+
+                    //header
+                    ((IGnosisGridImplementation)ControlImplementation).AddRowAutoHeight();
+                    IGnosisCaptionLabelImplementation caption = columnController.GetColumnarHeaderClone();
+                    ((IGnosisGridImplementation)ControlImplementation).LoadCell(caption, 0, rowNo, 1, 1);
+
+                    if (((GnosisGrid)ControlImplementation).VerticalSpacing > 0)
+                    {
+                        ((GnosisGrid)ControlImplementation).AddRow(((GnosisGrid)ControlImplementation).VerticalSpacing);
+                        rowNo++;
+                    }
+
+                    rowNo++;
+                }
+            }
 
         }
 

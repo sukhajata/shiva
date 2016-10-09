@@ -1284,10 +1284,10 @@ namespace ShivaWPF3.UtilityWPF
             {
                 setter = new Setter(GnosisGallery.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
             }
-            else if (control is GnosisGrid)
-            {
-                setter = new Setter(GnosisGrid.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
-            }
+            //else if (control is GnosisGrid)
+            //{
+            //    setter = new Setter(GnosisGrid.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
+            //}
             else if (control is GnosisTabItem)
             {
                 setter = new Setter(GnosisTabItem.GnosisBorderThicknessProperty, gnosisStyle.GnosisBorderThickness);
@@ -1504,7 +1504,7 @@ namespace ShivaWPF3.UtilityWPF
 
         public double GetFieldHeight(IGnosisCaptionLabelImplementation caption, string font, int fontSize)
         {
-            double height = caption.VerticalPadding * 2;
+            double height = (2 * caption.VerticalPadding) + (2 * caption.CurrentThickness);
 
             var formattedText = new FormattedText(
                      alphabet,
@@ -1526,6 +1526,11 @@ namespace ShivaWPF3.UtilityWPF
             if (gnosisControl is IGnosisPaddingPossessor)
             {
                 height = ((IGnosisPaddingPossessor)gnosisControl).VerticalPadding * 2;
+            }
+
+            if (gnosisControl is IGnosisControlThicknessPossessor)
+            {
+                height += ((IGnosisControlThicknessPossessor)gnosisControl).CurrentThickness * 2;
             }
 
             //if (gnosisControl is GnosisDateField || gnosisControl is GnosisDateTimeField)
@@ -1574,8 +1579,8 @@ namespace ShivaWPF3.UtilityWPF
 
         public double GetFieldHeight(IGnosisGridFieldImplementation gridField, string font, int fontSize)
         {
-            double height = gridField.VerticalPadding * 2;
-
+            double height = (gridField.VerticalPadding * 2) + (gridField.CurrentThickness * 2);
+            
             //try
             //{
             //    Control control = (Control)gridField;
@@ -1594,7 +1599,7 @@ namespace ShivaWPF3.UtilityWPF
             //}
             //catch (InvalidCastException)
             //{
-                var formattedText = new FormattedText(
+            var formattedText = new FormattedText(
                   alphabet,
                   CultureInfo.CurrentUICulture,
                   FlowDirection.LeftToRight,
@@ -1800,10 +1805,7 @@ namespace ShivaWPF3.UtilityWPF
             TextBox control = (TextBox)textArea;
             double characterWidth = GetCharacterWidth(textArea, font, fontSize);
             double padding = 2 * ((GnosisTextArea)textArea).HorizontalPadding;
-            if (padding == 0)
-            {
-                padding = 5;
-            }
+
             double minWidth = minChars * characterWidth + padding;
 
             return minWidth + characterWidth;//buffer
@@ -1813,11 +1815,13 @@ namespace ShivaWPF3.UtilityWPF
         {
             double characterWidth = GetCharacterWidth(control, font, fontSize);
             double padding = 2 * ((IGnosisPaddingPossessor)control).HorizontalPadding;
-            if (padding == 0)
-            {
-                padding = 5;
-            }
+            
             double minWidth = minChars * characterWidth + padding;
+
+            if (control is IGnosisControlThicknessPossessor)
+            {
+                minWidth += ((IGnosisControlThicknessPossessor)control).CurrentThickness * 2;
+            }
 
             return minWidth + characterWidth;//buffer
 
@@ -1827,11 +1831,13 @@ namespace ShivaWPF3.UtilityWPF
         {
             double characterWidth = GetCharacterWidth(control, font, fontSize);
             double padding = 2 * ((IGnosisPaddingPossessor)control).HorizontalPadding;
-            if (padding == 0)
-            {
-                padding = 5;
-            }
+
             double maxWidth = maxCharacters * characterWidth + padding;
+
+            if (control is IGnosisControlThicknessPossessor)
+            {
+                maxWidth += ((IGnosisControlThicknessPossessor)control).CurrentThickness * 2;
+            }
 
             return maxWidth + characterWidth;
         }
@@ -1841,10 +1847,7 @@ namespace ShivaWPF3.UtilityWPF
         {
             double characterWidth = GetCharacterWidth(textArea, font, fontSize);
             double padding = 2 * ((GnosisTextArea)textArea).HorizontalPadding;
-            if (padding == 0)
-            {
-                padding = 5;
-            }
+
             double maxWidth = maxChars * characterWidth + padding;
 
             return maxWidth + characterWidth;

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Shiva.Shared.BaseControllers;
 using Shiva.Shared.Interfaces;
+using System.Windows.Controls;
 
 namespace GnosisControls
 {
-    public class GnosisToggleButtonGroup : IGnosisToggleButtonGroupImplementation
+    public class GnosisToggleButtonGroup : Border, IGnosisToggleButtonGroupImplementation
     {
         private List<GnosisToggleButton> toggleButtons;
         private bool locked;
@@ -363,7 +364,14 @@ namespace GnosisControls
             }
         }
 
-      
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
 
         public void SetHorizontalAlignment(GnosisController.HorizontalAlignmentType horizontalAlignment)
         {

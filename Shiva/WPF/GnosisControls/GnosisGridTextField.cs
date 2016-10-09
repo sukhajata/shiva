@@ -528,6 +528,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
             DependencyProperty.RegisterAttached("ControlThickness",
             typeof(int), typeof(GnosisGridTextField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
@@ -569,6 +577,10 @@ namespace GnosisControls
             {
                 textField.Margin = new Thickness(newHorizontalPadding, newVerticalPadding, newHorizontalPadding, newVerticalPadding);
                 textField.BorderThickness = new Thickness(newThickness);
+
+                double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(textField, textField.FontFamily.ToString(),
+                    (int)textField.FontSize);
+                textField.SetHeight(fieldHeight);
             }
 
         }

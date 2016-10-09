@@ -552,6 +552,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
         DependencyProperty.RegisterAttached("ControlThickness",
            typeof(int), typeof(GnosisToolbarButton), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));

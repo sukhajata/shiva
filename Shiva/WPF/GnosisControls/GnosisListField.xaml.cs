@@ -531,6 +531,14 @@ namespace GnosisControls
             }
         }
 
+        public int CurrentThickness
+        {
+            get
+            {
+                return (int)this.BorderThickness.Top;
+            }
+        }
+
         public static readonly DependencyProperty ControlThicknessProperty =
            DependencyProperty.RegisterAttached("ControlThickness",
            typeof(int), typeof(GnosisListField), new FrameworkPropertyMetadata(ControlThicknessPropertyChanged));
@@ -549,7 +557,7 @@ namespace GnosisControls
 
         public static void ControlThicknessPropertyChanged(object source, DependencyPropertyChangedEventArgs e)
         {
-            GnosisListField panelField = source as GnosisListField;
+            GnosisListField listField = source as GnosisListField;
             int newThickness = (int)e.NewValue;
             int oldThickness = (int)e.OldValue;
             double marginHorizontal;
@@ -558,18 +566,25 @@ namespace GnosisControls
             if (newThickness > oldThickness)
             {
                 //increase border thickness, decrease margin
-                marginHorizontal = panelField.Margin.Left - newThickness;
-                marginVertical = panelField.Margin.Top - newThickness;
+                marginHorizontal = listField.Margin.Left - newThickness;
+                marginVertical = listField.Margin.Top - newThickness;
             }
             else
             {
                 //decrease border thickness, increase margin
-                marginHorizontal = panelField.Margin.Left + oldThickness;
-                marginVertical = panelField.Margin.Top + oldThickness;
+                marginHorizontal = listField.Margin.Left + oldThickness;
+                marginVertical = listField.Margin.Top + oldThickness;
             }
 
-            panelField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
-            panelField.BorderThickness = new Thickness(newThickness);
+            if (marginHorizontal >= 0 && marginVertical >= 0)
+            {
+                listField.Margin = new Thickness(marginHorizontal, marginVertical, marginHorizontal, marginVertical);
+                listField.BorderThickness = new Thickness(newThickness);
+
+                double fieldHeight = GlobalData.Singleton.StyleHelper.GetFieldHeight(listField, listField.lstBox.FontFamily.ToString(),
+                    (int)listField.lstBox.FontSize);
+                listField.SetHeight(fieldHeight);
+            }
 
         }
 
