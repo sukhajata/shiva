@@ -1,7 +1,0 @@
-Hi Mark
-
-Since grid cells have control thickness of control colour, and grids have grid lines of control colour,
-They will always be indistinguishable
-
-The control thickness of grid columns will always be indistinguishable from grid lines
-since they both have control colour.

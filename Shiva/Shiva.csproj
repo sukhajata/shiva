@@ -175,6 +175,7 @@
     <Compile Include="Shared\Interfaces\IGnosisCaptionLabelPossessor.cs" />
     <Compile Include="Shared\Interfaces\IGnosisCheckGroupImplementation.cs" />
     <Compile Include="Shared\Interfaces\IGnosisIconPossessor.cs" />
+    <Compile Include="Shared\Interfaces\IGnosisTextDisplayWidthCharsPossessor.cs" />
     <Compile Include="WPF\GnosisControls\GnosisButtonGroup.cs" />
     <Compile Include="WPF\GnosisControls\GnosisGallerySearchItem.cs" />
     <Compile Include="Shared\Interfaces\IGnosisTabImplementation.cs" />
@@ -232,8 +233,8 @@
     <Compile Include="WPF\GnosisControls\GnosisSearchResultsGrid.cs" />
     <Compile Include="Shared\GnosisControls\GnosisSplitDetail.cs" />
     <Compile Include="WPF\GnosisControls\GnosisSystemLayoutArea.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisTextColumn.cs" />
-    <Compile Include="Shared\GnosisControls\GnosisTextResults.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisTextColumn.cs" />
+    <Compile Include="WPF\GnosisControls\GnosisTextResults.cs" />
     <Compile Include="Shared\GnosisControls\GnosisTileDetail.cs" />
     <Compile Include="WPF\GnosisControls\GnosisToggleButtonGroup.cs" />
     <Compile Include="WPF\GnosisControls\GnosisTree.cs" />

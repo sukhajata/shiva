@@ -1,25 +1,19 @@
-﻿using Shiva.Shared.Interfaces;
+﻿using GnosisControls;
+using Shiva.Shared.BaseControllers;
+using Shiva.Shared.Data;
+using Shiva.Shared.Interfaces;
+using ShivaWPF3.UtilityWPF;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows;
-using Shiva.Shared.BaseControllers;
-using ShivaWPF3.UtilityWPF;
 using System.ComponentModel;
-using Shiva.Shared.Data;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace GnosisControls
 {
-    public partial class GnosisGridTextField : TextBox, IGnosisGridTextFieldImplementation, INotifyPropertyChanged
+    public class GnosisTextColumn : TextBox, IGnosisGridColumnImplementation, IGnosisTextDisplayWidthCharsPossessor
     {
-        //protected Action GotMouseFocusHandler;
-        //protected Action LostMouseFocusHandler;
-        //protected Action MouseDownHandler;
-        //protected Action MouseUpHandler;
         protected Action GotFocusHandler;
         protected Action LostFocusHandler;
 
@@ -506,7 +500,7 @@ namespace GnosisControls
             throw new NotImplementedException();
         }
 
-    
+
 
         public int HorizontalPadding
         {
@@ -592,15 +586,15 @@ namespace GnosisControls
             get; set;
         }
 
-     
 
-        public GnosisGridTextField()
+
+        public GnosisTextColumn()
         {
-           // this.Background = Brushes.Transparent;  //allow alternate row colour to show
-            this.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
-            this.VerticalContentAlignment = System.Windows.VerticalAlignment.Top;
-            this.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
-           // this.Margin = new System.Windows.Thickness(0, 0, 1, 1);
+            // this.Background = Brushes.Transparent;  //allow alternate row colour to show
+           // this.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
+           // this.VerticalContentAlignment = System.Windows.VerticalAlignment.Top;
+           // this.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+            // this.Margin = new System.Windows.Thickness(0, 0, 1, 1);
 
             this.MouseEnter += GnosisTextFieldWPF_MouseEnter;
             this.MouseLeave += GnosisTextFieldWPF_MouseLeave;
@@ -728,7 +722,7 @@ namespace GnosisControls
             HasMouseFocus = true;
         }
 
-            
+
 
         public void SetHeight(double fieldHeight)
         {
@@ -740,7 +734,7 @@ namespace GnosisControls
         {
             //breaks textbox filling available space
             this.SetHorizontalAlignmentExt(horizontalAlignment);
-            
+
         }
         public void SetVerticalAlignment(GnosisController.VerticalAlignmentType verticalAlignment)
         {
@@ -750,7 +744,7 @@ namespace GnosisControls
         //public void SetHorizontalContentAlignment(GnosisController.HorizontalAlignmentType horizontalAlignment)
         //{
         //    this.SetHorizontalContentAlignmentExt(horizontalAlignment);
-            
+
         //}
 
         //public void SetIsEnabled(bool isEnabled)
@@ -766,7 +760,7 @@ namespace GnosisControls
 
         private void GnosisTextFieldWPF_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-           // LostMouseFocusHandler.Invoke();
+            // LostMouseFocusHandler.Invoke();
             HasMouseFocus = false;
 
         }
@@ -789,7 +783,7 @@ namespace GnosisControls
 
         private void GnosisTextFieldWPF_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           // MouseDownHandler.Invoke();
+            // MouseDownHandler.Invoke();
             HasMouseDown = true;
         }
 
@@ -801,7 +795,7 @@ namespace GnosisControls
 
         private void GnosisTextFieldWPF_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           // MouseUpHandler.Invoke();
+            // MouseUpHandler.Invoke();
             HasMouseDown = false;
         }
 
@@ -811,37 +805,7 @@ namespace GnosisControls
         //    this.BorderThickness = new System.Windows.Thickness(2);
         //}
 
-        //public void RemoveOutlineColour()
-        //{
-        //    this.BorderThickness = new System.Windows.Thickness(0);
-        //}
-
-        //public void SetStrikethrough()
-        //{
-
-        //}
-
-        //public void SetTooltip(string tooltip)
-        //{
-        //    this.ToolTip = tooltip;
-        //}
-
-        //public void SetVerticalContentAlignment(GnosisController.VerticalAlignmentType verticalAlignment)
-        //{
-        //    this.SetVerticalContentAlignmentExt(verticalAlignment);
-            
-        //}
-
-        //public void SetVisible(bool visible)
-        //{
-        //    this.SetVisibleExt(visible);
-            
-        //}
-
-        //public GnosisVisibleController GetController()
-        //{
-        //    return controller;
-        //}
+       
 
         public void SetWidth(double width)
         {
@@ -849,46 +813,8 @@ namespace GnosisControls
         }
 
 
-        public void SetPaddingHorizontal(double paddingHorizontal)
-        {
-            this.SetHorizontalPaddingExt(paddingHorizontal);
-        }
-
-        public void SetPaddingVertical(double paddingVertical)
-        {
-            this.SetVerticalPaddingExt(paddingVertical);
-        }
-
-        //public FontFamily GetFontFamily()
-        //{
-        //    return this.FontFamily;
-        //}
-
-        //public double GetFontSize()
-        //{
-        //    return this.FontSize;
-        //}
-
-        //public FontStyle GetFontStyle()
-        //{
-        //    return this.FontStyle;
-        //}
-
-        //public FontWeight GetFontWeight()
-        //{
-        //    return this.FontWeight;
-        //}
-
-        //public FontStretch GetFontStretch()
-        //{
-        //    return this.FontStretch;
-        //}
-
-        public double GetPaddingHorizontal()
-        {
-            return this.Padding.Left;
-        }
-
+        
+      
         public void SetMinWidth(double minWidth)
         {
             this.MinWidth = minWidth;
@@ -902,10 +828,10 @@ namespace GnosisControls
         public void SetGotFocusHandler(Action action)
         {
             GotFocusHandler = action;
-            this.GotFocus += GnosisGridTextFieldWPF_GotFocus;
+            this.GotFocus += GnosisTextColumn_GotFocus;
         }
 
-        private void GnosisGridTextFieldWPF_GotFocus(object sender, RoutedEventArgs e)
+        private void GnosisTextColumn_GotFocus(object sender, RoutedEventArgs e)
         {
             GotFocusHandler.Invoke();
             HasFocus = true;
@@ -914,20 +840,15 @@ namespace GnosisControls
         public void SetLostFocusHandler(Action action)
         {
             LostFocusHandler = action;
-            this.LostFocus += GnosisGridTextFieldWPF_LostFocus;
+            this.LostFocus += GnosisTextColumn_LostFocus;
         }
 
-        private void GnosisGridTextFieldWPF_LostFocus(object sender, RoutedEventArgs e)
+        private void GnosisTextColumn_LostFocus(object sender, RoutedEventArgs e)
         {
             LostFocusHandler.Invoke();
             HasFocus = false;
         }
-
-        //public void SetReadOnly(bool isReadOnly)
-        //{
-        //    this.IsReadOnly = isReadOnly;
-        //}
-
+        
         public void SetStrikethrough(bool strikethrough)
         {
 
@@ -962,6 +883,7 @@ namespace GnosisControls
         {
             return this.ActualWidth;
         }
+
 
 
     }

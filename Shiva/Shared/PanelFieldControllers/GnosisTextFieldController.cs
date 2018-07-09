@@ -71,7 +71,7 @@ namespace Shiva.Shared.PanelFieldControllers
 
             //textField.SetVerticalAlignment(VerticalAlignmentType.TOP)
 
-            //if (MaxChars > 0)
+            //if (textField > 0)
             //{
             //    textFieldImplementation.SetMaxChars(MaxChars);
             //}
@@ -185,6 +185,8 @@ namespace Shiva.Shared.PanelFieldControllers
             //paddingVertical = (FieldHeight - textHeight)/2;
 
             //((IGnosisTextFieldImplementation)ControlImplementation).SetPaddingVertical(paddingVertical);
+
+           
         }
 
         protected override void GnosisVisibleController_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

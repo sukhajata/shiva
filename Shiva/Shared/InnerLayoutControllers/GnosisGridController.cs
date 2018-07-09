@@ -347,9 +347,9 @@ namespace Shiva.Shared.InnerLayoutControllers
 
 
             double widthGridCol = totalWidthAvailable / numGridCols;
-            AssignColSpans(totalWidthAvailable, widthGridCol, false);
+            AssignColSpans(totalWidthAvailable);
 
-            //LayoutRows(totalWidthAvailable);
+            LayoutRows(totalWidthAvailable);
 
             // headerRows = new Dictionary<int, List<GnosisGridColumnController>>();
 
@@ -771,6 +771,79 @@ namespace Shiva.Shared.InnerLayoutControllers
             return colSpan;
         }
 
+        private void AssignColSpans(double totalWidthAvailable)
+        {
+            //distribute width according to proportion of MinDisplayChars
+            double totalMinDisplayChars = columns.Sum(c => c.MinDisplayChars);
+            double widthGridCol = totalWidthAvailable / numGridCols;
+
+            headerRows = new Dictionary<int, List<GnosisGridColumnController>>();
+            List<GnosisGridColumnController> headerRow = new List<GnosisGridColumnController>();
+            headerRows.Add(0, headerRow);
+            int currentRow = 0;
+            double remainingGridCols = numGridCols;
+
+            foreach (GnosisGridColumnController columnController in columns)
+            {
+                double proportion = columnController.MinDisplayChars / totalMinDisplayChars;
+                int colSpan = (int)Math.Round(proportion * numGridCols);
+                double width = colSpan * widthGridCol;
+                width = width - columnController.ColumnModel.hor
+                int displayChars = (int)Math.Floor(width / columnController.CharacterWidth);
+
+                if (displayChars == 0)
+                {
+
+                }
+
+                if (columnController.ColumnModel is IGnosisTextDisplayWidthCharsPossessor)
+                {
+                    double minTextDisplayWidthChars = ((IGnosisTextDisplayWidthCharsPossessor)columnController.ColumnModel).MinTextDisplayWidthChars;
+                    if (minTextDisplayWidthChars > displayChars)
+                    {
+                        proportion = minTextDisplayWidthChars / totalMinDisplayChars;
+                        colSpan = (int)Math.Round(proportion * numGridCols);
+                        width = colSpan * widthGridCol;
+                        displayChars = (int)Math.Floor(width / columnController.CharacterWidth);
+                    }
+                }
+
+                remainingGridCols -= colSpan;
+
+                //check if the field will fit on the current row
+                if (remainingGridCols < 0)
+                {
+                    if (currentRow + 2 > ((GnosisGrid)ControlImplementation).MaxWrapRows)
+                    {
+                        LoadColumnar(totalWidthAvailable);
+                        return;
+                    }
+
+                    List<GnosisGridColumnController> newRow = new List<GnosisGridColumnController>();
+                    currentRow++;
+                    headerRows.Add(currentRow, newRow);
+                    remainingGridCols = numGridCols - colSpan;
+                }
+
+                if (columnController.MinDisplayChars > displayChars)
+                {
+                    int numLines = (int)Math.Ceiling((double)columnController.MinDisplayChars / (double)displayChars);
+                    if (numLines > ((GnosisGrid)ControlImplementation).MaxLines)
+                    {
+                        LoadColumnar(totalWidthAvailable);
+                        return;
+                    }
+
+                    columnController.NumLines = numLines;
+                }
+
+                columnController.ColSpan = colSpan;
+                headerRows[currentRow].Add(columnController);
+                
+            }
+
+        }
+
         private void AssignColSpans(double totalWidthAvailable, double widthGridCol, bool isSecondaryRow)
         {
 
@@ -857,6 +930,16 @@ namespace Shiva.Shared.InnerLayoutControllers
                         headerRows.Add(idx, newRow);
 
                         headerRows[idx].Add(columnController);
+                    }
+                }
+
+                //set NumLines of each column to the max NumLines found in the row, so that fields are bottom aligned
+                foreach (List<GnosisGridColumnController> hr in headerRows.Values)
+                {
+                    int max = hr.Max(c => c.NumLines);
+                    foreach(GnosisGridColumnController col in hr)
+                    {
+                        col.NumLines = max;
                     }
                 }
                
